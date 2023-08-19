@@ -176,21 +176,22 @@
 <tbody>
   <tr>
     <td>Descripción</td>
-    <td>El sistema debe ser fácil de modificar</td>
+    <td>El nuevo software de ABC Jobs debe ser capaz de integrarse con los sistemas y plataformas tecnológicas actuales sin causar interrupciones en los servicios existentes</td>
   </tr>
   <tr>
     <td>Usuario que expresa la restricción</td>
-    <td>Directora de selección y contratación</td>
+    <td>Líder del Departamento de TI de ABC Jobs</td>
   </tr>
   <tr>
     <td>Justificación para esta restricción</td>
-    <td>Quieren agregar nuevos tipos de pruebas para nuevas tecnologías o nuevas versiones de productos en menos de 1 hora</td>
+    <td>ABC Jobs ya ha realizado inversiones significativas en sus sistemas y tecnologías actuales por lo rediseñar o reemplazar estos sistemas conlleva un costo adicional significativo y puede interrumpir las operaciones diarias. Además, los datos existentes en estos sistemas son esenciales para las operaciones de la empresa.</td>
   </tr>
   <tr>
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li>La evolución tecnológica implica que las pruebas queden obsoletas en poco tiempo, por lo tanto, se deben poder integrar fácilmente nuevos tipos de pruebas</li>
+            <li>Esta restricción puede dictar la adopción de patrones de diseño específicos o tecnologías que favorezcan la integración. </li>
+          <li> La arquitectura puede necesitar interfaces bien definidas y puntos de integración. Además, puede ser necesario adoptar estándares de comunicación o protocolos específicos para garantizar la compatibilidad con los sistemas existentes. </li>
         </ul>
     </td>
   </tr>
@@ -224,6 +225,38 @@
         <ul>
             <li>La interoperabilidad entre los 3 sistemas debe ser tratada como ciudadano de primer mundo, de lo contrario se podría crear una solución similar que no cumpla con las expectativas de ABCJobs</li>
             <li>Tres sistemas harán consultas y mutaciones de información, por lo tanto, la escalabilidad y el rendimiento de la solución deben ser tenidas en cuenta</li>
+        </ul>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+  <tr>
+    <th colspan="2">Restricción de negocio #4</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Descripción</td>
+    <td>El sistema ABC Jobs debe completarse dentro de un plazo específico, determinado por 3 Sprints en 8 semanas.</td>
+  </tr>
+  <tr>
+    <td>Usuario que expresa la restricción</td>
+    <td>Director del Proyecto</td>
+  </tr>
+  <tr>
+    <td>Justificación para esta restricción</td>
+    <td>ABC Jobs tiene objetivos y fechas claros que deben cumplirse para mantener su posición en el mercado y satisfacer las expectativas de los stakeholders. Retrasos en el desarrollo pueden incurrir en costos adicionales y oportunidades de mercado perdidas.</td>
+  </tr>
+  <tr>
+    <td>Cómo puede afectar la arquitectura</td>
+    <td>
+        <ul>
+            <li>El tiempo limitado puede llevar a decisiones arquitectónicas que prioricen la velocidad de desarrollo sobre otros factores, como la optimización del rendimiento o la flexibilidad a largo plazo.</li>
+            <li> Puede ser necesario adoptar frameworks o herramientas que aceleren el desarrollo, incluso si no son ideales en otros contextos.</li>
+            <li> La arquitectura puede evolucionar de manera iterativa, incorporando características esenciales primero y dejando características secundarias o mejoras para fases posteriores.</li>
         </ul>
     </td>
   </tr>
