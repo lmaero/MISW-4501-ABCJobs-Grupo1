@@ -215,7 +215,7 @@
   </tr>
   <tr>
     <td>Usuario que expresa la restricción</td>
-    <td>Departamento de tecnología e infraestructura</td>
+    <td>Director de tecnología e infraestructura</td>
   </tr>
   <tr>
     <td>Justificación para esta restricción</td>
@@ -225,9 +225,9 @@
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>La selección de la empresa proveedora de servicios en la nube está anclada a la disponibilidad que esta tenga en las regiones de interés de expansión para ABCJobs</li>
+            <li>Las tecnologías seleccionadas deben ser compatibles con la plataforma en la nube seleccionada</li>
+            <li>El esfuerzo de despliegue debe ser tenido en cuenta</li>
         </ul>
     </td>
   </tr>
@@ -259,9 +259,8 @@
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>La creación de una plataforma de escala global presupone un reto para un equipo tan pequeño, dada la cantidad de tareas a realizar</li>
+            <li>La alta variabilidad de las tecnologías a utilizar implica una selección correcta del equipo de desarrollo, puesto que esto afectará indirectamente la mantenibilidad del código generado</li>
         </ul>
     </td>
   </tr>
@@ -294,9 +293,9 @@
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>El desarrollo de dos aplicaciones que se integren adecuadamente puede afectar la interoperabilidad, además de afectar el rendimiento del equipo al tener que dividir tareas de dos aplicaciones distintas</li>
+            <li>La facilidad de modificación de la plataforma depende directamente del código generado para cada una de las plataformas</li>
+            <li>La facilidad de probar el sistema, y la creación de las respectivas pruebas supone una mayor demanda de tiempo y conocimiento de distintas tecnologías, nuevamente afectando la facilidad de modificación</li>
         </ul>
     </td>
   </tr>
