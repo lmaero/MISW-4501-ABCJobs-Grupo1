@@ -23,9 +23,9 @@
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li>Existirá un mayor número de usuarios en simultáneo</li>
-            <li>Las locaciones geográficas aumentarán la dificultad de despliegue</li>
-            <li>Las regulaciones legales respecto del manejo de información pueden variar en cada país o zona geográfica, estas deben ser tenidas en cuenta</li>
+            <li>Existirá un mayor número de usuarios en simultáneo, por lo tanto, el sistema debe ser adaptable a situaciones de alta demanda.</li>
+            <li>Las locaciones geográficas aumentarán la dificultad de despliegue. Además, el rendimiento de la solución puede disminuir si se introduce latencia por la locación.</li>
+            <li>Las regulaciones legales respecto del manejo de información pueden variar en cada país o zona geográfica, estas deben ser tenidas en cuenta. El atributo de seguridad puede verse afectado debido a los estándares y/o regulaciones de seguridad locales</li>
         </ul>
     </td>
   </tr>
@@ -57,9 +57,9 @@
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Apuntar a un mercado hasta el momento desconocido puede afectar la usabilidad, esto debido a que los usuarios pueden esperar interactuar de una manera distinta</li>
+            <li>Si bien en Latinoamérica se habla principalmente español, se deben tener en cuenta países como Brasil en donde su lengua nativa es el portugués. La solución debe considerar factores como la internacionalización.</li>
+            <li>La selección del proveedor de nube está atada a la disponibilidad del servicio en la región.</li>
         </ul>
     </td>
   </tr>
@@ -91,9 +91,8 @@
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Pasar de 1.000 a 30.000 talentos tecnológicos requiere decisiones de arquitectura que favorezcan la escalabilidad y el rendimiento de la solución.</li>
+            <li>El aumento del número de usuarios implica mejorar los mecanismos de autenticación y autorización.</li>
         </ul>
     </td>
   </tr>
@@ -125,9 +124,8 @@
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Si bien el número de empresas no es alarmante, la cantidad de proyectos gestionados dentro de la plataforma si puede aumentar exponencialmente, el acceso a estos recursos va a demandar un mayor rendimiento por parte del sistema.</li>
+            <li>El sistema debe ser altamente adaptable/modificable, puesto que esas 500 empresas seguramente operan de manera distinta y van a desear funcionalidades distintas que se adapten a sus procesos.</li>
         </ul>
     </td>
   </tr>
