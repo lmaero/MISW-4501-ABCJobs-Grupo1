@@ -143,23 +143,22 @@
 <tbody>
   <tr>
     <td>Descripción</td>
-    <td>El sistema debe ser fácil de modificar</td>
+    <td>El sistema debe ser adaptable a las regulaciones locales</td>
   </tr>
   <tr>
     <td>Usuario que expresa la restricción</td>
-    <td>Directora de selección y contratación</td>
+    <td>Directora contratación</td>
   </tr>
   <tr>
     <td>Justificación para esta restricción</td>
-    <td>Quieren agregar nuevos tipos de pruebas para nuevas tecnologías o nuevas versiones de productos</td>
+    <td>La expansión de la ABCJobs implica el correcto manejo de múltiples monedas, tasas de cambio, idiomas, regulaciones laborales y contractuales.</td>
   </tr>
   <tr>
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>La internacionalización de la plataforma presupone crear la respectiva lógica de esta componente, así como sus respectivos archivos de idioma</li>
+            <li>El manejo de distintas monedas podría implicar la interoperabilidad con una API de un tercero que ya cuente con las funcionalidades solicitadas</li>
         </ul>
     </td>
   </tr>
@@ -185,15 +184,46 @@
   </tr>
   <tr>
     <td>Justificación para esta restricción</td>
-    <td>Quieren agregar nuevos tipos de pruebas para nuevas tecnologías o nuevas versiones de productos</td>
+    <td>Quieren agregar nuevos tipos de pruebas para nuevas tecnologías o nuevas versiones de productos en menos de 1 hora</td>
   </tr>
   <tr>
     <td>Cómo puede afectar la arquitectura</td>
     <td>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>La evolución tecnológica implica que las pruebas queden obsoletas en poco tiempo, por lo tanto, se deben poder integrar fácilmente nuevos tipos de pruebas</li>
+        </ul>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th colspan="2">Restricción de negocio #3</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Descripción</td>
+    <td>El sistema debe integrar la información del sistema de búsqueda y selección de candidatos, el sistema contable, y el sistema contractual</td>
+  </tr>
+  <tr>
+    <td>Usuario que expresa la restricción</td>
+    <td>Director General ABCJobs</td>
+  </tr>
+  <tr>
+    <td>Justificación para esta restricción</td>
+    <td>Actualmente, ABCJobs opera con tres aplicaciones distintas y la interoperabilidad entre estos es nula, por lo tanto, es propenso a errores humanos</td>
+  </tr>
+  <tr>
+    <td>Cómo puede afectar la arquitectura</td>
+    <td>
+        <ul>
+            <li>La interoperabilidad entre los 3 sistemas debe ser tratada como ciudadano de primer mundo, de lo contrario se podría crear una solución similar que no cumpla con las expectativas de ABCJobs</li>
+            <li>Tres sistemas harán consultas y mutaciones de información, por lo tanto, la escalabilidad y el rendimiento de la solución deben ser tenidas en cuenta</li>
         </ul>
     </td>
   </tr>
