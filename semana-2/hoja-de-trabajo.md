@@ -582,6 +582,41 @@
 </tbody>
 </table>
 
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>#007</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Usuario administrador</td>
+    <td>El administrador desea agregar un nuevo tipo de prueba al sistema</td>
+    <td>Sistema de pruebas</td>
+    <td>Durante operaciones normales, con acceso administrativo</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">El sistema permite al usuario administrador agregar el nuevo tipo de prueba</td>
+    <td colspan="2">El proceso completo de agregar la nueva prueba no debe tardar más de 1 hora desde que el administrador inicia la acción hasta que la prueba está disponible para ser utilizada en el sistema</td>
+  </tr>
+</tbody>
+</table>
+
 ## Requisitos de calidad con prioridad
 
 ### Identificados
