@@ -586,7 +586,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>#006</th>
+    <th>#007</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -621,7 +621,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>#007</th>
+    <th>#008</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
