@@ -579,7 +579,6 @@
 </tbody>
 </table>
 
-
 <hr />
 
 <table>
@@ -587,41 +586,6 @@
   <tr>
     <th>ID</th>
     <th>#007</th>
-    <th>Versión</th>
-    <th>V.1</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Fuente</td>
-    <td>Estímulo</td>
-    <td>Artefacto</td>
-    <td>Ambiente</td>
-  </tr>
-  <tr>
-    <td>Departamento de recursos humanos</td>
-    <td>El aspirante intenta configurar la herramienta de pruebas en su idioma de preferencia</td>
-    <td>Sistema de gestión del aspirante</td>
-    <td>Operación normal</td>
-  </tr>
-  <tr>
-    <td colspan="2">Respuesta</td>
-    <td colspan="2">Medida de la respuesta</td>
-  </tr>
-  <tr>
-    <td colspan="2">La herramienta configurada en el idioma seleccionado</td>
-    <td colspan="2">Interfaz de usuario en el nuevo idioma seleccionado</td>
-  </tr>
-</tbody>
-</table>
-
-<hr />
-
-<table>
-<thead>
-  <tr>
-    <th>ID</th>
-    <th>#008</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -654,25 +618,26 @@
 
 ### Identificados
 
-- first level
-    - second level
-        - third level
-        - third level
-        - third level
-    - second level
-        - third level
-        - third level
-        - third level
-    - second level
-        - third level
-        - third level
-        - third level
-
+- Requisitos
+    - Rendimiento
+        - #001
+        - #002
+    - Concurrencia
+        - #003
+        - #004
+    - Disponibilidad
+        - #005
+    - Usabilidad
+        - #006
+    - Facilidad de modificación
+        - #007
+      
 ### Priorizados
 
-- one
-- one
-- one
-- one
-- one
-- one
+- #005
+- #006
+- #007
+- #001
+- #002
+- #003
+- #004
