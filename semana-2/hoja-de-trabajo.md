@@ -469,7 +469,7 @@
   </tr>
   <tr>
     <td colspan="2">El portal de pruebas accesible</td>
-    <td colspan="2">Mínimo 30 usuarios concurrentes</td>
+    <td colspan="2">Mínimo 30 usuarios</td>
   </tr>
 </tbody>
 </table>
@@ -504,7 +504,7 @@
   </tr>
   <tr>
     <td colspan="2">El portal de pruebas accesible</td>
-    <td colspan="2">Hasta 100 usuarios concurrentes</td>
+    <td colspan="2">Hasta 100 usuarios</td>
   </tr>
 </tbody>
 </table>
@@ -517,7 +517,7 @@
     <th>ID</th>
     <th>AVAILABILITY #005</th>
     <th>Versión</th>
-    <th>V.2</th>
+    <th>V.3</th>
   </tr>
 </thead>
 <tbody>
@@ -539,7 +539,7 @@
   </tr>
   <tr>
     <td colspan="2">El portal de pruebas se encuentra en línea, es accesible y funcional con todas las características ofrecidas en cualquier momento</td>
-    <td colspan="2">99.99%</td>
+    <td colspan="2">El componente de monitoreo (healthcheck) debe responder satisfactoriamente (HTTP 200)</td>
   </tr>
 </tbody>
 </table>
@@ -550,44 +550,9 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>USABILITY #006</th>
+    <th>MAINTANABILITY #006</th>
     <th>Versión</th>
-    <th>V.2</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Fuente</td>
-    <td>Estímulo</td>
-    <td>Artefacto</td>
-    <td>Ambiente</td>
-  </tr>
-  <tr>
-    <td>Departamento de recursos humanos</td>
-    <td>El aspirante intenta configurar la herramienta de pruebas en su idioma de preferencia</td>
-    <td>Sistema de gestión del aspirante</td>
-    <td>Operación normal</td>
-  </tr>
-  <tr>
-    <td colspan="2">Respuesta</td>
-    <td colspan="2">Medida de la respuesta</td>
-  </tr>
-  <tr>
-    <td colspan="2">La herramienta de pruebas debe mostrarse en el nuevo idioma seleccionado</td>
-    <td colspan="2">En menos de 1 segundo</td>
-  </tr>
-</tbody>
-</table>
-
-<hr />
-
-<table>
-<thead>
-  <tr>
-    <th>ID</th>
-    <th>MAINTANABILITY #007</th>
-    <th>Versión</th>
-    <th>V.2</th>
+    <th>V.3</th>
   </tr>
 </thead>
 <tbody>
@@ -608,7 +573,7 @@
     <td colspan="2">Medida de la respuesta</td>
   </tr>
   <tr>
-    <td colspan="2">El sistema permite al usuario administrador agregar el nuevo tipo de prueba. La prueba debe quedar disponible para ser utilizada en el sistema.</td>
+    <td colspan="2">El sistema permite al usuario administrador agregar el nuevo tipo de prueba modificando el lenguaje de programación a utilizar mediante una variable de entorno y reiniciando la aplicación. La prueba debe quedar disponible para ser utilizada en el sistema.</td>
     <td colspan="2">En menos de 1 hora</td>
   </tr>
 </tbody>
@@ -620,7 +585,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>PERFORMANCE #008</th>
+    <th>PERFORMANCE #007</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -655,7 +620,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>SECURITY #009</th>
+    <th>SECURITY #008</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -690,7 +655,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>SECURITY #010</th>
+    <th>SECURITY #009</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -725,6 +690,41 @@
 <thead>
   <tr>
     <th>ID</th>
+    <th>SCALABILITY #010</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Aspirantes</td>
+    <td>Los aspirantes envían las respuestas de sus pruebas</td>
+    <td>Sistema de gestión del aspirante</td>
+    <td>Operación normal</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">Las respuestas son procesadas y guardadas correctamente</td>
+    <td colspan="2">De 15 a 30 solicitudes por segundo hasta por 60 minutos.</td>
+  </tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
     <th>SCALABILITY #011</th>
     <th>Versión</th>
     <th>V.1</th>
@@ -749,7 +749,7 @@
   </tr>
   <tr>
     <td colspan="2">Las respuestas son procesadas y guardadas correctamente</td>
-    <td colspan="2">De 15 a 30 solicitudes por minuto hasta por 60 minutos.</td>
+    <td colspan="2">El escalamiento debe producirse en menos de 10 minutos</td>
   </tr>
 </tbody>
 </table>
