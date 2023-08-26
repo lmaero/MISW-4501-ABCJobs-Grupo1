@@ -538,8 +538,8 @@
     <td colspan="2">Medida de la respuesta</td>
   </tr>
   <tr>
-    <td colspan="2">El portal de pruebas accesible</td>
-    <td colspan="2">Disponibilidad de 7x24x365</td>
+    <td colspan="2">El portal de pruebas se encuentra en línea, es accesible y funcional con todas las características ofrecidas en cualquier momento</td>
+    <td colspan="2">99.99%</td>
   </tr>
 </tbody>
 </table>
