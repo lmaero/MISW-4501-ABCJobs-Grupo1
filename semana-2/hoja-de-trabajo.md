@@ -754,6 +754,41 @@
 </tbody>
 </table>
 
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>AVAILABILITY #012</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Departamento de recursos humanos</td>
+    <td>Un aspirante ingresa desde cualquier parte del mundo</td>
+    <td>Sistema de gestión del aspirante</td>
+    <td>Operación normal</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">El portal de registro del aspirante se encuentra en línea, es accesible y funcional con todas las características ofrecidas en cualquier momento</td>
+    <td colspan="2">El componente de monitoreo (healthcheck) debe responder satisfactoriamente (HTTP 200)</td>
+  </tr>
+</tbody>
+</table>
+
 ## Requisitos de calidad con prioridad
 
 ### Identificados
