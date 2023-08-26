@@ -552,7 +552,7 @@
     <th>ID</th>
     <th>#006</th>
     <th>Versión</th>
-    <th>V.1</th>
+    <th>V.2</th>
   </tr>
 </thead>
 <tbody>
@@ -573,8 +573,8 @@
     <td colspan="2">Medida de la respuesta</td>
   </tr>
   <tr>
-    <td colspan="2">La herramienta configurada en el idioma seleccionado</td>
-    <td colspan="2">Interfaz de usuario en el nuevo idioma seleccionado</td>
+    <td colspan="2">La herramienta de pruebas debe mostrarse en el nuevo idioma seleccionado</td>
+    <td colspan="2">En menos de 1 segundo</td>
   </tr>
 </tbody>
 </table>
