@@ -789,6 +789,111 @@
 </tbody>
 </table>
 
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>SECURITY #013</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Una empresa</td>
+    <td>Intenta acceder a información de un proyecto de otra empresa</td>
+    <td>Sistema de gestión de empresas</td>
+    <td>Operación normal</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">El sistema identifica y bloquea el intento de acceso no autorizado. Devuelve un 403 al cliente.</td>
+    <td colspan="2">100% de datos protegidos / total de intentos de acceso</td>
+  </tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>SECURITY #014</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Empleado de ABC Jobs</td>
+    <td>Intenta alterar el precio de una oferta publicada por una empresa</td>
+    <td>Sistema de gestión de empresas</td>
+    <td>Operación normal</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">El precio de la oferta publicada permanece sin cambios.</td>
+    <td colspan="2">100% de datos conservados / total de intentos de acceso</td>
+  </tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>MAINTANABILITY #015</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Usuario administrador</td>
+    <td>El administrador desea agregar una etiqueta a cada campo de formulario que indique claramente si es requerido o no</td>
+    <td>Aplicación Frontend Web</td>
+    <td>Durante operaciones normales</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">Todos los campos de los formularios de creación de aspirates, empresas, proyectos, entrevistas, etc., incluyen un indicador de si el campo es requerido o no</td>
+    <td colspan="2">En menos de 12 horas</td>
+  </tr>
+</tbody>
+</table>
+
 ## Requisitos de calidad con prioridad
 
 ### Identificados
