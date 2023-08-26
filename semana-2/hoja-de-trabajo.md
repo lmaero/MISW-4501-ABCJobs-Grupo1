@@ -614,6 +614,146 @@
 </tbody>
 </table>
 
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>#008</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Aspirante</td>
+    <td>Un aspirante envía las respuestas de una prueba</td>
+    <td>Sistema de gestión del aspirante</td>
+    <td>Operación normal</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">El sistema registra las respuestas de la prueba presentada por el aspirante</td>
+    <td colspan="2">En menos de 500ms</td>
+  </tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>#009</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Atacante</td>
+    <td>Un atacante intenta acceder a información de los aspirantes</td>
+    <td>Sistema de gestión del aspirante</td>
+    <td>Operación normal</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">El sistema identifica y bloquea el intento de acceso no autorizado. Devuelve un 401 al cliente.</td>
+    <td colspan="2">100% de datos protegidos / total de intentos de acceso</td>
+  </tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>#010</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Empleado de ABC Jobs</td>
+    <td>Intenta alterar el resultado de una prueba presentada por un aspirante</td>
+    <td>Sistema de gestión del aspirante</td>
+    <td>Operación normal</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">El resultado de la prueba permanece sin cambios.</td>
+    <td colspan="2">100% de datos conservados / total de intentos de acceso</td>
+  </tr>
+</tbody>
+</table>
+
+<hr />
+
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>#011</th>
+    <th>Versión</th>
+    <th>V.1</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Fuente</td>
+    <td>Estímulo</td>
+    <td>Artefacto</td>
+    <td>Ambiente</td>
+  </tr>
+  <tr>
+    <td>Aspirantes</td>
+    <td>Los aspirantes envían las respuestas de sus pruebas</td>
+    <td>Sistema de gestión del aspirante</td>
+    <td>Operación normal</td>
+  </tr>
+  <tr>
+    <td colspan="2">Respuesta</td>
+    <td colspan="2">Medida de la respuesta</td>
+  </tr>
+  <tr>
+    <td colspan="2">Las respuestas son procesadas y guardadas correctamente</td>
+    <td colspan="2">De 15 a 30 solicitudes por minuto hasta por 60 minutos.</td>
+  </tr>
+</tbody>
+</table>
+
 ## Requisitos de calidad con prioridad
 
 ### Identificados
