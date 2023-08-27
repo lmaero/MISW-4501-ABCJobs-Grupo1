@@ -917,22 +917,38 @@
     - Rendimiento
         - #001
         - #002
-    - Concurrencia
         - #003
         - #004
+        - #007
     - Disponibilidad
         - #005
-    - Usabilidad
-        - #006
+        - #012
     - Facilidad de modificación
-        - #007
+        - #006
+        - #015
+    - Seguridad
+        - #008
+        - #009
+        - #013
+        - #014
+    - Escalabilidad
+        - #010
+        - #011
       
 ### Priorizados
 
-- #005
-- #006
-- #007
 - #001
 - #002
 - #003
 - #004
+- #007
+- #005
+- #012
+- #008
+- #009
+- #013
+- #014
+- #010
+- #011
+- #006
+- #015
