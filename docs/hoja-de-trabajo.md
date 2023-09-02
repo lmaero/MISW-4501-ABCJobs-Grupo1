@@ -376,7 +376,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>PERFORMANCE #001</th>
+    <th>LATENCY #001</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -412,7 +412,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>PERFORMANCE #002</th>
+    <th>LATENCY #002</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -448,7 +448,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>PERFORMANCE #003</th>
+    <th>SCALABILITY #003</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -462,7 +462,7 @@
   </tr>
   <tr>
     <td>Departamento de recursos humanos</td>
-    <td>El aspirante ingresa al sistema para realizar una prueba</td>
+    <td>El aspirante ingresa al sistema para realizar y enviar una prueba</td>
     <td>Sistema de gestión del aspirante</td>
     <td>Operación normal</td>
   </tr>
@@ -484,7 +484,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>PERFORMANCE #004</th>
+    <th>SCALABILITY #004</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -498,7 +498,7 @@
   </tr>
   <tr>
     <td>Departamento de recursos humanos</td>
-    <td>El aspirante ingresa al sistema para realizar una prueba</td>
+    <td>El aspirante ingresa al sistema para realizar y enviar una prueba</td>
     <td>Sistema de gestión del aspirante</td>
     <td>Operación con alto tráfico</td>
   </tr>
@@ -544,7 +544,7 @@
   </tr>
   <tr>
     <td colspan="2">El portal de pruebas se encuentra en línea, es accesible y funcional con todas las características ofrecidas en cualquier momento</td>
-    <td colspan="2">El componente de monitoreo (healthcheck) debe responder satisfactoriamente (HTTP 200)</td>
+    <td colspan="2">El componente de monitoreo (healthcheck) debe detectar y notificar en caso de falla en menos de 5000ms</td>
   </tr>
 </tbody>
 </table>
@@ -592,7 +592,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>PERFORMANCE #007</th>
+    <th>LATENCY #007</th>
     <th>Versión</th>
     <th>V.1</th>
   </tr>
@@ -714,7 +714,7 @@
   </tr>
   <tr>
     <td>Aspirantes</td>
-    <td>Los aspirantes envían las respuestas de sus pruebas</td>
+    <td>Enviar una prueba técnica o psicológica finalizada</td>
     <td>Sistema de gestión del aspirante</td>
     <td>Operación normal</td>
   </tr>
@@ -750,7 +750,7 @@
   </tr>
   <tr>
     <td>Aspirantes</td>
-    <td>Los aspirantes envían las respuestas de sus pruebas</td>
+    <td>Enviar una prueba técnica o psicológica finalizada</td>
     <td>Sistema de gestión del aspirante</td>
     <td>Operación normal</td>
   </tr>
@@ -760,7 +760,7 @@
   </tr>
   <tr>
     <td colspan="2">Las respuestas son procesadas y guardadas correctamente</td>
-    <td colspan="2">El escalamiento debe producirse en menos de 10 minutos</td>
+    <td colspan="2">30 pruebas guardadas/minuto</td>
   </tr>
 </tbody>
 </table>
@@ -796,7 +796,7 @@
   </tr>
   <tr>
     <td colspan="2">El portal de registro del aspirante se encuentra en línea, es accesible y funcional con todas las características ofrecidas en cualquier momento</td>
-    <td colspan="2">El componente de monitoreo (healthcheck) debe responder satisfactoriamente (HTTP 200)</td>
+    <td colspan="2">El componente de monitoreo (healthcheck) debe detectar y notificar en caso de falla en menos de 5000ms</td>
   </tr>
 </tbody>
 </table>
@@ -914,7 +914,7 @@
 ### Identificados
 
 - Requisitos
-    - Rendimiento
+    - Latencia
         - #001
         - #002
         - #003
