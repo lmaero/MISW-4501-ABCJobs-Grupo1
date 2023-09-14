@@ -1,0 +1,4 @@
+workspaces:
+  - authorizer
+  - candidate
+  - evaluator
