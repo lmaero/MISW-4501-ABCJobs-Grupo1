@@ -1,5 +1,5 @@
 import {Express, Request, Response} from "express";
-import {authenticateUser} from "../controllers/auth";
+import {authenticateUser, getUserInfo} from "../controllers/auth";
 
 
 
@@ -12,29 +12,34 @@ const router = express.Router()
 
 router.get("/auth", async (req: Request, res: Response) => {
 
-    const n = 9;
+    const data = req.body;
     const userInfo = {
-        personId: n,
-        country: "mex",
-        lenguages: "mex",
-        academicalDataId: n,
-        technicalDataId: n,
-        workDataId: n,
-        isAvailable: false,
-        softSkills: "mex",
-        interviewId: n,
-        email: "kakak",
-        password: "aajaja",
-        token: "12344",
+        personId: data['personId'],
+        country: data['country'],
+        lenguages: data['lenguages'],
+        academicalDataId: data['academicalDataId'],
+        technicalDataId: data['technicalDataId'],
+        workDataId: data['workDataId'],
+        isAvailable: data['isAvailable'],
+        softSkills: data['softSkills'],
+        interviewId: data['interviewId'],
+        email: data['email'],
+        password: data['password'],
+        token: "",
     }
 
-
-    const data = await authenticateUser(userInfo)
-    res.send( {data});
+    const userData = await authenticateUser(userInfo)
+    res.send( {userData});
 })
 
 router.get("/auth/me", async (req: Request, res: Response) => {
-    res.send( {msg: "pong"});
+    const headersInfo = req.headers;
+    const token = headersInfo['authorization']?.split(" ")[1];
+    if(token !== "") {
+        const userInfo = await getUserInfo(token);
+        res.send({userInfo});
+    }
+    return {msg: "Invalid token provided"}
 })
 
 router.get("/auth/ping", async (req: Request, res: Response) => {

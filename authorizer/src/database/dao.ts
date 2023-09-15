@@ -95,6 +95,37 @@ class Dao {
             }
             return {msg: "400"}
         }
+
+    async getUserInfo(email: string) {
+
+        const query = `SELECT *  FROM  "Candidate" WHERE email = :email`;
+
+        const queryPrepared = bind(query, {
+            email: email,
+        });
+
+        try {
+            const res = await this.client.query(queryPrepared);
+            console.log('Email information');
+            const info = {
+                personId: res.rows[0]['personId'],
+                country: res.rows[0]['country'],
+                lenguages: res.rows[0]['lenguages'],
+                academicalDataId: res.rows[0]['academicalDataId'],
+                technicalDataId: res.rows[0]['technicalDataId'],
+                workDataId: res.rows[0]['workDataId'],
+                isAvailable: res.rows[0]['isAvailable'],
+                softSkills: res.rows[0]['softSkills'],
+                interviewId: res.rows[0]['interviewId'],
+                email: res.rows[0]['email'],
+                password: res.rows[0]['password']
+            }
+            return info;
+        } catch (err) {
+            console.log(err);
+        }
+        return {msg: "400"}
+    }
 };
 export default Dao;
 

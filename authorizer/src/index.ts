@@ -1,6 +1,7 @@
 import http from 'node:http'
 import express, {Express} from 'express'
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -17,6 +18,17 @@ if (!NODE_ENV || !PORT) {
   console.log(`PORT ${PORT}`)
   process.exit(1)
 }
+
+// For json data
+app.use(express.json());
+
+
+// Set CORS
+const allowedOrigins = ['http://localhost:3000', "http://localhost:8080"];
+const options: cors.CorsOptions = {
+    origin: allowedOrigins
+};
+app.use(cors(options));
 
 // Handling routes requessts
 app.use("/", routes);

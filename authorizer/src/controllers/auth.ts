@@ -1,10 +1,11 @@
 import Dao from "../database/dao";
-import {generateAccessToken} from "../utils/utils";
+import {decodeToken, generateAccessToken} from "../utils/utils";
 
 
 const dao = new Dao();
 
 export async function authenticateUser(info: IUserInfo) {
+
     const personId = info.personId;
     const country = info.country;
     const lenguages = info.lenguages;
@@ -35,6 +36,23 @@ export async function authenticateUser(info: IUserInfo) {
                 password: password,
                 token: token,
         }
+    } else {
+        return {msg: "The transaction was not succesful with the data provided", code: 400}
     }
 }
 
+export async function getUserInfo(token: any) {
+
+    const info: any = await decodeToken(token);
+    const email: string  = info['email'];
+
+    const result = await dao.getUserInfo(email);
+
+    // @ts-ignore
+    if (result['email'] !== "") {
+        return result;
+    } else {
+        return {msg: "Invalid token provided"};
+    }
+
+}
