@@ -1,7 +1,13 @@
 import http from 'node:http'
-import express, { Application } from 'express'
+import express, {Express} from 'express'
+import dotenv from 'dotenv';
 
-const app: Application = express()
+dotenv.config();
+
+// Import routes
+const routes     = require("./routes/routes")
+
+const app: Express = express();
 const NODE_ENV = process.env.NODE_ENV
 const PORT = process.env.AUTH_PORT
 
@@ -12,15 +18,13 @@ if (!NODE_ENV || !PORT) {
   process.exit(1)
 }
 
-const server = http.createServer(app)
+// Handling routes requessts
+app.use("/", routes)
 
-server
-  .listen(PORT)
-  .on('listening', () => {
+app.listen(PORT).on('listening', () => {
     console.log(`Running in ${NODE_ENV.toUpperCase()} mode`)
     console.log(`Listening on port: ${PORT}`)
-  })
-  .on('error', (err: unknown) => {
+  }).on('error', (err: unknown) => {
     console.error(err)
     process.exit(1)
   })
