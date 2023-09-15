@@ -38,9 +38,9 @@ router.get("/", async (req: Request, res: Response) => {
     let c = "c";
     let d = 10;
 
-    createUser(a, b, c, d);
+    const res1 =await createUser(a, b, c, d);
 
-    res.send("Hello World 2!")
+    res.send( res1);
 })
 
 module.exports = router;
