@@ -1,9 +1,11 @@
+import dotenv from 'dotenv'
 import http from 'node:http'
 import express, { Application } from 'express'
 
+dotenv.config()
+
 const app: Application = express()
-const NODE_ENV = process.env.NODE_ENV
-const PORT = process.env.CANDIDATE_PORT
+const { NODE_ENV, CANDIDATE_PORT:PORT } = process.env;
 
 if (!NODE_ENV || !PORT) {
   console.error('FATAL: NODE_ENV or PORT are not set')
