@@ -19,7 +19,10 @@ if (!NODE_ENV || !PORT) {
 }
 
 // Handling routes requessts
-app.use("/", routes)
+app.use("/", routes);
+app.use("/auth", routes);
+app.use("/auth/me", routes);
+app.use("/auth/ping", routes);
 
 app.listen(PORT).on('listening', () => {
     console.log(`Running in ${NODE_ENV.toUpperCase()} mode`)

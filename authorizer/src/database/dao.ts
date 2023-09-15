@@ -4,6 +4,7 @@ const bind  = require('pg-bind');
 
 class Dao {
     private client: any;
+
     constructor() {
         this.client = new Client({
             user: 'postgres',
@@ -14,11 +15,12 @@ class Dao {
         });
         this.client.connect();
     }
+
     async createUser(email: string, firstname: string, lastname: string, age: number) {
         console.log(email);
         const tableAvailable = await this.isTableOk();
 
-        if(tableAvailable) {
+        if (tableAvailable) {
             console.log(tableAvailable);
 
             const query =
@@ -41,7 +43,6 @@ class Dao {
             return {msg: "400"}
         }
 
-
     }
 
     async isTableOk() {
@@ -59,8 +60,42 @@ class Dao {
         const tableExistence = res['rows'][0]['table_existence'];
         return tableExistence;
     }
-}
 
+    async authenticateUser(personId: number, country: string, lenguages: string, academicalDataId: number, technicalDataId: number, workDataId: number, isAvailable: boolean, softSkills: string, interviewId: number, email: string, password: string, token: string) {
+
+        // Generate token
+
+        // Insert the information
+        const query = `INSERT INTO "Candidate" ("personId", "country", "lenguages", "academicalDataId", "technicalDataId", 
+        "workDataId", "isAvailable", "softSkills", "interviewId", "email", "password", "token")
+        VALUES (:personId, :country, :lenguages, :academicalDataId, :technicalDataId,
+         :workDataId, :isAvailable, :softSkills, :interviewId, :email, :password, :token)`;
+
+            const queryPrepared = bind(query, {
+                personId: personId,
+                country: country,
+                lenguages: lenguages,
+                academicalDataId: academicalDataId,
+                technicalDataId: technicalDataId,
+                workDataId: workDataId,
+                isAvailable: isAvailable,
+                softSkills: softSkills,
+                interviewId: interviewId,
+                email: email,
+                password: password,
+                token: token
+            });
+
+            try {
+                const res = await this.client.query(queryPrepared);
+                console.log('Token update');
+                return {msg: "201"};
+            } catch (err) {
+                console.log(err);
+            }
+            return {msg: "400"}
+        }
+};
 export default Dao;
 
 
