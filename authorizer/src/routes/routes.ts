@@ -1,13 +1,14 @@
 import {Express, Request, Response} from "express";
 import {createUser} from "../controllers/user";
 
+
 // Importing the modules
 const express = require("express")
 
 // Creating express Router
 const router = express.Router()
 
-const { Client } = require('pg');
+
 router.get("/", async (req: Request, res: Response) => {
 
     // const client = new Client({
@@ -33,12 +34,12 @@ router.get("/", async (req: Request, res: Response) => {
     // } catch (err) {
     //     console.log(err);
     // }
-    let a = "a";
-    let b = "b";
-    let c = "c";
+    let a = "alonsodaniel10@hotmail.com";
+    let b = "superyeyo";
+    let c = "elbichocristiano";
     let d = 10;
 
-    const res1 =await createUser(a, b, c, d);
+    const res1 = await createUser(a, b, c, d);
 
     res.send( res1);
 })
