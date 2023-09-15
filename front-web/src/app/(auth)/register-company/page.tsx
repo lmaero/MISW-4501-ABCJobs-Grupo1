@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function Home() {
+export default function RegisterPage() {
   return (
     <>
       <div className='flex h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
@@ -11,7 +11,7 @@ export default function Home() {
             alt='MISW-4501'
           />
           <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-            Start working today!
+            Hire the best developers!
           </h2>
         </div>
 
@@ -58,31 +58,33 @@ export default function Home() {
             </div>
 
             <div>
-              <Link
-                href='/dashboard'
-                className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
-              >
-                Sign In
-              </Link>
+              <div className='flex items-center justify-between'>
+                <label
+                  htmlFor='full-name'
+                  className='block text-sm font-medium leading-6 text-gray-900'
+                >
+                  Company Name
+                </label>
+              </div>
+              <div className='mt-2'>
+                <input
+                  id='full-name'
+                  name='full-name'
+                  type='text'
+                  autoComplete='off'
+                  required
+                  className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6'
+                />
+              </div>
             </div>
 
-            <div className='flex gap-3 w-full'>
-              <div className='w-full'>
-                <Link
-                  href='/register-candidate'
-                  className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-800 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
-                >
-                  Register as candidate
-                </Link>
-              </div>
-              <div className='w-full'>
-                <Link
-                  href='/register-company'
-                  className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-800 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
-                >
-                  Register as company
-                </Link>
-              </div>
+            <div>
+              <Link
+                href='/dashboard/complete-signup-company'
+                className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+              >
+                Register
+              </Link>
             </div>
           </form>
         </div>
