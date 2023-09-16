@@ -1,4 +1,4 @@
-interface Candidate { 
+export interface Candidate { 
     personId: number;
     country: string;
     lenguages: string | string[];

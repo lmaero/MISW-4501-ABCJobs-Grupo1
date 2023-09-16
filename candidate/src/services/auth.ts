@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Candidate } from "../interfaces/auth";
 
 const getUserInfo = async (token: string): Promise<Candidate> => {
     try {
