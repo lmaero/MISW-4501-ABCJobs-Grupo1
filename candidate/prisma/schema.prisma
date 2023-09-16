@@ -240,7 +240,7 @@ model Candidate {
   password         String
   token            String?
   country          String
-  lenguages        String[]
+  lenguages        String
   academicalData   AcademicalData? @relation(fields: [academicalDataId], references: [id])
   academicalDataId Int?
   technicalData    TechnicalData?  @relation(fields: [technicalDataId], references: [id])
@@ -248,7 +248,7 @@ model Candidate {
   workData         WorkData?       @relation(fields: [workDataId], references: [id])
   workDataId       Int?
   isAvailable      Boolean
-  softSkills       String[]
+  softSkills       String
   Interview        Interview?      @relation(fields: [interviewId], references: [id])
   interviewId      Int?            @unique
 }

@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import http from 'node:http'
 import express, { Application } from 'express'
+import candidateRouter from './routes/candidate'
 
 dotenv.config()
 
@@ -13,6 +14,8 @@ if (!NODE_ENV || !PORT) {
   console.log(`PORT ${PORT}`)
   process.exit(1)
 }
+
+app.use('/candidate', candidateRouter)
 
 const server = http.createServer(app)
 
