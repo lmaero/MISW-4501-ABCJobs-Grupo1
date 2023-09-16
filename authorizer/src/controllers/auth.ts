@@ -1,5 +1,5 @@
 import Dao from "../database/dao";
-import {decodeToken, generateAccessToken} from "../utils/utils";
+import {decodeToken, generateAccessToken, tokenExpired} from "../utils/utils";
 
 
 const dao = new Dao();
@@ -44,8 +44,12 @@ export async function authenticateUser(info: IUserInfo) {
 export async function getUserInfo(token: any) {
 
     const info: any = await decodeToken(token);
-    const email: string  = info['email'];
+    const isTokenExpired = await tokenExpired(info['exp']);
 
+    if(isTokenExpired) {
+        return {msg: "The token expired, you have to authenticate again. "}
+    }
+    const email: string  = info['email'];
     const result = await dao.getUserInfo(email);
 
     // @ts-ignore
