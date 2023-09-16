@@ -22,7 +22,7 @@
     "build": "tsc",
     "dev": "nodemon src/index.ts",
     "start": "node build/index.js",
-    "migrate": "prisma migrate dev --name init"
+    "migrate": "npx prisma migrate dev --name init"
   },
   "version": "0.0.0"
 }
