@@ -1,7 +1,11 @@
-import http from 'node:http'
-import express, { Application } from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+import express, { Express } from 'express'
+import routes from './routes/routes'
 
-const app: Application = express()
+dotenv.config()
+
+const app: Express = express()
 const NODE_ENV = process.env.NODE_ENV
 const PORT = process.env.AUTH_PORT
 
@@ -12,9 +16,23 @@ if (!NODE_ENV || !PORT) {
   process.exit(1)
 }
 
-const server = http.createServer(app)
+// For json data
+app.use(express.json())
 
-server
+// Set CORS
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080']
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+}
+app.use(cors(options))
+
+// Handling routes requests
+app.use('/', routes)
+app.use('/auth', routes)
+app.use('/auth/me', routes)
+app.use('/auth/ping', routes)
+
+app
   .listen(PORT)
   .on('listening', () => {
     console.log(`Running in ${NODE_ENV.toUpperCase()} mode`)

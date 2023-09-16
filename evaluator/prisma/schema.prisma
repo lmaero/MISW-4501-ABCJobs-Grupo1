@@ -1,0 +1,279 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enum sections
+enum ROLE {
+  BACKEND
+  FRONTEND
+  FULLSTACK
+  MOBILE_DEVELOPER
+  ANDROID_DEVELOPER
+  IOS_DEVELOPER
+  TEACH_LEAD
+  PRODUCT_MANAGER
+  ARCHITECT
+  QA
+  TESTER
+  DEVOPS
+  CLOUD_ARCHITECT
+  BUSSIENSS_ANALYST
+  DATA_ANALYST
+  IOT
+  DATA_SCIENTIST
+  AI_PROGRAMMER
+  BLOCKCHAIN_DEVELOPER
+  SCRUM_MASTER
+  SECURITY_ANALYST
+  CYBERSECURITY_ENGINEER
+  SOFTWARE_ENGINEER
+  PEN_TESTER
+  UX_UI_DESIGNER
+  GRAPHIC_DESIGNER
+}
+
+enum TEST {
+  TECHNICAL
+  PSYCHOLOGICAL
+}
+
+enum EMPLOYMENT {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  SELF_EMPLOYED
+  FREELANCE
+  APPRENTICESHIP
+  SEASONAL
+}
+
+enum SIZE {
+  SMALL_BUSINESS
+  MEDIUM
+  BIG
+  STARTUP
+}
+
+enum GRADE {
+  COLLEGE
+  BACHELOR
+  MASTER
+  PHD
+}
+
+enum LOCATION {
+  REMOTE
+  ONSITE
+  HYBRID
+}
+
+enum DIFFICULTY {
+  EASY
+  MEDIUM
+  HARD
+}
+
+// Interfaces sections
+model Education {
+  id               Int             @id @default(autoincrement())
+  school           String
+  degree           String
+  fieldOfStudy     String
+  startData        DateTime        @default(now())
+  endData          DateTime?
+  grade            GRADE
+  academicalData   AcademicalData? @relation(fields: [academicalDataId], references: [id])
+  academicalDataId Int?
+}
+
+model Result {
+  id                 Int         @id @default(autoincrement())
+  technicalScore     Int
+  psychologicalScore Int
+  test               Test[]
+  interview          Interview[]
+}
+
+model Address {
+  id          Int          @id @default(autoincrement())
+  street      String
+  city        String
+  country     String
+  zipCode     String
+  experiences Experience[]
+  persons     Person[]
+  companies   Company[]
+}
+
+model Certification {
+  id                  Int             @id @default(autoincrement())
+  name                String
+  issuingOrganization String
+  issueDate           DateTime
+  expirationDate      DateTime
+  credentialID        String
+  credentialURL       String
+  academicalData      AcademicalData? @relation(fields: [academicalDataId], references: [id])
+  academicalDataId    Int?
+}
+
+model AcademicalData {
+  id             Int             @id @default(autoincrement())
+  educations     Education[]
+  certifications Certification[]
+  candidate      Candidate[]
+}
+
+model Question {
+  id            Int        @id @default(autoincrement())
+  statement     String
+  correctAnswer String
+  wrongAnswer   String[]
+  difficulty    DIFFICULTY
+  points        Int
+  test          Test?      @relation(fields: [testId], references: [id])
+  testId        Int?
+}
+
+model Experience {
+  id             Int        @id @default(autoincrement())
+  title          String
+  employmentType EMPLOYMENT
+  companyName    String
+  location       Address    @relation(fields: [locationId], references: [id])
+  locationId     Int
+  locationType   LOCATION
+  startDate      DateTime
+  endDate        DateTime?
+  role           ROLE
+  activities     String[]
+  workData       WorkData?  @relation(fields: [workDataId], references: [id])
+  workDataId     Int?
+}
+
+model WorkProject {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  startDate   DateTime
+  endDate     DateTime?
+  workData    WorkData? @relation(fields: [workDataId], references: [id])
+  workDataId  Int?
+}
+
+model WorkData {
+  id          Int           @id @default(autoincrement())
+  experiences Experience[]
+  projects    WorkProject[]
+  candidate   Candidate[]
+}
+
+model TechnicalData {
+  id                  Int         @id @default(autoincrement())
+  techSkills          String[]
+  progammingLenguages String[]
+  roles               ROLE[]
+  yearOfExperience    Int
+  candidate           Candidate[]
+  project             Project[]
+}
+
+// Entities sections
+
+model Company {
+  id                Int       @id @default(autoincrement())
+  name              String
+  size              SIZE
+  locations         Address[]
+  prefferedLenguage String
+  bussinesSegments  String[]
+  mainContact       Person    @relation(fields: [mainContactId], references: [id])
+  mainContactId     Int
+  projects          Project[]
+}
+
+model Project {
+  id                  Int           @id @default(autoincrement())
+  team                Person[]
+  company             Company?      @relation(fields: [companyId], references: [id])
+  companyId           Int?
+  price               BigInt
+  budget              BigInt
+  deadline            DateTime
+  description         String
+  registeredWorkHours Float
+  requiredProfile     TechnicalData @relation(fields: [technicalDataId], references: [id])
+  stakeholders        String[]
+  technicalDataId     Int
+}
+
+model Person {
+  id                Int        @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  address           Address    @relation(fields: [addressId], references: [id])
+  addressId         Int
+  phoneNumber       String
+  preferredLenguage String
+  isAdministrator   Boolean
+  test              Test?      @relation(fields: [testId], references: [id])
+  testId            Int?
+  candidate         Candidate?
+  company           Company[]
+  projects          Project?   @relation(fields: [projectId], references: [id])
+  projectId         Int?
+}
+
+model Candidate {
+  person           Person          @relation(fields: [personId], references: [id])
+  personId         Int             @id
+  email            String          @unique
+  password         String
+  token            String?
+  country          String
+  lenguages        String
+  academicalData   AcademicalData? @relation(fields: [academicalDataId], references: [id])
+  academicalDataId Int?
+  technicalData    TechnicalData?  @relation(fields: [technicalDataId], references: [id])
+  technicalDataId  Int?
+  workData         WorkData?       @relation(fields: [workDataId], references: [id])
+  workDataId       Int?
+  isAvailable      Boolean
+  softSkills       String
+  Interview        Interview?      @relation(fields: [interviewId], references: [id])
+  interviewId      Int?            @unique
+}
+
+model Interview {
+  id            Int         @id @default(autoincrement())
+  participants  Candidate[]
+  scheduledDate DateTime
+  result        Result      @relation(fields: [resultId], references: [id])
+  resultId      Int
+  tests         Test[]
+}
+
+model Test {
+  id               Int        @id @default(autoincrement())
+  type             TEST
+  results          Result     @relation(fields: [resultId], references: [id])
+  resultId         Int
+  questions        Question[]
+  isIndividualTest Boolean
+  isFinished       Boolean
+  wasSupplanted    Boolean
+  minutesDuration  Int
+  hasAuthorization Person[]
+  interview        Interview  @relation(fields: [interviewId], references: [id])
+  interviewId      Int        @unique
+}
+
