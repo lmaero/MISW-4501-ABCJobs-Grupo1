@@ -27,7 +27,7 @@ export default function CompleteSignUpPage() {
                     name='role'
                     type='radio'
                     value='Fullstack Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='fullstack-developer'
@@ -42,7 +42,7 @@ export default function CompleteSignUpPage() {
                     name='role'
                     type='radio'
                     value='Backend Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='backend-developer'
@@ -57,7 +57,7 @@ export default function CompleteSignUpPage() {
                     name='role'
                     type='radio'
                     value='Frontend Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='frontend-developer'
@@ -78,7 +78,7 @@ export default function CompleteSignUpPage() {
                   Main Address
                 </label>
                 <div className='mt-2'>
-                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
+                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='text'
                       name='languages'
@@ -104,7 +104,7 @@ export default function CompleteSignUpPage() {
                   <p className='text-xs text-gray-400'>
                     Use comma-separated values to list them
                   </p>
-                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
+                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='text'
                       name='languages'
@@ -129,7 +129,7 @@ export default function CompleteSignUpPage() {
                     id='location'
                     name='location'
                     autoComplete='location'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
                   >
                     <option value='United States'>Spanish</option>
                     <option value='Canada'>English</option>
@@ -150,7 +150,7 @@ export default function CompleteSignUpPage() {
                     id='location'
                     name='location'
                     autoComplete='location'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
                   >
                     <option value='United States'>Diego Eslava</option>
                     <option value='Canada'>Camilo Gálvez</option>
@@ -174,7 +174,7 @@ export default function CompleteSignUpPage() {
           </Link>
           <Link
             href='/dashboard/company'
-            className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+            className='rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
           >
             Save
           </Link>

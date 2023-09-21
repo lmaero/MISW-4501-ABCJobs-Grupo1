@@ -25,7 +25,7 @@ function SearchPage() {
                     name='role'
                     type='checkbox'
                     value='Fullstack Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='fullstack-developer'
@@ -40,7 +40,7 @@ function SearchPage() {
                     name='role'
                     type='checkbox'
                     value='Backend Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='backend-developer'
@@ -55,7 +55,7 @@ function SearchPage() {
                     name='role'
                     type='checkbox'
                     value='Frontend Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='frontend-developer'
@@ -78,7 +78,7 @@ function SearchPage() {
                     name='planguages'
                     type='checkbox'
                     value='JavaScript'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='JavaScript'
@@ -93,7 +93,7 @@ function SearchPage() {
                     name='planguages'
                     type='checkbox'
                     value='TypeScript'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='TypeScript'
@@ -108,7 +108,7 @@ function SearchPage() {
                     name='planguages'
                     type='checkbox'
                     value='Frontend Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='Python'
@@ -131,7 +131,7 @@ function SearchPage() {
                     name='soft'
                     type='checkbox'
                     value='Leadership'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='Leadership'
@@ -146,7 +146,7 @@ function SearchPage() {
                     name='soft'
                     type='checkbox'
                     value='Responsibility'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='Responsibility'
@@ -161,7 +161,7 @@ function SearchPage() {
                     name='soft'
                     type='checkbox'
                     value='communication'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='communication'
@@ -184,7 +184,7 @@ function SearchPage() {
                     name='slanguages'
                     type='checkbox'
                     value='English'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='English'
@@ -199,7 +199,7 @@ function SearchPage() {
                     name='slanguages'
                     type='checkbox'
                     value='Spanish'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='Spanish'
@@ -214,7 +214,7 @@ function SearchPage() {
                     name='slanguages'
                     type='checkbox'
                     value='Russian'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='Russian'
@@ -239,7 +239,7 @@ function SearchPage() {
           </Link>
           <Link
             href='/dashboard/search/results'
-            className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+            className='rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
           >
             Search
           </Link>

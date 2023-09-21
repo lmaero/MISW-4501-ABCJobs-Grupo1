@@ -1,4 +1,3 @@
-import LanguageSelector from '@/components/LanguageSelector'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
@@ -18,13 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className='h-full bg-white'>
-      <body className={`h-full ${inter.className}`}>
-        {children}
-        <footer className='fixed bottom-0 p-3 bg-gray-100 w-full text-sm'>
-          You're in <span className='text-gray-500'>Colombia</span>, do you want
-          to change the language? <LanguageSelector />
-        </footer>
-      </body>
+      <body className={`h-full ${inter.className}`}>{children}</body>
     </html>
   )
 }

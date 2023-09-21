@@ -24,7 +24,7 @@ export default function CompleteSignUpPage() {
                     name='role'
                     type='checkbox'
                     value='Fullstack Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='fullstack-developer'
@@ -39,7 +39,7 @@ export default function CompleteSignUpPage() {
                     name='role'
                     type='checkbox'
                     value='Backend Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='backend-developer'
@@ -54,7 +54,7 @@ export default function CompleteSignUpPage() {
                     name='role'
                     type='checkbox'
                     value='Frontend Developer'
-                    className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                   />
                   <label
                     htmlFor='frontend-developer'
@@ -75,7 +75,7 @@ export default function CompleteSignUpPage() {
                   Question
                 </label>
                 <div className='mt-2'>
-                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
+                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='number'
                       name='languages'
@@ -96,7 +96,7 @@ export default function CompleteSignUpPage() {
                   Right answer
                 </label>
                 <div className='mt-2'>
-                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
+                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='number'
                       name='languages'
@@ -117,7 +117,7 @@ export default function CompleteSignUpPage() {
                   Wrong options
                 </label>
                 <div className='mt-2'>
-                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
+                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='number'
                       name='languages'
@@ -129,7 +129,7 @@ export default function CompleteSignUpPage() {
                   </div>
                 </div>
                 <div className='mt-2'>
-                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
+                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='number'
                       name='languages'
@@ -141,7 +141,7 @@ export default function CompleteSignUpPage() {
                   </div>
                 </div>
                 <div className='mt-2'>
-                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
+                  <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='number'
                       name='languages'
@@ -174,7 +174,7 @@ export default function CompleteSignUpPage() {
           </Link>
           <Link
             href='/dashboard/tests'
-            className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+            className='rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
           >
             Create
           </Link>

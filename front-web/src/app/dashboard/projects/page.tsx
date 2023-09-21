@@ -37,7 +37,7 @@ export default function ProjectsPage() {
       <Link
         href='/dashboard/projects/create'
         type='button'
-        className='px-3 relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
+        className='text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
       >
         <span className='absolute -inset-1.5' />
         <span className='sr-only'>View notifications</span>
