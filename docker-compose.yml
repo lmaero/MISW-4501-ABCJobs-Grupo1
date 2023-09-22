@@ -56,6 +56,22 @@ services:
       timeout: 30s
       retries: 5
 
+  api:
+    container_name: "api"
+    build: "./api"
+    networks:
+      - microservices
+    ports:
+      - ${API_PORT}:${API_PORT}
+    env_file:
+      - .env
+    depends_on:
+      - authorizer
+      - candidate
+      - evaluator
+      - postgres
+
+
 networks:
   microservices:
     driver: bridge
