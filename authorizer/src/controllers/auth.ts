@@ -2,7 +2,14 @@ import Dao from '../database/dao'
 import { IUserInfo } from '../interfaces/interfaces'
 import { decodeToken, generateAccessToken, tokenExpired } from '../utils/utils'
 
-const dao = new Dao()
+let dao: Dao;
+
+try {
+  dao = new Dao()
+} catch(e) {
+  console.log("Database connection not established!");
+}
+
 
 export async function authenticateUser(info: IUserInfo) {
   const personId = info.personId
