@@ -104,6 +104,44 @@ function Page() {
           </dl>
         </div>
       </div>
+
+      <fieldset className='mt-10'>
+        <legend className='text-sm font-semibold leading-6 text-gray-900'>
+          Select for project?
+        </legend>
+        <p className='mt-1 text-sm leading-6 text-gray-600'>
+          This will reserve this candidate
+        </p>
+        <div className='mt-6 space-y-6'>
+          <div className='flex items-center gap-x-3'>
+            <input
+              name='jsx'
+              type='radio'
+              className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
+            />
+            <label
+              htmlFor='fullstack-developer'
+              className='block text-sm font-medium leading-6 text-gray-900'
+            >
+              Yes
+            </label>
+          </div>
+          <div className='flex items-center gap-x-3'>
+            <input
+              name='jsx'
+              type='radio'
+              className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
+            />
+            <label
+              htmlFor='backend-developer'
+              className='block text-sm font-medium leading-6 text-gray-900'
+            >
+              No
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
       <div className='mt-8 flex justify-end'>
         <Link
           href='/dashboard/interviews/results'
