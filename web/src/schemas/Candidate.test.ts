@@ -1,18 +1,27 @@
 import { CandidatePreSch } from '@/schemas/Candidate'
 
-test('Candidate schema should validate correctly', () => {
-  const validData = {
-    email: 'validemail@example.com',
-    password: 'Password1!',
-    fullName: 'John Smith',
-  }
+describe('Candidate Schema Validation', () => {
+  test('should validate valid data', () => {
+    const validData = {
+      email: 'validemail@example.com',
+      password: 'Password1!',
+      fullName: 'John Smith',
+    }
 
-  const invalidData = {
-    email: 'invalidEmail', // Invalid email
-    password: 'password', // Password doesn't meet criteria
-    fullName: 'John', // Not two words separated by space
-  }
+    const result = CandidatePreSch.safeParse(validData)
 
-  expect(CandidatePreSch.safeParse(validData).success).toBe(true)
-  expect(CandidatePreSch.safeParse(invalidData).success).toBe(false)
+    expect(result.success).toBe(true)
+  })
+
+  test('should validate invalid data', () => {
+    const invalidData = {
+      email: 'invalidEmail', // Invalid email
+      password: 'password', // Password doesn't meet criteria
+      fullName: 'John', // Not two words separated by space
+    }
+
+    const result = CandidatePreSch.safeParse(invalidData)
+
+    expect(result.success).toBe(false)
+  })
 })
