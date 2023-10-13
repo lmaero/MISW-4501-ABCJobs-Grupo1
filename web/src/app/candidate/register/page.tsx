@@ -8,22 +8,11 @@ import { CandidatePre, CandidatePreSch } from '@/schemas/Candidate'
 export default function CandidateRegisterPage() {
   const {
     formState: { errors, isValid, isSubmitSuccessful },
-    handleSubmit,
     register,
-    reset,
   } = useForm<CandidatePre>({
     mode: 'onChange',
     resolver: zodResolver(CandidatePreSch),
   })
-
-  async function onSubmit(data: CandidatePre) {
-    try {
-      console.dir(data)
-      reset()
-    } catch (e: unknown) {
-      throw e
-    }
-  }
 
   return (
     <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
@@ -37,7 +26,7 @@ export default function CandidateRegisterPage() {
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
         <form
           className='space-y-6'
-          onSubmit={handleSubmit(onSubmit)}>
+          onSubmit={() => console.log('Submitted')}>
           <div>
             <label
               htmlFor='email'
@@ -108,6 +97,7 @@ export default function CandidateRegisterPage() {
           </div>
 
           <button
+            data-testid='crp-register-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
