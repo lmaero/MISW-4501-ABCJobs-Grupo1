@@ -1,18 +1,19 @@
 import { z } from 'zod'
 import { roleEnum } from '@/schemas/Enums'
 import { commaSeparatedList } from '@/schemas/CommaSeparatedList'
-import { technicalDataSchema } from '@/schemas/TechnicalData'
-import { experienceSchema } from '@/schemas/ExperienceData'
-import { academicExperienceSchema } from '@/schemas/AcademicData'
+import { technicalDataSch } from '@/schemas/TechnicalData'
+import { experienceSch } from '@/schemas/ExperienceData'
+import { academicExperienceSch } from '@/schemas/AcademicData'
 
 export const CandidateProfileSch = z.object({
+  academicData: z.array(academicExperienceSch),
+  certifications: commaSeparatedList,
+  experienceData: z.array(experienceSch),
+  location: z.string(),
+  mainSoftSkills: commaSeparatedList,
   role: roleEnum,
   spokenLanguages: commaSeparatedList,
-  mainSoftSkills: commaSeparatedList,
-  location: z.string(),
-  academicData: z.array(academicExperienceSchema),
-  technicalData: technicalDataSchema,
-  experienceData: z.array(experienceSchema),
+  technicalData: technicalDataSch,
 })
 
 export type CandidateProfile = z.infer<typeof CandidateProfileSch>

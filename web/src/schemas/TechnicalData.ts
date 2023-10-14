@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { commaSeparatedList } from '@/schemas/CommaSeparatedList'
 
-export const technicalDataSchema = z.object({
+export const technicalDataSch = z.object({
   techSkills: commaSeparatedList,
   programmingLanguages: commaSeparatedList,
   roles: z.string(),
