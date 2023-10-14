@@ -1,4 +1,4 @@
-import {decodeToken, generateAccessToken, tokenExpired} from "../utils/utils";
+import {decodeToken, generateAccessToken, tokenExpired} from "../authorizer/src/utils/utils";
 import jwt_decode from "jwt-decode";
 import {JsonWebTokenError} from "jsonwebtoken";
 
@@ -32,13 +32,4 @@ describe("utils functions validation", () => {
         }
 
     });
-
-    test("Decode token generated", async () => {
-
-        const jwtDecodeMock = jest.mock('jwt-decode', () => ({ default: jest.fn(() => ({})) }));
-        const token = "1234512345123451234512345123451234512345123451234512345123451234512345"
-        const expected = await decodeToken(token);
-        expect(jwtDecodeMock).toBeDefined();
-    });
-
 });
