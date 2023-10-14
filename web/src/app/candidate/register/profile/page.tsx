@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -102,9 +101,7 @@ export default function CandidateCompleteProfilePage() {
             is complete
           </p>
         </header>
-
         <hr className='border-b-1' />
-
         <section>
           <h3 className='mb-2 mt-10 text-xl font-semibold'>
             Basic Information
@@ -207,7 +204,6 @@ export default function CandidateCompleteProfilePage() {
             )}
           </article>
         </section>
-
         <section>
           <h3 className='mb-2 mt-10 text-xl font-semibold'>Technical Data</h3>
 
@@ -299,7 +295,6 @@ export default function CandidateCompleteProfilePage() {
             )}
           </article>
         </section>
-
         <section>
           <h3 className='mb-2 mt-10 text-xl font-semibold'>Academic Data</h3>
 
@@ -452,7 +447,6 @@ export default function CandidateCompleteProfilePage() {
             </button>
           </article>
         </section>
-
         <section>
           <h3 className='mb-2 mt-10 text-xl font-semibold'>Experience</h3>
 
@@ -608,17 +602,19 @@ export default function CandidateCompleteProfilePage() {
           </article>
         </section>
 
-        <div className='mt-6 flex items-center justify-end gap-x-6'>
-          <Link
-            href='/register'
-            className='text-sm font-semibold leading-6 text-gray-900'>
+        <div className='flex space-x-2'>
+          <button
+            type='reset'
+            className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
             Cancel
-          </Link>
-          <Link
-            href='/dashboard/profile'
-            className='rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'>
+          </button>
+
+          <button
+            disabled={!isValid || isSubmitSuccessful}
+            type='submit'
+            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
             Save
-          </Link>
+          </button>
         </div>
       </form>
     </div>
