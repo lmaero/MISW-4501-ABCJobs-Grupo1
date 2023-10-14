@@ -1,0 +1,21 @@
+name: Proyecto CI
+
+on:
+  push:
+    branches:
+      - 'HU/**'
+  pull_request:
+    branches:
+      - 'HU/**'
+      - 'develop'
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Probando CI
+        run: echo "Proyecto CI"
+
+
