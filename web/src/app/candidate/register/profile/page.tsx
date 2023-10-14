@@ -12,55 +12,9 @@ import { countries } from '@/lib/countries'
 import { useState } from 'react'
 import { AcademicExperience } from '@/schemas/AcademicData'
 import { Experience } from '@/schemas/ExperienceData'
-
-const roles = [
-  {
-    id: 'fullstack-developer',
-    label: 'Fullstack Developer',
-    value: 'Fullstack Developer',
-  },
-  {
-    id: 'backend-developer',
-    label: 'Backend Developer',
-    value: 'Backend Developer',
-  },
-  {
-    id: 'frontend-developer',
-    label: 'Frontend Developer',
-    value: 'Frontend Developer',
-  },
-  {
-    id: 'devops-engineer',
-    label: 'DevOps Engineer',
-    value: 'DevOps Engineer',
-  },
-  {
-    id: 'architect',
-    label: 'Architect',
-    value: 'Architect',
-  },
-]
-
-function ErrorMessage({ message }: { message: string | undefined }) {
-  if (message) return <p className='text-sm text-red-700'>{message}</p>
-}
-
-function FieldDescription({
-  title,
-  description,
-}: {
-  title: string
-  description?: string
-}) {
-  return (
-    <>
-      <h4 className='font-medium leading-7 text-gray-900'>{title}</h4>
-      {description && (
-        <p className='mb-2 text-xs text-gray-400'>{description}</p>
-      )}
-    </>
-  )
-}
+import { ErrorMessage } from '@/components/ErrorMessage'
+import { roles } from '@/lib/roles'
+import { FieldDescription } from '@/components/FieldDescription'
 
 export default function CandidateCompleteProfilePage() {
   const [educationSections, setEducationSections] = useState<
