@@ -8,7 +8,6 @@
   },
   "description": "Candidate management microservice",
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "@types/express": "^4.17.17",
     "@types/node": "^20.6.0",
     "nodemon": "^3.0.1",
