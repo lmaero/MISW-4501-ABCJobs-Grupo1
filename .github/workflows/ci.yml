@@ -12,32 +12,33 @@ on:
       - 'develop'
 
 jobs:
-  prepare-env:
+  authorizer-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           node-version: 18.x
-
-  authorizer-tests:
-    runs-on: ubuntu-latest
-    working-directory: authorizer
-    needs: prepare-env
-    steps:
       - name: Install dependencies
-        run: npm ci
+        working-directory: authorizer
+        run: npm i
       - name: Run tests
+        working-directory: authorizer
         run: npm run test
 
   web-tests:
     runs-on: ubuntu-latest
-    working-directory: web
-    needs: prepare-env
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          node-version: 18.x
       - name: Enable corepack
+        working-directory: web
         run: corepack enable
       - name: Install dependencies
+        working-directory: web
         run: pnpm i
       - name: Run tests
+        working-directory: web
         run: pnpm test
