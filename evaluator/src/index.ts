@@ -1,5 +1,6 @@
 import http from 'node:http'
 import express, { Application } from 'express'
+import resultsRouter from './routes/results'
 
 const app: Application = express()
 const NODE_ENV = process.env.NODE_ENV
@@ -11,6 +12,8 @@ if (!NODE_ENV || !PORT) {
   console.log(`PORT ${PORT}`)
   process.exit(1)
 }
+
+app.use('/evaluator/results', resultsRouter)
 
 const server = http.createServer(app)
 

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "misw-4501-abcjobs-grupo1",
   "version": "1.0.0",
   "description": "Mediante los siguientes enlaces se puede acceder a los recursos del proyecto. Si tiene inconvenientes accediendo, por favor comunicarse con cualquiera de los integrantes del grupo:",
@@ -15,4 +16,20 @@
   "devDependencies": {
     "nodemon": "^3.0.1"
   }
+=======
+  "author": "",
+  "description": "",
+  "devDependencies": {
+    "@biomejs/biome": "^1.2.2"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "misw-4501-abcjobs-grupo1",
+  "scripts": {
+    "biome": "biome check --apply-unsafe . && biome format --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+>>>>>>> origin/HU/ABC-46
 }

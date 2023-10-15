@@ -2,6 +2,7 @@ version: "3.1"
 
 services:
   authorizer:
+#    image: acantu297366/authorizer
     container_name: "authorizer"
     build: "./authorizer"
     depends_on:
@@ -15,6 +16,7 @@ services:
       - microservices
 
   candidate:
+#    image: acantu297366/candidate
     container_name: "candidate"
     build: "./candidate"
     depends_on:
@@ -28,6 +30,7 @@ services:
       - microservices
 
   evaluator:
+#    image: acantu297366/evaluator
     container_name: "evaluator"
     build: "./evaluator"
     depends_on:
@@ -64,6 +67,22 @@ services:
       POSTGRES_DB: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  api:
+#    image: acantu297366/api
+    container_name: "api"
+    build: "./api"
+    networks:
+      - microservices
+    ports:
+      - ${API_PORT}:${API_PORT}
+    env_file:
+      - .env
+    depends_on:
+      - authorizer
+      - candidate
+      - evaluator
+      - postgres
 
 networks:
   microservices:

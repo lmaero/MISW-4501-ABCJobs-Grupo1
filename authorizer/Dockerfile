@@ -1,7 +1,7 @@
 # --------------> BUILD IMAGE
 FROM node:18.17.1-alpine3.18 AS build
 WORKDIR /app
-COPY package.json tsconfig.json ./
+COPY package*.json tsconfig.json ./
 RUN corepack enable
 RUN pnpm install --silent
 COPY . ./
