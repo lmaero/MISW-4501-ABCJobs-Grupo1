@@ -1,7 +1,7 @@
 export interface IUserInfo {
   personId: number
   country: string
-  lenguages: string
+  languages: string
   academicalDataId: number
   technicalDataId: number
   workDataId: number

@@ -11,7 +11,6 @@
   "description": "Authorizer microservice",
   "devDependencies": {
     "@types/cors": "^2.8.14",
-    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.5",
     "@types/jsonwebtoken": "^9.0.3",

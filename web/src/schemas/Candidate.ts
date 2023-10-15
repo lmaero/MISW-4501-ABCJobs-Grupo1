@@ -1,5 +1,5 @@
-import z from 'zod'
 import { ZStringSch } from '@/schemas/ZString'
+import z from 'zod'
 
 export const CandidatePreSch = z.object({
   email: ZStringSch.min(1, { message: 'Should be a valid email address' })
