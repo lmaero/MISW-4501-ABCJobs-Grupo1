@@ -26,6 +26,8 @@ jobs:
           node-version: '18'
       - name: Set up corepack
         run: corepack enable
+      - name: Install codecov
+        run: pnpm install -g codecov
       - name: Install authorizer dependencies
         run: pnpm install
       - name: Run tests and generate coverage report
@@ -61,6 +63,8 @@ jobs:
           node-version: '18'
       - name: Set up corepack
         run: corepack enable
+      - name: Install codecov
+        run: pnpm install -g codecov
       - name: Install authorizer dependencies
         run: pnpm install
       - name: Run tests and generate coverage report
