@@ -26,6 +26,10 @@ jobs:
     steps:
       - name: Print Working Directory
         run: pwd
+      - name: Print Working Directory
+        run: cd ..
+      - name: Print Working Directory
+        run: pwd
       - name: List files
         run: ls -la
       - name: Navigate to authorizer
