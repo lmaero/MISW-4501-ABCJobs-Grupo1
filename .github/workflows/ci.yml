@@ -16,9 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          path: 'repo'
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
       - name: Install dependencies
@@ -31,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: authorizer
+        working-directory: ./repo/authorizer
     steps:
       - name: Install authorizer dependencies
         run: npm install
@@ -59,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: web
+        working-directory: ./repo/web
     steps:
       - name: Install web dependencies
         run: pnpm install
