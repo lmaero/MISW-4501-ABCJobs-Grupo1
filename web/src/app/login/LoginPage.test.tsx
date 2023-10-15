@@ -1,11 +1,11 @@
-import React from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import React from 'react'
 import CandidateRegisterPage from './page'
-import LoginPage from "./page";
+import LoginPage from './page'
 
-let emailInput: HTMLInputElement | null,
-  passwordInput: HTMLInputElement | null,
-  loginButton: HTMLElement | null
+let emailInput: HTMLInputElement | null
+let passwordInput: HTMLInputElement | null
+let loginButton: HTMLElement | null
 
 beforeEach(() => {
   render(<LoginPage />)
