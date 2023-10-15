@@ -22,18 +22,9 @@ jobs:
 
   authorizer-tests:
     runs-on: ubuntu-latest
+    working-directory: authorizer
     needs: prepare-env
     steps:
-      - name: Print Working Directory
-        run: pwd
-      - name: Print Working Directory
-        run: cd ..
-      - name: Print Working Directory
-        run: pwd
-      - name: List files
-        run: ls -la
-      - name: Navigate to authorizer
-        run: cd authorizer
       - name: Install dependencies
         run: npm ci
       - name: Run tests
@@ -41,12 +32,11 @@ jobs:
 
   web-tests:
     runs-on: ubuntu-latest
+    working-directory: web
     needs: prepare-env
     steps:
       - name: Enable corepack
         run: corepack enable
-      - name: Navigate to web
-        run: cd web
       - name: Install dependencies
         run: pnpm i
       - name: Run tests
