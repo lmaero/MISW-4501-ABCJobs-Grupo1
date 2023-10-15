@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Tests and Generate Docker Images
 
 on:
   push:
@@ -12,33 +12,72 @@ on:
       - 'develop'
 
 jobs:
-  authorizer-tests:
+  common-setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 18.x
+          node-version: '18'
       - name: Install dependencies
+        run: npm install -g codecov
+      - name: Set up corepack
+        run: corepack enable
+
+  authorizer-tests:
+    runs-on: ubuntu-latest
+    needs: common-setup
+    defaults:
+      run:
         working-directory: authorizer
-        run: npm i
-      - name: Run tests
-        working-directory: authorizer
-        run: npm run test
+    steps:
+      - name: Install authorizer dependencies
+        run: npm install
+      - name: Run tests and generate coverage report
+        run: |
+          npm run test -- --coverage
+          codecov
+      - name: Check coverage and generate Docker image
+        run: |
+          COVERAGE_THRESHOLD=80
+          ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-summary.json)
+          if (( $(bc <<< "$ACTUAL_COVERAGE < $COVERAGE_THRESHOLD") )); then
+            echo "Test coverage is below $COVERAGE_THRESHOLD%"
+            exit 1
+          else
+            echo "Test coverage is above $COVERAGE_THRESHOLD%"
+            echo "Generating Docker image..."
+            # Generate Docker image here
+            # Replace the following line with your Docker image build commands
+            # docker build -t your-image-name .
+          fi
 
   web-tests:
     runs-on: ubuntu-latest
+    needs: common-setup
+    defaults:
+      run:
+        working-directory: web
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          node-version: 18.x
-      - name: Enable corepack
-        working-directory: web
-        run: corepack enable
-      - name: Install dependencies
-        working-directory: web
-        run: pnpm i
-      - name: Run tests
-        working-directory: web
-        run: pnpm test
+      - name: Install web dependencies
+        run: pnpm install
+      - name: Run tests and generate coverage report
+        run: |
+          pnpm test -- --coverage
+          codecov
+      - name: Check coverage and generate Docker image
+        run: |
+          COVERAGE_THRESHOLD=80
+          ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-summary.json)
+          if (( $(bc <<< "$ACTUAL_COVERAGE < $COVERAGE_THRESHOLD") )); then
+            echo "Test coverage is below $COVERAGE_THRESHOLD%"
+            exit 1
+          else
+            echo "Test coverage is above $COVERAGE_THRESHOLD%"
+            echo "Generating Docker image..."
+            # Generate Docker image here
+            # Replace the following line with your Docker image build commands
+            # docker build -t your-image-name .
+          fi
