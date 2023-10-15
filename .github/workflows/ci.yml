@@ -32,7 +32,7 @@ jobs:
         run: |
           pnpm run test -- --coverage
           COVERAGE_THRESHOLD=80
-          ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-summary.json)
+          ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-final.json)
           if (( $(bc <<< "$ACTUAL_COVERAGE < $COVERAGE_THRESHOLD") )); then
             echo "Test coverage is below $COVERAGE_THRESHOLD%"
             exit 1
@@ -64,7 +64,7 @@ jobs:
         run: |
           pnpm test -- --coverage
           COVERAGE_THRESHOLD=80
-          ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-summary.json)
+          ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-final.json)
           if (( $(bc <<< "$ACTUAL_COVERAGE < $COVERAGE_THRESHOLD") )); then
             echo "Test coverage is below $COVERAGE_THRESHOLD%"
             exit 1
