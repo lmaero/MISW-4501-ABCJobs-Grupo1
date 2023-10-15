@@ -33,9 +33,6 @@ jobs:
       run:
         working-directory: authorizer
     steps:
-      - name: Use common step for repo checkout
-        uses: ./.github/actions/common-setup
-
       - name: Install authorizer dependencies
         run: npm install
       - name: Run tests and generate coverage report
@@ -64,9 +61,6 @@ jobs:
       run:
         working-directory: web
     steps:
-      - name: Use common step for repo checkout
-        uses: ./.github/actions/common-setup
-
       - name: Install web dependencies
         run: pnpm install
       - name: Run tests and generate coverage report
