@@ -26,16 +26,11 @@ jobs:
           node-version: '18'
       - name: Set up corepack
         run: corepack enable
-      - name: Install codecov
-        run: npm install -g codecov
       - name: Install authorizer dependencies
         run: pnpm install
       - name: Run tests and generate coverage report
         run: |
           pnpm run test -- --coverage
-          codecov
-      - name: Check coverage and generate Docker image
-        run: |
           COVERAGE_THRESHOLD=80
           ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-summary.json)
           if (( $(bc <<< "$ACTUAL_COVERAGE < $COVERAGE_THRESHOLD") )); then
@@ -63,16 +58,11 @@ jobs:
           node-version: '18'
       - name: Set up corepack
         run: corepack enable
-      - name: Install codecov
-        run: npm install -g codecov
       - name: Install authorizer dependencies
         run: pnpm install
       - name: Run tests and generate coverage report
         run: |
           pnpm test -- --coverage
-          codecov
-      - name: Check coverage and generate Docker image
-        run: |
           COVERAGE_THRESHOLD=80
           ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-summary.json)
           if (( $(bc <<< "$ACTUAL_COVERAGE < $COVERAGE_THRESHOLD") )); then
