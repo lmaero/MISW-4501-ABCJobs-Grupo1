@@ -18,7 +18,7 @@ class Dao {
   async authenticateUser(
     personId: number,
     country: string,
-    lenguages: string,
+    languages: string,
     academicalDataId: number,
     technicalDataId: number,
     workDataId: number,
@@ -32,15 +32,15 @@ class Dao {
     // Generate token
 
     // Insert the information
-    const query = `INSERT INTO "Candidate" ("personId", "country", "lenguages", "academicalDataId", "technicalDataId", 
+    const query = `INSERT INTO "Candidate" ("personId", "country", "languages", "academicalDataId", "technicalDataId", 
         "workDataId", "isAvailable", "softSkills", "interviewId", "email", "password", "token")
-        VALUES (:personId, :country, :lenguages, :academicalDataId, :technicalDataId,
+        VALUES (:personId, :country, :languages, :academicalDataId, :technicalDataId,
          :workDataId, :isAvailable, :softSkills, :interviewId, :email, :password, :token)`
 
     const queryPrepared = bind(query, {
       personId: personId,
       country: country,
-      lenguages: lenguages,
+      languages: languages,
       academicalDataId: academicalDataId,
       technicalDataId: technicalDataId,
       workDataId: workDataId,
@@ -53,7 +53,7 @@ class Dao {
     })
 
     try {
-      const res = await this.client.query(queryPrepared)
+      await this.client.query(queryPrepared)
       console.log('Token update')
       return { msg: '201' }
     } catch (err) {
@@ -72,10 +72,10 @@ class Dao {
     try {
       const res = await this.client.query(queryPrepared)
       console.log('Email information')
-      const info = {
+      return {
         personId: res.rows[0].personId,
         country: res.rows[0].country,
-        lenguages: res.rows[0].lenguages,
+        languages: res.rows[0].languages,
         academicalDataId: res.rows[0].academicalDataId,
         technicalDataId: res.rows[0].technicalDataId,
         workDataId: res.rows[0].workDataId,
@@ -85,7 +85,6 @@ class Dao {
         email: res.rows[0].email,
         password: res.rows[0].password,
       }
-      return info
     } catch (err) {
       console.log(err)
     }

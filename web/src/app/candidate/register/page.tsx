@@ -1,9 +1,9 @@
 'use client'
 
 import Logo from '@/components/Logo'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { CandidatePre, CandidatePreSch } from '@/schemas/Candidate'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 export default function CandidateRegisterPage() {
   const {
@@ -24,18 +24,16 @@ export default function CandidateRegisterPage() {
       </div>
 
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form
-          className='space-y-6'
-          onSubmit={() => console.log('Submitted')}>
+        <form className='space-y-6' onSubmit={() => console.log('Submitted')}>
           <div>
             <label
               htmlFor='email'
-              className='block text-sm font-medium leading-6 text-gray-900'>
+              className='block text-sm font-medium leading-6 text-gray-900'
+            >
               Email address
             </label>
             <div className='mt-2'>
               <input
-                autoFocus
                 className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6'
                 data-testid='crp-email'
                 disabled={isSubmitSuccessful}
@@ -46,15 +44,14 @@ export default function CandidateRegisterPage() {
                 {...register('email')}
               />
             </div>
-            <p className='text-sm text-red-700'>
-              {errors.email && errors.email.message}
-            </p>
+            <p className='text-sm text-red-700'>{errors.email?.message}</p>
           </div>
 
           <div>
             <label
               htmlFor='password'
-              className='block text-sm font-medium leading-6 text-gray-900'>
+              className='block text-sm font-medium leading-6 text-gray-900'
+            >
               Password
             </label>
             <div className='mt-2'>
@@ -68,15 +65,14 @@ export default function CandidateRegisterPage() {
                 {...register('password')}
               />
             </div>
-            <p className='text-sm text-red-700'>
-              {errors.password && errors.password.message}
-            </p>
+            <p className='text-sm text-red-700'>{errors.password?.message}</p>
           </div>
 
           <div>
             <label
               htmlFor='fullName'
-              className='block text-sm font-medium leading-6 text-gray-900'>
+              className='block text-sm font-medium leading-6 text-gray-900'
+            >
               Full Name
             </label>
             <div className='mt-2'>
@@ -91,16 +87,15 @@ export default function CandidateRegisterPage() {
                 {...register('fullName')}
               />
             </div>
-            <p className='text-sm text-red-700'>
-              {errors.fullName && errors.fullName.message}
-            </p>
+            <p className='text-sm text-red-700'>{errors.fullName?.message}</p>
           </div>
 
           <button
             data-testid='crp-register-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
-            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             Register
           </button>
         </form>

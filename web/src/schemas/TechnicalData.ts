@@ -1,5 +1,5 @@
-import { z } from 'zod'
 import { commaSeparatedList } from '@/schemas/CommaSeparatedList'
+import { z } from 'zod'
 
 export const technicalDataSch = z.object({
   techSkills: commaSeparatedList,

@@ -12,32 +12,32 @@ datasource db {
 
 // Enum sections
 enum ROLE {
+  AI_PROGRAMMER
+  ANDROID_DEVELOPER
+  ARCHITECT
   BACKEND
+  BLOCKCHAIN_DEVELOPER
+  BUSINESS_ANALYST
+  CLOUD_ARCHITECT
+  CYBERSECURITY_ENGINEER
+  DATA_ANALYST
+  DATA_SCIENTIST
+  DEVOPS
   FRONTEND
   FULLSTACK
-  MOBILE_DEVELOPER
-  ANDROID_DEVELOPER
+  GRAPHIC_DESIGNER
   IOS_DEVELOPER
-  TEACH_LEAD
-  PRODUCT_MANAGER
-  ARCHITECT
-  QA
-  TESTER
-  DEVOPS
-  CLOUD_ARCHITECT
-  BUSSIENSS_ANALYST
-  DATA_ANALYST
   IOT
-  DATA_SCIENTIST
-  AI_PROGRAMMER
-  BLOCKCHAIN_DEVELOPER
+  MOBILE_DEVELOPER
+  PEN_TESTER
+  PRODUCT_MANAGER
+  QA
   SCRUM_MASTER
   SECURITY_ANALYST
-  CYBERSECURITY_ENGINEER
   SOFTWARE_ENGINEER
-  PEN_TESTER
+  TECH_LEAD
+  TESTER
   UX_UI_DESIGNER
-  GRAPHIC_DESIGNER
 }
 
 enum TEST {
@@ -46,40 +46,40 @@ enum TEST {
 }
 
 enum EMPLOYMENT {
-  FULL_TIME
-  PART_TIME
-  CONTRACT
-  INTERNSHIP
-  SELF_EMPLOYED
-  FREELANCE
   APPRENTICESHIP
+  CONTRACT
+  FREELANCE
+  FULL_TIME
+  INTERNSHIP
+  PART_TIME
   SEASONAL
+  SELF_EMPLOYED
 }
 
 enum SIZE {
-  SMALL_BUSINESS
-  MEDIUM
   BIG
+  MEDIUM
+  SMALL_BUSINESS
   STARTUP
 }
 
 enum GRADE {
-  COLLEGE
   BACHELOR
+  COLLEGE
   MASTER
   PHD
 }
 
 enum LOCATION {
-  REMOTE
-  ONSITE
   HYBRID
+  ONSITE
+  REMOTE
 }
 
 enum DIFFICULTY {
   EASY
-  MEDIUM
   HARD
+  MEDIUM
 }
 
 // Interfaces sections
@@ -88,8 +88,8 @@ model Education {
   school           String
   degree           String
   fieldOfStudy     String
-  startData        DateTime        @default(now())
-  endData          DateTime?
+  startDate        DateTime        @default(now())
+  endDate          DateTime?
   grade            GRADE
   academicalData   AcademicalData? @relation(fields: [academicalDataId], references: [id])
   academicalDataId Int?
@@ -180,7 +180,7 @@ model WorkData {
 model TechnicalData {
   id                  Int         @id @default(autoincrement())
   techSkills          String[]
-  progammingLenguages String[]
+  progammingLanguages String[]
   roles               ROLE[]
   yearOfExperience    Int
   candidate           Candidate[]
@@ -194,8 +194,8 @@ model Company {
   name              String
   size              SIZE
   locations         Address[]
-  prefferedLenguage String
-  bussinesSegments  String[]
+  preferredLanguage String
+  businessSegments  String[]
   mainContact       Person    @relation(fields: [mainContactId], references: [id])
   mainContactId     Int
   projects          Project[]
@@ -223,7 +223,7 @@ model Person {
   address           Address    @relation(fields: [addressId], references: [id])
   addressId         Int
   phoneNumber       String
-  preferredLenguage String
+  preferredLanguage String
   isAdministrator   Boolean
   test              Test?      @relation(fields: [testId], references: [id])
   testId            Int?
@@ -240,7 +240,7 @@ model Candidate {
   password         String
   token            String?
   country          String
-  lenguages        String
+  languages        String
   academicalData   AcademicalData? @relation(fields: [academicalDataId], references: [id])
   academicalDataId Int?
   technicalData    TechnicalData?  @relation(fields: [technicalDataId], references: [id])

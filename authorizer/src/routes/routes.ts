@@ -12,7 +12,7 @@ router.get('/auth', async (req: Request, res: Response) => {
   const userInfo = {
     personId: data.personId,
     country: data.country,
-    lenguages: data.lenguages,
+    languages: data.languages,
     academicalDataId: data.academicalDataId,
     technicalDataId: data.technicalDataId,
     workDataId: data.workDataId,
@@ -31,7 +31,7 @@ router.get('/auth', async (req: Request, res: Response) => {
 router.get('/auth/me', async (req: Request, res: Response) => {
   const headersInfo = req.headers
   const token = headersInfo.authorization?.split(' ')[1]
-  if (token !== '') {
+  if (token && token !== '') {
     const userInfo = await getUserInfo(token)
     res.send({ userInfo })
   }

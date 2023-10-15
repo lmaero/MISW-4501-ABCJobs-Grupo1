@@ -20,7 +20,12 @@ if (!NODE_ENV || !PORT) {
 app.use(express.json())
 
 // Set CORS
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080', 'http://localhost:80', 'http://localhost:8000']
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:8080',
+  'http://localhost:80',
+  'http://localhost:8000',
+]
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
 }

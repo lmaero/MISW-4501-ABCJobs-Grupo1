@@ -1,12 +1,16 @@
 {
-  "name": "MISW-4501-ABCJobs-Grupo1",
-  "version": "1.0.0",
+  "author": "",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "@biomejs/biome": "^1.2.2"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "main": "index.js",
+  "name": "misw-4501-abcjobs-grupo1",
+  "scripts": {
+    "biome": "biome check --apply-unsafe . && biome format --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
 }

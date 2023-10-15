@@ -1,9 +1,9 @@
-import { z } from 'zod'
-import { roleEnum } from '@/schemas/Enums'
-import { commaSeparatedList } from '@/schemas/CommaSeparatedList'
-import { technicalDataSch } from '@/schemas/TechnicalData'
-import { experienceSch } from '@/schemas/ExperienceData'
 import { academicExperienceSch } from '@/schemas/AcademicData'
+import { commaSeparatedList } from '@/schemas/CommaSeparatedList'
+import { roleEnum } from '@/schemas/Enums'
+import { experienceSch } from '@/schemas/ExperienceData'
+import { technicalDataSch } from '@/schemas/TechnicalData'
+import { z } from 'zod'
 
 export const CandidateProfileSch = z.object({
   academicData: z.array(academicExperienceSch),

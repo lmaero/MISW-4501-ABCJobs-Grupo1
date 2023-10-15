@@ -1,19 +1,19 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { ErrorMessage } from '@/components/ErrorMessage'
+import { FieldDescription } from '@/components/FieldDescription'
+import { countries } from '@/lib/countries'
+import { roles } from '@/lib/roles'
+import { AcademicExperience } from '@/schemas/AcademicData'
 import {
   CandidateProfile,
   CandidateProfileSch,
 } from '@/schemas/CandidateProfile'
-import { DevTool } from '@hookform/devtools'
-import { countries } from '@/lib/countries'
-import { useState } from 'react'
-import { AcademicExperience } from '@/schemas/AcademicData'
 import { Experience } from '@/schemas/ExperienceData'
-import { ErrorMessage } from '@/components/ErrorMessage'
-import { roles } from '@/lib/roles'
-import { FieldDescription } from '@/components/FieldDescription'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function CandidateCompleteProfilePage() {
   const [educationSections, setEducationSections] = useState<
@@ -41,7 +41,6 @@ export default function CandidateCompleteProfilePage() {
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
-    control,
   } = useForm<CandidateProfile>({
     mode: 'onChange',
     resolver: zodResolver(CandidateProfileSch),
@@ -88,10 +87,7 @@ export default function CandidateCompleteProfilePage() {
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <DevTool control={control} />
-      <form
-        className='space-y-6'
-        onSubmit={() => console.log('Submitting...')}>
+      <form className='space-y-6' onSubmit={() => console.log('Submitting...')}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             Complete your information
@@ -113,9 +109,7 @@ export default function CandidateCompleteProfilePage() {
             />
             <div className='space-y-3'>
               {roles.map((role) => (
-                <div
-                  key={role.id}
-                  className='flex items-center gap-x-3'>
+                <div key={role.id} className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={role.id}
@@ -125,7 +119,8 @@ export default function CandidateCompleteProfilePage() {
                   />
                   <label
                     htmlFor={role.id}
-                    className='block text-sm font-light leading-6 text-gray-900'>
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
                     {role.label}
                   </label>
                 </div>
@@ -189,11 +184,10 @@ export default function CandidateCompleteProfilePage() {
               defaultValue='Colombia'
               autoComplete='location'
               className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
-              {...register('location')}>
+              {...register('location')}
+            >
               {countries.map((country) => (
-                <option
-                  key={country}
-                  value={country}>
+                <option key={country} value={country}>
                   {country}
                 </option>
               ))}
@@ -282,7 +276,7 @@ export default function CandidateCompleteProfilePage() {
                 type='number'
                 id='certifications'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                {...register(`technicalData.yearsOfExperience`, {
+                {...register('technicalData.yearsOfExperience', {
                   valueAsNumber: true,
                 })}
               />
@@ -323,7 +317,7 @@ export default function CandidateCompleteProfilePage() {
           <article>
             <FieldDescription title='Add Studies' />
             {educationSections.map((section, index) => (
-              <>
+              <div key={uuidv4()}>
                 <div className='mb-3'>
                   <FieldDescription title='School Name' />
 
@@ -433,16 +427,18 @@ export default function CandidateCompleteProfilePage() {
                 <button
                   type='button'
                   className='mb-10 mr-3 mt-3 rounded bg-red-700 px-4 py-2 text-sm font-semibold text-white'
-                  onClick={() => removeEducationSection(index)}>
+                  onClick={() => removeEducationSection(index)}
+                >
                   Remove
                 </button>
-              </>
+              </div>
             ))}
 
             <button
               type='button'
               className='rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold leading-6'
-              onClick={addEducationSection}>
+              onClick={addEducationSection}
+            >
               Add more education
             </button>
           </article>
@@ -452,7 +448,7 @@ export default function CandidateCompleteProfilePage() {
 
           <article>
             {experiences.map((section, index) => (
-              <>
+              <div key={uuidv4()}>
                 <div className='mb-3'>
                   <FieldDescription title='Title' />
 
@@ -499,7 +495,8 @@ export default function CandidateCompleteProfilePage() {
                   <select
                     id='expEmployment'
                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                    {...register(`experienceData.${index}.employment`)}>
+                    {...register(`experienceData.${index}.employment`)}
+                  >
                     <option value='Full-Time'>Full-Time</option>
                     <option value='Part-Time'>Part-Time</option>
                     <option value='Contract'>Contract</option>
@@ -565,7 +562,8 @@ export default function CandidateCompleteProfilePage() {
                   <select
                     id='expRole'
                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                    {...register(`experienceData.${index}.role`)}>
+                    {...register(`experienceData.${index}.role`)}
+                  >
                     <option value='Backend Developer'>Backend Developer</option>
                     <option value='Frontend Developer'>
                       Frontend Developer
@@ -587,16 +585,18 @@ export default function CandidateCompleteProfilePage() {
                 <button
                   type='button'
                   className='mb-10 mr-3 mt-3 rounded bg-red-700 px-4 py-2 text-sm font-semibold text-white'
-                  onClick={() => removeExperienceSection(index)}>
+                  onClick={() => removeExperienceSection(index)}
+                >
                   Remove
                 </button>
-              </>
+              </div>
             ))}
 
             <button
               type='button'
               className='rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold leading-6'
-              onClick={addExperienceSection}>
+              onClick={addExperienceSection}
+            >
               Add more experience
             </button>
           </article>
@@ -605,14 +605,16 @@ export default function CandidateCompleteProfilePage() {
         <div className='flex space-x-2'>
           <button
             type='reset'
-            className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             Cancel
           </button>
 
           <button
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
-            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             Save
           </button>
         </div>

@@ -1,6 +1,6 @@
-import { z } from 'zod'
-import { employmentEnum, techRoleEnum } from '@/schemas/Enums'
 import { dateInPast } from '@/schemas/DateInPast'
+import { employmentEnum, techRoleEnum } from '@/schemas/Enums'
+import { z } from 'zod'
 
 export const experienceSch = z
   .object({
