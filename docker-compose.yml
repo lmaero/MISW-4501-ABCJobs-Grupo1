@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   authorizer:
@@ -40,22 +40,34 @@ services:
     networks:
       - microservices
 
-  postgres:
-    container_name: "postgres"
-    image: postgres:15.4-alpine3.18
-    restart: always
+  project:
+    container_name: "project"
+    build: "./project"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - ${PROJECT_PORT}:${PROJECT_PORT}
     env_file:
       - .env
     networks:
       - microservices
+
+  postgres:
+    container_name: "postgres"
+    image: postgres:15.4-alpine3.18
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres" ]
-      interval: 2s
-      timeout: 30s
-      retries: 5
+      - "5433:5433"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 networks:
   microservices:
     driver: bridge
+
+volumes:
+  postgres_data:
