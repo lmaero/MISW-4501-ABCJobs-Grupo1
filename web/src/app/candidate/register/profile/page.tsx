@@ -138,6 +138,7 @@ export default function CandidateCompleteProfilePage() {
 
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
               <input
+                data-testid='ccpp-spoken-languages'
                 type='text'
                 id='spokenLanguages'
                 autoComplete='spokenLanguages'
@@ -611,6 +612,7 @@ export default function CandidateCompleteProfilePage() {
           </button>
 
           <button
+            data-testid='ccpp-submit-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
