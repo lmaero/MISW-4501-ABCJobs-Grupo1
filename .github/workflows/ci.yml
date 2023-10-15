@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/checkout@v2
         with:
           node-version: 18.x
 
@@ -43,6 +41,8 @@ jobs:
     steps:
       - name: Enable corepack
         run: corepack enable
+      - name: Navigate to web
+        run: cd web
       - name: Install dependencies
         run: pnpm i
       - name: Run tests
