@@ -23,6 +23,7 @@ jobs:
           node-version: 18.x
 
   authorizer-tests:
+    runs-on: ubuntu-latest
     needs: prepare-env
     steps:
       - name: Navigate to authorizer
@@ -33,8 +34,8 @@ jobs:
         run: npm run test
 
   web-tests:
-    needs: prepare-env
     runs-on: ubuntu-latest
+    needs: prepare-env
     steps:
       - name: Enable corepack
         run: corepack enable
