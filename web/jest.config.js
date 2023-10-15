@@ -9,6 +9,12 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jest-environment-jsdom',
   coverageThreshold: {
+    "**/*/authorizer/__tests": {
+      "lines": 80,
+      "branches": 80,
+      "functions": 80,
+      "statements": 80
+    },
     "**/*": {
       "lines": 80,
       "branches": 80,
