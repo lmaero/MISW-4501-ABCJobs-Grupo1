@@ -27,12 +27,15 @@ jobs:
         run: corepack enable
 
   authorizer-tests:
-    runs-on: ubuntu-latest
     needs: common-setup
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: authorizer
     steps:
+      - name: Use common step for repo checkout
+        uses: ./.github/actions/common-setup
+
       - name: Install authorizer dependencies
         run: npm install
       - name: Run tests and generate coverage report
@@ -55,12 +58,15 @@ jobs:
           fi
 
   web-tests:
-    runs-on: ubuntu-latest
     needs: common-setup
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: web
     steps:
+      - name: Use common step for repo checkout
+        uses: ./.github/actions/common-setup
+
       - name: Install web dependencies
         run: pnpm install
       - name: Run tests and generate coverage report
