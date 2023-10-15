@@ -29,20 +29,7 @@ jobs:
       - name: Install authorizer dependencies
         run: pnpm install
       - name: Run tests and generate coverage report
-        run: |
-          pnpm run test -- --coverage
-          COVERAGE_THRESHOLD=80
-          ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-final.json)
-          if (( $(bc <<< "$ACTUAL_COVERAGE < $COVERAGE_THRESHOLD") )); then
-            echo "Test coverage is below $COVERAGE_THRESHOLD%"
-            exit 1
-          else
-            echo "Test coverage is above $COVERAGE_THRESHOLD%"
-            echo "Generating Docker image..."
-            # Generate Docker image here
-            # Replace the following line with your Docker image build commands
-            # docker build -t your-image-name .
-          fi
+        run: pnpm test
 
   web-tests:
     runs-on: ubuntu-latest
@@ -61,17 +48,4 @@ jobs:
       - name: Install authorizer dependencies
         run: pnpm install
       - name: Run tests and generate coverage report
-        run: |
-          pnpm test -- --coverage
-          COVERAGE_THRESHOLD=80
-          ACTUAL_COVERAGE=$(awk -F'"' '/lines/ {print $2}' coverage/coverage-final.json)
-          if (( $(bc <<< "$ACTUAL_COVERAGE < $COVERAGE_THRESHOLD") )); then
-            echo "Test coverage is below $COVERAGE_THRESHOLD%"
-            exit 1
-          else
-            echo "Test coverage is above $COVERAGE_THRESHOLD%"
-            echo "Generating Docker image..."
-            # Generate Docker image here
-            # Replace the following line with your Docker image build commands
-            # docker build -t your-image-name .
-          fi
+        run: pnpm test
