@@ -11,7 +11,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Pull DockerImage from Dockerhub
-        run: sudo docker pull acantu297366/hola_mundo:latest
+        run: sudo docker pull acantu297366/authorizer:latest
       - name: Delete old docker container
         run: sudo docker rm -f authorizer-container || true
       - name: Run docker container

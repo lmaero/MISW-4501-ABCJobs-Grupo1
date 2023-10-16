@@ -58,12 +58,3 @@ jobs:
         run: pnpm install
       - name: Run tests and generate coverage report
         run: pnpm test
-      - name: Login Dockerhub
-        env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - name: Build the Docker image
-        run: sudo docker build -t acantu297366/web .
-      - name: Push to Dockerhub
-        run: sudo docker push acantu297366/web
