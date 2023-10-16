@@ -66,7 +66,7 @@ jobs:
     needs: [ authorizer-tests, web-tests ]
     runs-on: self-hosted
     steps:
-      - name: Pull DockerImage from Dockerhub
+      - name: Pull Docker Image from Dockerhub
         run: sudo docker pull acantu297366/authorizer:latest
       - name: Delete old docker container
         run: sudo docker rm -f authorizer-container || true
