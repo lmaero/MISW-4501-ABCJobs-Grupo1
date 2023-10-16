@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   authorizer:
-#    image: acantu297366/authorizer
+    #    image: acantu297366/authorizer
     container_name: "authorizer"
     build: "./authorizer"
     depends_on:
@@ -16,7 +16,7 @@ services:
       - microservices
 
   candidate:
-#    image: acantu297366/candidate
+    #    image: acantu297366/candidate
     container_name: "candidate"
     build: "./candidate"
     depends_on:
@@ -30,7 +30,7 @@ services:
       - microservices
 
   evaluator:
-#    image: acantu297366/evaluator
+    #    image: acantu297366/evaluator
     container_name: "evaluator"
     build: "./evaluator"
     depends_on:
@@ -59,17 +59,21 @@ services:
   postgres:
     container_name: "postgres"
     image: postgres:15.4-alpine3.18
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - microservices
     ports:
-      - "5433:5433"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 2s
+      timeout: 30s
+      retries: 5
 
   api:
-#    image: acantu297366/api
+    #    image: acantu297366/api
     container_name: "api"
     build: "./api"
     networks:

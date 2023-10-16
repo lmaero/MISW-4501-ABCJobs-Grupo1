@@ -61,7 +61,7 @@ importers:
   candidate:
     dependencies:
       '@prisma/client':
-        specifier: ^5.3.0
+        specifier: ^5.4.2
         version: 5.4.2(prisma@5.4.2)
       axios:
         specifier: ^1.5.0
@@ -72,9 +72,6 @@ importers:
       express:
         specifier: ^4.18.2
         version: 4.18.2
-      prisma:
-        specifier: ^5.3.1
-        version: 5.4.2
     devDependencies:
       '@types/express':
         specifier: ^4.17.17
@@ -85,6 +82,9 @@ importers:
       nodemon:
         specifier: ^3.0.1
         version: 3.0.1
+      prisma:
+        specifier: ^5.4.2
+        version: 5.4.2
       ts-node:
         specifier: ^10.9.1
         version: 10.9.1(@types/node@20.6.0)(typescript@5.2.2)
@@ -128,6 +128,22 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
+
+  project:
+    dependencies:
+      '@prisma/client':
+        specifier: ^5.4.2
+        version: 5.4.2(prisma@5.4.2)
+      pg:
+        specifier: ^8.11.3
+        version: 8.11.3
+    devDependencies:
+      nodemon:
+        specifier: ^3.0.1
+        version: 3.0.1
+      prisma:
+        specifier: ^5.4.2
+        version: 5.4.2
 
   web:
     dependencies:
@@ -1270,7 +1286,6 @@ packages:
   /@prisma/engines@5.4.2:
     resolution: {integrity: sha512-fqeucJ3LH0e1eyFdT0zRx+oETLancu5+n4lhiYECyEz6H2RDskPJHJYHkVc0LhkU4Uv7fuEnppKU3nVKNzMh8g==}
     requiresBuild: true
-    dev: false
 
   /@rushstack/eslint-patch@1.5.1:
     resolution: {integrity: sha512-6i/8UoL0P5y4leBIGzvkZdS85RDMG9y1ihZzmTZQ5LdHUYmZ7pKFoj8X0236s3lusPs1Fa5HTQUpwI+UfTcmeA==}
@@ -5724,7 +5739,6 @@ packages:
     requiresBuild: true
     dependencies:
       '@prisma/engines': 5.4.2
-    dev: false
 
   /process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}

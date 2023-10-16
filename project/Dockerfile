@@ -26,7 +26,6 @@ COPY . .
 # Exponer el puerto que tu aplicación utiliza
 EXPOSE ${PROJECT_PORT}
 
-RUN npm run prisma:migrate
 
 # Comando para ejecutar tu aplicación
 CMD [ "npm", "start" ]
