@@ -42,4 +42,4 @@ router.get('/auth/ping', async (req: Request, res: Response) => {
   res.send({ msg: 'pong' })
 })
 
-export default router
+export default router;
