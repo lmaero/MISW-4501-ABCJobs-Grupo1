@@ -15,7 +15,7 @@ const getTests = async (req: Request, res: Response): Promise<Response> => {
     } = JSON.parse(user.toString())
 
     console.log(
-      `[CandidateManagment] Getting tests for candidate ${personId}, from evaluator service`,
+      `[CandidateManagement] Getting tests for candidate ${personId}, from evaluator service`,
     )
     const tests: Test[] = await getTestsByUser(Number(personId))
 
@@ -28,6 +28,17 @@ const getTests = async (req: Request, res: Response): Promise<Response> => {
   }
 }
 
+const register = async (req: Request, res: Response) => {
+  try {
+    const data = req.body
+    console.dir(data)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
 export default {
   getTests,
+  register,
 }
