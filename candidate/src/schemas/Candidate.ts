@@ -1,7 +1,7 @@
-import { ZStringSch } from '@/schemas/ZString'
 import z from 'zod'
+import { ZStringSch } from './ZString'
 
-export const LoginSch = z.object({
+export const CandidatePreSch = z.object({
   email: ZStringSch.min(1, { message: 'Should be a valid email address' })
     .email()
     .refine((email) => email !== '', {
@@ -22,6 +22,16 @@ export const LoginSch = z.object({
           'Password must be 8-16 characters and include at least one lowercase letter, one uppercase letter, one symbol, and one number.',
       },
     ),
+  fullName: ZStringSch.refine(
+    (fullName) => {
+      const nameRegex = /^[A-Za-z]{2,20} [A-Za-z]{2,20}$/
+      return nameRegex.test(fullName)
+    },
+    {
+      message:
+        'Full Name should be two words separated by a space, with each word being 2-20 characters long.',
+    },
+  ),
 })
 
-export type Login = z.infer<typeof LoginSch>
+export type CandidatePre = z.infer<typeof CandidatePreSch>

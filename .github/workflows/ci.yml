@@ -1,4 +1,7 @@
-name: Run Tests
+name: Run Tests and Generate Docker Images
+env:
+  AUTH_PORT: 4000
+  NODE_ENV: 'development'
 
 on:
   push:
@@ -12,19 +15,60 @@ on:
       - 'develop'
 
 jobs:
-  tests:
+  authorizer-tests:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: authorizer
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
-      - name: Install dependencies
-        run: npm i
-      - name: Run tests
-        run: npm run test
+          node-version: '18'
+      - name: Set up corepack
+        run: corepack enable
+      - name: Install authorizer dependencies
+        run: pnpm install
+      - name: Run tests and generate coverage report
+        run: pnpm test
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build the Docker image
+        run: sudo docker build -t acantu297366/authorizer .
+      - name: Push to Dockerhub
+        run: sudo docker push acantu297366/authorizer
 
+  web-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Set up corepack
+        run: corepack enable
+      - name: Install authorizer dependencies
+        run: pnpm install
+      - name: Run tests and generate coverage report
+        run: pnpm test
 
+  build:
+    needs: [ authorizer-tests, web-tests ]
+    runs-on: self-hosted
+    steps:
+      - name: Pull Docker Image from Dockerhub
+        run: sudo docker pull acantu297366/authorizer:latest
+      - name: Delete old docker container
+        run: sudo docker rm -f authorizer-container || true
+      - name: Run docker container
+        run: sudo docker run -p 8080:8080 -e NODE_ENV=${{ env.NODE_ENV }} -e AUTH_PORT=${{ env.AUTH_PORT }} --name authorizer-container acantu297366/authorizer
