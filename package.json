@@ -12,5 +12,5 @@
     "biome": "biome check --apply-unsafe . && biome format --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.0"
+  "version": "0.2.0"
 }
