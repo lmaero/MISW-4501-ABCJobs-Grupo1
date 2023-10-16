@@ -1,4 +1,7 @@
 name: Run Tests and Generate Docker Images
+env:
+  AUTH_PORT: 4000
+  NODE_ENV: 'development'
 
 on:
   push:
@@ -68,4 +71,4 @@ jobs:
       - name: Delete old docker container
         run: sudo docker rm -f authorizer-container || true
       - name: Run docker container
-        run: sudo docker run -p 8080:8080 --name authorizer-container acantu297366/authorizer
+        run: sudo docker run -p 8080:8080 -e NODE_ENV=${{ env.NODE_ENV }} -e AUTH_PORT=${{ env.AUTH_PORT }} --name authorizer-container acantu297366/authorizer
