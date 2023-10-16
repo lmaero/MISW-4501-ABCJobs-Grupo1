@@ -2,19 +2,18 @@ import Dao from '../database/dao'
 import { IUserInfo } from '../interfaces/interfaces'
 import { decodeToken, generateAccessToken, tokenExpired } from '../utils/utils'
 
-let dao: Dao;
+let dao: Dao
 
 try {
   dao = new Dao()
-} catch(e) {
-  console.log("Database connection not established!");
+} catch (e) {
+  console.log('Database connection not established!')
 }
-
 
 export async function authenticateUser(info: IUserInfo) {
   const personId = info.personId
   const country = info.country
-  const lenguages = info.lenguages
+  const languages = info.languages
   const academicalDataId = info.academicalDataId
   const technicalDataId = info.technicalDataId
   const workDataId = info.workDataId
@@ -28,7 +27,7 @@ export async function authenticateUser(info: IUserInfo) {
   const result = await dao.authenticateUser(
     personId,
     country,
-    lenguages,
+    languages,
     academicalDataId,
     technicalDataId,
     workDataId,
@@ -44,7 +43,7 @@ export async function authenticateUser(info: IUserInfo) {
     return {
       personId: personId,
       country: country,
-      lenguages: lenguages,
+      languages: languages,
       academicalDataId: academicalDataId,
       technicalDataId: technicalDataId,
       workDataId: workDataId,
@@ -57,19 +56,20 @@ export async function authenticateUser(info: IUserInfo) {
     }
   } else {
     return {
-      msg: 'The transaction was not succesful with the data provided',
+      msg: 'The transaction was not successful with the data provided',
       code: 400,
     }
   }
 }
 
-export async function getUserInfo(token: any) {
-  const info: any = await decodeToken(token)
+export async function getUserInfo(token: string) {
+  const info = await decodeToken(token)
   const isTokenExpired = await tokenExpired(info.exp)
 
   if (isTokenExpired) {
     return { msg: 'The token expired, you have to authenticate again. ' }
   }
+
   const email: string = info.email
   const result = await dao.getUserInfo(email)
 

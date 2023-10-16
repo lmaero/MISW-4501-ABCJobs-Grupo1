@@ -21,3 +21,9 @@ export const techRoleEnum = z.enum([
   'DevOps Engineer',
   'Architect',
 ])
+
+export const companySizeEnum = z.enum([
+  'Startup',
+  'Small Business',
+  'Enterprise',
+])

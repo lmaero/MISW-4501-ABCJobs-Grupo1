@@ -1,12 +1,12 @@
-import dotenv from 'dotenv'
 import http from 'node:http'
+import dotenv from 'dotenv'
 import express, { Application } from 'express'
 import candidateRouter from './routes/candidate'
 
 dotenv.config()
 
 const app: Application = express()
-const { NODE_ENV, CANDIDATE_PORT:PORT } = process.env;
+const { NODE_ENV, CANDIDATE_PORT: PORT } = process.env
 
 if (!NODE_ENV || !PORT) {
   console.error('FATAL: NODE_ENV or PORT are not set')

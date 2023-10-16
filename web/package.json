@@ -7,6 +7,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",
+    "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -17,6 +18,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.5",
     "autoprefixer": "^10",
     "cypress": "^13.3.1",
     "eslint": "^8",
@@ -44,7 +46,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "test": "jest --watch --coverage",
+    "test": "jest --coverage",
     "test:ci": "jest --ci",
     "e2e": "cypress open"
   },

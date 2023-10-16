@@ -1,9 +1,10 @@
-import express from "express";
-import { userValidation } from "../middlewares/auth";
-import candidateControllers from "../controllers/candidate";
+import express from 'express'
+import candidateControllers from '../controllers/candidate'
+import { userValidation } from '../middlewares/auth'
 
-const candidateRouter = express.Router();
+const candidateRouter = express.Router()
 
-candidateRouter.get("/evaluate", userValidation , candidateControllers.getTests);
+candidateRouter.get('/evaluate', userValidation, candidateControllers.getTests)
+candidateRouter.post('/register', candidateControllers.register)
 
-export default candidateRouter;
+export default candidateRouter

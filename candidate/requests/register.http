@@ -1,0 +1,13 @@
+### Send POST request with invalid email
+POST {{host}}:{{port}}/api/candidate/register
+Content-Type: application/json
+
+{
+  "email": ""
+}
+
+> {%
+  client.test("Request executed successfully", function() {
+    client.assert(response.status === 400, "Response status is not 400");
+  });
+%}

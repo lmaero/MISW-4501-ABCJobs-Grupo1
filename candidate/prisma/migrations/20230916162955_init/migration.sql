@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE "Candidate" ALTER COLUMN "lenguages" SET NOT NULL,
-ALTER COLUMN "lenguages" SET DATA TYPE TEXT,
-ALTER COLUMN "softSkills" SET NOT NULL,
-ALTER COLUMN "softSkills" SET DATA TYPE TEXT;
