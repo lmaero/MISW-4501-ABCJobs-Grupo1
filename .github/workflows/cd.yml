@@ -2,11 +2,10 @@ name: CD Pipeline
 
 on:
   workflow_run:
-    workflows: ["Run Tests and Generate Docker Images"]
+    workflows: [ "Run Tests and Generate Docker Images" ]
     types:
       - completed
 jobs:
-
   build:
     runs-on: self-hosted
     steps:
