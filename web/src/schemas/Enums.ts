@@ -27,3 +27,18 @@ export const companySizeEnum = z.enum([
   'Small Business',
   'Enterprise',
 ])
+
+export const softSkillsEnum = z.enum([
+  'leadership',
+  'responsibility',
+  'communication',
+])
+
+export const programmingLanguagesEnum = z.enum([
+  'javascript',
+  'typescript',
+  'python',
+  'java',
+])
+
+export const spokenLanguagesEnum = z.enum(['english', 'spanish', 'russian'])
