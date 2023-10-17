@@ -92,4 +92,4 @@ class Dao {
   }
 }
 
-export default Dao;
+export default Dao

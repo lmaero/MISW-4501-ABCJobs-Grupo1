@@ -1,8 +1,8 @@
 import http from 'node:http'
+import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import express, { Application } from 'express'
 import companyRouter from './routes/company'
-import bodyParser from 'body-parser'
 
 dotenv.config()
 

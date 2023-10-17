@@ -2,7 +2,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 import CompanyCompleteProfilePage from './page'
 
-
 let companySegmentsInput: HTMLInputElement | null
 let registerButton: HTMLElement | null
 
@@ -11,7 +10,9 @@ beforeEach(() => {
   companySegmentsInput = screen.getByTestId(
     'company-profile-segments',
   ) as HTMLInputElement
-  registerButton = screen.getByTestId('company-profile-submit-button') as HTMLElement
+  registerButton = screen.getByTestId(
+    'company-profile-submit-button',
+  ) as HTMLElement
 })
 
 test('renders the registration form', () => {

@@ -8,7 +8,7 @@ let companyNameInput: HTMLInputElement | null
 let registerButton: HTMLElement | null
 
 beforeEach(() => {
-  render(<CompanyRegisterPage/>)
+  render(<CompanyRegisterPage />)
   emailInput = screen.getByTestId('crp-email') as HTMLInputElement
   passwordInput = screen.getByTestId('crp-password') as HTMLInputElement
   companyNameInput = screen.getByTestId('crp-company-name') as HTMLInputElement

@@ -1,10 +1,10 @@
-import { SIZE } from "@prisma/client";
+import { SIZE } from '@prisma/client'
 
 export interface Company {
-  name: string;
-  size: SIZE;
-  preferredLanguage: string;
-  businessSegments: string;
-  nameMainContact: string;
-  lastNameMainContact: string;
+  name: string
+  size: SIZE
+  preferredLanguage: string
+  businessSegments: string
+  nameMainContact: string
+  lastNameMainContact: string
 }

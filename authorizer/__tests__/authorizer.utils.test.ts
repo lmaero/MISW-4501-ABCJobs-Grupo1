@@ -1,9 +1,11 @@
-import {decodeToken, generateAccessToken, tokenExpired} from '../src/utils/utils'
-import jwt_decode from "jwt-decode";
-import jwtDecode from "jwt-decode";
+import jwtDecode from 'jwt-decode'
+import {
+  decodeToken,
+  generateAccessToken,
+  tokenExpired,
+} from '../src/utils/utils'
 
-jest.mock('jwt-decode', () => jest.fn());
-
+jest.mock('jwt-decode', () => jest.fn())
 
 describe('utils functions validation', () => {
   test('Token expired', async () => {
@@ -32,16 +34,16 @@ describe('utils functions validation', () => {
   })
 
   test('Decode token generated', async () => {
-    (jwtDecode as jest.Mock).mockImplementationOnce(() => ({ exp: 12345 }));
-    const token = '12345';
-    const result = { exp: 12345 };
-    let expected;
+    ;(jwtDecode as jest.Mock).mockImplementationOnce(() => ({ exp: 12345 }))
+    const token = '12345'
+    const result = { exp: 12345 }
+    let expected
     try {
-      expected = await decodeToken(token);
+      expected = await decodeToken(token)
     } catch (e) {
-      const error: any = e;
-      console.log(error);
+      const error: any = e
+      console.log(error)
     }
-    expect(expected).toStrictEqual(result);
+    expect(expected).toStrictEqual(result)
   })
 })

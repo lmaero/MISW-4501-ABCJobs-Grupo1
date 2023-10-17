@@ -1,9 +1,9 @@
-import express from "express";
-import companyController from "../controllers/company";
-import { userValidation } from "../middlewares/auth";
+import express from 'express'
+import companyController from '../controllers/company'
+import { userValidation } from '../middlewares/auth'
 
-const companyRouter = express.Router();
+const companyRouter = express.Router()
 
-companyRouter.post("/register", userValidation, companyController.register);
+companyRouter.post('/register', userValidation, companyController.register)
 
-export default companyRouter;
+export default companyRouter

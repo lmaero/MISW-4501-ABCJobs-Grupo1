@@ -1,4 +1,4 @@
-import { CompanyPreSch } from "@/schemas/Company"
+import { CompanyPreSch } from '@/schemas/Company'
 
 describe('Company Schema Validation', () => {
   test('should validate complete form data', () => {

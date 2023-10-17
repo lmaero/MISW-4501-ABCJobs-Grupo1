@@ -87,7 +87,9 @@ export default function CompanyRegisterPage() {
                 {...register('companyName')}
               />
             </div>
-            <p className='text-sm text-red-700'>{errors.companyName?.message}</p>
+            <p className='text-sm text-red-700'>
+              {errors.companyName?.message}
+            </p>
           </div>
 
           <button

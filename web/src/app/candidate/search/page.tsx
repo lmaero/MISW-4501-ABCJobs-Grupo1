@@ -3,9 +3,9 @@
 import { ErrorMessage } from '@/components/ErrorMessage'
 import { FieldDescription } from '@/components/FieldDescription'
 import { roles } from '@/lib/roles'
+import { SearchCandidate, SearchCandidateSch } from '@/schemas/SearchCandidate'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { SearchCandidate, SearchCandidateSch } from '@/schemas/SearchCandidate'
 
 const programmingLanguages = [
   { value: 'javascript', label: 'JavaScript' },
@@ -37,9 +37,7 @@ export default function SearchCandidatePage() {
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form
-        className='space-y-6'
-        onSubmit={() => console.log('Submitting...')}>
+      <form className='space-y-6' onSubmit={() => console.log('Submitting...')}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             Search Candidates
@@ -59,9 +57,7 @@ export default function SearchCandidatePage() {
             />
             <div className='space-y-3'>
               {roles.map((role) => (
-                <div
-                  key={role.id}
-                  className='flex items-center gap-x-3'>
+                <div key={role.id} className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={role.id}
@@ -71,7 +67,8 @@ export default function SearchCandidatePage() {
                   />
                   <label
                     htmlFor={role.id}
-                    className='block text-sm font-light leading-6 text-gray-900'>
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
                     {role.label}
                   </label>
                 </div>
@@ -88,9 +85,7 @@ export default function SearchCandidatePage() {
             />
             <div className='space-y-3'>
               {programmingLanguages.map((language) => (
-                <div
-                  key={language.value}
-                  className='flex items-center gap-x-3'>
+                <div key={language.value} className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={language.value}
@@ -100,7 +95,8 @@ export default function SearchCandidatePage() {
                   />
                   <label
                     htmlFor={language.value}
-                    className='block text-sm font-light leading-6 text-gray-900'>
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
                     {language.label}
                   </label>
                 </div>
@@ -119,9 +115,7 @@ export default function SearchCandidatePage() {
             />
             <div className='space-y-3'>
               {softSkills.map((skill) => (
-                <div
-                  key={skill.value}
-                  className='flex items-center gap-x-3'>
+                <div key={skill.value} className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={skill.value}
@@ -131,7 +125,8 @@ export default function SearchCandidatePage() {
                   />
                   <label
                     htmlFor={skill.value}
-                    className='block text-sm font-light leading-6 text-gray-900'>
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
                     {skill.label}
                   </label>
                 </div>
@@ -150,9 +145,7 @@ export default function SearchCandidatePage() {
             />
             <div className='space-y-3'>
               {spokenLanguages.map((language) => (
-                <div
-                  key={language.value}
-                  className='flex items-center gap-x-3'>
+                <div key={language.value} className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={language.value}
@@ -162,7 +155,8 @@ export default function SearchCandidatePage() {
                   />
                   <label
                     htmlFor={language.value}
-                    className='block text-sm font-light leading-6 text-gray-900'>
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
                     {language.label}
                   </label>
                 </div>
@@ -180,7 +174,8 @@ export default function SearchCandidatePage() {
         <div className='flex justify-end space-x-2'>
           <button
             type='reset'
-            className='flex w-fit justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-fit justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             Cancel
           </button>
 
@@ -188,7 +183,8 @@ export default function SearchCandidatePage() {
             data-testid='scp-submit-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
-            className='flex w-fit justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-fit justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             Search
           </button>
         </div>

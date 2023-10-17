@@ -1,20 +1,20 @@
-import { PrismaClient } from "@prisma/client";
-import { Request, Response } from "express";
-import { Company } from "../interfaces/company";
+import { PrismaClient } from '@prisma/client'
+import { Request, Response } from 'express'
+import { Company } from '../interfaces/company'
 
-const companyClient = new PrismaClient().company;
-const personClient = new PrismaClient().person;
+const companyClient = new PrismaClient().company
+const personClient = new PrismaClient().person
 
 const register = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const { user } = req.headers;
+    const { user } = req.headers
 
     if (!user) {
-      return res.status(401).json({ message: "No user provided" });
+      return res.status(401).json({ message: 'No user provided' })
     }
 
     if (!req.body) {
-      return res.status(400).json({ message: "No body provided" });
+      return res.status(400).json({ message: 'No body provided' })
     }
 
     const {
@@ -24,19 +24,19 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       businessSegments,
       nameMainContact,
       lastNameMainContact,
-    }: Company = req.body;
+    }: Company = req.body
 
     const person = await personClient.findFirstOrThrow({
       where: {
         firstName: nameMainContact,
         lastName: lastNameMainContact,
       },
-    });
+    })
 
     if (!person) {
       return res
         .status(400)
-        .json({ message: "No person found with this main contact full name" });
+        .json({ message: 'No person found with this main contact full name' })
     }
 
     const company = await companyClient.create({
@@ -44,23 +44,23 @@ const register = async (req: Request, res: Response): Promise<Response> => {
         name,
         size,
         preferredLanguage,
-        businessSegments: String(businessSegments).split(","),
+        businessSegments: String(businessSegments).split(','),
         mainContact: {
           connect: {
             id: person.id,
           },
         },
       },
-    });
+    })
 
     return res
       .status(200)
-      .json({ message: "Company registered successfully", company });
+      .json({ message: 'Company registered successfully', company })
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: 'Internal server error' })
   }
-};
+}
 
 export default {
   register,
-};
+}
