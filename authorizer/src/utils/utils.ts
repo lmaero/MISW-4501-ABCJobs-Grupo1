@@ -5,7 +5,7 @@ export async function generateAccessToken(email: string): Promise<string> {
   if (!process.env.TOKEN_SECRET) throw JsonWebTokenError
 
   return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
-    expiresIn: '24h',
+    expiresIn: '365d',
   })
 }
 
