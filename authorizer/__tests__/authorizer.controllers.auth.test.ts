@@ -2,13 +2,16 @@ import {decodeToken, generateAccessToken, tokenExpired} from '../src/utils/utils
 import jwtDecode from "jwt-decode";
 import Dao from "../src/database/dao"
 import {IUserInfo} from "../src/interfaces/interfaces";
-import {authenticateUser} from "../src/controllers/auth";
+import {authenticateUser, getUserInfo} from "../src/controllers/auth";
+
 jest.mock('../src/utils/utils', () => ({
   generateAccessToken: jest.fn(() => ({token: 1234})),
+  decodeToken: jest.fn(() => ({token: 1234, email: "al@hotmail.com"})),
+  tokenExpired: jest.fn().mockReturnValueOnce(true).mockReturnValueOnce(false),
 }));
 
 jest.mock("../src/database/dao")
-
+jest.mock('jwt-decode', () => jest.fn());
 
 
 describe('authenticate user', () => {
@@ -80,7 +83,67 @@ describe('authenticate user', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  test('User info', async () => {
+
+  test('Token expired', async () => {
+    const token = '12345';
+    const result = { msg: 'The token expired, you have to authenticate again. ' };
+    let expected;
+
+    try {
+      expected = await getUserInfo(token);
+    } catch (e) {
+      const error: any = e;
+      console.log(error);
+    }
+    expect(expected).toStrictEqual(result);
+  })
+})
+
+jest.mock('../src/utils/utils', () => ({
+  generateAccessToken: jest.fn(() => ({token: 1234})),
+  decodeToken: jest.fn(() => ({token: 1234, email: "al@hotmail.com"})),
+  tokenExpired: jest.fn().mockReturnValueOnce(false)
+}));
+
+describe('User Info', () => {
+
+  test('Get user info ', async () => {
+    const token = '12345';
+    const result = { msg: "ok" };
+    let expected;
+    jest.spyOn(Dao.prototype, "getUserInfo").mockReturnValue(Promise.resolve({msg: "ok"}));
+    try {
+      expected = await getUserInfo(token);
+    } catch (e) {
+      const error: any = e;
+      console.log(error);
+    }
+    expect(expected).toStrictEqual(result);
   })
 
+  test('Incorrect token provided ', async () => {
+    const token = '12345';
+    const result = { msg: 'Invalid token provided' };
+    let expected;
+    jest.spyOn(Dao.prototype, "getUserInfo").mockReturnValue(Promise.resolve({
+      personId: "",
+      country: "",
+      languages: "",
+      academicalDataId: "",
+      technicalDataId: "",
+      workDataId: "",
+      isAvailable: "",
+      softSkills: "",
+      interviewId: "",
+      email: "",
+      password: "",
+    }))
+    try {
+      expected = await getUserInfo(token);
+    } catch (e) {
+      const error: any = e;
+      console.log(error);
+    }
+    expect(expected).toStrictEqual(result);
+  })
 })
