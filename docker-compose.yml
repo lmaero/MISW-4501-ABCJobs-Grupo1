@@ -29,6 +29,20 @@ services:
     networks:
       - microservices
 
+  company:
+#    image: acantu297366/company
+    container_name: "company"
+    build: "./company"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - ${COMPANY_PORT}:${COMPANY_PORT}
+    env_file:
+      - .env
+    networks:
+      - microservices
+
   evaluator:
 #    image: acantu297366/evaluator
     container_name: "evaluator"
