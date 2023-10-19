@@ -8,8 +8,8 @@
     "enabled": true,
     "formatWithErrors": false,
     "ignore": [],
-    "indentSize": 2,
     "indentStyle": "space",
+    "indentWidth": 2,
     "lineWidth": 80
   },
   "javascript": {
