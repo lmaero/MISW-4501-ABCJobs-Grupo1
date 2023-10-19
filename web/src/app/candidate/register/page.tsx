@@ -4,9 +4,12 @@ import Logo from '@/components/Logo'
 import { CANDIDATE_HOST } from '@/lib/api'
 import { CandidatePre, CandidatePreSch } from '@/schemas/Candidate'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 export default function CandidateRegisterPage() {
+  const router = useRouter()
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
@@ -25,11 +28,18 @@ export default function CandidateRegisterPage() {
         },
         method: 'POST',
       })
-      const res = await response.json()
-      console.dir(res)
+
+      if (response.status === 200) {
+        toast('Successfully validated', { type: 'success', autoClose: 3000 })
+        setTimeout(() => {
+          router.push('/candidate/register/profile')
+        }, 3000)
+      }
     } catch (e: unknown) {
-      console.error(e)
-      throw e
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
     }
   }
 
