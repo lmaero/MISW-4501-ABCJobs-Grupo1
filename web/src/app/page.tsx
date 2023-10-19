@@ -1,8 +1,8 @@
 'use client'
 
+import Logo from '@/components/Logo'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Logo from '@/components/Logo'
 
 export default function Home() {
   const router = useRouter()

@@ -1,6 +1,7 @@
 'use client'
 
 import Logo from '@/components/Logo'
+import { CANDIDATE_HOST } from '@/lib/api'
 import { CandidatePre, CandidatePreSch } from '@/schemas/Candidate'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -9,10 +10,25 @@ export default function CandidateRegisterPage() {
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<CandidatePre>({
     mode: 'onChange',
     resolver: zodResolver(CandidatePreSch),
   })
+
+  async function onSubmit(data: CandidatePre) {
+    try {
+      console.log(CANDIDATE_HOST)
+      const response = await fetch(`${CANDIDATE_HOST}/candidate/register`, {
+        body: JSON.stringify(data),
+        method: 'POST',
+      })
+      const body = await response.json()
+    } catch (e: unknown) {
+      console.error(e)
+      throw e
+    }
+  }
 
   return (
     <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
@@ -24,7 +40,7 @@ export default function CandidateRegisterPage() {
       </div>
 
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form className='space-y-6' onSubmit={() => console.log('Submitted')}>
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='email'
