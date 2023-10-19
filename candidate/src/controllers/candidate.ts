@@ -50,7 +50,7 @@ const register = async (req: Request, res: Response) => {
       const dao = new Dao();
       const dbResult = await dao.storeCandidate(email, password, first_name, last_name);
       if(dbResult["msg"] === "201") {
-        return res.status(201).json({ message: 'User registered' })
+        return res.status(201).json({ message: 'User registered', email })
       } else {
         return res.status(200).json({ message: 'Email already registered, try to login' })
       }
