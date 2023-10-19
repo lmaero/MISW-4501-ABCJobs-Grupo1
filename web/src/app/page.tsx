@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) setToken(token)
-    router.push('/register')
+    else router.push('/register')
   }, [router])
 
   return (
