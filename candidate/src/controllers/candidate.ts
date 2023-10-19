@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { Test } from '../interfaces/evaluator'
 import { CandidatePreSch } from '../schemas/Candidate'
 import { getTestsByUser } from '../services/evaluator'
+import Dao from "../database/dao";
 
 const ping = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json({ message: 'pong' })
@@ -45,12 +46,20 @@ const register = async (req: Request, res: Response) => {
       const fullName = result.data.fullName
       const firstName = fullName[0]
       const lastName = fullName[1]
-      return res.status(200).json({ message: 'User registered' })
+
+      const dao = new Dao();
+      const dbResult = await dao.storeCandidate(email, password, firstName, lastName);
+      if(dbResult["msg"] === "200") {
+        return res.status(200).json({ message: 'User registered' })
+      } else {
+        return res.status(200).json({ message: 'Email already registered, try to login' })
+      }
     } else {
       return res.status(400).json({
         message: result.error.message,
       })
     }
+
 
     // Revisar si estan bien los datos
 
