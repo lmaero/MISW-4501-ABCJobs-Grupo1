@@ -7,4 +7,5 @@ const candidateRouter = express.Router()
 candidateRouter.get('/ping', candidateControllers.ping)
 candidateRouter.get('/evaluate', userValidation, candidateControllers.getTests)
 candidateRouter.post('/register', candidateControllers.register)
+candidateRouter.post('/register/profile', candidateControllers.registerProfile)
 export default candidateRouter
