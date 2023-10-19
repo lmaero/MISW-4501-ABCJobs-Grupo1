@@ -9,7 +9,7 @@
   "main": "index.js",
   "name": "misw-4501-abcjobs-grupo1",
   "scripts": {
-    "biome": "biome check --apply-unsafe . && biome format --write .",
+    "biome": "biome check --apply . && biome format --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "version": "0.2.0"
