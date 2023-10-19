@@ -114,12 +114,12 @@ const searchCandidate = async (req: Request, res: Response) => {
       const soft_skills = result.soft_skills;
       const spoken_languages = result.spoken_languages;
 
-      // const dao = new Dao();
-      // const dbResult = await dao.updateCandidateProfile(email, role, languages, soft_skills, location, technical_data, academical_data, experience, work_data, is_available, interview_id, address);
-      if(true) {
-        return res.status(200).json({ message: 'User information updated' })
+      const dao = new Dao();
+      const dbResult = await dao.searchCandidate(role, languages, soft_skills, spoken_languages);
+      if(dbResult.msg === "200") {
+        return res.status(200).json({ candidates: dbResult["res"]["rows"] })
       } else {
-        //return res.status(200).json({ message: 'Email already registered, try to login' })
+        return res.status(400).json({ message: 'No candidate found with the criteria provided' })
       }
     } else {
       return res.status(400).json({

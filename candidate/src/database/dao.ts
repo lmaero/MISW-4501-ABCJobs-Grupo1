@@ -77,29 +77,23 @@ class Dao {
         return { msg: '400' }
     }
 
-    async getCandidateInfo(email: string) {
-        const query = `SELECT *  FROM  "Candidate" WHERE email = :email`
-
+    async searchCandidate(role: string[], languages: string[], soft_skills: string[], spoken_languages: string[]) {
+        const query = `SELECT *  FROM  "Candidate" 
+                       WHERE 1=1 
+                       or role = any (:role)
+                       or (:languages) = any (technical_data)
+                       or (:soft_skills) = any (soft_skills) 
+                       or (:spoken_languages) = any(languages)
+                       `
         const queryPrepared = bind(query, {
-            email: email,
+            role: role,
+            languages: languages
         })
 
         try {
             const res = await this.client.query(queryPrepared)
-            console.log('Email information')
-            return {
-                personId: res.rows[0].personId,
-                country: res.rows[0].country,
-                languages: res.rows[0].languages,
-                academicalDataId: res.rows[0].academicalDataId,
-                technicalDataId: res.rows[0].technicalDataId,
-                workDataId: res.rows[0].workDataId,
-                isAvailable: res.rows[0].isAvailable,
-                softSkills: res.rows[0].softSkills,
-                interviewId: res.rows[0].interviewId,
-                email: res.rows[0].email,
-                password: res.rows[0].password,
-            }
+            console.log(res);
+            return{ msg: '200', res}
         } catch (err) {
             console.log(err)
         }
