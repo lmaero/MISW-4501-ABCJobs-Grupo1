@@ -1,9 +1,9 @@
 import express from 'express'
 import companyController from '../controllers/company'
-import { userValidation } from '../middlewares/auth'
 
 const companyRouter = express.Router()
 
-companyRouter.post('/register', userValidation, companyController.register)
+companyRouter.post('/register', companyController.register)
+companyRouter.post('/register/profile', companyController.registerProfile)
 
 export default companyRouter
