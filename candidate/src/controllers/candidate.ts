@@ -35,8 +35,7 @@ const getTests = async (req: Request, res: Response): Promise<Response> => {
 
 const register = async (req: Request, res: Response) => {
   try {
-    // Obtener datos
-    const data = req.body
+    console.dir(req.body)
     const result = CandidatePreSch.safeParse(req.body)
 
     if (result.success) {

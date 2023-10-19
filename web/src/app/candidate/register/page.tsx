@@ -18,12 +18,15 @@ export default function CandidateRegisterPage() {
 
   async function onSubmit(data: CandidatePre) {
     try {
-      console.log(CANDIDATE_HOST)
       const response = await fetch(`${CANDIDATE_HOST}/candidate/register`, {
         body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
         method: 'POST',
       })
-      const body = await response.json()
+      const res = await response.json()
+      console.dir(res)
     } catch (e: unknown) {
       console.error(e)
       throw e
