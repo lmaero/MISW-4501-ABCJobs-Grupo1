@@ -22,16 +22,56 @@ class Dao {
         this.client.connect()
     }
 
-    async storeCandidate(email: string, password: string, firstName: string, lastName: string) {
-        const query = `INSERT INTO "Candidate" ("email", "password", "first_name", "last_name") VALUES (:email, :password, :firstName, :lastName)`
+    async storeCandidate(email: string, password: string, first_name: string, last_name: string) {
+        const query = `INSERT INTO "Candidate" ("email", "password", "first_name", "last_name") VALUES (:email, :password, :first_name, :last_name)`
         const queryPrepared = bind(query, {
             email: email,
             password: password,
+            first_name: first_name,
+            last_name: last_name
         })
-
         try {
             await this.client.query(queryPrepared)
             console.log('Candidate reigstered!')
+            return { msg: '201' }
+        } catch (err) {
+            console.log(err)
+        }
+        return { msg: '400' }
+    }
+
+    async updateCandidateProfile(email: string, role: string, languages: string[], soft_skills: string[], location: string, technical_data: string[], academical_data: string[], experience: string[], work_data: string[], is_available: string, interview_id: string, address: string) {
+
+        const query = `UPDATE "Candidate" set role = :role, 
+            languages = :languages, 
+            soft_skills = :soft_skills, 
+            location = :location,
+            technical_data = :technical_data,
+            academical_data = :academical_data,
+            experience = :experience,
+            work_data = :work_data,
+            is_available = :is_available,
+            interview_id = :interview_id,
+            address = :address
+            where email = :email`
+
+        const queryPrepared = bind(query, {
+            role: role,
+            languages: languages,
+            email: email,
+            soft_skills: soft_skills,
+            location: location,
+            technical_data: technical_data,
+            academical_data: academical_data,
+            experience: experience,
+            work_data: work_data,
+            is_available: is_available,
+            interview_id: interview_id,
+            address: address
+        })
+        try {
+            await this.client.query(queryPrepared)
+            console.log('Candidate updated!')
             return { msg: '201' }
         } catch (err) {
             console.log(err)

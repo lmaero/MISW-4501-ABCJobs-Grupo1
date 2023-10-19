@@ -36,21 +36,21 @@ const getTests = async (req: Request, res: Response): Promise<Response> => {
 
 const register = async (req: Request, res: Response) => {
   try {
-    // Obtener datos
+
     const data = req.body
     const result = CandidatePreSch.safeParse(req.body)
 
     if (result.success) {
       const email = result.data.email
       const password = result.data.password
-      const fullName = result.data.fullName
-      const firstName = fullName[0]
-      const lastName = fullName[1]
+      const full_name = result.data.fullName.split(" ")
+      const first_name = full_name[0]
+      const last_name = full_name[1]
 
       const dao = new Dao();
-      const dbResult = await dao.storeCandidate(email, password, firstName, lastName);
-      if(dbResult["msg"] === "200") {
-        return res.status(200).json({ message: 'User registered' })
+      const dbResult = await dao.storeCandidate(email, password, first_name, last_name);
+      if(dbResult["msg"] === "201") {
+        return res.status(201).json({ message: 'User registered' })
       } else {
         return res.status(200).json({ message: 'Email already registered, try to login' })
       }
@@ -59,11 +59,44 @@ const register = async (req: Request, res: Response) => {
         message: result.error.message,
       })
     }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
 
 
-    // Revisar si estan bien los datos
+const registerProfile = async (req: Request, res: Response) => {
+  try {
+    const data = req.body
+    const result = data
+    const email = result.email;
 
-    // Crear el candidato
+    if (email !== " ") {
+      const role = result.role;
+      const languages = result.languages;
+      const soft_skills = result.softSkills;
+      const location = result.location;
+      const technical_data = result.technicalData;
+      const academical_data = result.academicalData;
+      const experience = result.experience;
+      const work_data = result.workData;
+      const is_available = result.isAvailable;
+      const interview_id = result.interviewId;
+      const address = result.address;
+
+      const dao = new Dao();
+      const dbResult = await dao.updateCandidateProfile(email, role, languages, soft_skills, location, technical_data, academical_data, experience, work_data, is_available, interview_id, address);
+      if(dbResult.msg === "201") {
+        return res.status(200).json({ message: 'User information updated' })
+      } else {
+        return res.status(200).json({ message: 'Email already registered, try to login' })
+      }
+    } else {
+      return res.status(400).json({
+        message: result.error.message,
+      })
+    }
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
@@ -73,5 +106,6 @@ const register = async (req: Request, res: Response) => {
 export default {
   getTests,
   register,
+  registerProfile,
   ping,
 }
