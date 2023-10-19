@@ -15,7 +15,9 @@ if (!NODE_ENV || !PORT) {
   process.exit(1)
 }
 
+app.use(express.json())
 app.use('/candidate', candidateRouter)
+
 
 const server = http.createServer(app)
 
