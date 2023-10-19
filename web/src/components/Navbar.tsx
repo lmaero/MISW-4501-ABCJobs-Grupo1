@@ -4,7 +4,7 @@ import Logo from '@/components/Logo'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -17,6 +17,14 @@ const menus = [
 ]
 
 export default function Navbar() {
+  const [token, setToken] = useState(null)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+  }, [])
+
+  if (!token) return null
+
   return (
     <Disclosure as='nav' className='bg-white shadow'>
       {({ open }) => (
