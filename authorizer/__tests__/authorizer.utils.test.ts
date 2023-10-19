@@ -28,8 +28,10 @@ describe('utils functions validation', () => {
     try {
       const expected = await generateAccessToken(token)
     } catch (e) {
-      const error: any = e
-      expect(error.name).toBe('JsonWebTokenError')
+      const error: unknown = e
+      if (error instanceof Error) {
+        expect(error.name).toBe('JsonWebTokenError')
+      }
     }
   })
 
@@ -41,7 +43,7 @@ describe('utils functions validation', () => {
     try {
       expected = await decodeToken(token)
     } catch (e) {
-      const error: any = e
+      const error: unknown = e
       console.log(error)
     }
     expect(expected).toStrictEqual(result)

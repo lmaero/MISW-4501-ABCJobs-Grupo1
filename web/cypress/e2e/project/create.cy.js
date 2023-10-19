@@ -11,10 +11,10 @@ describe('Create Project Page', () => {
   })
 
   it('shows all the roles checkboxes', () => {
-    roles.forEach((role) => {
+    for (const role of roles) {
       cy.get(`input[id=${role.id}]`).should('exist')
       cy.get(`label[for=${role.id}]`).should('exist')
-    })
+    }
 
     cy.get(`input[id=${roles[0].id}]`).check()
   })
