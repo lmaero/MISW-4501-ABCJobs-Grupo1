@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { Test } from '../interfaces/evaluator'
+import { CandidatePreSch } from '../schemas/Candidate'
 import { getTestsByUser } from '../services/evaluator'
-import {CandidatePreSch} from "../schemas/Candidate";
 
 const ping = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json({ message: 'pong' })
@@ -36,18 +36,20 @@ const getTests = async (req: Request, res: Response): Promise<Response> => {
 const register = async (req: Request, res: Response) => {
   try {
     // Obtener datos
-    const data = req.body;
-    const isDataOk = CandidatePreSch.safeParse(req.body);
+    const data = req.body
+    const result = CandidatePreSch.safeParse(req.body)
 
-    if (isDataOk) {
-      const email = data["email"];
-      const password = data["password"];
-      const fullName = data["fullName"].split(" ")
-      const firstName = fullName[0];
-      const lastName = fullName[1];
+    if (result.success) {
+      const email = result.data.email
+      const password = result.data.password
+      const fullName = result.data.fullName
+      const firstName = fullName[0]
+      const lastName = fullName[1]
       return res.status(200).json({ message: 'User registered' })
     } else {
-      return res.status(400).json({ message: 'Data provided is not valid, verify email format, password length and fullname should be of 2 names' })
+      return res.status(400).json({
+        message: result.error.message,
+      })
     }
 
     // Revisar si estan bien los datos

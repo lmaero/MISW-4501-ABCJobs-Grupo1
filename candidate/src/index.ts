@@ -1,4 +1,5 @@
 import http from 'node:http'
+import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Application } from 'express'
 import candidateRouter from './routes/candidate'
@@ -14,10 +15,20 @@ if (!NODE_ENV || !PORT) {
   console.log(`PORT ${PORT}`)
   process.exit(1)
 }
+// Set CORS
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:8080',
+  'http://localhost:80',
+  'http://localhost:8000',
+]
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+}
+app.use(cors(options))
 
 app.use(express.json())
 app.use('/candidate', candidateRouter)
-
 
 const server = http.createServer(app)
 
