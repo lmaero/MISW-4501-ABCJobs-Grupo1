@@ -52,7 +52,7 @@ const register = async (req: Request, res: Response) => {
       if(dbResult["msg"] === "201") {
         return res.status(201).json({ message: 'User registered', email })
       } else {
-        return res.status(200).json({ message: 'Email already registered, try to login' })
+        return res.status(400).json({ message: 'Email already registered, try to login' })
       }
     } else {
       return res.status(400).json({
@@ -90,7 +90,36 @@ const registerProfile = async (req: Request, res: Response) => {
       if(dbResult.msg === "201") {
         return res.status(200).json({ message: 'User information updated' })
       } else {
-        return res.status(200).json({ message: 'Email already registered, try to login' })
+        return res.status(404).json({ message: 'There was an error updating the candidate profile' })
+      }
+    } else {
+      return res.status(400).json({
+        message: result.error.message,
+      })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+const searchCandidate = async (req: Request, res: Response) => {
+  try {
+    const data = req.body
+    const result = data
+
+    if (result !== " ") {
+      const role = result.role;
+      const languages = result.languages;
+      const soft_skills = result.soft_skills;
+      const spoken_languages = result.spoken_languages;
+
+      // const dao = new Dao();
+      // const dbResult = await dao.updateCandidateProfile(email, role, languages, soft_skills, location, technical_data, academical_data, experience, work_data, is_available, interview_id, address);
+      if(true) {
+        return res.status(200).json({ message: 'User information updated' })
+      } else {
+        //return res.status(200).json({ message: 'Email already registered, try to login' })
       }
     } else {
       return res.status(400).json({
@@ -105,7 +134,8 @@ const registerProfile = async (req: Request, res: Response) => {
 
 export default {
   getTests,
+  ping,
   register,
   registerProfile,
-  ping,
+  searchCandidate
 }

@@ -32,12 +32,10 @@ class Dao {
         })
         try {
             await this.client.query(queryPrepared)
-            console.log('Candidate reigstered!')
             return { msg: '201' }
         } catch (err) {
-            console.log(err)
+            return { msg: '400' }
         }
-        return { msg: '400' }
     }
 
     async updateCandidateProfile(email: string, role: string, languages: string[], soft_skills: string[], location: string, technical_data: string[], academical_data: string[], experience: string[], work_data: string[], is_available: string, interview_id: string, address: string) {
