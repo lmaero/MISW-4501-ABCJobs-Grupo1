@@ -1,4 +1,4 @@
-describe('CandidateCompleteProfilePage', () => {
+describe('HomePage', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/')
   })

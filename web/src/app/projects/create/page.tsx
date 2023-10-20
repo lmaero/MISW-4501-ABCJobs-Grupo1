@@ -2,23 +2,59 @@
 
 import { ErrorMessage } from '@/components/ErrorMessage'
 import { FieldDescription } from '@/components/FieldDescription'
+import { PROJECT_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { Project, ProjectSch } from '@/schemas/Project'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 export default function CreateProjectPage() {
+  const router = useRouter()
+
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<Project>({
     mode: 'onChange',
     resolver: zodResolver(ProjectSch),
   })
 
+  async function onSubmit(data: Project) {
+    try {
+      const response = await fetch(`${PROJECT_HOST}/projects/create`, {
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
+
+      const payload = await response.json()
+
+      if (response.status === 201) {
+        toast(payload.message, { type: 'success', autoClose: 5000 })
+        return
+      }
+
+      if (response.status === 400) {
+        toast(payload.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(payload.message, { type: 'error', autoClose: false })
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
+    }
+  }
+
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form className='space-y-6' onSubmit={() => console.log('Submitting...')}>
+      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             Create Project
@@ -154,13 +190,14 @@ export default function CreateProjectPage() {
               defaultValue=''
               {...register('description')}
             />
-            <p className='mt-3 text-sm leading-6 text-gray-600'>
-              Write a few sentences about what this project is about.
-            </p>
 
             {errors.description && (
               <ErrorMessage message={errors.description.message} />
             )}
+
+            <p className='mt-3 text-sm leading-6 text-gray-600'>
+              Write a few sentences about what this project is about.
+            </p>
           </article>
 
           <article className='mb-3'>

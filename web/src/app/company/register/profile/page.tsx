@@ -2,24 +2,62 @@
 
 import { ErrorMessage } from '@/components/ErrorMessage'
 import { FieldDescription } from '@/components/FieldDescription'
+import { COMPANY_HOST } from '@/lib/api'
 import { companySize } from '@/lib/companySize'
 import { languages } from '@/lib/languages'
 import { CompanyProfile, CompanyProfileSch } from '@/schemas/CompanyProfile'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 export default function CompanyCompleteProfilePage() {
+  const searchParams = useSearchParams()
+  const email = searchParams.get('email')
+
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<CompanyProfile>({
     mode: 'onChange',
     resolver: zodResolver(CompanyProfileSch),
   })
 
+  async function onSubmit(data: CompanyProfile) {
+    try {
+      const response = await fetch(`${COMPANY_HOST}/company/register/profile`, {
+        body: JSON.stringify({ email, ...data }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
+
+      const payload = await response.json()
+      if (response.status === 200) {
+        return toast('Successfully updated!', {
+          type: 'success',
+          autoClose: 3000,
+        })
+      }
+
+      if (response.status === 404 || response.status === 400) {
+        toast(payload.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(payload.message, { type: 'error', autoClose: false })
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
+    }
+  }
+
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form className='space-y-6' onSubmit={() => console.log('Submitting...')}>
+      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             Complete your information
@@ -88,7 +126,7 @@ export default function CompanyCompleteProfilePage() {
                 id='segments'
                 autoComplete='segments'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                placeholder='Aviation, Manufacturing, Industrial'
+                placeholder='Aviation,Manufacturing,Industrial'
                 {...register('segments')}
               />
             </div>
