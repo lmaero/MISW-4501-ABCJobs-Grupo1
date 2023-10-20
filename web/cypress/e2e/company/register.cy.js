@@ -93,7 +93,7 @@ describe('register a company', () => {
     cy.get('button').should('be.enabled')
   })
 
-  it.only('Sends the data', () => {
+  it('Sends the data', () => {
     const randomEmail = `john@abcjobs${Math.random()}.com`
     cy.get('[data-testid=crp-email]').type(randomEmail)
     cy.get('[data-testid=crp-password]').type('SuperSecret2#')
