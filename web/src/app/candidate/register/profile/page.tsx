@@ -2,6 +2,7 @@
 
 import { ErrorMessage } from '@/components/ErrorMessage'
 import { FieldDescription } from '@/components/FieldDescription'
+import { CANDIDATE_HOST } from '@/lib/api'
 import { countries } from '@/lib/countries'
 import { roles } from '@/lib/roles'
 import { AcademicExperience } from '@/schemas/AcademicData'
@@ -11,11 +12,16 @@ import {
 } from '@/schemas/CandidateProfile'
 import { Experience } from '@/schemas/ExperienceData'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function CandidateCompleteProfilePage() {
+  const searchParams = useSearchParams()
+  const email = searchParams.get('email')
+
   const [educationSections, setEducationSections] = useState<
     AcademicExperience[]
   >([
@@ -41,6 +47,7 @@ export default function CandidateCompleteProfilePage() {
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<CandidateProfile>({
     mode: 'onChange',
     resolver: zodResolver(CandidateProfileSch),
@@ -85,9 +92,58 @@ export default function CandidateCompleteProfilePage() {
     setExperiences(updatedSections)
   }
 
+  async function onSubmit(data: CandidateProfile) {
+    try {
+      const formattedData = {
+        email,
+        role: data.role,
+        languages: data.spokenLanguages.split(','),
+        soft_skills: data.mainSoftSkills.split(','),
+        location: data.location,
+        technical_data: data.technicalData,
+        academical_data: data.academicData,
+        experience: data.experienceData,
+        work_data: data.certifications.split(','),
+        is_available: true,
+        interview_id: email,
+        address: data.location,
+      }
+
+      const response = await fetch(
+        `${CANDIDATE_HOST}/candidate/register/profile`,
+        {
+          body: JSON.stringify(formattedData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        },
+      )
+
+      const payload = await response.json()
+      if (response.status === 200) {
+        return toast('Successfully updated!', {
+          type: 'success',
+          autoClose: 3000,
+        })
+      }
+
+      if (response.status === 404 || response.status === 400) {
+        toast(payload.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(payload.message, { type: 'error', autoClose: false })
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
+    }
+  }
+
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form className='space-y-6' onSubmit={() => console.log('Submitting...')}>
+      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             Complete your information
