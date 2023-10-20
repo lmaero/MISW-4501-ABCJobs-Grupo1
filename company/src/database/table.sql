@@ -6,6 +6,6 @@ CREATE TABLE "Company"
     "main_contact"       TEXT,
     "password"           TEXT NOT NULL,
     "preferred_language" TEXT,
-    "segments"           TEXT[],
+    "segments"           TEXT,
     "size"               TEXT
 );

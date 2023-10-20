@@ -93,7 +93,7 @@ describe('register a company', () => {
     cy.get('button').should('be.enabled')
   })
 
-  it('Sends the data', () => {
+  it.only('Sends the data', () => {
     const randomEmail = `john@abcjobs${Math.random()}.com`
     cy.get('[data-testid=crp-email]').type(randomEmail)
     cy.get('[data-testid=crp-password]').type('SuperSecret2#')
@@ -102,5 +102,20 @@ describe('register a company', () => {
     cy.get('p.text-sm.text-red-700').should('not.be.visible')
 
     cy.get('button').should('be.enabled').click()
+    cy.wait(5000)
+
+    cy.url().should('include', randomEmail)
+
+    cy.get('input[type="radio"]').first().check()
+    cy.get('input[id="mainAddress"]')
+      .focus()
+      .type('6621 Main Street, Suite 300, Miami, FL 33101')
+    cy.get('input[id="segments"]')
+      .focus()
+      .type('Aviation,Manufacturing,Industrial')
+    cy.get('select[id="preferredLanguage"]').focus().select('Greek')
+    cy.get('select[id="mainContact"]').focus().select('Alonso Cantu')
+
+    cy.contains('Save').should('be.enabled').click()
   })
 })

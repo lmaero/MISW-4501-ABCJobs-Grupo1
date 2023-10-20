@@ -22,7 +22,7 @@ export const CompanyPreSch = z.object({
           'Password must be 8-16 characters and include at least one lowercase letter, one uppercase letter, one symbol, and one number.',
       },
     ),
-  company_name: ZStringSch.refine(
+  companyName: ZStringSch.refine(
     (company_name: string) => {
       const nameRegex = /^[A-Za-z]{2,20} [A-Za-z]{2,20}$/
       return nameRegex.test(company_name)

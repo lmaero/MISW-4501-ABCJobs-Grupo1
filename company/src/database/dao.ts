@@ -22,7 +22,8 @@ class Dao {
   }
 
   async storeCompany(email: string, password: string, company_name: string) {
-    const query = `INSERT INTO "Company" ("email", "password", "company_name") VALUES (:email, :password, :company_name)`
+    const query = `INSERT INTO "Company" ("email", "password", "company_name")
+                   VALUES (:email, :password, :company_name)`
     const queryPrepared = bind(query, {
       email: email,
       password: password,
@@ -40,24 +41,25 @@ class Dao {
     email: string,
     size: string,
     main_address: string,
-    segments: string[],
-    languages: string[],
+    segments: string,
+    preferred_language: string,
     main_contact: string,
   ) {
-    const query = `UPDATE "Company" set size = :size, 
-            main_address = :main_address, 
-            segments = :segments, 
-            languages = :languages,
-            main_contact = :main_contact
-            where email = :email
-            `
+    const query = `UPDATE "Company"
+                   set size               = :size,
+                       main_address       = :main_address,
+                       segments           = :segments,
+                       preferred_language = :preferred_language,
+                       main_contact       = :main_contact
+                   where email = :email
+    `
 
     const queryPrepared = bind(query, {
       email: email,
       size: size,
       main_address: main_address,
       segments: segments,
-      languages: languages,
+      preferredLanguage: preferred_language,
       main_contact: main_contact,
     })
     try {
