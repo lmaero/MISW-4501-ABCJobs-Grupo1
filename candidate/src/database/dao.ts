@@ -114,7 +114,7 @@ class Dao {
         role,
         languages,
         soft_skills,
-        spoken_languages
+        spoken_languages,
       ])
       console.log(res)
       return { msg: '200', res }
