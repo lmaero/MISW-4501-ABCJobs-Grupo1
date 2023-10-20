@@ -94,25 +94,10 @@ export default function CandidateCompleteProfilePage() {
 
   async function onSubmit(data: CandidateProfile) {
     try {
-      const formattedData = {
-        email,
-        role: data.role,
-        languages: data.spokenLanguages.split(','),
-        soft_skills: data.mainSoftSkills.split(','),
-        location: data.location,
-        technical_data: data.technicalData,
-        academical_data: data.academicData,
-        experience: data.experienceData,
-        work_data: data.certifications.split(','),
-        is_available: true,
-        interview_id: email,
-        address: data.location,
-      }
-
       const response = await fetch(
         `${CANDIDATE_HOST}/candidate/register/profile`,
         {
-          body: JSON.stringify(formattedData),
+          body: JSON.stringify({ email, ...data }),
           headers: {
             'Content-Type': 'application/json',
           },

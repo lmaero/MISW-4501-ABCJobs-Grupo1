@@ -1,5 +1,5 @@
-import { ZStringSch } from '@/schemas/ZString'
 import z from 'zod'
+import { ZStringSch } from './ZString'
 
 export const CompanyPreSch = z.object({
   email: ZStringSch.min(1, { message: 'Should be a valid email address' })

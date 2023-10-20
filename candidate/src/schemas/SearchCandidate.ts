@@ -1,10 +1,10 @@
+import { z } from 'zod'
 import {
   programmingLanguagesEnum,
   softSkillsEnum,
   spokenLanguagesEnum,
   techRoleEnum,
-} from '@/schemas/Enums'
-import { z } from 'zod'
+} from './Enums'
 
 export const SearchCandidateSch = z.object({
   roles: z.array(techRoleEnum).or(techRoleEnum),

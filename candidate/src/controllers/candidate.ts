@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { Test } from '../interfaces/evaluator'
 import { CandidatePreSch } from '../schemas/Candidate'
+import { CandidateProfileSch } from '../schemas/CandidateProfile'
 import { getTestsByUser } from '../services/evaluator'
 
 const ping = async (req: Request, res: Response): Promise<Response> => {
@@ -72,48 +73,41 @@ const register = async (req: Request, res: Response) => {
 
 const registerProfile = async (req: Request, res: Response) => {
   try {
-    const result = req.body
-    const email = result.email
-
-    if (email !== ' ') {
-      const role = result.role
-      const languages = result.languages
-      const soft_skills = result.softSkills
-      const location = result.location
-      const technical_data = result.technicalData
-      const academical_data = result.academicalData
-      const experience = result.experience
-      const work_data = result.workData
-      const is_available = result.isAvailable
-      const interview_id = result.interviewId
-      const address = result.address
-
-      const dao = new Dao()
-      const dbResult = await dao.updateCandidateProfile(
-        email,
-        role,
-        languages,
-        soft_skills,
-        location,
-        technical_data,
-        academical_data,
-        experience,
-        work_data,
-        is_available,
-        interview_id,
-        address,
-      )
-      if (dbResult.msg === '201') {
-        return res.status(200).json({ message: 'User information updated' })
-      } else {
-        return res.status(404).json({
-          message: 'There was an error updating the candidate profile',
-        })
-      }
-    } else {
+    const result = CandidateProfileSch.safeParse(req.body)
+    if (!result.success) {
       return res.status(400).json({
         message: result.error.message,
       })
+    } else {
+      const academical_data = result.data.academicData
+      const certifications = result.data.certifications
+      const experience = result.data.experienceData
+      const email = result.data.email
+      const location = result.data.location
+      const soft_skills = result.data.mainSoftSkills
+      const role = result.data.role
+      const languages = result.data.spokenLanguages
+      const technical_data = result.data.technicalData
+
+      const dao = new Dao()
+      const dbResult = await dao.updateCandidateProfile(
+        academical_data,
+        certifications,
+        experience,
+        email,
+        location,
+        soft_skills,
+        role,
+        languages,
+        technical_data,
+      )
+      // if (true) {
+      //   return res.status(200).json({ message: "User information updated" });
+      // } else {
+      //   return res.status(404).json({
+      //     message: "There was an error updating the candidate profile",
+      //   });
+      // }
     }
   } catch (error) {
     console.error(error)

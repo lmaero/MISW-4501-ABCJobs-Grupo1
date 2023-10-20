@@ -1,4 +1,7 @@
 import { Client } from 'pg'
+import { AcademicExperience } from '../schemas/AcademicData'
+import { Experience } from '../schemas/ExperienceData'
+import { TechnicalData } from '../schemas/TechnicalData'
 
 class Dao {
   private client
@@ -38,47 +41,39 @@ class Dao {
   }
 
   async updateCandidateProfile(
+    academical_data: AcademicExperience[],
+    certifications: string,
+    experience: Experience[],
     email: string,
-    role: string,
-    languages: string[],
-    soft_skills: string[],
     location: string,
-    technical_data: string[],
-    academical_data: string[],
-    experience: string[],
-    work_data: string[],
-    is_available: string,
-    interview_id: string,
-    address: string,
+    soft_skills: string,
+    role: string,
+    languages: string,
+    technical_data: TechnicalData,
   ) {
     const query = `UPDATE "Candidate"
-                   SET role            = $2,
-                       languages       = $3,
-                       soft_skills     = $4,
+                   SET academical_data = $1,
+                       certifications  = $2,
+                       experience      = $3,
+                       email           = $4,
                        location        = $5,
-                       technical_data  = $6,
-                       academical_data = $7,
-                       experience      = $8,
-                       work_data       = $9,
-                       is_available    = $10,
-                       interview_id    = $11,
-                       address         = $12
-                   WHERE email = $1`
+                       soft_skills     = $6,
+                       role            = $7,
+                       languages       = $8,
+                       technical_data  = $9
+                   WHERE email = $4`
 
     try {
       await this.client.query(query, [
+        JSON.stringify(academical_data),
+        certifications,
+        JSON.stringify(experience),
         email,
+        location,
+        soft_skills,
         role,
         languages,
-        soft_skills,
-        location,
-        technical_data,
-        academical_data,
-        experience,
-        work_data,
-        is_available,
-        interview_id,
-        address,
+        JSON.stringify(technical_data),
       ])
       console.log('Candidate updated!')
       return { msg: '201' }

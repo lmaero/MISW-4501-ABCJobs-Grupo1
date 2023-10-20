@@ -1,5 +1,5 @@
-import { dateInPast } from '@/schemas/DateInPast'
 import { z } from 'zod'
+import { dateInPast } from './DateInPast'
 
 export const academicExperienceSch = z
   .object({

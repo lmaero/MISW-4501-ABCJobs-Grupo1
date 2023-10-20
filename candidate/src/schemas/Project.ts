@@ -1,5 +1,5 @@
-import { techRoleEnum } from '@/schemas/Enums'
 import { z } from 'zod'
+import { techRoleEnum } from './Enums'
 
 export const ProjectSch = z.object({
   budget: z.number().min(0).max(100_000_000_000),
