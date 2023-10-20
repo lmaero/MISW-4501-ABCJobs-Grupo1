@@ -2,10 +2,13 @@
 
 import { ErrorMessage } from '@/components/ErrorMessage'
 import { FieldDescription } from '@/components/FieldDescription'
+import { CANDIDATE_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { SearchCandidate, SearchCandidateSch } from '@/schemas/SearchCandidate'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 const programmingLanguages = [
   { value: 'javascript', label: 'JavaScript' },
@@ -27,17 +30,52 @@ const spokenLanguages = [
 ]
 
 export default function SearchCandidatePage() {
+  const router = useRouter()
+
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<SearchCandidate>({
     mode: 'onChange',
     resolver: zodResolver(SearchCandidateSch),
   })
 
+  async function onSubmit(data: SearchCandidate) {
+    try {
+      const response = await fetch(`${CANDIDATE_HOST}/candidate/search`, {
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
+
+      const payload = await response.json()
+
+      if (response.status === 200) {
+        setTimeout(() => {
+          router.push('/candidate/search/results')
+        }, 3000)
+        return
+      }
+
+      if (response.status === 400) {
+        toast(payload.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(payload.message, { type: 'error', autoClose: false })
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
+    }
+  }
+
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form className='space-y-6' onSubmit={() => console.log('Submitting...')}>
+      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             Search Candidates

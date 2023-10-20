@@ -1,4 +1,4 @@
-describe('register a candidate', () => {
+describe('register a company', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/company/register')
   })
