@@ -29,11 +29,19 @@ export default function CandidateRegisterPage() {
         method: 'POST',
       })
 
-      if (response.status === 200) {
+      const payload = await response.json()
+
+      if (response.status === 201) {
         toast('Successfully validated', { type: 'success', autoClose: 3000 })
         setTimeout(() => {
-          router.push('/candidate/register/profile')
+          router.push(`/candidate/register/profile?${payload.email}`)
         }, 3000)
+      }
+
+      if (response.status === 400) {
+        toast(payload.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(payload.message, { type: 'error', autoClose: false })
       }
     } catch (e: unknown) {
       if (e instanceof Error) {
