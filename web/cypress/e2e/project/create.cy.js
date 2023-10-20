@@ -118,7 +118,7 @@ describe('Create Project Page', () => {
       .should('be.disabled')
   })
 
-  it.only('enables the Save button with valid data and can be clicked', () => {
+  it('enables the Save button with valid data and can be clicked', () => {
     cy.get(`input[type="checkbox"]`).first().check().should('be.checked')
     cy.get(`input[type="checkbox"]`).last().check().should('be.checked')
     cy.get('#price').type('10000').should('have.value', 10000)
@@ -136,5 +136,6 @@ describe('Create Project Page', () => {
       .should('have.value', 'ABC Jobs')
 
     cy.contains('Save').should('be.enabled').click()
+    cy.contains('Project registered').should('be.visible')
   })
 })

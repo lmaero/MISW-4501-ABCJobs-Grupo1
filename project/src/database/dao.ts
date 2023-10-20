@@ -22,22 +22,25 @@ class Dao {
   }
 
   async storeProject(
-    role: string[],
-    price: string,
-    budget: string,
-    deadline: string,
-    description: string,
+    budget: number,
+    deadline: Date,
+    description: string | undefined,
+    price: number,
+    team: string[],
     stakeholders: string,
   ) {
-    const query = `INSERT INTO "Project" ("role", "price", "budget", "deadline", "description", "stakeholders") 
-                        VALUES (:role, :price, :budget, :deadline, :description, :stakeholders)
-                        `
+    const query = `INSERT INTO "Project" ("budget", "deadline", "description",
+                                          "price",
+                                          "team", "stakeholders")
+                   VALUES (:budget, :deadline, :description, :price, :team,
+                           :stakeholders)
+    `
     const queryPrepared = bind(query, {
-      role: role,
-      price: price,
       budget: budget,
       deadline: deadline,
       description: description,
+      price: price,
+      team: team,
       stakeholders: stakeholders,
     })
     try {

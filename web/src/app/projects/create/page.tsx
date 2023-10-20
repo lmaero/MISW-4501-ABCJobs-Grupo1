@@ -6,13 +6,10 @@ import { PROJECT_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { Project, ProjectSch } from '@/schemas/Project'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 export default function CreateProjectPage() {
-  const router = useRouter()
-
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
@@ -24,7 +21,7 @@ export default function CreateProjectPage() {
 
   async function onSubmit(data: Project) {
     try {
-      const response = await fetch(`${PROJECT_HOST}/projects/create`, {
+      const response = await fetch(`${PROJECT_HOST}/project/register`, {
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',

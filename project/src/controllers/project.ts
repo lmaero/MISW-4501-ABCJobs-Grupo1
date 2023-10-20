@@ -1,27 +1,32 @@
 import { Request, Response } from 'express'
 import Dao from '../database/dao'
+import { ProjectSch } from '../schemas/Project'
 
 const register = async (req: Request, res: Response) => {
   try {
-    const result = req.body
-
-    if (result.stakeholders !== ' ') {
-      const role = result.role
-      const price = result.price
-      const budget = result.budget
-      const deadline = result.deadline
-      const description = result.description
-      const stakeholders = result.stakeholders
+    const result = ProjectSch.safeParse(req.body)
+    if (!result.success) {
+      return res.status(400).json({
+        message: result.error.message,
+      })
+    } else {
+      const budget = result.data.budget
+      const deadline = result.data.deadline
+      const description = result.data.description
+      const price = result.data.price
+      const team = result.data.team
+      const stakeholders = result.data.stakeholders
 
       const dao = new Dao()
       const dbResult = await dao.storeProject(
-        role,
-        price,
         budget,
         deadline,
         description,
+        price,
+        team,
         stakeholders,
       )
+
       if (dbResult.msg === '201') {
         return res.status(201).json({ message: 'Project registered' })
       } else {
@@ -29,10 +34,6 @@ const register = async (req: Request, res: Response) => {
           message: 'Project not registered, verify the data provided',
         })
       }
-    } else {
-      return res.status(400).json({
-        message: result.error.message,
-      })
     }
   } catch (error) {
     console.error(error)
