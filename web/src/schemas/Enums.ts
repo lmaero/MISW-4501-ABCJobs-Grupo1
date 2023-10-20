@@ -15,11 +15,11 @@ export const employmentEnum = z.enum([
 ])
 
 export const techRoleEnum = z.enum([
-  'Backend Developer',
-  'Frontend Developer',
-  'Fullstack Developer',
-  'DevOps Engineer',
-  'Architect',
+  'backend',
+  'frontend',
+  'fullstack',
+  'devops',
+  'architect',
 ])
 
 export const companySizeEnum = z.enum([

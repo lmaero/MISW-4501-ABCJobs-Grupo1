@@ -39,7 +39,7 @@ export default function CandidateCompleteProfilePage() {
       title: '',
       company: '',
       employment: 'Full-Time',
-      role: 'Fullstack Developer',
+      role: 'fullstack',
       startDate: new Date(),
     },
   ])
@@ -80,7 +80,7 @@ export default function CandidateCompleteProfilePage() {
         title: '',
         company: '',
         employment: 'Full-Time',
-        role: 'Fullstack Developer',
+        role: 'fullstack',
         startDate: new Date(),
       },
     ])
@@ -606,15 +606,11 @@ export default function CandidateCompleteProfilePage() {
                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
                     {...register(`experienceData.${index}.role`)}
                   >
-                    <option value='Backend Developer'>Backend Developer</option>
-                    <option value='Frontend Developer'>
-                      Frontend Developer
-                    </option>
-                    <option value='Fullstack Developer'>
-                      Fullstack Developer
-                    </option>
-                    <option value='DevOps Engineer'>DevOps Engineer</option>
-                    <option value='Architect'>Architect</option>
+                    <option value='backend'>Backend Developer</option>
+                    <option value='frontend'>Frontend Developer</option>
+                    <option value='fullstack'>Fullstack Developer</option>
+                    <option value='devops'>DevOps Engineer</option>
+                    <option value='architect'>Architect</option>
                   </select>
 
                   {errors.experienceData?.[index]?.role && (
