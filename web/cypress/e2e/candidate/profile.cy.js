@@ -262,7 +262,7 @@ describe('CandidateCompleteProfilePage', () => {
     cy.get('input[name="experienceData.1.title"]').should('not.exist')
   })
 
-  it.only('enables the Save button with valid data and can be clicked', () => {
+  it('enables the Save button with valid data and can be clicked', () => {
     cy.get('input[type="radio"]').first().check()
     cy.get('input[id="spokenLanguages"]')
       .focus()

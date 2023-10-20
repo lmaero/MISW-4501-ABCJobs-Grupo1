@@ -34,8 +34,9 @@ export default function CandidateRegisterPage() {
       if (response.status === 201) {
         toast('Successfully validated', { type: 'success', autoClose: 3000 })
         setTimeout(() => {
-          router.push(`/candidate/register/profile?${payload.email}`)
+          router.push(`/candidate/register/profile?email=${payload.email}`)
         }, 3000)
+        return
       }
 
       if (response.status === 400) {
