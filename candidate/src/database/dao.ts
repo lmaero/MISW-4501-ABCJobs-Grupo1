@@ -89,20 +89,32 @@ class Dao {
     soft_skills: string[],
     spoken_languages: string[],
   ) {
-    const query = `SELECT *
-                   FROM "Candidate"
-                   WHERE 1 = 1
-                      or role = any ($1)
-                      or $2 = any (technical_data)
-                      or $3 = any (soft_skills)
-                      or $4 = any (languages)`
-
+    const query = `with result as (
+                        with role (col) as (
+                        select experience, 
+                        technical_data ->> 'roles' as programming_languages, 
+                        soft_skills,
+                         languages,
+                         email 
+                        from "Candidate"
+                    )  select y.x->>'role' "position", 
+                       soft_skills, 
+                       languages as spoken_languages,
+                       programming_languages,
+                       email
+                       from role, lateral (select jsonb_array_elements(role.col) x) y
+                ) select * from result 
+                  where 1=1
+                  or position in ($1)
+                  or programming_languages in ($2)
+                  or soft_skills in ($3)
+                  or spoken_languages in ($4)`
     try {
       const res = await this.client.query(query, [
         role,
         languages,
         soft_skills,
-        spoken_languages,
+        spoken_languages
       ])
       console.log(res)
       return { msg: '200', res }
