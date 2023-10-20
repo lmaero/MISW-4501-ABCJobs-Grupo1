@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
+import { CompanyProfileSch } from '../schemas/CompanyProfile'
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -9,7 +10,7 @@ const register = async (req: Request, res: Response) => {
     if (result.success) {
       const email = result.data.email
       const password = result.data.password
-      const company_name = result.data.company_name
+      const company_name = result.data.companyName
 
       const dao = new Dao()
       const dbResult = await dao.storeCompany(email, password, company_name)
@@ -33,15 +34,19 @@ const register = async (req: Request, res: Response) => {
 
 const registerProfile = async (req: Request, res: Response) => {
   try {
-    const result = req.body
-    const email = result.email
+    const result = CompanyProfileSch.safeParse(req.body)
 
-    if (email !== ' ') {
-      const size = result.size
-      const main_address = result.main_address
-      const segments = result.segments
-      const languages = result.languages
-      const main_contact = result.main_contact
+    if (!result.success) {
+      return res.status(400).json({
+        message: result.error.message,
+      })
+    } else {
+      const email = result.data.email
+      const size = result.data.size
+      const main_address = result.data.mainAddress
+      const segments = result.data.segments
+      const preferred_language = result.data.preferredLanguage
+      const main_contact = result.data.mainContact
 
       const dao = new Dao()
       const dbResult = await dao.updateCompanyProfile(
@@ -49,7 +54,7 @@ const registerProfile = async (req: Request, res: Response) => {
         size,
         main_address,
         segments,
-        languages,
+        preferred_language,
         main_contact,
       )
       if (dbResult.msg === '201') {
@@ -59,10 +64,6 @@ const registerProfile = async (req: Request, res: Response) => {
           message: 'Company already registered with this email, try to login',
         })
       }
-    } else {
-      return res.status(400).json({
-        message: result.error.message,
-      })
     }
   } catch (error) {
     console.error(error)

@@ -35,8 +35,8 @@ export default function CompanyCompleteProfilePage() {
       })
 
       const payload = await response.json()
-      if (response.status === 200) {
-        return toast('Successfully updated!', {
+      if (response.status === 201) {
+        return toast('Successfully created!', {
           type: 'success',
           autoClose: 3000,
         })
