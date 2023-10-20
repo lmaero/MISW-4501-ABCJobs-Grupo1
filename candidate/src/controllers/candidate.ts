@@ -139,7 +139,7 @@ const searchCandidate = async (req: Request, res: Response) => {
         spoken_languages,
       )
       if (dbResult.msg === '200') {
-        return res.status(200).json({ candidates: dbResult.res.rows })
+        return res.status(200).json({ candidates: dbResult.res?.rows })
       } else {
         return res
           .status(400)
