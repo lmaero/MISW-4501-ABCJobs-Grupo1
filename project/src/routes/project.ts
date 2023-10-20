@@ -5,5 +5,4 @@ const projectRouter = express.Router()
 
 projectRouter.post('/register', companyController.register)
 
-
 export default projectRouter
