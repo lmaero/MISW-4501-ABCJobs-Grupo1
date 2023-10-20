@@ -8,4 +8,5 @@ candidateRouter.get('/ping', candidateControllers.ping)
 candidateRouter.get('/evaluate', userValidation, candidateControllers.getTests)
 candidateRouter.post('/register', candidateControllers.register)
 candidateRouter.post('/register/profile', candidateControllers.registerProfile)
+candidateRouter.post('/search', candidateControllers.searchCandidate)
 export default candidateRouter
