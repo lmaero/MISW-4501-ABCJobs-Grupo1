@@ -104,7 +104,7 @@ describe('register a candidate', () => {
     cy.get('button').should('be.enabled')
   })
 
-  it.only('Sends the data', () => {
+  it('Sends the data', () => {
     const randomEmail = `john@smith${Math.random()}.org`
     cy.get('[data-testid=crp-email]').type(randomEmail)
     cy.get('[data-testid=crp-password]').type('SuperSecret1#')
