@@ -84,6 +84,9 @@ importers:
       express:
         specifier: ^4.18.2
         version: 4.18.2
+      jwt-decode:
+        specifier: ^3.1.2
+        version: 3.1.2
       pg:
         specifier: ^8.11.3
         version: 8.11.3
