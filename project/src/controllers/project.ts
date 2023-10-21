@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { ProjectSch } from '../schemas/Project'
 
-const register = async (req: Request, res: Response) => {
+export async function register(req: Request, res: Response) {
   try {
     const result = ProjectSch.safeParse(req.body)
     if (!result.success) {
