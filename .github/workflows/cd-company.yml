@@ -3,12 +3,12 @@ on:
   push:
     branches:
       - 'HU/**'
-  workflow_run:
-    workflows: ["Tests"]
-    types:
-      - completed
-    branches:
-      - 'HU/**'
+    workflow_run:
+      workflows: ["CI Tests"]
+      types:
+        - completed
+      branches:
+        - 'HU/**'
 jobs:
   build:
     runs-on: self-hosted
