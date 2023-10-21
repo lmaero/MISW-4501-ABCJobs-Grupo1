@@ -1,6 +1,9 @@
 name: Run Tests and Generate Docker Images
 env:
   AUTH_PORT: 4000
+  CANDIDATE_PORT: 4001
+  PROJECT_PORT: 4003
+  COMPANY_PORT: 4004
   NODE_ENV: 'development'
 
 on:
@@ -43,6 +46,90 @@ jobs:
       - name: Push to Dockerhub
         run: sudo docker push acantu297366/authorizer
 
+  candidate-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: candidate
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Set up corepack
+        run: corepack enable
+      - name: Install authorizer dependencies
+        run: pnpm install
+      - name: Run tests and generate coverage report
+        run: pnpm test
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build the Docker image
+        run: sudo docker build -t acantu297366/candidate .
+      - name: Push to Dockerhub
+        run: sudo docker push acantu297366/candidate
+
+  company-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: company
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Set up corepack
+        run: corepack enable
+      - name: Install company dependencies
+        run: pnpm install
+      - name: Run tests and generate coverage report
+        run: pnpm test
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build the Docker image
+        run: sudo docker build -t acantu297366/company .
+      - name: Push to Dockerhub
+        run: sudo docker push acantu297366/company
+
+  project-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: project
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Set up corepack
+        run: corepack enable
+      - name: Install project dependencies
+        run: pnpm install
+      - name: Run tests and generate coverage report
+        run: pnpm test
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build the Docker image
+        run: sudo docker build -t acantu297366/project .
+      - name: Push to Dockerhub
+        run: sudo docker push acantu297366/project
+
   web-tests:
     runs-on: ubuntu-latest
     defaults:
@@ -63,7 +150,7 @@ jobs:
         run: pnpm test
 
   build:
-    needs: [ authorizer-tests, web-tests ]
+    needs: [ authorizer-tests, candidate-tests, company-tests, project-tests, web-tests ]
     runs-on: self-hosted
     steps:
       - name: Pull Docker Image from Dockerhub
