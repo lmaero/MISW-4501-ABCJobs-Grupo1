@@ -5,37 +5,11 @@ import { CandidatePreSch } from '../schemas/Candidate'
 import { CandidateProfileSch } from '../schemas/CandidateProfile'
 import { getTestsByUser } from '../services/evaluator'
 
-const ping = async (req: Request, res: Response): Promise<Response> => {
+export async function ping(req: Request, res: Response): Promise<Response> {
   return res.status(200).json({ message: 'pong' })
 }
 
-const getTests = async (req: Request, res: Response): Promise<Response> => {
-  try {
-    const { user } = req.headers
-
-    if (!user) {
-      return res.status(400).json({ message: 'No user provided' })
-    }
-
-    const {
-      userInfo: { personId },
-    } = JSON.parse(user.toString())
-
-    console.log(
-      `[CandidateManagement] Getting tests for candidate ${personId}, from evaluator service`,
-    )
-    const tests: Test[] = await getTestsByUser(Number(personId))
-
-    return res
-      .status(200)
-      .json({ message: 'test evaluated successfully', tests })
-  } catch (error) {
-    console.dir(error)
-    return res.status(500).json({ message: 'Internal server error' })
-  }
-}
-
-const register = async (req: Request, res: Response) => {
+export async function register (req: Request, res: Response){
   try {
     const result = CandidatePreSch.safeParse(req.body)
 
@@ -66,12 +40,11 @@ const register = async (req: Request, res: Response) => {
       })
     }
   } catch (error) {
-    console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
   }
 }
 
-const registerProfile = async (req: Request, res: Response) => {
+export async function registerProfile(req: Request, res: Response){
   try {
     const result = CandidateProfileSch.safeParse(req.body)
     if (!result.success) {
@@ -101,13 +74,6 @@ const registerProfile = async (req: Request, res: Response) => {
         languages,
         technical_data,
       )
-      // if (true) {
-      //   return res.status(200).json({ message: "User information updated" });
-      // } else {
-      //   return res.status(404).json({
-      //     message: "There was an error updating the candidate profile",
-      //   });
-      // }
     }
   } catch (error) {
     console.error(error)
@@ -115,7 +81,7 @@ const registerProfile = async (req: Request, res: Response) => {
   }
 }
 
-const searchCandidate = async (req: Request, res: Response) => {
+export async function searchCandidate(req: Request, res: Response){
   try {
     const result = req.body
 
@@ -151,7 +117,6 @@ const searchCandidate = async (req: Request, res: Response) => {
 }
 
 export default {
-  getTests,
   ping,
   register,
   registerProfile,
