@@ -9,7 +9,6 @@ on:
       - completed
     branches:
       - 'HU/**'
-
 jobs:
   build:
     runs-on: self-hosted
