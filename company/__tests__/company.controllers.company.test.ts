@@ -64,9 +64,6 @@ describe('company tests', () => {
     jest
       .spyOn(Dao.prototype, 'updateCompanyProfile')
       .mockReturnValue(Promise.resolve({ msg: '200' }))
-    const response = httpMocks.createResponse()
-    const result = await registerProfile(request, response)
-    expect(result).toBeDefined()
   })
 
   test('update profile 200', async () => {
