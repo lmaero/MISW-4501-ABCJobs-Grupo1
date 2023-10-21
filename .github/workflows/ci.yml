@@ -1,4 +1,4 @@
-name: CI Tests
+name: CI-Tests
 env:
   AUTH_PORT: 4000
   CANDIDATE_PORT: 4001
