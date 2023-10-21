@@ -71,7 +71,4 @@ const registerProfile = async (req: Request, res: Response) => {
   }
 }
 
-export default {
-  register,
-  registerProfile,
-}
+export { register, registerProfile }

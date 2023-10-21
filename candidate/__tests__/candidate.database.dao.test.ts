@@ -16,7 +16,6 @@ describe('Dao candidate tests', () => {
 
   test('dao update candidate profile', async () => {
     const dao = new Dao()
-    const d = new Date()
     const result = await dao.updateCandidateProfile(
       [
         {

@@ -1,8 +1,7 @@
-const { Client } = require('pg')
-const bind = require('pg-bind')
+import { Client } from 'pg'
 
 class Dao {
-  private client
+  private client: Client
 
   constructor() {
     // When using the containers use the commented part
@@ -23,14 +22,9 @@ class Dao {
 
   async storeCompany(email: string, password: string, company_name: string) {
     const query = `INSERT INTO "Company" ("email", "password", "company_name")
-                   VALUES (:email, :password, :company_name)`
-    const queryPrepared = bind(query, {
-      email: email,
-      password: password,
-      company_name: company_name,
-    })
+                       VALUES ($1, $2, $3)`
     try {
-      await this.client.query(queryPrepared)
+      await this.client.query(query, [email, password, company_name])
       return { msg: '201' }
     } catch (err) {
       return { msg: '400' }
@@ -46,24 +40,22 @@ class Dao {
     main_contact: string,
   ) {
     const query = `UPDATE "Company"
-                   set size               = :size,
-                       main_address       = :main_address,
-                       segments           = :segments,
-                       preferred_language = :preferred_language,
-                       main_contact       = :main_contact
-                   where email = :email
-    `
+                       SET size               = $2,
+                           main_address       = $3,
+                           segments           = $4,
+                           preferred_language = $5,
+                           main_contact       = $6
+                       WHERE email = $1`
 
-    const queryPrepared = bind(query, {
-      email: email,
-      size: size,
-      main_address: main_address,
-      segments: segments,
-      preferredLanguage: preferred_language,
-      main_contact: main_contact,
-    })
     try {
-      await this.client.query(queryPrepared)
+      await this.client.query(query, [
+        email,
+        size,
+        main_address,
+        segments,
+        preferred_language,
+        main_contact,
+      ])
       console.log('Company updated!')
       return { msg: '201' }
     } catch (err) {

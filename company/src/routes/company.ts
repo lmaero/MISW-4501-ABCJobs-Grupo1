@@ -1,9 +1,9 @@
 import express from 'express'
-import companyController from '../controllers/company'
+import { register, registerProfile } from '../controllers/company'
 
 const companyRouter = express.Router()
 
-companyRouter.post('/register', companyController.register)
-companyRouter.post('/register/profile', companyController.registerProfile)
+companyRouter.post('/register', register)
+companyRouter.post('/register/profile', registerProfile)
 
 export default companyRouter
