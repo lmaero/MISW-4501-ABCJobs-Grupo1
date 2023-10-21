@@ -1,7 +1,6 @@
 import Dao from '../src/database/dao'
 
 jest.mock('express')
-jest.mock('jwt-decode', () => jest.fn())
 jest.mock('pg')
 
 describe('Dao candidate tests', () => {

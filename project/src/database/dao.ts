@@ -1,11 +1,9 @@
-const { Client } = require('pg')
-const bind = require('pg-bind')
+import { Client } from 'pg'
 
 class Dao {
-  private client
+  private client: Client
 
   constructor() {
-    // When using the containers use the commented part
     this.client = new Client({
       // user: process.env.POSTGRES_USER,
       // host: process.env.POSTGRES_HOST,
@@ -29,22 +27,21 @@ class Dao {
     team: string[],
     stakeholders: string,
   ) {
-    const query = `INSERT INTO "Project" ("budget", "deadline", "description",
-                                          "price",
-                                          "team", "stakeholders")
-                   VALUES (:budget, :deadline, :description, :price, :team,
-                           :stakeholders)
-    `
-    const queryPrepared = bind(query, {
-      budget: budget,
-      deadline: deadline,
-      description: description,
-      price: price,
-      team: team,
-      stakeholders: stakeholders,
-    })
+    const query = `
+            INSERT INTO "Project" ("budget", "deadline", "description",
+                                   "price",
+                                   "team", "stakeholders")
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `
     try {
-      await this.client.query(queryPrepared)
+      await this.client.query(query, [
+        budget,
+        deadline,
+        description,
+        price,
+        team,
+        stakeholders,
+      ])
       return { msg: '201' }
     } catch (err) {
       return { msg: '400' }
