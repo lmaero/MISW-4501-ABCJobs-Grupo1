@@ -36,7 +36,8 @@ export async function register (req: Request, res: Response){
       }
     } else {
       return res.status(400).json({
-        message: result.error.message,
+        // message: result.error.message,
+        message: "error"
       })
     }
   } catch (error) {
@@ -49,7 +50,8 @@ export async function registerProfile(req: Request, res: Response){
     const result = CandidateProfileSch.safeParse(req.body)
     if (!result.success) {
       return res.status(400).json({
-        message: result.error.message,
+        // message: result.error.message,
+        message: "error"
       })
     } else {
       const academical_data = result.data.academicData
@@ -107,7 +109,8 @@ export async function searchCandidate(req: Request, res: Response){
       }
     } else {
       return res.status(400).json({
-        message: result.error.message,
+        // message: result.error.message,
+        message: "error"
       })
     }
   } catch (error) {
