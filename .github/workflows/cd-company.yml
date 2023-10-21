@@ -1,11 +1,9 @@
 name: CD Company
-
 on:
   workflow_run:
-    workflows: ["Run Tests and Generate Docker Images"]
+    workflows: ["Tests"]
     types:
       - completed
-
 jobs:
   build:
     runs-on: self-hosted

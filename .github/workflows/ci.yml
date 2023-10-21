@@ -1,4 +1,4 @@
-name: Run Tests and Generate Docker Images
+name: Tests
 env:
   AUTH_PORT: 4000
   CANDIDATE_PORT: 4001
