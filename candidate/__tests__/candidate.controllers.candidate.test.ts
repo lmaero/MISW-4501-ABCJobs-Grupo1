@@ -13,6 +13,7 @@ import {technicalDataSch} from "../src/schemas/TechnicalData";
 jest.mock('express');
 jest.mock("../src/schemas/Candidate");
 jest.mock('../src/schemas/CandidateProfile');
+jest.mock('../src/database/dao');
 
 describe('candidate tests', () => {
   test('ping', async () => {
@@ -112,7 +113,7 @@ describe('candidate tests', () => {
             technicalData: {},
           }
     })
-    jest.spyOn(Dao.prototype, 'storeCandidate').mockReturnValue(Promise.resolve({ msg: '400' }))
+    jest.spyOn(Dao.prototype, 'updateCandidateProfile').mockReturnValue(Promise.resolve({ msg: '200' }))
     let response = httpMocks.createResponse();
     const result = await registerProfile(request, response);
     expect(result).toBeUndefined();
