@@ -14,8 +14,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Pull Company Docker Image
-        run: sudo docker pull acantu297366/company:latest
+        run:  sudo docker pull acantu297366/company:latest
       - name: Delete Company Old Docker Container
-        run:  docker rm -f company-container || true
+        run:  sudo docker rm -f company-container || true
       - name: Run Docker Container
         run: sudo docker run -d -p 4004:4004 --name company-container acantu297366/company
