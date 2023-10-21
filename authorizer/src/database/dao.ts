@@ -54,7 +54,6 @@ class Dao {
 
     try {
       await this.client.query(queryPrepared)
-      console.log('Token update')
       return { msg: '201' }
     } catch (err) {
       console.log(err)
@@ -71,7 +70,6 @@ class Dao {
 
     try {
       const res = await this.client.query(queryPrepared)
-      console.log('Email information')
       return {
         personId: res.rows[0].personId,
         country: res.rows[0].country,
@@ -86,9 +84,8 @@ class Dao {
         password: res.rows[0].password,
       }
     } catch (err) {
-      console.log(err)
+      return { msg: '400' }
     }
-    return { msg: '400' }
   }
 }
 
