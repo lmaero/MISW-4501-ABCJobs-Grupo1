@@ -10,9 +10,9 @@ import { CandidatePreSch } from '../schemas/Candidate'
 import { CandidateProfileSch } from '../schemas/CandidateProfile'
 
 jest.mock('express')
-jest.mock('../src/schemas/Candidate')
-jest.mock('../src/schemas/CandidateProfile')
-jest.mock('../src/database/dao')
+jest.mock('../schemas/Candidate')
+jest.mock('../schemas/CandidateProfile')
+jest.mock('../database/dao')
 
 describe('candidate tests', () => {
   test('ping', async () => {

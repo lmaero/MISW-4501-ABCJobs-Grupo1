@@ -1,8 +1,8 @@
 import Dao from '../database/dao'
 
 jest.mock('express')
-jest.mock('../src/schemas/Candidate')
-jest.mock('../src/schemas/CandidateProfile')
+jest.mock('../schemas/Candidate')
+jest.mock('../schemas/CandidateProfile')
 jest.mock('jwt-decode', () => jest.fn())
 jest.mock('pg')
 

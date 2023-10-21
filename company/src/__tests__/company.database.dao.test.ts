@@ -1,8 +1,8 @@
 import Dao from '../database/dao'
 
 jest.mock('express')
-jest.mock('../src/schemas/Company')
-jest.mock('../src/schemas/CompanyProfile')
+jest.mock('../schemas/Company')
+jest.mock('../schemas/CompanyProfile')
 jest.mock('pg')
 
 const fakeData = {

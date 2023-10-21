@@ -4,7 +4,7 @@ import Dao from '../database/dao'
 import { ProjectSch } from '../schemas/Project'
 
 jest.mock('express')
-jest.mock('../src/database/dao')
+jest.mock('../database/dao')
 
 describe('project tests', () => {
   test('register project 201', async () => {
