@@ -4,6 +4,9 @@ on:
     workflows: ["Tests"]
     types:
       - completed
+    branches:
+      - 'HU/**'
+
 jobs:
   build:
     runs-on: self-hosted
