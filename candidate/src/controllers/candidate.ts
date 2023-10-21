@@ -1,15 +1,13 @@
 import { Request, Response } from 'express'
 import Dao from '../database/dao'
-import { Test } from '../interfaces/evaluator'
 import { CandidatePreSch } from '../schemas/Candidate'
 import { CandidateProfileSch } from '../schemas/CandidateProfile'
-import { getTestsByUser } from '../services/evaluator'
 
 export async function ping(req: Request, res: Response): Promise<Response> {
   return res.status(200).json({ message: 'pong' })
 }
 
-export async function register (req: Request, res: Response){
+export async function register(req: Request, res: Response) {
   try {
     const result = CandidatePreSch.safeParse(req.body)
 
@@ -37,7 +35,7 @@ export async function register (req: Request, res: Response){
     } else {
       return res.status(400).json({
         // message: result.error.message,
-        message: "error"
+        message: 'error',
       })
     }
   } catch (error) {
@@ -45,13 +43,13 @@ export async function register (req: Request, res: Response){
   }
 }
 
-export async function registerProfile(req: Request, res: Response){
+export async function registerProfile(req: Request, res: Response) {
   try {
     const result = CandidateProfileSch.safeParse(req.body)
     if (!result.success) {
       return res.status(400).json({
         // message: result.error.message,
-        message: "error"
+        message: 'error',
       })
     } else {
       const academical_data = result.data.academicData
@@ -65,7 +63,7 @@ export async function registerProfile(req: Request, res: Response){
       const technical_data = result.data.technicalData
 
       const dao = new Dao()
-      const dbResult = await dao.updateCandidateProfile(
+      await dao.updateCandidateProfile(
         academical_data,
         certifications,
         experience,
@@ -83,7 +81,7 @@ export async function registerProfile(req: Request, res: Response){
   }
 }
 
-export async function searchCandidate(req: Request, res: Response){
+export async function searchCandidate(req: Request, res: Response) {
   try {
     const result = req.body
 
@@ -110,7 +108,7 @@ export async function searchCandidate(req: Request, res: Response){
     } else {
       return res.status(400).json({
         // message: result.error.message,
-        message: "error"
+        message: 'error',
       })
     }
   } catch (error) {
