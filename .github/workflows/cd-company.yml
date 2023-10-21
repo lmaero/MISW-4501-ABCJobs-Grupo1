@@ -1,11 +1,15 @@
 name: CD-Company
 on:
-  workflow_run:
-    workflows: ["CI-Tests"]
-    types:
-      - completed
-    branches:
-      - 'HU/**'
+    workflow_run:
+      workflows: [ "CI-Tests" ]
+      types:
+        - completed
+      branches:
+        - 'HU/**'
+      push:
+        branches:
+          - 'HU/**'
+
 jobs:
   build:
     runs-on: self-hosted
