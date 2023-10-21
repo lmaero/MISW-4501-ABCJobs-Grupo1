@@ -1,8 +1,7 @@
-const { Client } = require('pg')
-const bind = require('pg-bind')
+import { Client } from 'pg'
 
 class Dao {
-  private client
+  private client: Client
 
   constructor() {
     this.client = new Client({
@@ -10,7 +9,7 @@ class Dao {
       host: process.env.POSTGRES_HOST,
       database: process.env.POSTGRES_DB_NAME,
       password: process.env.POSTGRES_PASSWORD,
-      port: process.env.POSTGRES_PORT,
+      port: Number(process.env.POSTGRES_PORT),
     })
     this.client.connect()
   }
@@ -32,58 +31,64 @@ class Dao {
     // Generate token
 
     // Insert the information
-    const query = `INSERT INTO "Candidate" ("personId", "country", "languages", "academicalDataId", "technicalDataId", 
-        "workDataId", "isAvailable", "softSkills", "interviewId", "email", "password", "token")
-        VALUES (:personId, :country, :languages, :academicalDataId, :technicalDataId,
-         :workDataId, :isAvailable, :softSkills, :interviewId, :email, :password, :token)`
-
-    const queryPrepared = bind(query, {
-      personId: personId,
-      country: country,
-      languages: languages,
-      academicalDataId: academicalDataId,
-      technicalDataId: technicalDataId,
-      workDataId: workDataId,
-      isAvailable: isAvailable,
-      softSkills: softSkills,
-      interviewId: interviewId,
-      email: email,
-      password: password,
-      token: token,
-    })
+    const query = `
+            INSERT INTO "Candidate" ("personId", "country", "languages",
+                                     "academicalDataId", "technicalDataId",
+                                     "workDataId", "isAvailable", "softSkills",
+                                     "interviewId", "email", "password",
+                                     "token")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+        `
 
     try {
-      await this.client.query(queryPrepared)
+      await this.client.query(query, [
+        personId,
+        country,
+        languages,
+        academicalDataId,
+        technicalDataId,
+        workDataId,
+        isAvailable,
+        softSkills,
+        interviewId,
+        email,
+        password,
+        token,
+      ])
       return { msg: '201' }
     } catch (err) {
       console.log(err)
+      return { msg: '400' }
     }
-    return { msg: '400' }
   }
 
   async getUserInfo(email: string) {
-    const query = `SELECT *  FROM  "Candidate" WHERE email = :email`
-
-    const queryPrepared = bind(query, {
-      email: email,
-    })
+    const query = `SELECT *
+                       FROM "Candidate"
+                       WHERE email = $1`
 
     try {
-      const res = await this.client.query(queryPrepared)
-      return {
-        personId: res.rows[0].personId,
-        country: res.rows[0].country,
-        languages: res.rows[0].languages,
-        academicalDataId: res.rows[0].academicalDataId,
-        technicalDataId: res.rows[0].technicalDataId,
-        workDataId: res.rows[0].workDataId,
-        isAvailable: res.rows[0].isAvailable,
-        softSkills: res.rows[0].softSkills,
-        interviewId: res.rows[0].interviewId,
-        email: res.rows[0].email,
-        password: res.rows[0].password,
+      const res = await this.client.query(query, [email])
+      const userInfo = res?.rows[0]
+      if (userInfo) {
+        return {
+          personId: userInfo.personId,
+          country: userInfo.country,
+          languages: userInfo.languages,
+          academicalDataId: userInfo.academicalDataId,
+          technicalDataId: userInfo.technicalDataId,
+          workDataId: userInfo.workDataId,
+          isAvailable: userInfo.isAvailable,
+          softSkills: userInfo.softSkills,
+          interviewId: userInfo.interviewId,
+          email: userInfo.email,
+          password: userInfo.password,
+        }
+      } else {
+        return { msg: '400' }
       }
     } catch (err) {
+      console.log(err)
       return { msg: '400' }
     }
   }

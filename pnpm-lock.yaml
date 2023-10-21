@@ -51,6 +51,9 @@ importers:
       '@types/node':
         specifier: ^20.8.7
         version: 20.8.7
+      '@types/pg':
+        specifier: ^8.10.7
+        version: 8.10.7
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.8.7)(ts-node@10.9.1)

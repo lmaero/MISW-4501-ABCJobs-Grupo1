@@ -43,7 +43,7 @@ describe('Dao authenticate user', () => {
   test('Dao get user info code 400', async () => {
     const dao = new Dao()
     const result = await dao.getUserInfo('al@hotmail.com')
-    const expected = "400";
+    const expected = '400'
     expect(result.msg).toStrictEqual(expected)
   })
 })
