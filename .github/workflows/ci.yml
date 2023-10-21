@@ -10,6 +10,7 @@ on:
   push:
     branches:
       - 'HU/**'
+      - 'ci-cd/**'
   pull_request:
     types:
       - opened
