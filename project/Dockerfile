@@ -31,5 +31,5 @@ COPY --chown=app:app --from=ts-remover /app/build /app/build
 COPY --chown=app:app --from=ts-remover /app/node_modules /app/build/node_modules
 COPY --chown=app:app --from=ts-remover /app/prisma /app/prisma
 
-EXPOSE ${COMPANY_PORT}
+EXPOSE ${PROJECT_PORT}
 CMD ["node", "build/index.js"]

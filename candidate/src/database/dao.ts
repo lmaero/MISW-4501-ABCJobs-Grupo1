@@ -2,23 +2,13 @@ import { Client } from 'pg'
 import { AcademicExperience } from '../schemas/AcademicData'
 import { Experience } from '../schemas/ExperienceData'
 import { TechnicalData } from '../schemas/TechnicalData'
+import { clientString } from './pgClientConfig'
 
 class Dao {
-  private client
+  private client: Client
 
   constructor() {
-    this.client = new Client({
-      // user: process.env.POSTGRES_USER,
-      // host: process.env.POSTGRES_HOST,
-      // database: process.env.POSTGRES_DB_NAME,
-      // password: process.env.POSTGRES_PASSWORD,
-      // port: process.env.POSTGRES_PORT,
-      user: 'postgres',
-      host: 'localhost',
-      database: 'postgres',
-      password: 'postgres',
-      port: 5432,
-    })
+    this.client = new Client(clientString)
     this.client.connect()
   }
 
@@ -28,9 +18,10 @@ class Dao {
     first_name: string,
     last_name: string,
   ) {
-    const query = `INSERT INTO "Candidate" ("email", "password", "first_name",
-                                            "last_name")
-                   VALUES ($1, $2, $3, $4)`
+    const query = `INSERT INTO "Candidate" ("email", "password",
+                                                "first_name",
+                                                "last_name")
+                       VALUES ($1, $2, $3, $4)`
 
     try {
       await this.client.query(query, [email, password, first_name, last_name])
@@ -52,16 +43,16 @@ class Dao {
     technical_data: TechnicalData,
   ) {
     const query = `UPDATE "Candidate"
-                   SET academical_data = $1,
-                       certifications  = $2,
-                       experience      = $3,
-                       email           = $4,
-                       location        = $5,
-                       soft_skills     = $6,
-                       role            = $7,
-                       languages       = $8,
-                       technical_data  = $9
-                   WHERE email = $4`
+                       SET academical_data = $1,
+                           certifications  = $2,
+                           experience      = $3,
+                           email           = $4,
+                           location        = $5,
+                           soft_skills     = $6,
+                           role            = $7,
+                           languages       = $8,
+                           technical_data  = $9
+                       WHERE email = $4`
 
     try {
       await this.client.query(query, [
@@ -89,26 +80,26 @@ class Dao {
     soft_skills: string[],
     spoken_languages: string[],
   ) {
-    const query = `with result as (
-                        with role (col) as (
-                        select experience, 
-                        technical_data ->> 'roles' as programming_languages, 
-                        soft_skills,
-                         languages,
-                         email 
-                        from "Candidate"
-                    )  select y.x->>'role' "position", 
-                       soft_skills, 
-                       languages as spoken_languages,
-                       programming_languages,
-                       email
-                       from role, lateral (select jsonb_array_elements(role.col) x) y
-                ) select * from result 
-                  where 1=1
-                  or position in ($1)
-                  or programming_languages in ($2)
-                  or soft_skills in ($3)
-                  or spoken_languages in ($4)`
+    const query = `with result as (with role (col) as (select experience,
+                                                                  technical_data ->> 'roles' as programming_languages,
+                                                                  soft_skills,
+                                                                  languages,
+                                                                  email
+                                                           from "Candidate")
+                                       select y.x ->> 'role' "position",
+                                              soft_skills,
+                                              languages as   spoken_languages,
+                                              programming_languages,
+                                              email
+                                       from role,
+                                            lateral (select jsonb_array_elements(role.col) x) y)
+                       select *
+                       from result
+                       where 1 = 1
+                          or position in ($1)
+                          or programming_languages in ($2)
+                          or soft_skills in ($3)
+                          or spoken_languages in ($4)`
     try {
       const res = await this.client.query(query, [
         role,

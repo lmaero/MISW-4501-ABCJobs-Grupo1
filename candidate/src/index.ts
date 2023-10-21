@@ -2,6 +2,7 @@ import http from 'node:http'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Application } from 'express'
+import { client, createTableIfNotExists } from './database/initDB'
 import candidateRouter from './routes/candidate'
 
 dotenv.config()
@@ -31,6 +32,19 @@ app.use(express.json())
 app.use('/candidate', candidateRouter)
 
 const server = http.createServer(app)
+
+client
+  .connect()
+  .then(() => createTableIfNotExists())
+  .then(() => {
+    console.info('Table was created successfully')
+  })
+  .catch((error) => {
+    console.error('Error:', error)
+  })
+  .finally(() => {
+    client.end() // Close the database connection
+  })
 
 server
   .listen(PORT)
