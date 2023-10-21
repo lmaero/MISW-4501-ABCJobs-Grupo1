@@ -1,12 +1,6 @@
 import Dao from '../src/database/dao'
 import { IUserInfo } from '../src/interfaces/interfaces'
 
-// jest.mock('../src/utils/utils', () => ({
-//   generateAccessToken: jest.fn(() => ({token: 1234})),
-//   decodeToken: jest.fn(() => ({token: 1234, email: "al@hotmail.com"})),
-//   tokenExpired:
-// jest.fn().mockReturnValueOnce(true).mockReturnValueOnce(false), }));
-// jest.mock("../src/database/dao")
 jest.mock('jwt-decode', () => jest.fn())
 jest.mock('pg')
 
