@@ -15,6 +15,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import candidateSchema from '../../schemas/CandidateSchema';
 import {FormErrorMessage} from '../../components/FormErrorMessage';
+import {appThemeStyles} from '../../themes/appTheme';
 
 export const CandidateRegisterScreen = () => {
   const {
@@ -31,7 +32,7 @@ export const CandidateRegisterScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      style={styles.keyboardAvoidingViewContainer}
+      style={appThemeStyles.mainContainer}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.mainContainer}>

@@ -1,23 +1,8 @@
 import React, {useState} from 'react';
-import {
-  KeyboardTypeOptions,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
-
-interface Props {
-  title: string;
-  placeholder: string;
-  value?: string;
-  autoCorrect?: boolean;
-  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
-  keyboardType?: KeyboardTypeOptions;
-  isPassword?: boolean;
-  onChangeText?: (text: string) => void;
-}
+import {appThemeStyles} from '../themes/appTheme';
+import {TextInputWithTitleProps} from '../interfaces/components/Input';
 
 export const SingleInput = ({
   title,
@@ -28,10 +13,10 @@ export const SingleInput = ({
   keyboardType = 'default',
   isPassword = false,
   onChangeText,
-}: Props) => {
+}: TextInputWithTitleProps) => {
   const [showPassword, setShowPassword] = useState(true);
   return (
-    <View style={styles.container}>
+    <View style={appThemeStyles.formItemcontainer}>
       <Text style={styles.title}>{title}</Text>
       <TextInput
         style={styles.input}
@@ -57,10 +42,6 @@ export const SingleInput = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'flex-start',
-    marginVertical: 10,
-  },
   title: {
     fontFamily: 'Inter',
     fontSize: 16,
@@ -72,7 +53,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(28, 31, 30, 0.50)',
     borderRadius: 10,
-    width: 300,
     height: 44,
   },
   eyeIcon: {

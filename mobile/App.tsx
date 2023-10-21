@@ -1,6 +1,6 @@
 import React from 'react';
-import {CandidateRegisterScreen} from './src/screens/candidate/CandidateRegisterScreen';
+import {CandidateRegisterProfileScreen} from './src/screens/candidate/CandidateRegisterProfileScreen';
 
 export const App = () => {
-  return <CandidateRegisterScreen />;
+  return <CandidateRegisterProfileScreen />;
 };

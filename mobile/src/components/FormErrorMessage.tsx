@@ -3,10 +3,14 @@ import {StyleSheet, Text} from 'react-native';
 
 interface Props {
   text?: string;
+  noMargin?: boolean;
 }
 
-export const FormErrorMessage = ({text = 'Invalid value'}: Props) => {
-  return <Text style={styles.msg}>{text}</Text>;
+export const FormErrorMessage = ({
+  text = 'Invalid value',
+  noMargin = false,
+}: Props) => {
+  return <Text style={[styles.msg, !noMargin && styles.margin]}>{text}</Text>;
 };
 
 const styles = StyleSheet.create({
@@ -15,6 +19,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
+  },
+  margin: {
     marginHorizontal: 50,
   },
 });

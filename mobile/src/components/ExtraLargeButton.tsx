@@ -1,30 +1,27 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ButtonProps} from '../interfaces/components/Button';
 
-interface Props {
-  text: string;
-  onPress: () => void;
-}
-export const ExtraLargeButton = ({text, onPress}: Props) => {
+export const ExtraLargeButton = ({text, onPress}: ButtonProps) => {
   return (
-    <View style={styles.location}>
-      <TouchableOpacity activeOpacity={0.75} onPress={onPress}>
-        <View style={styles.button}>
-          <Text style={styles.text}>{text}</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      activeOpacity={0.75}
+      onPress={onPress}
+      style={styles.location}>
+      <View style={styles.button}>
+        <Text style={styles.text}>{text}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   location: {
-    alignItems: 'center',
-    marginTop: 50,
+    width: '100%',
+    marginTop: 40,
   },
   button: {
     backgroundColor: '#2C71F6',
-    width: 300,
     height: 44,
     borderRadius: 10,
     borderColor: 'black',
