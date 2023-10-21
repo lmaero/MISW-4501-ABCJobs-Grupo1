@@ -16,6 +16,7 @@ on:
       - opened
     branches:
       - 'HU/**'
+      - 'ci-cd/**'
       - 'develop'
 
 jobs:
