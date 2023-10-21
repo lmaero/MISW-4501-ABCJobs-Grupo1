@@ -21,15 +21,19 @@ describe('utils functions validation', () => {
   })
 
   test('Access token generated', async () => {
-    const JsonWebTokenError = jest.mock('jsonwebtoken', () => ({
+    jest.mock('jsonwebtoken', () => ({
       default: jest.fn(() => ({})),
     }))
+
     const token = '12345'
+
     try {
-      const expected = await generateAccessToken(token)
+      await generateAccessToken(token)
     } catch (e) {
-      const error: any = e
-      expect(error.name).toBe('JsonWebTokenError')
+      const error: unknown = e
+      if (error instanceof Error) {
+        expect(error.name).toBe('JsonWebTokenError')
+      }
     }
   })
 
@@ -41,7 +45,7 @@ describe('utils functions validation', () => {
     try {
       expected = await decodeToken(token)
     } catch (e) {
-      const error: any = e
+      const error: unknown = e
       console.log(error)
     }
     expect(expected).toStrictEqual(result)

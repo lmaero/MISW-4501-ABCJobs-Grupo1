@@ -1,18 +1,56 @@
 'use client'
 
 import Logo from '@/components/Logo'
+import { CANDIDATE_HOST } from '@/lib/api'
 import { CandidatePre, CandidatePreSch } from '@/schemas/Candidate'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 export default function CandidateRegisterPage() {
+  const router = useRouter()
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<CandidatePre>({
     mode: 'onChange',
     resolver: zodResolver(CandidatePreSch),
   })
+
+  async function onSubmit(data: CandidatePre) {
+    try {
+      const response = await fetch(`${CANDIDATE_HOST}/candidate/register`, {
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
+
+      const payload = await response.json()
+
+      if (response.status === 201) {
+        toast('Successfully validated', { type: 'success', autoClose: 3000 })
+        setTimeout(() => {
+          router.push(`/candidate/register/profile?email=${payload.email}`)
+        }, 3000)
+        return
+      }
+
+      if (response.status === 400) {
+        toast(payload.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(payload.message, { type: 'error', autoClose: false })
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
+    }
+  }
 
   return (
     <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
@@ -24,7 +62,7 @@ export default function CandidateRegisterPage() {
       </div>
 
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form className='space-y-6' onSubmit={() => console.log('Submitted')}>
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='email'

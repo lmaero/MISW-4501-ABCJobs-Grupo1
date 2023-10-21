@@ -2,26 +2,26 @@ export const roles = [
   {
     id: 'fullstack-developer',
     label: 'Fullstack Developer',
-    value: 'Fullstack Developer',
+    value: 'fullstack',
   },
   {
     id: 'backend-developer',
     label: 'Backend Developer',
-    value: 'Backend Developer',
+    value: 'backend',
   },
   {
     id: 'frontend-developer',
     label: 'Frontend Developer',
-    value: 'Frontend Developer',
+    value: 'frontend',
   },
   {
     id: 'devops-engineer',
     label: 'DevOps Engineer',
-    value: 'DevOps Engineer',
+    value: 'devops',
   },
   {
     id: 'architect',
     label: 'Architect',
-    value: 'Architect',
+    value: 'architect',
   },
 ]

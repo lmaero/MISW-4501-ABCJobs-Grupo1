@@ -1,6 +1,6 @@
 import { academicExperienceSch } from '@/schemas/AcademicData'
 import { commaSeparatedList } from '@/schemas/CommaSeparatedList'
-import { roleEnum } from '@/schemas/Enums'
+import { techRoleEnum } from '@/schemas/Enums'
 import { experienceSch } from '@/schemas/ExperienceData'
 import { technicalDataSch } from '@/schemas/TechnicalData'
 import { z } from 'zod'
@@ -11,7 +11,7 @@ export const CandidateProfileSch = z.object({
   experienceData: z.array(experienceSch),
   location: z.string(),
   mainSoftSkills: commaSeparatedList,
-  role: roleEnum,
+  role: techRoleEnum,
   spokenLanguages: commaSeparatedList,
   technicalData: technicalDataSch,
 })

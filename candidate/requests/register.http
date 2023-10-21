@@ -1,13 +1,30 @@
-### Send POST request with invalid email
-POST {{host}}:{{port}}/api/candidate/register
+### Send POST request with invalid data
+POST {{host}}:{{port}}/candidate/register
 Content-Type: application/json
 
 {
-  "email": ""
+  "email": "so@so.co",
+  "password": "Street123#"
 }
 
 > {%
   client.test("Request executed successfully", function() {
     client.assert(response.status === 400, "Response status is not 400");
+  });
+%}
+
+### Send POST request with valid data
+POST {{host}}:{{port}}/candidate/register
+Content-Type: application/json
+
+{
+  "email": "so@so.co",
+  "password": "Street123#",
+  "fullName": "Homer Simpson"
+}
+
+> {%
+  client.test("Request executed successfully", function() {
+    client.assert(response.status === 200, "Response status is not 200");
   });
 %}
