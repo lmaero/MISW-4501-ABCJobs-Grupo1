@@ -4,11 +4,10 @@ import {
   register,
   registerProfile,
   searchCandidate,
-} from '../src/controllers/candidate'
-import Dao from '../src/database/dao'
-import { CandidatePreSch } from '../src/schemas/Candidate'
-import { CandidateProfileSch } from '../src/schemas/CandidateProfile'
-import { commaSeparatedList } from '../src/schemas/CommaSeparatedList'
+} from '../controllers/candidate'
+import Dao from '../database/dao'
+import { CandidatePreSch } from '../schemas/Candidate'
+import { CandidateProfileSch } from '../schemas/CandidateProfile'
 
 jest.mock('express')
 jest.mock('../src/schemas/Candidate')

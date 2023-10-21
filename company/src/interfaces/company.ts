@@ -1,8 +1,6 @@
-import { SIZE } from '@prisma/client'
-
 export interface Company {
   name: string
-  size: SIZE
+  size: string
   preferredLanguage: string
   businessSegments: string
   nameMainContact: string

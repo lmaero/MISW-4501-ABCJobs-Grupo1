@@ -1,7 +1,7 @@
 import * as httpMocks from 'node-mocks-http'
-import { register } from '../src/controllers/project'
-import Dao from '../src/database/dao'
-import { ProjectSch } from '../src/schemas/Project'
+import { register } from '../controllers/project'
+import Dao from '../database/dao'
+import { ProjectSch } from '../schemas/Project'
 
 jest.mock('express')
 jest.mock('../src/database/dao')

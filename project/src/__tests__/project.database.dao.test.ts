@@ -1,4 +1,4 @@
-import Dao from '../src/database/dao'
+import Dao from '../database/dao'
 
 jest.mock('express')
 jest.mock('pg')

@@ -1,13 +1,13 @@
 import * as httpMocks from 'node-mocks-http'
-import { register, registerProfile } from '../src/controllers/company'
-import Dao from '../src/database/dao'
-import { CompanyPreSch } from '../src/schemas/Company'
-import { CompanyProfileSch } from '../src/schemas/CompanyProfile'
+import { register, registerProfile } from '../controllers/company'
+import Dao from '../database/dao'
+import { CompanyPreSch } from '../schemas/Company'
+import { CompanyProfileSch } from '../schemas/CompanyProfile'
 
 jest.mock('express')
-jest.mock('../src/schemas/Company')
-jest.mock('../src/schemas/CompanyProfile')
-jest.mock('../src/database/dao')
+jest.mock('../schemas/Company')
+jest.mock('../schemas/CompanyProfile')
+jest.mock('../database/dao')
 
 const fakeData = {
   email: 'john@abcjobs.com',
