@@ -7,7 +7,7 @@ import Dao from "../src/database/dao";
 import {z} from "zod";
 import {dateInPast} from "../src/schemas/DateInPast";
 import {commaSeparatedList} from "../src/schemas/CommaSeparatedList";
-import {techRoleEnum} from "../src/schemas/Enums";
+import {employmentEnum, techRoleEnum} from "../src/schemas/Enums";
 import {technicalDataSch} from "../src/schemas/TechnicalData";
 
 jest.mock('express');
@@ -102,15 +102,33 @@ describe('candidate tests', () => {
 
     jest.spyOn(CandidateProfileSch, "safeParse").mockReturnValue({success: true, data:
           {
-            academicData: [{}],
+            academicData: [{
+              endDate: new Date(),
+              grade: 1,
+              obtainedDegree: "z.string().min(10)",
+              schoolName: "z.string().min(3)",
+              startDate: new Date(),
+            }],
             certifications: "Contra1234!",
-            experienceData: [{}],
+            experienceData: [{
+              company: "z.string().max(100)",
+              employment: "Full-Time",
+              endDate: new Date(),
+              role: "backend",
+              startDate: new Date(),
+              title: "z.string().min(2)",
+            }],
             email: "alonso@cantu",
             location: "location",
             mainSoftSkills: "cantu",
             role: "backend",
             spokenLanguages: "cantu",
-            technicalData: {},
+            technicalData: {
+              techSkills: "commaSeparatedList",
+              programmingLanguages: "commaSeparatedList",
+              roles: "role",
+              yearsOfExperience: 20,
+            },
           }
     })
     jest.spyOn(Dao.prototype, 'updateCandidateProfile').mockReturnValue(Promise.resolve({ msg: '200' }))
