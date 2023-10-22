@@ -2,7 +2,7 @@ import { roles } from '../../../src/lib/roles'
 
 describe('Create Project Page', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/projects/create')
+    cy.visit('/projects/create')
   })
 
   it('displays all the initial inputs and buttons', () => {

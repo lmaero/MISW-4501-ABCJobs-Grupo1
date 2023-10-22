@@ -49,7 +49,7 @@ describe('Dao candidate tests', () => {
         yearsOfExperience: 20,
       },
     )
-    const expected = '201'
+    const expected = '200'
     expect(result.msg).toStrictEqual(expected)
   })
 

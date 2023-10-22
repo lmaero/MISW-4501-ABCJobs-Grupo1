@@ -6,6 +6,7 @@ import { CANDIDATE_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { SearchCandidate, SearchCandidateSch } from '@/schemas/SearchCandidate'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -29,7 +30,12 @@ const spokenLanguages = [
   { value: 'russian', label: 'Russian' },
 ]
 
-export default function SearchCandidatePage() {
+interface Props {
+  params: { lang: string }
+}
+
+export default function SearchCandidatePage({ params }: Props) {
+  const t = useTranslations('SearchCandidatePage')
   const router = useRouter()
 
   const {
@@ -55,7 +61,7 @@ export default function SearchCandidatePage() {
 
       if (response.status === 200) {
         setTimeout(() => {
-          router.push('/candidate/search/results')
+          router.push(`/${params.lang}/candidate/search/results`)
         }, 3000)
         return
       }
@@ -78,11 +84,9 @@ export default function SearchCandidatePage() {
       <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
-            Search Candidates
+            {t('title')}
           </h2>
-          <p className='text-sm text-gray-600'>
-            What profile are you looking for?
-          </p>
+          <p className='text-sm text-gray-600'>{t('subtitle')}</p>
         </header>
 
         <hr className='border-b-1' />
@@ -90,8 +94,8 @@ export default function SearchCandidatePage() {
         <section>
           <article className='mb-6'>
             <FieldDescription
-              title='Applicable roles'
-              description='Make sure to select compatible roles'
+              title={t('formLabels.rolesTitle')}
+              description={t('formLabels.rolesSubtitle')}
             />
             <div className='space-y-3'>
               {roles.map((role) => (
@@ -118,8 +122,8 @@ export default function SearchCandidatePage() {
 
           <article className='mb-6'>
             <FieldDescription
-              title='Needed languages'
-              description='Please notice that these are the desired programming languages'
+              title={t('formLabels.programmingTitle')}
+              description={t('formLabels.programmingSubtitle')}
             />
             <div className='space-y-3'>
               {programmingLanguages.map((language) => (
@@ -148,8 +152,8 @@ export default function SearchCandidatePage() {
 
           <article className='mb-6'>
             <FieldDescription
-              title='Needed soft-skills'
-              description='Ask your human resources department why this is important'
+              title={t('formLabels.softTitle')}
+              description={t('formLabels.softSubtitle')}
             />
             <div className='space-y-3'>
               {softSkills.map((skill) => (
@@ -178,8 +182,8 @@ export default function SearchCandidatePage() {
 
           <article className='mb-6'>
             <FieldDescription
-              title='Spoken Languages'
-              description='Make sure to select just the ones you need, price will be affected'
+              title={t('formLabels.spokenTitle')}
+              description={t('formLabels.spokenSubtitle')}
             />
             <div className='space-y-3'>
               {spokenLanguages.map((language) => (
@@ -214,7 +218,7 @@ export default function SearchCandidatePage() {
             type='reset'
             className='flex w-fit justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
-            Cancel
+            {t('cancelButton')}
           </button>
 
           <button
@@ -223,7 +227,7 @@ export default function SearchCandidatePage() {
             type='submit'
             className='flex w-fit justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
-            Search
+            {t('sendButton')}
           </button>
         </div>
       </form>
