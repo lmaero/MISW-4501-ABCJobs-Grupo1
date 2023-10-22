@@ -2,8 +2,7 @@ name: CD-Company
 on:
   check_run:
     workflows: [ CI-Tests ]
-    types:
-      - completed
+    types: [ completed ]
 jobs:
   build:
     runs-on: self-hosted
