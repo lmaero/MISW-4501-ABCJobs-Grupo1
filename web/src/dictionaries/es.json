@@ -125,7 +125,10 @@
       "addMoreExp": "Añadir más experiencia"
     },
     "cancelButton": "Cancelar",
-    "sendButton": "Guardar"
+    "sendButton": "Guardar",
+    "notifications": {
+      "success": "Validado exitosamente"
+    }
   },
   "CompanyProfilePage": {
     "title": "Completa la información de tu compañía",

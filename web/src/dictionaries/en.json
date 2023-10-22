@@ -125,7 +125,10 @@
       "addMoreExp": "Add more experience"
     },
     "cancelButton": "Cancel",
-    "sendButton": "Save"
+    "sendButton": "Save",
+    "notifications": {
+      "success": "Successfully validated"
+    }
   },
   "CompanyProfilePage": {
     "title": "Complete your information",

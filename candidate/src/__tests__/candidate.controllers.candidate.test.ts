@@ -146,7 +146,7 @@ describe('candidate tests', () => {
       .mockReturnValue(Promise.resolve({ msg: '200' }))
     const response = httpMocks.createResponse()
     const result = await registerProfile(request, response)
-    expect(result).toBeUndefined()
+    expect(result).toBeDefined()
   })
 
   test('search candidate 200', async () => {
