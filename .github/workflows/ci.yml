@@ -179,4 +179,3 @@ jobs:
         run: sudo docker rm -f project-container || true
       - name: Run Project Docker Container
         run: sudo docker run -p 8080:${{ env.PROJECT_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e PROJECT_PORT=${{ env.PROJECT_PORT }} --name project-container acantu297366/project
-
