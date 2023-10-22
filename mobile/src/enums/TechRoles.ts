@@ -3,7 +3,7 @@ import {techRole as techRoles} from './CandidateProfile';
 
 export const techRolesValues = techRoles.map(
   (role: string): PickerValues => ({
-    label: role,
-    value: role[0].toLowerCase() + role.slice(1),
+    value: role,
+    label: role[0].toUpperCase() + role.slice(1),
   }),
 );

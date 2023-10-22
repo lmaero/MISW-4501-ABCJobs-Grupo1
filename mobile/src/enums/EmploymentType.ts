@@ -3,7 +3,7 @@ import {employment as employments} from './CandidateProfile';
 
 export const employmentType = employments.map(
   (employment: string): PickerValues => ({
-    label: employment,
-    value: employment[0].toLowerCase() + employment.slice(1),
+    value: employment,
+    label: employment[0].toUpperCase() + employment.slice(1),
   }),
 );

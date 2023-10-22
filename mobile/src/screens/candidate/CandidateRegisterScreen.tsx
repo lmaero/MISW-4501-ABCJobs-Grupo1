@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -16,8 +17,20 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import candidateSchema from '../../schemas/CandidateSchema';
 import {FormErrorMessage} from '../../components/FormErrorMessage';
 import {appThemeStyles} from '../../themes/appTheme';
+import {RegisterCandidateOutput} from '../../interfaces/api/Outputs';
+import {Candidate} from '../../interfaces/Candidate';
+import candidateApi from '../../api/Candidate';
+import {AxiosError} from 'axios';
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParams} from '../../navigator/StackNavigator';
+import {LoadingScreen} from '../LoadingScreen';
 
-export const CandidateRegisterScreen = () => {
+interface Props
+  extends StackScreenProps<RootStackParams, 'CandidateRegisterScreen'> {}
+
+export const CandidateRegisterScreen = ({navigation}: Props) => {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
   const {
     control,
     handleSubmit,
@@ -26,11 +39,42 @@ export const CandidateRegisterScreen = () => {
     resolver: yupResolver(candidateSchema),
   });
 
-  const onPressSend = (formData: any) => {
-    console.log(JSON.stringify(formData, null, 2));
+  const onPressSend = (formData: Candidate) => {
+    setIsLoaded(true);
+    Keyboard.dismiss();
+    const registerCandidatePromise = candidateApi.post<RegisterCandidateOutput>(
+      '/register',
+      JSON.stringify(formData),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      },
+    );
+
+    registerCandidatePromise
+      .then(response => {
+        setIsLoaded(false);
+        response.data &&
+          response.data?.email &&
+          navigation.navigate('CandidateRegisterProfileScreen', {
+            candidateEmail: response.data?.email,
+          });
+      })
+      .catch((error: AxiosError) => {
+        setIsLoaded(false);
+        error.code &&
+          Alert.alert(
+            'Error',
+            'The user already exists or the service has problems',
+          );
+      });
   };
 
-  return (
+  return isLoaded ? (
+    <LoadingScreen />
+  ) : (
     <KeyboardAvoidingView
       style={appThemeStyles.mainContainer}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -55,7 +99,9 @@ export const CandidateRegisterScreen = () => {
             )}
             name="email"
           />
-          {errors.email && <FormErrorMessage text={errors.email.message} />}
+          {errors.email && (
+            <FormErrorMessage text={errors.email.message} noMargin />
+          )}
           <Controller
             control={control}
             render={({field: {onChange, value}}) => (
@@ -70,7 +116,7 @@ export const CandidateRegisterScreen = () => {
             name="password"
           />
           {errors.password && (
-            <FormErrorMessage text={errors.password.message} />
+            <FormErrorMessage text={errors.password.message} noMargin />
           )}
           <Controller
             control={control}
@@ -86,7 +132,7 @@ export const CandidateRegisterScreen = () => {
             name="fullName"
           />
           {errors.fullName && (
-            <FormErrorMessage text={errors.fullName.message} />
+            <FormErrorMessage text={errors.fullName.message} noMargin />
           )}
           <ExtraLargeButton
             text="Register"

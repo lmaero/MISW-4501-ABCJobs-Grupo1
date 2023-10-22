@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
+import {Alert, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {WithDescriptionPicker} from '../../components/WithDescriptionPicker';
@@ -10,17 +10,36 @@ import {countries} from '../../enums/Countries';
 import {WithDescriptionTitle} from '../../components/WithDescriptionTitle';
 import {SecondaryTitle} from '../../components/SecondaryTitle';
 import {SingleDatePicker} from '../../components/SingleDatePicker';
-import {AcademicData, Experience} from '../../interfaces/Candidate';
+import {
+  AcademicData,
+  CandidateProfile,
+  Experience,
+} from '../../interfaces/Candidate';
 import {MediumButton} from '../../components/MediumButton';
 import candidateProfileSchema from '../../schemas/CandidateProfileSchema';
 import {FormErrorMessage} from '../../components/FormErrorMessage';
 import {employmentType} from '../../enums/EmploymentType';
 import {techRolesValues} from '../../enums/TechRoles';
 import {aWeekLaterDate} from '../../utils/DateFormat';
+import {RootStackParams} from '../../navigator/StackNavigator';
+import {StackScreenProps} from '@react-navigation/stack';
+import {
+  RegisterProfileCandidateInput,
+  transformRegisterProfileCandidateInput,
+} from '../../interfaces/api/Inputs';
+import candidateApi from '../../api/Candidate';
+import {RegisterProfileCandidateOutput} from '../../interfaces/api/Outputs';
+import {AxiosError} from 'axios';
+import {LoadingScreen} from '../LoadingScreen';
 
-export const CandidateRegisterProfileScreen = () => {
+interface Props
+  extends StackScreenProps<RootStackParams, 'CandidateRegisterProfileScreen'> {}
+
+export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
+  const {candidateEmail} = route.params;
   const {formItemSmallMargin} = appThemeStyles;
 
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [educationSections, setEducationSections] = useState<AcademicData[]>([
     {
       endDate: new Date(aWeekLaterDate),
@@ -69,8 +88,50 @@ export const CandidateRegisterProfileScreen = () => {
     ]);
   };
 
-  const onPressSend = (formData: any) => {
-    console.log(JSON.stringify(formData, null, 2));
+  const onPressSend = (formData: CandidateProfile) => {
+    if (candidateEmail) {
+      setIsLoaded(true);
+      const body: RegisterProfileCandidateInput =
+        transformRegisterProfileCandidateInput(candidateEmail, formData);
+      const registerProfileCandidatePromise =
+        candidateApi.post<RegisterProfileCandidateOutput>(
+          '/register/profile',
+          JSON.stringify(body),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+          },
+        );
+      registerProfileCandidatePromise
+        .then(response => {
+          setIsLoaded(false);
+          response.data &&
+            response.data?.candidates &&
+            Alert.alert(
+              'Success',
+              'Your profile has been update successfully',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.pop(),
+                },
+              ],
+              {
+                onDismiss: () => navigation.pop(),
+              },
+            );
+        })
+        .catch((error: AxiosError) => {
+          setIsLoaded(false);
+          error.code &&
+            Alert.alert(
+              'Error',
+              'Error in the service, please try again later',
+            );
+        });
+    }
   };
 
   const {
@@ -81,11 +142,9 @@ export const CandidateRegisterProfileScreen = () => {
     resolver: yupResolver(candidateProfileSchema),
   });
 
-  // useEffect(() => {
-  //   console.log(JSON.stringify(control, null, 2));
-  // }, [control]);
-
-  return (
+  return isLoaded ? (
+    <LoadingScreen />
+  ) : (
     <View style={appThemeStyles.mainContainer}>
       <ScrollView>
         <WithDescriptionTitle

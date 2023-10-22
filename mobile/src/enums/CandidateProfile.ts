@@ -1,21 +1,17 @@
-export const roles = [
-  'fullstack Developer',
-  'backend Developer',
-  'frontend Developer',
-];
+export const roles = ['fullstack', 'backend', 'frontend'];
 
 export const employment = [
-  'full-Time',
-  'part-Time',
-  'contract',
-  'freelance',
-  'internship',
+  'Full-Time',
+  'Part-Time',
+  'Contract',
+  'Freelance',
+  'Internship',
 ];
 
 export const techRole = [
-  'backend Developer',
-  'frontend Developer',
-  'fullstack Developer',
-  'devOps Engineer',
+  'backend',
+  'frontend',
+  'fullstack',
+  'devops',
   'architect',
 ];

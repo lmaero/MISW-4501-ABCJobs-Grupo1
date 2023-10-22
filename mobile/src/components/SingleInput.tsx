@@ -16,10 +16,10 @@ export const SingleInput = ({
 }: TextInputWithTitleProps) => {
   const [showPassword, setShowPassword] = useState(true);
   return (
-    <View style={appThemeStyles.formItemcontainer}>
+    <View style={[appThemeStyles.formItemcontainer, styles.fullSize]}>
       <Text style={styles.title}>{title}</Text>
       <TextInput
-        style={styles.input}
+        style={appThemeStyles.inputForm}
         value={value}
         placeholder={placeholder}
         autoCorrect={autoCorrect}
@@ -42,18 +42,15 @@ export const SingleInput = ({
 };
 
 const styles = StyleSheet.create({
+  fullSize: {
+    width: '100%',
+  },
   title: {
     fontFamily: 'Inter',
     fontSize: 16,
     fontWeight: '600',
     textAlign: 'left',
     marginBottom: 6,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'rgba(28, 31, 30, 0.50)',
-    borderRadius: 10,
-    height: 44,
   },
   eyeIcon: {
     position: 'absolute',

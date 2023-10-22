@@ -3,7 +3,7 @@ import {roles as rolesValue} from './CandidateProfile';
 
 export const roles = rolesValue.map(
   (employment: string): PickerValues => ({
-    label: employment,
-    value: employment[0].toLowerCase() + employment.slice(1),
+    value: employment,
+    label: employment[0].toUpperCase() + employment.slice(1),
   }),
 );

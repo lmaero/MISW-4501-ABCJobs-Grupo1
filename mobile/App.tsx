@@ -1,6 +1,12 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {CandidateRegisterProfileScreen} from './src/screens/candidate/CandidateRegisterProfileScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {StackNavigator} from './src/navigator/StackNavigator';
 
 export const App = () => {
-  return <CandidateRegisterProfileScreen />;
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  );
 };
