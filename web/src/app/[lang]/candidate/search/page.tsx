@@ -51,13 +51,14 @@ export default function SearchCandidatePage({ params }: Props) {
     try {
       const response = await fetch(`${CANDIDATE_HOST}/candidate/search`, {
         body: JSON.stringify(data),
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': '*',
         },
         method: 'POST',
-        referrerPolicy: 'no-referrer',
+        referrerPolicy: 'unsafe-url',
       })
 
       const payload = await response.json()
