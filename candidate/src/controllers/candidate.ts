@@ -61,7 +61,7 @@ export async function registerProfile(req: Request, res: Response) {
       const technical_data = result.data.technicalData
 
       const dao = new Dao()
-      await dao.updateCandidateProfile(
+      const dbResult = await dao.updateCandidateProfile(
         academical_data,
         certifications,
         experience,
@@ -72,6 +72,14 @@ export async function registerProfile(req: Request, res: Response) {
         languages,
         technical_data,
       )
+
+      if (dbResult.msg === '200') {
+        return res.status(200).json({ candidates: dbResult.msg })
+      } else {
+        return res
+          .status(400)
+          .json({ message: 'No candidate found with the criteria provided' })
+      }
     }
   } catch (error) {
     console.error(error)

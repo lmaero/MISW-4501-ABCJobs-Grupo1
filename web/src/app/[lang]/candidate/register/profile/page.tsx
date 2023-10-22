@@ -12,13 +12,19 @@ import {
 } from '@/schemas/CandidateProfile'
 import { Experience } from '@/schemas/ExperienceData'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 
-export default function CandidateCompleteProfilePage() {
+interface Props {
+  params: { lang: string }
+}
+
+export default function CandidateCompleteProfilePage({ params }: Props) {
+  const t = useTranslations('CandidateProfilePage')
   const searchParams = useSearchParams()
   const email = searchParams.get('email')
 
@@ -107,7 +113,7 @@ export default function CandidateCompleteProfilePage() {
 
       const payload = await response.json()
       if (response.status === 200) {
-        return toast('Successfully updated!', {
+        return toast(t('notifications.success'), {
           type: 'success',
           autoClose: 3000,
         })
@@ -131,22 +137,19 @@ export default function CandidateCompleteProfilePage() {
       <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
-            Complete your information
+            {t('title')}
           </h2>
-          <p className='text-sm text-gray-600'>
-            To apply for some projects, please make sure that your information
-            is complete
-          </p>
+          <p className='text-sm text-gray-600'>{t('subtitle')}</p>
         </header>
         <hr className='border-b-1' />
         <section>
           <h3 className='mb-2 mt-10 text-xl font-semibold'>
-            Basic Information
+            {t('basic.title')}
           </h3>
           <article className='mb-6'>
             <FieldDescription
-              title='Your best role'
-              description="Select the position you're comfortable with"
+              title={t('basic.formLabels.rolesTitle')}
+              description={t('basic.formLabels.rolesSubtitle')}
             />
             <div className='space-y-3'>
               {roles.map((role) => (
@@ -173,8 +176,8 @@ export default function CandidateCompleteProfilePage() {
 
           <article className='mb-6'>
             <FieldDescription
-              title='What languages do you speak?'
-              description='Use comma-separated values to list your languages'
+              title={t('basic.formLabels.languagesTitle')}
+              description={t('basic.formLabels.languagesSubtitle')}
             />
 
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
@@ -184,7 +187,7 @@ export default function CandidateCompleteProfilePage() {
                 id='spokenLanguages'
                 autoComplete='spokenLanguages'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                placeholder='English,Spanish,Russian'
+                placeholder={t('basic.formLabels.languagesPlaceholder')}
                 {...register('spokenLanguages')}
               />
             </div>
@@ -196,8 +199,8 @@ export default function CandidateCompleteProfilePage() {
 
           <article className='mb-6'>
             <FieldDescription
-              title='What are your main soft-skills?'
-              description='Use comma-separated values to list your soft-skills'
+              title={t('basic.formLabels.softTitle')}
+              description={t('basic.formLabels.softSubtitle')}
             />
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
               <input
@@ -205,7 +208,7 @@ export default function CandidateCompleteProfilePage() {
                 id='mainSoftSkills'
                 autoComplete='mainSoftSkills'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                placeholder='Patience,Honesty'
+                placeholder={t('basic.formLabels.softPlaceholder')}
                 {...register('mainSoftSkills')}
               />
             </div>
@@ -217,8 +220,8 @@ export default function CandidateCompleteProfilePage() {
 
           <article className='mb-6'>
             <FieldDescription
-              title='Location'
-              description='Select your main location even if you move constantly between countries'
+              title={t('basic.formLabels.locationTitle')}
+              description={t('basic.formLabels.locationSubtitle')}
             />
 
             <select
@@ -241,12 +244,14 @@ export default function CandidateCompleteProfilePage() {
           </article>
         </section>
         <section>
-          <h3 className='mb-2 mt-10 text-xl font-semibold'>Technical Data</h3>
+          <h3 className='mb-2 mt-10 text-xl font-semibold'>
+            {t('techData.title')}
+          </h3>
 
           <article className='mb-3'>
             <FieldDescription
-              title='Your tech-skills'
-              description='Use comma-separated values to list your tech-skills'
+              title={t('techData.formLabels.techSkillsTitle')}
+              description={t('techData.formLabels.techSkillsSubtitle')}
             />
 
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
@@ -254,7 +259,7 @@ export default function CandidateCompleteProfilePage() {
                 type='text'
                 id='techSkills'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                placeholder='Git,TailwindCSS'
+                placeholder={t('techData.formLabels.techSkillsPlaceholder')}
                 {...register('technicalData.techSkills')}
               />
             </div>
@@ -266,8 +271,8 @@ export default function CandidateCompleteProfilePage() {
 
           <article className='mb-3'>
             <FieldDescription
-              title='Programming Languages'
-              description='Use comma-separated values to list your tech-skills'
+              title={t('techData.formLabels.proLangTitle')}
+              description={t('techData.formLabels.proLangSubtitle')}
             />
 
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
@@ -275,7 +280,7 @@ export default function CandidateCompleteProfilePage() {
                 type='text'
                 id='programmingLanguages'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                placeholder='JavaScript,Python,CSS,HTML,Java,Go'
+                placeholder={t('techData.formLabels.proLangPlaceholder')}
                 {...register('technicalData.programmingLanguages')}
               />
             </div>
@@ -289,8 +294,8 @@ export default function CandidateCompleteProfilePage() {
 
           <article className='mb-3'>
             <FieldDescription
-              title='Roles'
-              description='Use comma-separated values to list your tech-skills'
+              title={t('techData.formLabels.rolesTitle')}
+              description={t('techData.formLabels.rolesSubtitle')}
             />
 
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
@@ -298,7 +303,7 @@ export default function CandidateCompleteProfilePage() {
                 type='text'
                 id='roles'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                placeholder='JavaScript,Python,CSS,HTML,Java,Go'
+                placeholder={t('techData.formLabels.rolesPlaceholder')}
                 {...register('technicalData.roles')}
               />
             </div>
@@ -309,7 +314,9 @@ export default function CandidateCompleteProfilePage() {
           </article>
 
           <article className='mb-3'>
-            <FieldDescription title='Years of experience' />
+            <FieldDescription
+              title={t('techData.formLabels.yearsOfExpTitle')}
+            />
 
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
               <input
@@ -332,12 +339,14 @@ export default function CandidateCompleteProfilePage() {
           </article>
         </section>
         <section>
-          <h3 className='mb-2 mt-10 text-xl font-semibold'>Academic Data</h3>
+          <h3 className='mb-2 mt-10 text-xl font-semibold'>
+            {t('academicData.title')}
+          </h3>
 
           <article className='mb-6'>
             <FieldDescription
-              title='Your certifications'
-              description='Use comma-separated values to list your tech certifications'
+              title={t('academicData.formLabels.certificationsTitle')}
+              description={t('academicData.formLabels.certificationsSubtitle')}
             />
 
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
@@ -346,7 +355,9 @@ export default function CandidateCompleteProfilePage() {
                 id='certifications'
                 autoComplete='certifications'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                placeholder='AWS,GCP,Azure'
+                placeholder={t(
+                  'academicData.formLabels.certificationsPlaceholder',
+                )}
                 {...register('certifications')}
               />
             </div>
@@ -357,18 +368,24 @@ export default function CandidateCompleteProfilePage() {
           </article>
 
           <article>
-            <FieldDescription title='Add Studies' />
+            <FieldDescription
+              title={t('academicData.formLabels.additionalStudies')}
+            />
             {educationSections.map((section, index) => (
               <div key={uuidv4()}>
                 <div className='mb-3'>
-                  <FieldDescription title='School Name' />
+                  <FieldDescription
+                    title={t('academicData.formLabels.schoolTitle')}
+                  />
 
                   <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='text'
                       id='schoolName'
                       className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                      placeholder='Los Andes University'
+                      placeholder={t(
+                        'academicData.formLabels.schoolPlaceholder',
+                      )}
                       {...register(`academicData.${index}.schoolName`)}
                     />
                   </div>
@@ -381,14 +398,18 @@ export default function CandidateCompleteProfilePage() {
                 </div>
 
                 <div className='mb-3'>
-                  <FieldDescription title='Obtained Degree' />
+                  <FieldDescription
+                    title={t('academicData.formLabels.degreeTitle')}
+                  />
 
                   <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='text'
                       id='obtainedDegree'
                       className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                      placeholder='MSc. Software Engineer'
+                      placeholder={t(
+                        'academicData.formLabels.degreePlaceholder',
+                      )}
                       {...register(`academicData.${index}.obtainedDegree`)}
                     />
                   </div>
@@ -404,7 +425,9 @@ export default function CandidateCompleteProfilePage() {
 
                 <div className='mb-3 flex gap-3'>
                   <div className='flex flex-col'>
-                    <FieldDescription title='Start date' />
+                    <FieldDescription
+                      title={t('academicData.formLabels.startDate')}
+                    />
 
                     <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                       <input
@@ -424,7 +447,9 @@ export default function CandidateCompleteProfilePage() {
                   </div>
 
                   <div className='flex flex-col'>
-                    <FieldDescription title='End date' />
+                    <FieldDescription
+                      title={t('academicData.formLabels.endDate')}
+                    />
 
                     <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                       <input
@@ -444,7 +469,9 @@ export default function CandidateCompleteProfilePage() {
                 </div>
 
                 <div className='sm:col-span-4'>
-                  <FieldDescription title='Grade' />
+                  <FieldDescription
+                    title={t('academicData.formLabels.gradeTitle')}
+                  />
 
                   <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
@@ -471,7 +498,7 @@ export default function CandidateCompleteProfilePage() {
                   className='mb-10 mr-3 mt-3 rounded bg-red-700 px-4 py-2 text-sm font-semibold text-white'
                   onClick={() => removeEducationSection(index)}
                 >
-                  Remove
+                  {t('academicData.removeButton')}
                 </button>
               </div>
             ))}
@@ -481,25 +508,29 @@ export default function CandidateCompleteProfilePage() {
               className='rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold leading-6'
               onClick={addEducationSection}
             >
-              Add more education
+              {t('academicData.addMoreEducation')}
             </button>
           </article>
         </section>
         <section>
-          <h3 className='mb-2 mt-10 text-xl font-semibold'>Experience</h3>
+          <h3 className='mb-2 mt-10 text-xl font-semibold'>
+            {t('expData.title')}
+          </h3>
 
           <article>
             {experiences.map((section, index) => (
               <div key={uuidv4()}>
                 <div className='mb-3'>
-                  <FieldDescription title='Title' />
+                  <FieldDescription
+                    title={t('expData.formLabels.titleTitle')}
+                  />
 
                   <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='text'
                       id='title'
                       className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                      placeholder='CEO'
+                      placeholder={t('expData.formLabels.titlePlaceholder')}
                       {...register(`experienceData.${index}.title`)}
                     />
                   </div>
@@ -512,14 +543,16 @@ export default function CandidateCompleteProfilePage() {
                 </div>
 
                 <div className='mb-3'>
-                  <FieldDescription title='Company' />
+                  <FieldDescription
+                    title={t('expData.formLabels.companyTitle')}
+                  />
 
                   <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='text'
                       id='company'
                       className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                      placeholder='ABC Jobs'
+                      placeholder={t('expData.formLabels.companyPlaceholder')}
                       {...register(`experienceData.${index}.company`)}
                     />
                   </div>
@@ -532,18 +565,30 @@ export default function CandidateCompleteProfilePage() {
                 </div>
 
                 <div className='mb-3'>
-                  <FieldDescription title='Employment Type' />
+                  <FieldDescription
+                    title={t('expData.formLabels.employmentTitle')}
+                  />
 
                   <select
                     id='expEmployment'
                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
                     {...register(`experienceData.${index}.employment`)}
                   >
-                    <option value='Full-Time'>Full-Time</option>
-                    <option value='Part-Time'>Part-Time</option>
-                    <option value='Contract'>Contract</option>
-                    <option value='Freelance'>Freelance</option>
-                    <option value='Internship'>Internship</option>
+                    <option value='Full-Time'>
+                      {t('expData.formLabels.empFull')}
+                    </option>
+                    <option value='Part-Time'>
+                      {t('expData.formLabels.empPart')}
+                    </option>
+                    <option value='Contract'>
+                      {t('expData.formLabels.empCont')}
+                    </option>
+                    <option value='Freelance'>
+                      {t('expData.formLabels.empFree')}
+                    </option>
+                    <option value='Internship'>
+                      {t('expData.formLabels.empInt')}
+                    </option>
                   </select>
 
                   {errors.experienceData?.[index]?.employment && (
@@ -557,7 +602,9 @@ export default function CandidateCompleteProfilePage() {
 
                 <div className='mb-3 flex gap-3'>
                   <div className='flex flex-col'>
-                    <FieldDescription title='Start date' />
+                    <FieldDescription
+                      title={t('expData.formLabels.startDate')}
+                    />
 
                     <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                       <input
@@ -579,7 +626,7 @@ export default function CandidateCompleteProfilePage() {
                   </div>
 
                   <div className='flex flex-col'>
-                    <FieldDescription title='End date' />
+                    <FieldDescription title={t('expData.formLabels.endDate')} />
 
                     <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                       <input
@@ -599,18 +646,28 @@ export default function CandidateCompleteProfilePage() {
                 </div>
 
                 <div className='mb-3'>
-                  <FieldDescription title='Role' />
+                  <FieldDescription title={t('expData.formLabels.roleTitle')} />
 
                   <select
                     id='expRole'
                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
                     {...register(`experienceData.${index}.role`)}
                   >
-                    <option value='backend'>Backend Developer</option>
-                    <option value='frontend'>Frontend Developer</option>
-                    <option value='fullstack'>Fullstack Developer</option>
-                    <option value='devops'>DevOps Engineer</option>
-                    <option value='architect'>Architect</option>
+                    <option value='backend'>
+                      {t('expData.formLabels.roleBack')}
+                    </option>
+                    <option value='frontend'>
+                      {t('expData.formLabels.roleFront')}
+                    </option>
+                    <option value='fullstack'>
+                      {t('expData.formLabels.roleFull')}
+                    </option>
+                    <option value='devops'>
+                      {t('expData.formLabels.roleDevOps')}
+                    </option>
+                    <option value='architect'>
+                      {t('expData.formLabels.roleArch')}
+                    </option>
                   </select>
 
                   {errors.experienceData?.[index]?.role && (
@@ -625,7 +682,7 @@ export default function CandidateCompleteProfilePage() {
                   className='mb-10 mr-3 mt-3 rounded bg-red-700 px-4 py-2 text-sm font-semibold text-white'
                   onClick={() => removeExperienceSection(index)}
                 >
-                  Remove
+                  {t('expData.removeButton')}
                 </button>
               </div>
             ))}
@@ -635,7 +692,7 @@ export default function CandidateCompleteProfilePage() {
               className='rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold leading-6'
               onClick={addExperienceSection}
             >
-              Add more experience
+              {t('expData.addMoreExp')}
             </button>
           </article>
         </section>
@@ -645,7 +702,7 @@ export default function CandidateCompleteProfilePage() {
             type='reset'
             className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
-            Cancel
+            {t('cancelButton')}
           </button>
 
           <button
@@ -654,7 +711,7 @@ export default function CandidateCompleteProfilePage() {
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
-            Save
+            {t('sendButton')}
           </button>
         </div>
       </form>
