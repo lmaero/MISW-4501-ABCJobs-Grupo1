@@ -156,8 +156,27 @@ jobs:
         run: pnpm install
       - name: Run tests and generate coverage report
         run: pnpm test
+
+  api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build the API Docker image
+        run: sudo docker build -t acantu297366/api .
+      - name: Push to Dockerhub
+        run: sudo docker push acantu297366/api
+
   build:
-    needs: [ authorizer-tests, candidate-tests, company-tests, project-tests, web-tests ]
+    needs: [ authorizer-tests, candidate-tests, company-tests, project-tests, web-tests, api ]
     runs-on: self-hosted
     steps:
       - name: Pull Candidate Image from Dockerhub
@@ -187,3 +206,10 @@ jobs:
         run: sudo docker rm -f api-container || true
       - name: Run API Docker Container
         run: sudo docker run -d -p ${{ env.API_PORT }}:${{ env.API_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e API_PORT=${{ env.API_PORT }} --name api-container acantu297366/api
+
+      - name: Pull Postgres Docker Image from Dockerhub
+        run: sudo docker pull postgres:15.4-alpine3.18
+      - name: Delete Postgres Old Docker Container
+        run: sudo docker rm -f postgres-container || true
+      - name: Run Postgres Docker Container
+        run: sudo docker run -d -p ${{ env.POSTGRES_PORT }}:${{ env.POSTGRES_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e POSTGRES_USER=${{ env.POSTGRES_USER }} -e POSTGRES_HOST=${{ env.POSTGRES_HOST }} -e POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} -e POSTGRES_DB_NAME=${{ env.POSTGRES_DB_NAME }} --name postgres-container postgres:15.4-alpine3.18
