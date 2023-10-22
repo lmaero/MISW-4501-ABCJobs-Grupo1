@@ -156,7 +156,7 @@ jobs:
       - name: Run tests and generate coverage report
         run: pnpm test
   build:
-    needs: [ candidate-tests, company-tests, project-tests ]
+    needs: [ authorizer-tests, candidate-tests, company-tests, project-tests, web-tests ]
     runs-on: self-hosted
     steps:
       - name: Pull Candidate Image from Dockerhub
