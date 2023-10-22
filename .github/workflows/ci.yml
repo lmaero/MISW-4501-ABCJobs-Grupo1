@@ -164,18 +164,18 @@ jobs:
       - name: Delete Candidate Old Docker Container
         run: sudo docker rm -f candidate-container || true
       - name: Run Candidate Docker Container
-        run: sudo docker run -d -p 8080:${{ env.CANDIDATE_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e CANDIDATE_PORT=${{ env.CANDIDATE_PORT }} --name candidate-container acantu297366/candidate
+        run: sudo docker run -d -p ${{ env.CANDIDATE_PORT }}:${{ env.CANDIDATE_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e CANDIDATE_PORT=${{ env.CANDIDATE_PORT }} --name candidate-container acantu297366/candidate
 
       - name: Pull Company Docker Image from Dockerhub
         run: sudo docker pull acantu297366/company:latest
       - name: Delete Company Old Docker Container
         run: sudo docker rm -f company-container || true
       - name: Run Company Docker Container
-        run: sudo docker run -d -p 8080:${{ env.COMPANY_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e COMPANY_PORT=${{ env.COMPANY_PORT }} --name company-container acantu297366/company
+        run: sudo docker run -d -p ${{ env.COMPANY_PORT }}:${{ env.COMPANY_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e COMPANY_PORT=${{ env.COMPANY_PORT }} --name company-container acantu297366/company
 
       - name: Pull Project Docker Image from Dockerhub
         run: sudo docker pull acantu297366/project:latest
       - name: Delete Project Old Docker Container
         run: sudo docker rm -f project-container || true
       - name: Run Project Docker Container
-        run: sudo docker run -d -p 8080:${{ env.PROJECT_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e PROJECT_PORT=${{ env.PROJECT_PORT }} --name project-container acantu297366/project
+        run: sudo docker run -d -p ${{ env.COMPANY_PORT }}:${{ env.COMPANY_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e PROJECT_PORT=${{ env.PROJECT_PORT }} --name project-container acantu297366/project
