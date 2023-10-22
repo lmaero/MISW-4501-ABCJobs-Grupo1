@@ -1,6 +1,7 @@
 name: CI-Tests-CD-Integration
 env:
   HOST: http://localhost
+  API_PORT: 80
   AUTH_PORT: 4000
   CANDIDATE_PORT: 4001
   PROJECT_PORT: 4003
@@ -179,3 +180,10 @@ jobs:
         run: sudo docker rm -f project-container || true
       - name: Run Project Docker Container
         run: sudo docker run -d -p ${{ env.PROJECT_PORT }}:${{ env.PROJECT_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e PROJECT_PORT=${{ env.PROJECT_PORT }} --name project-container acantu297366/project
+
+      - name: Pull API Docker Image from Dockerhub
+        run: sudo docker pull acantu297366/api:latest
+      - name: Delete API Old Docker Container
+        run: sudo docker rm -f api-container || true
+      - name: Run API Docker Container
+        run: sudo docker run -d -p ${{ env.API_PORT }}:${{ env.API_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e API_PORT=${{ env.API_PORT }} --name api-container acantu297366/api
