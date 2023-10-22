@@ -1,4 +1,5 @@
-import Navbar from '@/components/Navbar'
+import { LanguageSelector } from '@/components/LanguageSelector'
+import { Navbar } from '@/components/Navbar'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { Inter } from 'next/font/google'
@@ -39,7 +40,8 @@ export default async function RootLayout({
     <html lang={params.lang}>
       <body className={inter.className}>
         <NextIntlClientProvider locale={params.lang} messages={dictionary}>
-          <main className='h-screen'>
+          <main className='relative h-screen'>
+            <LanguageSelector />
             <Navbar />
             {children}
             <ToastContainer position='bottom-right' />

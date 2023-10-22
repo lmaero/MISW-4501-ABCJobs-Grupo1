@@ -17,7 +17,7 @@ const menus = [
   { label: 'Tests', link: '/' },
 ]
 
-export default function Navbar() {
+export function Navbar() {
   const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {
