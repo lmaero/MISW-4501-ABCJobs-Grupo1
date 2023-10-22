@@ -6,7 +6,7 @@ env:
   CANDIDATE_PORT: 4001
   PROJECT_PORT: 4003
   COMPANY_PORT: 4004
-  NODE_ENV: production
+  NODE_ENV: development
   DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
   POSTGRES_USER: postgres
   POSTGRES_HOST: postgres
