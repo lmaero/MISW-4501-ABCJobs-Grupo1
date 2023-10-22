@@ -1,5 +1,7 @@
 workspaces:
   - authorizer
   - candidate
+  - company
   - evaluator
+  - project
   - web

@@ -47,8 +47,7 @@ describe('authenticate user', () => {
     }
 
     const expected = await authenticateUser(userInfo)
-    const result = userResult
-    expect(result).toStrictEqual(expected)
+    expect(userResult).toStrictEqual(expected)
   })
 
   test('authenticate user code 400', async () => {
@@ -79,8 +78,7 @@ describe('authenticate user', () => {
     }
 
     const expected = await authenticateUser(userInfo)
-    const result = userResult
-    expect(result).toStrictEqual(expected)
+    expect(userResult).toStrictEqual(expected)
   })
 })
 
@@ -101,7 +99,7 @@ describe('User Info', () => {
     try {
       expected = await getUserInfo(token)
     } catch (e) {
-      const error: any = e
+      const error: unknown = e
       console.log(error)
     }
     expect(expected).toStrictEqual(result)
@@ -129,7 +127,7 @@ describe('User Info', () => {
     try {
       expected = await getUserInfo(token)
     } catch (e) {
-      const error: any = e
+      const error: unknown = e
       console.log(error)
     }
     expect(expected).toStrictEqual(result)

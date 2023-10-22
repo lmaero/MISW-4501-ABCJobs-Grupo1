@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 export const experienceSch = z
   .object({
-    company: z.string().max(100),
+    company: z.string().min(2).max(100),
     employment: employmentEnum,
     endDate: z.coerce.date(),
     role: techRoleEnum,

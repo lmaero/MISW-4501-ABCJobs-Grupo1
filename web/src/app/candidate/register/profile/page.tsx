@@ -2,6 +2,7 @@
 
 import { ErrorMessage } from '@/components/ErrorMessage'
 import { FieldDescription } from '@/components/FieldDescription'
+import { CANDIDATE_HOST } from '@/lib/api'
 import { countries } from '@/lib/countries'
 import { roles } from '@/lib/roles'
 import { AcademicExperience } from '@/schemas/AcademicData'
@@ -11,11 +12,16 @@ import {
 } from '@/schemas/CandidateProfile'
 import { Experience } from '@/schemas/ExperienceData'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function CandidateCompleteProfilePage() {
+  const searchParams = useSearchParams()
+  const email = searchParams.get('email')
+
   const [educationSections, setEducationSections] = useState<
     AcademicExperience[]
   >([
@@ -33,7 +39,7 @@ export default function CandidateCompleteProfilePage() {
       title: '',
       company: '',
       employment: 'Full-Time',
-      role: 'Fullstack Developer',
+      role: 'fullstack',
       startDate: new Date(),
     },
   ])
@@ -41,6 +47,7 @@ export default function CandidateCompleteProfilePage() {
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<CandidateProfile>({
     mode: 'onChange',
     resolver: zodResolver(CandidateProfileSch),
@@ -73,7 +80,7 @@ export default function CandidateCompleteProfilePage() {
         title: '',
         company: '',
         employment: 'Full-Time',
-        role: 'Fullstack Developer',
+        role: 'fullstack',
         startDate: new Date(),
       },
     ])
@@ -85,9 +92,43 @@ export default function CandidateCompleteProfilePage() {
     setExperiences(updatedSections)
   }
 
+  async function onSubmit(data: CandidateProfile) {
+    try {
+      const response = await fetch(
+        `${CANDIDATE_HOST}/candidate/register/profile`,
+        {
+          body: JSON.stringify({ email, ...data }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        },
+      )
+
+      const payload = await response.json()
+      if (response.status === 200) {
+        return toast('Successfully updated!', {
+          type: 'success',
+          autoClose: 3000,
+        })
+      }
+
+      if (response.status === 404 || response.status === 400) {
+        toast(payload.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(payload.message, { type: 'error', autoClose: false })
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
+    }
+  }
+
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form className='space-y-6' onSubmit={() => console.log('Submitting...')}>
+      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             Complete your information
@@ -275,7 +316,7 @@ export default function CandidateCompleteProfilePage() {
                 min={0}
                 max={50}
                 type='number'
-                id='certifications'
+                id='yearsOfExperience'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
                 {...register('technicalData.yearsOfExperience', {
                   valueAsNumber: true,
@@ -410,7 +451,7 @@ export default function CandidateCompleteProfilePage() {
                       min={0}
                       max={5}
                       type='number'
-                      id='certifications'
+                      id='grade'
                       className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
                       {...register(`academicData.${index}.grade`, {
                         valueAsNumber: true,
@@ -558,22 +599,18 @@ export default function CandidateCompleteProfilePage() {
                 </div>
 
                 <div className='mb-3'>
-                  <FieldDescription title='Employment Type' />
+                  <FieldDescription title='Role' />
 
                   <select
                     id='expRole'
                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
                     {...register(`experienceData.${index}.role`)}
                   >
-                    <option value='Backend Developer'>Backend Developer</option>
-                    <option value='Frontend Developer'>
-                      Frontend Developer
-                    </option>
-                    <option value='Fullstack Developer'>
-                      Fullstack Developer
-                    </option>
-                    <option value='DevOps Engineer'>DevOps Engineer</option>
-                    <option value='Architect'>Architect</option>
+                    <option value='backend'>Backend Developer</option>
+                    <option value='frontend'>Frontend Developer</option>
+                    <option value='fullstack'>Fullstack Developer</option>
+                    <option value='devops'>DevOps Engineer</option>
+                    <option value='architect'>Architect</option>
                   </select>
 
                   {errors.experienceData?.[index]?.role && (

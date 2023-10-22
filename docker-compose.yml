@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   authorizer:
-#    image: acantu297366/authorizer
+    #    image: acantu297366/authorizer
     container_name: "authorizer"
     build: "./authorizer"
     depends_on:
@@ -16,7 +16,7 @@ services:
       - microservices
 
   candidate:
-#    image: acantu297366/candidate
+    #    image: acantu297366/candidate
     container_name: "candidate"
     build: "./candidate"
     depends_on:
@@ -30,7 +30,7 @@ services:
       - microservices
 
   company:
-#    image: acantu297366/company
+    #    image: acantu297366/company
     container_name: "company"
     build: "./company"
     depends_on:
@@ -43,15 +43,15 @@ services:
     networks:
       - microservices
 
-  evaluator:
-#    image: acantu297366/evaluator
-    container_name: "evaluator"
-    build: "./evaluator"
+  project:
+    #    image: acantu297366/project
+    container_name: "project"
+    build: "./project"
     depends_on:
       postgres:
         condition: service_healthy
     ports:
-      - ${EVALUATOR_PORT}:${EVALUATOR_PORT}
+      - ${PROJECT_PORT}:${PROJECT_PORT}
     env_file:
       - .env
     networks:
@@ -74,7 +74,7 @@ services:
       retries: 5
 
   api:
-#    image: acantu297366/api
+    #    image: acantu297366/api
     container_name: "api"
     build: "./api"
     networks:
@@ -86,7 +86,8 @@ services:
     depends_on:
       - authorizer
       - candidate
-      - evaluator
+      - company
+      - project
       - postgres
 
 networks:

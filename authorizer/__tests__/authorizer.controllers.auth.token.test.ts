@@ -20,7 +20,7 @@ describe('token expired', () => {
     try {
       expected = await getUserInfo(token)
     } catch (e) {
-      const error: any = e
+      const error: unknown = e
       console.log(error)
     }
     expect(expected).toStrictEqual(result)
