@@ -1,0 +1,172 @@
+{
+  "Home": {
+    "title": "ABC Jobs",
+    "localizationText": "Estás usando nuestro sitio web en Español"
+  },
+  "RegisterPage": {
+    "title": "Regístrate",
+    "candidate": "Candidato",
+    "company": "Compañía"
+  },
+  "CandidateRegisterPage": {
+    "title": "Trabaja con las compañías más asombrosas. Regístrate hoy!",
+    "formLabels": {
+      "email": "Dirección de correo",
+      "password": "Contraseña",
+      "fullName": "Nombre completo",
+      "sendButton": "Registrar"
+    },
+    "notifications": {
+      "success": "Validado exitosamente"
+    }
+  },
+  "CompanyRegisterPage": {
+    "title": "¡Contrata a los mejores desarrolladores!",
+    "formLabels": {
+      "email": "Dirección de correo",
+      "password": "Contraseña",
+      "companyName": "Nombre de la Empresa",
+      "sendButton": "Registrar"
+    },
+    "notifications": {
+      "success": "Validado exitosamente"
+    }
+  },
+  "SearchCandidatePage": {
+    "title": "Busca Candidatos",
+    "subtitle": "¿Qué perfil estás buscando?",
+    "formLabels": {
+      "rolesTitle": "Roles aplicables",
+      "rolesSubtitle": "Aségurate de seleccionar roles compatibles",
+      "programmingTitle": "Lenguages de programación requeridos",
+      "programmingSubtitle": "Note que estos son los lenguages de programación deseados",
+      "softTitle": "Habilidades blandas necesarias",
+      "softSubtitle": "Pregúntale a tu departamento de recursos humanos por qué esto es importanta",
+      "spokenTitle": "Idiomas",
+      "spokenSubtitle": "Asegúrate de seleccionar solo los que necesitas. El precio puede verse afectado"
+    },
+    "cancelButton": "Cancelar",
+    "sendButton": "Buscar"
+  },
+  "CandidateProfilePage": {
+    "title": "Completa la información de tu perfil",
+    "subtitle": "Para aplicar a algunos proyectos, asegúrate de que tu información esté completa",
+    "basic": {
+      "title": "Información básica",
+      "formLabels": {
+        "rolesTitle": "Tu mejor rol",
+        "rolesSubtitle": "Selecciona el rol con el que te sientes más confortable",
+        "languagesTitle": "¿Qué idiomas hablas?",
+        "languagesSubtitle": "Usa valores separados por comas para listar tus idiomas",
+        "languagesPlaceholder": "Inglés,Español,Ruso",
+        "softTitle": "¿Cuáles son tus habilidades blandas principales?",
+        "softSubtitle": "Usa valores separados por comas para listar tus habilidades blandas",
+        "softPlaceholder": "Paciencia,Honestidad",
+        "locationTitle": "Ubicación",
+        "locationSubtitle": "Selecciona tu ubicación principal, incluso si te mueves constantemente entre países"
+      }
+    },
+    "techData": {
+      "title": "Información Técnica",
+      "formLabels": {
+        "techSkillsTitle": "Tus habilidades técnicas",
+        "techSkillsSubtitle": "Usa valores separados por comas para listar tus habilidades técnicas",
+        "techSkillsPlaceholder": "Git,TailwindCSS",
+        "proLangTitle": "Lenguajes de Programación",
+        "proLangSubtitle": "Usa valores separados por comas para listar los lenguajes de programación que conoces",
+        "proLangPlaceholder": "JavaScript,Python,CSS,HTML,Java,Go",
+        "rolesTitle": "Roles",
+        "rolesSubtitle": "Usa valores separados por comas para listar los roles aplicables a tu perfil",
+        "rolesPlaceholder": "Architect,DevOps",
+        "yearsOfExpTitle": "Años de experiencia"
+      }
+    },
+    "academicData": {
+      "title": "Información Académica",
+      "formLabels": {
+        "certificationsTitle": "Tus certificaciones",
+        "certificationsSubtitle": "Usa valores separados por comas para listar tus certificaciones",
+        "certificationsPlaceholder": "AWS,GCP,Azure",
+        "additionalStudies": "Añadir estudios",
+        "schoolTitle": "Nombre de la Institución Educativa",
+        "schoolPlaceholder": "Universidad de Los Andes",
+        "degreeTitle": "Título Obtenido",
+        "degreePlaceholder": "MSc. Ingeniería de Software",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de finalización",
+        "gradeTitle": "Promedio"
+      },
+      "removeButton": "Eliminar",
+      "addMoreEducation": "Añadir más educación"
+    },
+    "expData": {
+      "title": "Experiencia",
+      "formLabels": {
+        "titleTitle": "Cargo",
+        "titlePlaceholder": "Presidente",
+        "companyTitle": "Empresa",
+        "companyPlaceholder": "ABC Jobs",
+        "employmentTitle": "Tipo de empleo",
+        "empFull": "Tiempo completo",
+        "empPart": "Por horas",
+        "empCont": "Contratista",
+        "empFree": "Independiente",
+        "empInt": "Practicante",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de finalización",
+        "roleTitle": "Rol",
+        "roleBack": "Desarrollador Backend",
+        "roleFront": "Desarrollador Frontend",
+        "roleFull": "Desarrollador Fullstack",
+        "roleDevOps": "Ingeniero DevOps",
+        "roleArch": "Arquitecto de Software"
+      },
+      "removeButton": "Eliminar",
+      "addMoreExp": "Añadir más experiencia"
+    },
+    "cancelButton": "Cancelar",
+    "sendButton": "Guardar"
+  },
+  "CompanyProfilePage": {
+    "title": "Completa la información de tu compañía",
+    "subtitle": "Para publicar tus proyectos disponibles",
+    "formLabels": {
+      "sizeTitle": "Tamaño",
+      "sizeSubtitle": "Selecciona el tamaño de la empresa",
+      "mainAddTitle": "Dirección Principal",
+      "mainAddPlaceholder": "Calle 63 #15-28",
+      "segmentsTitle": "A qué segmentos pertenece tu compañía?",
+      "segmentsSubtitle": "Usa valores separados por comas para listarlos",
+      "segmentsPlaceholder": "Aviación,Manufactura,Industrial",
+      "preferredLangTitle": "Idioma Preferido",
+      "mainContactTitle": "Contacto Principal"
+    },
+    "notifications": {
+      "success": "Validado exitosamente"
+    },
+    "cancelButton": "Cancelar",
+    "sendButton": "Guardar"
+  },
+  "CreateProjectPage": {
+    "title": "Crear Proyecto",
+    "subtitle": "Establece los requerimientos del nuevo proyecto",
+    "formLabels": {
+      "teamTitle": "Equipo",
+      "reqTeamTitle": "Profesional(es) requeridos para este equipo",
+      "reqTeamSubtitle": "Selecciona el rol o roles que necesitas para este proyecto",
+      "financeTitle": "Financiero",
+      "priceTitle": "Precio",
+      "budgetTitle": "Presupuesto",
+      "addInfoTitle": "Información Adicional",
+      "deadline": "Fecha límite",
+      "description": "Descripción",
+      "descriptionSub": "Escribe una breve descripción acerca de este proyecto",
+      "stakeholders": "Interesados",
+      "university": "Universidad de Los Andes",
+      "ministry": "Ministerio de Educación",
+      "company": "ABC Jobs"
+    },
+    "cancelButton": "Cancelar",
+    "sendButton": "Guardar"
+  }
+}

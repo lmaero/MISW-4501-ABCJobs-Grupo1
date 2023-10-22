@@ -6,10 +6,16 @@ import { PROJECT_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { Project, ProjectSch } from '@/schemas/Project'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-export default function CreateProjectPage() {
+interface Props {
+  params: { lang: string }
+}
+
+export default function CreateProjectPage({ params }: Props) {
+  const t = useTranslations('CreateProjectPage')
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
@@ -54,21 +60,21 @@ export default function CreateProjectPage() {
       <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
-            Create Project
+            {t('title')}
           </h2>
-          <p className='text-sm text-gray-600'>
-            Establish the requirements for the new project
-          </p>
+          <p className='text-sm text-gray-600'>{t('subtitle')}</p>
         </header>
 
         <hr className='border-b-1' />
 
         <section>
-          <h3 className='mb-2 mt-10 text-xl font-semibold'>Team</h3>
+          <h3 className='mb-2 mt-10 text-xl font-semibold'>
+            {t('formLabels.teamTitle')}
+          </h3>
           <article className='mb-6'>
             <FieldDescription
-              title='Required professional(s) for this team'
-              description='Select the role(s) you need for this project'
+              title={t('formLabels.reqTeamTitle')}
+              description={t('formLabels.reqTeamSubtitle')}
             />
             <div className='space-y-3'>
               {roles.map((role) => (
@@ -95,10 +101,12 @@ export default function CreateProjectPage() {
         </section>
 
         <section>
-          <h3 className='mb-2 mt-10 text-xl font-semibold'>Finance</h3>
+          <h3 className='mb-2 mt-10 text-xl font-semibold'>
+            {t('formLabels.financeTitle')}
+          </h3>
 
           <article className='mb-3'>
-            <FieldDescription title='Price' />
+            <FieldDescription title={t('formLabels.priceTitle')} />
 
             <div className='relative mt-2 rounded-md shadow-sm'>
               <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
@@ -127,7 +135,7 @@ export default function CreateProjectPage() {
           </article>
 
           <article className='mb-3'>
-            <FieldDescription title='Budget' />
+            <FieldDescription title={t('formLabels.budgetTitle')} />
 
             <div className='relative mt-2 rounded-md shadow-sm'>
               <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
@@ -157,11 +165,11 @@ export default function CreateProjectPage() {
 
         <section>
           <h3 className='mb-2 mt-10 text-xl font-semibold'>
-            Additional Information
+            {t('formLabels.addInfoTitle')}
           </h3>
 
           <article className='mb-3'>
-            <FieldDescription title='Deadline' />
+            <FieldDescription title={t('formLabels.deadline')} />
 
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
               <input
@@ -179,7 +187,7 @@ export default function CreateProjectPage() {
           </article>
 
           <article className='col-span-full'>
-            <FieldDescription title='Description' />
+            <FieldDescription title={t('formLabels.description')} />
             <textarea
               id='description'
               rows={5}
@@ -193,21 +201,21 @@ export default function CreateProjectPage() {
             )}
 
             <p className='mt-3 text-sm leading-6 text-gray-600'>
-              Write a few sentences about what this project is about.
+              {t('formLabels.descriptionSub')}
             </p>
           </article>
 
           <article className='mb-3'>
-            <FieldDescription title='Stakeholders' />
+            <FieldDescription title={t('formLabels.stakeholders')} />
 
             <select
               id='stakeholders'
               className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
               {...register('stakeholders')}
             >
-              <option value='Uniandes'>Los Andes University</option>
-              <option value='MinEducacion'>Ministry of Education</option>
-              <option value='ABC Jobs'>ABC Jobs</option>
+              <option value='Uniandes'>{t('formLabels.university')}</option>
+              <option value='MinEducacion'>{t('formLabels.ministry')}</option>
+              <option value='ABC Jobs'>{t('formLabels.company')}</option>
             </select>
 
             {errors.stakeholders && (
@@ -221,7 +229,7 @@ export default function CreateProjectPage() {
             type='reset'
             className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
-            Cancel
+            {t('cancelButton')}
           </button>
 
           <button
@@ -230,7 +238,7 @@ export default function CreateProjectPage() {
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
-            Save
+            {t('sendButton')}
           </button>
         </div>
       </form>

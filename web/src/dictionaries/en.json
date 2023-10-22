@@ -1,0 +1,172 @@
+{
+  "Home": {
+    "title": "ABC Jobs",
+    "localizationText": "You're using our English website"
+  },
+  "RegisterPage": {
+    "title": "Register",
+    "candidate": "Candidate",
+    "company": "Company"
+  },
+  "CandidateRegisterPage": {
+    "title": "Be hired by the most amazing companies. Register today!",
+    "formLabels": {
+      "email": "Email address",
+      "password": "Password",
+      "fullName": "Full Name",
+      "sendButton": "Register"
+    },
+    "notifications": {
+      "success": "Successfully validated"
+    }
+  },
+  "CompanyRegisterPage": {
+    "title": "Hire the best developers!",
+    "formLabels": {
+      "email": "Email address",
+      "password": "Password",
+      "companyName": "Company Name",
+      "sendButton": "Register"
+    },
+    "notifications": {
+      "success": "Successfully validated"
+    }
+  },
+  "SearchCandidatePage": {
+    "title": "Search Candidates",
+    "subtitle": "What profile are you looking for?",
+    "formLabels": {
+      "rolesTitle": "Applicable roles",
+      "rolesSubtitle": "Make sure to select compatible roles",
+      "programmingTitle": "Needed languages",
+      "programmingSubtitle": "Please notice that these are the desired programming languages",
+      "softTitle": "Needed soft-skills",
+      "softSubtitle": "Ask your human resources department why this is important",
+      "spokenTitle": "Spoken Languages",
+      "spokenSubtitle": "Make sure to select just the ones you need, price will be affected"
+    },
+    "cancelButton": "Cancel",
+    "sendButton": "Search"
+  },
+  "CandidateProfilePage": {
+    "title": "Complete your information",
+    "subtitle": "To apply for some projects, please make sure that your information is complete",
+    "basic": {
+      "title": "Basic Information",
+      "formLabels": {
+        "rolesTitle": "Your best role",
+        "rolesSubtitle": "Select the position you're comfortable with",
+        "languagesTitle": "What languages do you speak?",
+        "languagesSubtitle": "Use comma-separated values to list your languages",
+        "languagesPlaceholder": "English,Spanish,Russian",
+        "softTitle": "What are your main soft-skills?",
+        "softSubtitle": "Use comma-separated values to list your soft-skills",
+        "softPlaceholder": "Patience,Honesty",
+        "locationTitle": "Location",
+        "locationSubtitle": "Select your main location even if you move constantly between countries"
+      }
+    },
+    "techData": {
+      "title": "Technical Data",
+      "formLabels": {
+        "techSkillsTitle": "Your tech-skills",
+        "techSkillsSubtitle": "Use comma-separated values to list your tech-skills",
+        "techSkillsPlaceholder": "Git,TailwindCSS",
+        "proLangTitle": "Programming Languages",
+        "proLangSubtitle": "Use comma-separated values to list your tech-skills",
+        "proLangPlaceholder": "JavaScript,Python,CSS,HTML,Java,Go",
+        "rolesTitle": "Roles",
+        "rolesSubtitle": "Use comma-separated values to list the roles you're comfortable with",
+        "rolesPlaceholder": "Architect,DevOps",
+        "yearsOfExpTitle": "Years of Experience"
+      }
+    },
+    "academicData": {
+      "title": "Academic Data",
+      "formLabels": {
+        "certificationsTitle": "Your certifications",
+        "certificationsSubtitle": "Use comma-separated values to list your tech certifications",
+        "certificationsPlaceholder": "AWS,GCP,Azure",
+        "additionalStudies": "Add Studies",
+        "schoolTitle": "School Name",
+        "schoolPlaceholder": "Los Andes University",
+        "degreeTitle": "Obtained Degree",
+        "degreePlaceholder": "MSc. Software Engineer",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "gradeTitle": "Grade"
+      },
+      "removeButton": "Remove",
+      "addMoreEducation": "Add more education"
+    },
+    "expData": {
+      "title": "Experience",
+      "formLabels": {
+        "titleTitle": "Title",
+        "titlePlaceholder": "CEO",
+        "companyTitle": "Company",
+        "companyPlaceholder": "ABC Jobs",
+        "employmentTitle": "Employment Type",
+        "empFull": "Full-Time",
+        "empPart": "Part-Time",
+        "empCont": "Contract",
+        "empFree": "Freelance",
+        "empInt": "Internship",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "roleTitle": "Role",
+        "roleBack": "Backend Developer",
+        "roleFront": "Frontend Developer",
+        "roleFull": "Fullstack Developer",
+        "roleDevOps": "DevOps Engineer",
+        "roleArch": "Architect"
+      },
+      "removeButton": "Remove",
+      "addMoreExp": "Add more experience"
+    },
+    "cancelButton": "Cancel",
+    "sendButton": "Save"
+  },
+  "CompanyProfilePage": {
+    "title": "Complete your information",
+    "subtitle": "To publish your available projects",
+    "formLabels": {
+      "sizeTitle": "Size",
+      "sizeSubtitle": "Select the size of your company",
+      "mainAddTitle": "Main Address",
+      "mainAddPlaceholder": "6621 Main Street, Suite 300, Miami, FL 33101",
+      "segmentsTitle": "Which segments your company belong to?",
+      "segmentsSubtitle": "Use comma-separated values to list them",
+      "segmentsPlaceholder": "Aviation,Manufacturing,Industrial",
+      "preferredLangTitle": "Preferred Language",
+      "mainContactTitle": "Main Contact"
+    },
+    "notifications": {
+      "success": "Validado exitosamente"
+    },
+    "cancelButton": "Cancel",
+    "sendButton": "Save"
+  },
+  "CreateProjectPage": {
+    "title": "Create Project",
+    "subtitle": "Establish the requirements for the new project",
+    "formLabels": {
+      "teamTitle": "Team",
+      "reqTeamTitle": "Required professional(s) for this team",
+      "reqTeamSubtitle": "Select the role(s) you need for this project",
+      "financeTitle": "Finance",
+      "priceTitle": "Price",
+      "budgetTitle": "Budget",
+      "addInfoTitle": "Additional Information",
+      "deadline": "Deadline",
+      "description": "Description",
+      "descriptionSub": "Write a few sentences about what this project is about.",
+      "stakeholders": "Stakeholders",
+      "university": "Los Andes University",
+      "ministry": "Ministry of Education",
+      "company": "ABC Jobs"
+    },
+    "cancelButton": "Cancel",
+    "sendButton": "Save"
+  }
+}
