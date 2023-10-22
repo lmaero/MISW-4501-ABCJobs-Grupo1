@@ -34,6 +34,7 @@ export default function CompanyRegisterPage({ params }: Props) {
           'Content-Type': 'application/json',
         },
         method: 'POST',
+        referrerPolicy: 'unsafe-url',
       })
 
       const payload = await response.json()
@@ -71,12 +72,13 @@ export default function CompanyRegisterPage({ params }: Props) {
       </div>
 
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className='space-y-6'
+          onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='email'
-              className='block text-sm font-medium leading-6 text-gray-900'
-            >
+              className='block text-sm font-medium leading-6 text-gray-900'>
               {t('formLabels.email')}
             </label>
             <div className='mt-2'>
@@ -97,8 +99,7 @@ export default function CompanyRegisterPage({ params }: Props) {
           <div>
             <label
               htmlFor='password'
-              className='block text-sm font-medium leading-6 text-gray-900'
-            >
+              className='block text-sm font-medium leading-6 text-gray-900'>
               {t('formLabels.password')}
             </label>
             <div className='mt-2'>
@@ -118,8 +119,7 @@ export default function CompanyRegisterPage({ params }: Props) {
           <div>
             <label
               htmlFor='companyName'
-              className='block text-sm font-medium leading-6 text-gray-900'
-            >
+              className='block text-sm font-medium leading-6 text-gray-900'>
               {t('formLabels.companyName')}
             </label>
             <div className='mt-2'>
@@ -143,8 +143,7 @@ export default function CompanyRegisterPage({ params }: Props) {
             data-testid='crp-register-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
-            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
-          >
+            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
             {t('formLabels.sendButton')}
           </button>
         </form>

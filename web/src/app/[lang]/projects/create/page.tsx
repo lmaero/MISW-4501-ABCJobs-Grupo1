@@ -33,6 +33,7 @@ export default function CreateProjectPage({ params }: Props) {
           'Content-Type': 'application/json',
         },
         method: 'POST',
+        referrerPolicy: 'unsafe-url',
       })
 
       const payload = await response.json()
