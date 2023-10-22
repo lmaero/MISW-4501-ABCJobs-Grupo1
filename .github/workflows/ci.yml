@@ -6,10 +6,10 @@ env:
   CANDIDATE_PORT: 4001
   PROJECT_PORT: 4003
   COMPANY_PORT: 4004
-  NODE_ENV: development
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+  NODE_ENV: production
+  DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
   POSTGRES_USER: postgres
-  POSTGRES_HOST: localhost
+  POSTGRES_HOST: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB_NAME: postgres
   POSTGRES_PORT: 5432
@@ -182,34 +182,34 @@ jobs:
       - name: Pull Candidate Image from Dockerhub
         run: sudo docker pull acantu297366/candidate:latest
       - name: Delete Candidate Old Docker Container
-        run: sudo docker rm -f candidate-container || true
+        run: sudo docker rm -f candidate || true
       - name: Run Candidate Docker Container
-        run: sudo docker run -d -p ${{ env.CANDIDATE_PORT }}:${{ env.CANDIDATE_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e CANDIDATE_PORT=${{ env.CANDIDATE_PORT }} --name candidate-container acantu297366/candidate
+        run: sudo docker run -d -p ${{ env.CANDIDATE_PORT }}:${{ env.CANDIDATE_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e CANDIDATE_PORT=${{ env.CANDIDATE_PORT }} --name candidate acantu297366/candidate
 
       - name: Pull Company Docker Image from Dockerhub
         run: sudo docker pull acantu297366/company:latest
       - name: Delete Company Old Docker Container
-        run: sudo docker rm -f company-container || true
+        run: sudo docker rm -f company || true
       - name: Run Company Docker Container
-        run: sudo docker run -d -p ${{ env.COMPANY_PORT }}:${{ env.COMPANY_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e COMPANY_PORT=${{ env.COMPANY_PORT }} --name company-container acantu297366/company
+        run: sudo docker run -d -p ${{ env.COMPANY_PORT }}:${{ env.COMPANY_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e COMPANY_PORT=${{ env.COMPANY_PORT }} --name company acantu297366/company
 
       - name: Pull Project Docker Image from Dockerhub
         run: sudo docker pull acantu297366/project:latest
       - name: Delete Project Old Docker Container
-        run: sudo docker rm -f project-container || true
+        run: sudo docker rm -f project || true
       - name: Run Project Docker Container
-        run: sudo docker run -d -p ${{ env.PROJECT_PORT }}:${{ env.PROJECT_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e PROJECT_PORT=${{ env.PROJECT_PORT }} --name project-container acantu297366/project
+        run: sudo docker run -d -p ${{ env.PROJECT_PORT }}:${{ env.PROJECT_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e PROJECT_PORT=${{ env.PROJECT_PORT }} --name project acantu297366/project
 
       - name: Pull API Docker Image from Dockerhub
         run: sudo docker pull acantu297366/api:latest
       - name: Delete API Old Docker Container
-        run: sudo docker rm -f api-container || true
+        run: sudo docker rm -f api || true
       - name: Run API Docker Container
-        run: sudo docker run -d -p ${{ env.API_PORT }}:${{ env.API_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e API_PORT=${{ env.API_PORT }} --name api-container acantu297366/api
+        run: sudo docker run -d -p ${{ env.API_PORT }}:${{ env.API_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e API_PORT=${{ env.API_PORT }} --name api acantu297366/api
 
       - name: Pull Postgres Docker Image from Dockerhub
         run: sudo docker pull postgres:15.4-alpine3.18
       - name: Delete Postgres Old Docker Container
-        run: sudo docker rm -f postgres-container || true
+        run: sudo docker rm -f postgres || true
       - name: Run Postgres Docker Container
-        run: sudo docker run -d -p ${{ env.POSTGRES_PORT }}:${{ env.POSTGRES_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e POSTGRES_USER=${{ env.POSTGRES_USER }} -e POSTGRES_HOST=${{ env.POSTGRES_HOST }} -e POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} -e POSTGRES_DB_NAME=${{ env.POSTGRES_DB_NAME }} --name postgres-container postgres:15.4-alpine3.18
+        run: sudo docker run -d -p ${{ env.POSTGRES_PORT }}:${{ env.POSTGRES_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e POSTGRES_USER=${{ env.POSTGRES_USER }} -e POSTGRES_HOST=${{ env.POSTGRES_HOST }} -e POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} -e POSTGRES_DB_NAME=${{ env.POSTGRES_DB_NAME }} --name postgres postgres:15.4-alpine3.18
