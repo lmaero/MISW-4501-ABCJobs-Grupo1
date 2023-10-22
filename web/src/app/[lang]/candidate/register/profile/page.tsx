@@ -108,6 +108,7 @@ export default function CandidateCompleteProfilePage({ params }: Props) {
             'Content-Type': 'application/json',
           },
           method: 'POST',
+          referrerPolicy: 'no-referrer',
         },
       )
 
