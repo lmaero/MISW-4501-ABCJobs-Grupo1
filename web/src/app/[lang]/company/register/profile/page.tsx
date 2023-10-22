@@ -36,6 +36,8 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
         body: JSON.stringify({ email, ...data }),
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
         },
         method: 'POST',
         referrerPolicy: 'no-referrer',

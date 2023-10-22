@@ -32,6 +32,8 @@ export default function CandidateRegisterPage({ params }: Props) {
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
         },
         method: 'POST',
         referrerPolicy: 'no-referrer',
@@ -72,12 +74,13 @@ export default function CandidateRegisterPage({ params }: Props) {
       </div>
 
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className='space-y-6'
+          onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='email'
-              className='block text-sm font-medium leading-6 text-gray-900'
-            >
+              className='block text-sm font-medium leading-6 text-gray-900'>
               {t('formLabels.email')}
             </label>
             <div className='mt-2'>
@@ -98,8 +101,7 @@ export default function CandidateRegisterPage({ params }: Props) {
           <div>
             <label
               htmlFor='password'
-              className='block text-sm font-medium leading-6 text-gray-900'
-            >
+              className='block text-sm font-medium leading-6 text-gray-900'>
               {t('formLabels.password')}
             </label>
             <div className='mt-2'>
@@ -119,8 +121,7 @@ export default function CandidateRegisterPage({ params }: Props) {
           <div>
             <label
               htmlFor='fullName'
-              className='block text-sm font-medium leading-6 text-gray-900'
-            >
+              className='block text-sm font-medium leading-6 text-gray-900'>
               {t('formLabels.fullName')}
             </label>
             <div className='mt-2'>
@@ -142,8 +143,7 @@ export default function CandidateRegisterPage({ params }: Props) {
             data-testid='crp-register-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
-            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
-          >
+            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
             {t('formLabels.sendButton')}
           </button>
         </form>
