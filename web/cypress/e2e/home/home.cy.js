@@ -12,12 +12,12 @@ describe('HomePage', () => {
     cy.wait(1000)
     cy.get('h1').should('have.text', 'Register')
 
-    cy.get('a[href="/candidate/register"]')
+    cy.get('a[href="/en/candidate/register"]')
       .should('be.visible')
       .should('have.attr', 'href')
       .and('include', '/candidate/register')
 
-    cy.get('a[href="/company/register"]')
+    cy.get('a[href="/en/company/register"]')
       .should('be.visible')
       .should('have.attr', 'href')
       .and('include', '/company/register')
