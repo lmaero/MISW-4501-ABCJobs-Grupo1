@@ -1,6 +1,6 @@
 describe('register a company', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/company/register')
+    cy.visit('/company/register')
   })
 
   it('displays the three needed inputs', () => {

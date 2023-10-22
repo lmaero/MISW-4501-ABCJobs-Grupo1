@@ -145,7 +145,7 @@
       "mainContactTitle": "Main Contact"
     },
     "notifications": {
-      "success": "Validado exitosamente"
+      "success": "Successfully validated"
     },
     "cancelButton": "Cancel",
     "sendButton": "Save"
