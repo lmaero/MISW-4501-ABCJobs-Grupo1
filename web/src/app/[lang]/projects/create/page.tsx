@@ -31,6 +31,7 @@ export default function CreateProjectPage({ params }: Props) {
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
+          'Content-Security-Policy': 'upgrade-insecure-requests',
         },
         method: 'POST',
         referrerPolicy: 'unsafe-url',
