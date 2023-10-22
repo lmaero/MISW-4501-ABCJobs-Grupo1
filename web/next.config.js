@@ -9,9 +9,9 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '*',
         headers: [
           {
-            source: '*',
             key: 'Content-Security-Policy',
             value: 'upgrade-insecure-requests',
           },
