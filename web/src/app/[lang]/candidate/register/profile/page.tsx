@@ -106,10 +106,8 @@ export default function CandidateCompleteProfilePage({ params }: Props) {
           body: JSON.stringify({ email, ...data }),
           headers: {
             'Content-Type': 'application/json',
-            'Content-Security-Policy': 'upgrade-insecure-requests',
           },
           method: 'POST',
-          referrerPolicy: 'unsafe-url',
         },
       )
 
