@@ -1,4 +1,4 @@
-import Navbar from './Navbar'
+import { Navbar } from './Navbar'
 
 describe('<Navbar />', () => {
   it('renders null without token', () => {
