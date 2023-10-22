@@ -9,7 +9,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/*',
+        source: '/:all',
         headers: [
           {
             key: 'Content-Security-Policy',
