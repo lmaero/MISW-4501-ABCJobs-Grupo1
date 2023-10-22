@@ -38,6 +38,13 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang}>
+      <head>
+        <title>ABC Jobs</title>
+        <meta
+          httpEquiv='Content-Security-Policy'
+          content='upgrade-insecure-requests'
+        />
+      </head>
       <body className={inter.className}>
         <NextIntlClientProvider locale={params.lang} messages={dictionary}>
           <main className='relative h-screen'>

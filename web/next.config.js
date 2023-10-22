@@ -6,19 +6,6 @@ const nextConfig = {
     COMPANY_PORT: process.env.COMPANY_PORT,
     PROJECT_PORT: process.env.PROJECT_PORT,
   },
-  async headers() {
-    return [
-      {
-        source: '/:all',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: 'upgrade-insecure-requests',
-          },
-        ],
-      },
-    ]
-  },
 }
 
 module.exports = nextConfig

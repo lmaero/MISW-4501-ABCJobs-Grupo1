@@ -51,9 +51,11 @@ export default function SearchCandidatePage({ params }: Props) {
     try {
       const response = await fetch(`${CANDIDATE_HOST}/candidate/search`, {
         body: JSON.stringify(data),
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Content-Security-Policy': 'upgrade-insecure-requests',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
         },
         method: 'POST',
         referrerPolicy: 'unsafe-url',
@@ -83,7 +85,9 @@ export default function SearchCandidatePage({ params }: Props) {
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className='space-y-6'
+        onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             {t('title')}
@@ -101,7 +105,9 @@ export default function SearchCandidatePage({ params }: Props) {
             />
             <div className='space-y-3'>
               {roles.map((role) => (
-                <div key={role.id} className='flex items-center gap-x-3'>
+                <div
+                  key={role.id}
+                  className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={role.id}
@@ -111,8 +117,7 @@ export default function SearchCandidatePage({ params }: Props) {
                   />
                   <label
                     htmlFor={role.id}
-                    className='block text-sm font-light leading-6 text-gray-900'
-                  >
+                    className='block text-sm font-light leading-6 text-gray-900'>
                     {role.label}
                   </label>
                 </div>
@@ -129,7 +134,9 @@ export default function SearchCandidatePage({ params }: Props) {
             />
             <div className='space-y-3'>
               {programmingLanguages.map((language) => (
-                <div key={language.value} className='flex items-center gap-x-3'>
+                <div
+                  key={language.value}
+                  className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={language.value}
@@ -139,8 +146,7 @@ export default function SearchCandidatePage({ params }: Props) {
                   />
                   <label
                     htmlFor={language.value}
-                    className='block text-sm font-light leading-6 text-gray-900'
-                  >
+                    className='block text-sm font-light leading-6 text-gray-900'>
                     {language.label}
                   </label>
                 </div>
@@ -159,7 +165,9 @@ export default function SearchCandidatePage({ params }: Props) {
             />
             <div className='space-y-3'>
               {softSkills.map((skill) => (
-                <div key={skill.value} className='flex items-center gap-x-3'>
+                <div
+                  key={skill.value}
+                  className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={skill.value}
@@ -169,8 +177,7 @@ export default function SearchCandidatePage({ params }: Props) {
                   />
                   <label
                     htmlFor={skill.value}
-                    className='block text-sm font-light leading-6 text-gray-900'
-                  >
+                    className='block text-sm font-light leading-6 text-gray-900'>
                     {skill.label}
                   </label>
                 </div>
@@ -189,7 +196,9 @@ export default function SearchCandidatePage({ params }: Props) {
             />
             <div className='space-y-3'>
               {spokenLanguages.map((language) => (
-                <div key={language.value} className='flex items-center gap-x-3'>
+                <div
+                  key={language.value}
+                  className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={language.value}
@@ -199,8 +208,7 @@ export default function SearchCandidatePage({ params }: Props) {
                   />
                   <label
                     htmlFor={language.value}
-                    className='block text-sm font-light leading-6 text-gray-900'
-                  >
+                    className='block text-sm font-light leading-6 text-gray-900'>
                     {language.label}
                   </label>
                 </div>
@@ -218,8 +226,7 @@ export default function SearchCandidatePage({ params }: Props) {
         <div className='flex justify-end space-x-2'>
           <button
             type='reset'
-            className='flex w-fit justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
-          >
+            className='flex w-fit justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
             {t('cancelButton')}
           </button>
 
@@ -227,8 +234,7 @@ export default function SearchCandidatePage({ params }: Props) {
             data-testid='scp-submit-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
-            className='flex w-fit justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
-          >
+            className='flex w-fit justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
             {t('sendButton')}
           </button>
         </div>
