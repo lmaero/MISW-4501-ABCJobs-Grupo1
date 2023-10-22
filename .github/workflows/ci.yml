@@ -1,10 +1,17 @@
-name: CI-Tests
+name: CI-Tests-CD-Integration
 env:
+  HOST: http://localhost
   AUTH_PORT: 4000
   CANDIDATE_PORT: 4001
   PROJECT_PORT: 4003
   COMPANY_PORT: 4004
-  NODE_ENV: 'development'
+  NODE_ENV: development
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+  POSTGRES_USER: postgres
+  POSTGRES_HOST: localhost
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB_NAME: postgres
+  POSTGRES_PORT: 5432
 
 on:
   push:
@@ -148,3 +155,28 @@ jobs:
         run: pnpm install
       - name: Run tests and generate coverage report
         run: pnpm test
+  build:
+    needs: [ candidate-tests, company-tests, project-tests ]
+    runs-on: self-hosted
+    steps:
+      - name: Pull Candidate Image from Dockerhub
+        run: sudo docker pull acantu297366/candidate:latest
+      - name: Delete Candidate Old Docker Container
+        run: sudo docker rm -f candidate-container || true
+      - name: Run Candidate Docker Container
+        run: sudo docker run -p 8080:${{ env.CANDIDATE_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e CANDIDATE_PORT=${{ env.CANDIDATE_PORT }} --name candidate-container acantu297366/candidate
+
+      - name: Pull Company Docker Image from Dockerhub
+        run: sudo docker pull acantu297366/company:latest
+      - name: Delete Company Old Docker Container
+        run: sudo docker rm -f company-container || true
+      - name: Run Company Docker Container
+        run: sudo docker run -p 8080:${{ env.COMPANY_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e COMPANY_PORT=${{ env.COMPANY_PORT }} --name company-container acantu297366/company
+
+      - name: Pull Project Docker Image from Dockerhub
+        run: sudo docker pull acantu297366/project:latest
+      - name: Delete Project Old Docker Container
+        run: sudo docker rm -f project-container || true
+      - name: Run Project Docker Container
+        run: sudo docker run -p 8080:${{ env.PROJECT_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e PROJECT_PORT=${{ env.PROJECT_PORT }} --name project-container acantu297366/project
+
