@@ -1,6 +1,6 @@
 describe('CandidateCompleteProfilePage', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/candidate/register/profile')
+    cy.visit('/candidate/register/profile')
   })
 
   it('displays all the initial inputs and buttons', () => {
