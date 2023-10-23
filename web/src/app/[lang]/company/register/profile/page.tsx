@@ -67,9 +67,7 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form
-        className='space-y-6'
-        onSubmit={handleSubmit(onSubmit)}>
+      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             {t('title')}
@@ -85,9 +83,7 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
             />
             <div className='space-y-3'>
               {companySize.map((size) => (
-                <div
-                  key={size.id}
-                  className='flex items-center gap-x-3'>
+                <div key={size.id} className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={size.id}
@@ -97,7 +93,8 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
                   />
                   <label
                     htmlFor={size.id}
-                    className='block text-sm font-light leading-6 text-gray-900'>
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
                     {size.label}
                   </label>
                 </div>
@@ -155,11 +152,10 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
                 defaultValue='English'
                 autoComplete='preferredLanguage'
                 className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                {...register('preferredLanguage')}>
+                {...register('preferredLanguage')}
+              >
                 {languages.map((language) => (
-                  <option
-                    key={language}
-                    value={language}>
+                  <option key={language} value={language}>
                     {language}
                   </option>
                 ))}
@@ -176,11 +172,10 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
                 defaultValue='Diego Eslava'
                 autoComplete='mainContact'
                 className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                {...register('mainContact')}>
+                {...register('mainContact')}
+              >
                 {['Diego Eslava', 'Alonso Cantu'].map((contact) => (
-                  <option
-                    key={contact}
-                    value={contact}>
+                  <option key={contact} value={contact}>
                     {contact}
                   </option>
                 ))}
@@ -196,7 +191,8 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
           <div className='flex space-x-2'>
             <button
               type='reset'
-              className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+              className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+            >
               {t('cancelButton')}
             </button>
 
@@ -204,7 +200,8 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
               data-testid='company-profile-submit-button'
               disabled={!isValid || isSubmitSuccessful}
               type='submit'
-              className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+              className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+            >
               {t('sendButton')}
             </button>
           </div>

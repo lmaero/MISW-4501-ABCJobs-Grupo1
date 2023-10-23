@@ -61,9 +61,7 @@ export default function CreateProjectPage({ params }: Props) {
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form
-        className='space-y-6'
-        onSubmit={handleSubmit(onSubmit)}>
+      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             {t('title')}
@@ -84,9 +82,7 @@ export default function CreateProjectPage({ params }: Props) {
             />
             <div className='space-y-3'>
               {roles.map((role) => (
-                <div
-                  key={role.id}
-                  className='flex items-center gap-x-3'>
+                <div key={role.id} className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={role.id}
@@ -96,7 +92,8 @@ export default function CreateProjectPage({ params }: Props) {
                   />
                   <label
                     htmlFor={role.id}
-                    className='block text-sm font-light leading-6 text-gray-900'>
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
                     {role.label}
                   </label>
                 </div>
@@ -132,9 +129,7 @@ export default function CreateProjectPage({ params }: Props) {
                 })}
               />
               <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3'>
-                <span
-                  className='text-gray-500 sm:text-sm'
-                  id='price-currency'>
+                <span className='text-gray-500 sm:text-sm' id='price-currency'>
                   USD
                 </span>
               </div>
@@ -163,9 +158,7 @@ export default function CreateProjectPage({ params }: Props) {
                 })}
               />
               <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3'>
-                <span
-                  className='text-gray-500 sm:text-sm'
-                  id='budget-currency'>
+                <span className='text-gray-500 sm:text-sm' id='budget-currency'>
                   USD
                 </span>
               </div>
@@ -222,7 +215,8 @@ export default function CreateProjectPage({ params }: Props) {
             <select
               id='stakeholders'
               className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6'
-              {...register('stakeholders')}>
+              {...register('stakeholders')}
+            >
               <option value='Uniandes'>{t('formLabels.university')}</option>
               <option value='MinEducacion'>{t('formLabels.ministry')}</option>
               <option value='ABC Jobs'>{t('formLabels.company')}</option>
@@ -237,7 +231,8 @@ export default function CreateProjectPage({ params }: Props) {
         <div className='flex space-x-2'>
           <button
             type='reset'
-            className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             {t('cancelButton')}
           </button>
 
@@ -245,7 +240,8 @@ export default function CreateProjectPage({ params }: Props) {
             data-testid='ccpp-submit-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
-            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             {t('sendButton')}
           </button>
         </div>
