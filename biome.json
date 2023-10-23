@@ -1,19 +1,20 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": ["build/", "node_modules/", ".next", ".turbo"],
+    "ignore": ["build/", "node_modules/", ".next", ".turbo", "coverage"],
     "ignoreUnknown": true
   },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
     "ignore": [],
-    "indentSize": 2,
     "indentStyle": "space",
+    "indentWidth": 2,
     "lineWidth": 80
   },
   "javascript": {
     "formatter": {
+      "arrowParentheses": "always",
       "jsxQuoteStyle": "single",
       "quoteStyle": "single",
       "semicolons": "asNeeded",

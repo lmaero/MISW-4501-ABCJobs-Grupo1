@@ -1,11 +1,15 @@
 {
   "dependencies": {
-    "express": "^4.18.2"
+    "@prisma/client": "^5.3.0",
+    "axios": "^1.5.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "prisma": "^5.3.1"
   },
   "description": "Evaluator microservice",
   "devDependencies": {
-    "@types/express": "^4.17.17",
-    "@types/node": "^20.6.0",
+    "@types/express": "^4.17.20",
+    "@types/node": "^20.8.7",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
@@ -14,12 +18,17 @@
   "main": "src/index.ts",
   "name": "evaluator",
   "packageManager": "pnpm@8.7.5",
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  },
   "private": true,
   "scripts": {
     "biome": "biome check --apply-unsafe . && biome format --write .",
     "build": "tsc",
     "dev": "nodemon src/index.ts",
-    "start": "node build/index.js"
+    "migrate": "npx prisma migrate dev --name init",
+    "migrate:deploy": "npx prisma migrate deploy",
+    "start": "npx prisma generate && node build/index.js"
   },
   "version": "0.0.0"
 }
