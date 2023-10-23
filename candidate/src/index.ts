@@ -2,6 +2,7 @@ import http from 'node:http'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Application } from 'express'
+import candidateControllers from './controllers/candidate'
 import { client, createTableIfNotExists } from './database/initDB'
 import candidateRouter from './routes/candidate'
 
@@ -19,6 +20,7 @@ if (!NODE_ENV || !PORT) {
 
 app.use(cors({ origin: '*' }))
 app.use(express.json())
+app.use('/', candidateControllers.ping)
 app.use('/candidate', candidateRouter)
 
 const server = http.createServer(app)
