@@ -104,10 +104,14 @@ export default function CandidateCompleteProfilePage({ params }: Props) {
         `${CANDIDATE_HOST}/candidate/register/profile`,
         {
           body: JSON.stringify({ email, ...data }),
+          mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*',
           },
           method: 'POST',
+          referrerPolicy: 'unsafe-url',
         },
       )
 
