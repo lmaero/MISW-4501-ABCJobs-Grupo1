@@ -1,6 +1,6 @@
 describe('HomePage', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('/')
   })
 
   it('show the logo and the ABC Jobs title', () => {

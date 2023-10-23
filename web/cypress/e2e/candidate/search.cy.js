@@ -1,6 +1,6 @@
 describe('search for candidates', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/candidate/search')
+    cy.visit('/candidate/search')
   })
 
   it('displays all the initial inputs and buttons', () => {
