@@ -2,6 +2,7 @@ import http from 'node:http'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Application } from 'express'
+import candidateControllers from './controllers/candidate'
 import { client, createTableIfNotExists } from './database/initDB'
 import candidateRouter from './routes/candidate'
 
@@ -16,19 +17,10 @@ if (!NODE_ENV || !PORT) {
   console.log(`PORT ${PORT}`)
   process.exit(1)
 }
-// Set CORS
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:8080',
-  'http://localhost:80',
-  'http://localhost:8000',
-]
-const options: cors.CorsOptions = {
-  origin: allowedOrigins,
-}
-app.use(cors(options))
 
+app.use(cors({ origin: '*' }))
 app.use(express.json())
+app.use('/', candidateControllers.ping)
 app.use('/candidate', candidateRouter)
 
 const server = http.createServer(app)

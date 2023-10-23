@@ -18,20 +18,8 @@ if (!NODE_ENV || !PORT) {
   process.exit(1)
 }
 
-// Set CORS
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:8080',
-  'http://localhost:80',
-  'http://localhost:8000',
-]
-const options: cors.CorsOptions = {
-  origin: allowedOrigins,
-}
-app.use(cors(options))
-
+app.use(cors({ origin: '*' }))
 app.use(bodyParser.urlencoded({ extended: false }))
-
 app.use(bodyParser.json())
 
 app.use('/company', companyRouter)

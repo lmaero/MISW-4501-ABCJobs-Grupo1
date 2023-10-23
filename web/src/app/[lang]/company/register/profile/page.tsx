@@ -34,10 +34,14 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
     try {
       const response = await fetch(`${COMPANY_HOST}/company/register/profile`, {
         body: JSON.stringify({ email, ...data }),
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
         },
         method: 'POST',
+        referrerPolicy: 'unsafe-url',
       })
 
       const payload = await response.json()

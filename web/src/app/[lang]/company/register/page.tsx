@@ -30,10 +30,14 @@ export default function CompanyRegisterPage({ params }: Props) {
     try {
       const response = await fetch(`${COMPANY_HOST}/company/register`, {
         body: JSON.stringify(data),
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
         },
         method: 'POST',
+        referrerPolicy: 'unsafe-url',
       })
 
       const payload = await response.json()

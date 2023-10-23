@@ -6,6 +6,7 @@ import { CANDIDATE_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { SearchCandidate, SearchCandidateSch } from '@/schemas/SearchCandidate'
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -48,35 +49,35 @@ export default function SearchCandidatePage({ params }: Props) {
   })
 
   async function onSubmit(data: SearchCandidate) {
-    try {
-      const response = await fetch(`${CANDIDATE_HOST}/candidate/search`, {
-        body: JSON.stringify(data),
+    await axios
+      .post(`${CANDIDATE_HOST}/candidate/search`, JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
         },
-        method: 'POST',
+        withCredentials: false,
       })
+      .then((data) => {
+        if (data.status === 200) {
+          setTimeout(() => {
+            router.push(`/${params.lang}/candidate/search/results`)
+          }, 3000)
+          return
+        }
 
-      const payload = await response.json()
-
-      if (response.status === 200) {
-        setTimeout(() => {
-          router.push(`/${params.lang}/candidate/search/results`)
-        }, 3000)
-        return
-      }
-
-      if (response.status === 400) {
-        toast(payload.message, { type: 'warning', autoClose: 5000 })
-      } else {
-        toast(payload.message, { type: 'error', autoClose: false })
-      }
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        toast(e.message, { type: 'error', autoClose: false })
-        throw e
-      }
-    }
+        if (data.status === 400) {
+          toast(data.data.message, { type: 'warning', autoClose: 5000 })
+        } else {
+          toast(data.data.message, { type: 'error', autoClose: false })
+        }
+      })
+      .catch((e) => {
+        if (e instanceof Error) {
+          toast(e.message, { type: 'error', autoClose: false })
+          throw e
+        }
+      })
   }
 
   return (
