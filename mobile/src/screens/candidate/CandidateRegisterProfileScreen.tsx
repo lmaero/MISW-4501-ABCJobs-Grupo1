@@ -146,7 +146,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
     <LoadingScreen />
   ) : (
     <View style={appThemeStyles.mainContainer}>
-      <ScrollView>
+      <ScrollView testID="candidate-profile-form-scroll">
         <WithDescriptionTitle
           title="Complete your information"
           description="To apply for some projects, make sure your information is complete"
@@ -156,6 +156,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionPicker
+              testID="main-role-picker"
               title="Your best role"
               description="Select the position you're comfortable with"
               values={roles}
@@ -174,6 +175,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionInput
+              testID="description-input-spoken-languages"
               titleProps={{
                 title: 'What languages do you speak?',
                 description:
@@ -196,6 +198,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionInput
+              testID="description-input-main-soft-skills"
               titleProps={{
                 title: 'What are your main soft-skills?',
                 description:
@@ -218,6 +221,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionPicker
+              testID="main-location-picker"
               title="Location"
               description="Select Your Country"
               values={countries}
@@ -240,6 +244,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionInput
+              testID="description-input-certifications"
               titleProps={{
                 title: 'Your certifications',
                 description:
@@ -268,6 +273,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
               control={control}
               render={({field: {onChange, value}}) => (
                 <WithDescriptionInput
+                  testID={`description-input-edu-school-name-${index}`}
                   titleProps={{
                     title: 'School name',
                     description: '',
@@ -292,6 +298,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
               control={control}
               render={({field: {onChange, value}}) => (
                 <WithDescriptionInput
+                  testID={`description-input-edu-obtained-degree-${index}`}
                   titleProps={{
                     title: 'Obtained degree',
                     description: '',
@@ -354,6 +361,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
               control={control}
               render={({field: {onChange, value}}) => (
                 <WithDescriptionInput
+                  testID={`description-input-edu-grade-${index}`}
                   titleProps={{
                     title: 'Grade',
                     description: '',
@@ -387,6 +395,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionInput
+              testID="description-input-tech-skills"
               titleProps={{
                 title: 'Your tech-skills',
                 description:
@@ -412,6 +421,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionInput
+              testID="description-input-programming-languages"
               titleProps={{
                 title: 'Programming languages',
                 description:
@@ -437,6 +447,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionInput
+              testID="description-input-technical-data-roles"
               titleProps={{
                 title: 'Roles',
                 description:
@@ -462,6 +473,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
           control={control}
           render={({field: {onChange, value}}) => (
             <WithDescriptionInput
+              testID="description-input-years-of-experience"
               titleProps={{
                 title: 'Year of Exp',
                 description: '',
@@ -494,6 +506,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
               control={control}
               render={({field: {onChange, value}}) => (
                 <WithDescriptionInput
+                  testID={`description-input-exp-title-${index}`}
                   titleProps={{
                     title: 'Title',
                     description: '',
@@ -518,6 +531,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
               control={control}
               render={({field: {onChange, value}}) => (
                 <WithDescriptionInput
+                  testID={`description-input-exp-company-${index}`}
                   titleProps={{
                     title: 'Company',
                     description: '',
@@ -543,6 +557,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
               control={control}
               render={({field: {onChange, value}}) => (
                 <WithDescriptionPicker
+                  testID={`picker-exp-employment-${index}`}
                   title="Employment type"
                   description="Select Your Employment type"
                   values={employmentType}
@@ -580,6 +595,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
                 control={control}
                 render={({field: {onChange, value}}) => (
                   <SingleDatePicker
+                    testID={`date-picker-exp-end-date-${index}`}
                     label="End Date"
                     date={value || new Date(aWeekLaterDate)}
                     onChangeDate={onChange}
@@ -604,6 +620,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
               control={control}
               render={({field: {onChange, value}}) => (
                 <WithDescriptionPicker
+                  testID={`picker-exp-roles-${index}`}
                   title="Role"
                   description="Select the position you're comfortable with"
                   values={techRolesValues}

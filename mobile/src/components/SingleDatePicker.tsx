@@ -16,10 +16,16 @@ import {formatDateToDDMMYYYY} from '../utils/DateFormat';
 interface Props {
   label: string;
   date: Date;
+  testID?: string;
   onChangeDate?: (date: Date) => void;
 }
 
-export const SingleDatePicker = ({label, date, onChangeDate}: Props) => {
+export const SingleDatePicker = ({
+  label,
+  date,
+  onChangeDate,
+  testID = 'single-date-picker',
+}: Props) => {
   const [showDate, setShowDate] = useState(false);
   const {inputForm} = appThemeStyles;
 
@@ -41,6 +47,7 @@ export const SingleDatePicker = ({label, date, onChangeDate}: Props) => {
         <View style={styles.touchableViewDateInput}>
           <Text style={styles.dateText}>{label}</Text>
           <TextInput
+            testID={testID}
             value={formatDateToDDMMYYYY(date)}
             style={[inputForm, styles.dateInput]}
             editable={false}
@@ -49,12 +56,7 @@ export const SingleDatePicker = ({label, date, onChangeDate}: Props) => {
         </View>
       </TouchableWithoutFeedback>
       {showDate && (
-        <DateTimePicker
-          testID="dateTimePickerEnd"
-          value={date}
-          mode="date"
-          onChange={onDateChange}
-        />
+        <DateTimePicker value={date} mode="date" onChange={onDateChange} />
       )}
     </>
   );

@@ -7,6 +7,7 @@ import {TitleWithDescriptionProps} from '../interfaces/components/Title';
 interface Props {
   titleProps: TitleWithDescriptionProps;
   textInputProps: TextInputWithoutTitleProps;
+  testID?: string;
   smallSize?: boolean;
   useSmallMargin?: boolean;
 }
@@ -14,6 +15,7 @@ interface Props {
 export const WithDescriptionInput = ({
   titleProps,
   textInputProps,
+  testID = 'with-description-input',
   smallSize = false,
   useSmallMargin = false,
 }: Props) => {
@@ -39,6 +41,7 @@ export const WithDescriptionInput = ({
         </Text>
       )}
       <TextInput
+        testID={testID}
         style={inputForm}
         value={textInputProps.value}
         placeholder={textInputProps.placeholder}

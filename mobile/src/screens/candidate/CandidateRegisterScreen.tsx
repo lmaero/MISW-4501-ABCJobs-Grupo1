@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Alert,
   Keyboard,
@@ -41,7 +41,6 @@ export const CandidateRegisterScreen = ({navigation}: Props) => {
 
   const onPressSend = (formData: Candidate) => {
     setIsLoaded(true);
-    Keyboard.dismiss();
     const registerCandidatePromise = candidateApi.post<RegisterCandidateOutput>(
       '/register',
       JSON.stringify(formData),
@@ -90,6 +89,7 @@ export const CandidateRegisterScreen = ({navigation}: Props) => {
             control={control}
             render={({field: {onChange, value}}) => (
               <SingleInput
+                testID="single-input-email"
                 title="Email"
                 placeholder="youremail@yourdomain.com"
                 value={value}
@@ -106,6 +106,7 @@ export const CandidateRegisterScreen = ({navigation}: Props) => {
             control={control}
             render={({field: {onChange, value}}) => (
               <SingleInput
+                testID="single-input-password"
                 title="Password"
                 placeholder="************"
                 value={value}
@@ -122,6 +123,7 @@ export const CandidateRegisterScreen = ({navigation}: Props) => {
             control={control}
             render={({field: {onChange, value}}) => (
               <SingleInput
+                testID="single-input-full-name"
                 title="Full Name"
                 placeholder="John Smith"
                 value={value}

@@ -5,6 +5,7 @@ import {appThemeStyles} from '../themes/appTheme';
 import {TextInputWithTitleProps} from '../interfaces/components/Input';
 
 export const SingleInput = ({
+  testID = 'single-input',
   title,
   placeholder,
   value = '',
@@ -19,6 +20,7 @@ export const SingleInput = ({
     <View style={[appThemeStyles.formItemcontainer, styles.fullSize]}>
       <Text style={styles.title}>{title}</Text>
       <TextInput
+        testID={testID}
         style={appThemeStyles.inputForm}
         value={value}
         placeholder={placeholder}
@@ -30,6 +32,7 @@ export const SingleInput = ({
       />
       {isPassword && (
         <Icon
+          testID="show-password-icon"
           name={showPassword ? 'eye' : 'eye-slash'}
           size={20}
           color="rgba(28, 31, 30, 0.50)"

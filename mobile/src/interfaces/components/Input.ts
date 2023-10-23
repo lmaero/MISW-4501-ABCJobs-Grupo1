@@ -1,6 +1,7 @@
 import {KeyboardTypeOptions} from 'react-native';
 
 export interface TextInputWithTitleProps {
+  testID?: string;
   title: string;
   placeholder: string;
   value?: string;

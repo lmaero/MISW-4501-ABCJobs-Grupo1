@@ -8,6 +8,7 @@ interface Props {
   title: string;
   description: string;
   values: Array<PickerValues>;
+  testID?: string;
   selected?: string;
   listMode?: ListModeType;
   placeholder?: string;
@@ -19,6 +20,7 @@ export const WithDescriptionPicker = ({
   description,
   selected,
   values,
+  testID = 'with-description-picker',
   listMode = 'FLATLIST',
   placeholder = '',
   useSmallMargin = false,
@@ -39,6 +41,7 @@ export const WithDescriptionPicker = ({
       <Text style={appThemeStyles.labelTitle}>{title}</Text>
       <Text style={appThemeStyles.labelDescription}>{description}</Text>
       <DropDownPicker
+        testID={testID}
         style={styles.picker}
         open={open}
         value={value}

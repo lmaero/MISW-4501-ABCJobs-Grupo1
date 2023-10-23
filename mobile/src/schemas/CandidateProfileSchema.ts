@@ -39,6 +39,7 @@ export const experienceSchema = yup.object().shape({
     .max(50, 'Title must be at most 50 characters'),
   employment: yup
     .string()
+    .default(employment[0])
     .test('employment', 'Invalid employment type.', value =>
       value ? Object.values(employment).includes(value) : true,
     ),
@@ -57,6 +58,7 @@ export const experienceSchema = yup.object().shape({
     }),
   techRole: yup
     .string()
+    .default(techRole[0])
     .test('role', 'Invalid tech role type.', value =>
       value ? Object.values(techRole).includes(value) : true,
     ),
@@ -82,6 +84,7 @@ export const candidateProfileSchema = yup.object().shape({
   technicalData: technicalDataSchema,
   role: yup
     .string()
+    .default(roles[0])
     .test('role', 'Invalid role type.', value =>
       value ? Object.values(roles).includes(value) : true,
     ),
