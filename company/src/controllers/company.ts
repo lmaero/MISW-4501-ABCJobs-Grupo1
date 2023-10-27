@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
 import { CompanyProfileSch } from '../schemas/CompanyProfile'
+import {TestSch} from "../schemas/Test";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -71,4 +72,32 @@ const registerProfile = async (req: Request, res: Response) => {
   }
 }
 
-export { register, registerProfile }
+const createTest = async (req: Request, res: Response) => {
+  try {
+    const result = TestSch.safeParse(req.body)
+
+    if (result.success) {
+      const applicable_to = result.data.applicableTo
+      const questions = result.data.questions
+
+      const dao = new Dao()
+      const dbResult = await dao.storeTest(applicable_to, questions)
+      if (dbResult.msg === '201') {
+        return res.status(201).json({ message: 'Test created' })
+      } else {
+        return res.status(400).json({
+          message: 'Test could be created with the data provided',
+        })
+      }
+    } else {
+      return res.status(400).json({
+        message: result.error.message,
+      })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export { register, registerProfile, createTest }
