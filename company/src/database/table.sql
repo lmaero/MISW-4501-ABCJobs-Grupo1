@@ -9,3 +9,16 @@ CREATE TABLE "Company"
     "segments"           TEXT,
     "size"               TEXT
 );
+
+CREATE TABLE "Test"
+(
+    "applicable_to"      TEXT[],
+    "type"               TEXT,
+    "result"             INT,
+    "questions"          JSONB,
+    "is_individual_test" BOOLEAN,
+    "is_finished"        BOOLEAN,
+    "has_authorization"  JSONB,
+    "was_supplanted"     BOOLEAN,
+    "minutes_duration"   INT
+);
