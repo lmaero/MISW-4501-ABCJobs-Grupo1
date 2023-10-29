@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
 import { CompanyProfileSch } from '../schemas/CompanyProfile'
-import {TestSch} from "../schemas/Test";
+import { testSch } from '../schemas/Test'
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -74,7 +74,7 @@ const registerProfile = async (req: Request, res: Response) => {
 
 const createTest = async (req: Request, res: Response) => {
   try {
-    const result = TestSch.safeParse(req.body)
+    const result = testSch.safeParse(req.body)
 
     if (result.success) {
       const applicable_to = result.data.applicableTo

@@ -171,5 +171,32 @@
     },
     "cancelButton": "Cancelar",
     "sendButton": "Guardar"
+  },
+  "CreateTestPage": {
+    "title": "Crear prueba",
+    "subtitle": "Evalúa las habilidades de los candidatos",
+    "basic": {
+      "formLabels": {
+        "rolesTitle": "Aplicable a",
+        "rolesSubtitle": "Selecciona los roles para los cuales esta prueba es aplicable"
+      }
+    },
+    "questionsData": {
+      "title": "Preguntas",
+      "formLabels": {
+        "questionTitle": "Pregunta",
+        "questionPlaceholder": "Selecciona la mejor definición para JSX",
+        "rightAnswerTitle": "Respuesta correcta",
+        "rightAnswerPlaceholder": "JavaScript XML",
+        "wrongOptionsTitle": "Opciones incorrectas",
+        "wrongOptionsPlaceholder0": "Un nuevo lenguaje",
+        "wrongOptionsPlaceholder1": "Un complemento para JavaScript",
+        "wrongOptionsPlaceholder2": "Una librería asombrosa"
+      },
+      "removeButton": "Eliminar pregunta",
+      "addMoreQuestions": "Añadir más preguntas"
+    },
+    "cancelButton": "Cancelar",
+    "sendButton": "Crear prueba"
   }
 }
