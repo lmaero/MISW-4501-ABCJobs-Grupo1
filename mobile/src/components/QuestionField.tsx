@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {WithDescriptionTitle} from './WithDescriptionTitle';
 import {RadioGroup} from 'react-native-radio-buttons-group';
+import {Answer} from '../interfaces/Answers';
 
 interface Props {
   id: string;
@@ -13,7 +14,7 @@ interface Props {
     color: string;
     borderColor: string;
   }[];
-  onChangeValue?: (value: any | null) => void;
+  onChangeValue?: (value: Answer | null) => void;
 }
 
 export const QuestionField = ({
@@ -34,7 +35,7 @@ export const QuestionField = ({
         radioButtons={answersRadioButtons}
         onPress={(newId: string) => {
           setSelectedId(newId);
-          onChangeValue && onChangeValue({[id]: newId});
+          onChangeValue && onChangeValue({questionId: id, answer: newId});
         }}
         selectedId={selectedId}
         containerStyle={style.radioGroupContainer}

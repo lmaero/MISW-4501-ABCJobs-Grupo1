@@ -140,8 +140,16 @@ export const TestContentScreen = () => {
 
   const [answer, setAnswer] = useState<Answer[]>([]);
   const onChangeValue = (value: Answer | null) => {
-    value && setAnswer([...answer, value]);
-    console.log(answer);
+    if (value) {
+      const {questionId: newQuestionId, answer: newAnswer} = value;
+      const updatedAnswer = answer.some(a => a.questionId === newQuestionId)
+        ? answer.filter(a => a.questionId !== newQuestionId)
+        : answer;
+      setAnswer([
+        ...updatedAnswer,
+        {questionId: newQuestionId, answer: newAnswer},
+      ]);
+    }
   };
 
   return (
@@ -165,7 +173,7 @@ export const TestContentScreen = () => {
       <View style={style.buttonGroupContainer}>
         <MediumButton
           text="Send"
-          onPress={() => console.log('test sended!')}
+          onPress={() => console.log(answer)}
           buttonGroup={true}
           secondary={true}
         />
