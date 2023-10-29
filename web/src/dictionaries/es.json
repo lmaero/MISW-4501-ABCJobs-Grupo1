@@ -204,5 +204,8 @@
     },
     "cancelButton": "Cancelar",
     "sendButton": "Crear prueba"
+  },
+  "TestsResultsPage": {
+    "title": "Últimos resultados de pruebas"
   }
 }

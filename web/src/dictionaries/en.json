@@ -204,5 +204,8 @@
     },
     "cancelButton": "Cancel",
     "sendButton": "Create"
+  },
+  "TestsResultsPage": {
+    "title": "Last Test Results"
   }
 }
