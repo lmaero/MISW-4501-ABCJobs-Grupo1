@@ -1,31 +1,27 @@
 import { Request, Response } from 'express'
 import { authenticateUser, getUserInfo } from '../controllers/auth'
+import { LoginSch } from '../schemas/Login'
 
-// Importing the modules
 const express = require('express')
 
-// Creating express Router
 const router = express.Router()
 
-router.get('/auth', async (req: Request, res: Response) => {
-  const data = req.body
-  const userInfo = {
-    personId: data.personId,
-    country: data.country,
-    languages: data.languages,
-    academicalDataId: data.academicalDataId,
-    technicalDataId: data.technicalDataId,
-    workDataId: data.workDataId,
-    isAvailable: data.isAvailable,
-    softSkills: data.softSkills,
-    interviewId: data.interviewId,
-    email: data.email,
-    password: data.password,
-    token: '',
-  }
+router.post('/auth', async (req: Request, res: Response) => {
+  try {
+    const safeParse = LoginSch.safeParse(req.body)
 
-  const userData = await authenticateUser(userInfo)
-  res.send({ userData })
+    if (safeParse.success) {
+      const userInfo = {
+        email: safeParse.data.email,
+        password: safeParse.data.password,
+      }
+
+      const userData = await authenticateUser(userInfo)
+      return res.send({ userData })
+    }
+  } catch (e) {
+    console.error(e)
+  }
 })
 
 router.get('/auth/me', async (req: Request, res: Response) => {

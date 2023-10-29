@@ -1,5 +1,5 @@
 import Dao from '../database/dao'
-import { IUserInfo } from '../interfaces/interfaces'
+import { Login } from '../schemas/Login'
 import { decodeToken, generateAccessToken, tokenExpired } from '../utils/utils'
 
 let dao: Dao
@@ -10,16 +10,7 @@ try {
   console.log('Database connection not established!')
 }
 
-export async function authenticateUser(info: IUserInfo) {
-  const personId = info.personId
-  const country = info.country
-  const languages = info.languages
-  const academicalDataId = info.academicalDataId
-  const technicalDataId = info.technicalDataId
-  const workDataId = info.workDataId
-  const isAvailable = info.isAvailable
-  const softSkills = info.softSkills
-  const interviewId = info.interviewId
+export async function authenticateUser(info: Login) {
   const email = info.email
   const password = info.password
   const token = await generateAccessToken(email)
@@ -73,7 +64,6 @@ export async function getUserInfo(token: string) {
   const email: string = info.email
   const result = await dao.getUserInfo(email)
 
-  // @ts-ignore
   if (result.email !== '') {
     return result
   } else {
