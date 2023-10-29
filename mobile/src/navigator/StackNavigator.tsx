@@ -2,10 +2,12 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {CandidateRegisterProfileScreen} from '../screens/candidate/CandidateRegisterProfileScreen';
 import {CandidateRegisterScreen} from '../screens/candidate/CandidateRegisterScreen';
+import {TestContentScreen} from '../screens/test/TestContentScreen';
 
 export type RootStackParams = {
   CandidateRegisterScreen: undefined;
   CandidateRegisterProfileScreen: {candidateEmail: string};
+  TestContentScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -14,7 +16,7 @@ export const StackNavigator = () => {
   return (
     <>
       <Stack.Navigator
-        initialRouteName="CandidateRegisterScreen"
+        initialRouteName="TestContentScreen"
         screenOptions={{
           headerShown: false,
           cardStyle: {
@@ -29,6 +31,7 @@ export const StackNavigator = () => {
           name="CandidateRegisterProfileScreen"
           component={CandidateRegisterProfileScreen}
         />
+        <Stack.Screen name="TestContentScreen" component={TestContentScreen} />
       </Stack.Navigator>
     </>
   );
