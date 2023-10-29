@@ -55,7 +55,6 @@ export default function CreateTestPage() {
 
   async function onSubmit(data: Test) {
     try {
-      console.dir(data)
       const response = await fetch(`${COMPANY_HOST}/company/test`, {
         body: JSON.stringify(data),
         mode: 'cors',
@@ -69,7 +68,7 @@ export default function CreateTestPage() {
       })
 
       const payload = await response.json()
-      if (response.status === 200) {
+      if (response.status === 201) {
         return toast(t('notifications.success'), {
           type: 'success',
           autoClose: 3000,

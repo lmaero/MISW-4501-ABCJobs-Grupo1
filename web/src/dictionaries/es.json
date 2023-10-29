@@ -196,6 +196,9 @@
       "removeButton": "Eliminar pregunta",
       "addMoreQuestions": "Añadir más preguntas"
     },
+    "notifications": {
+      "success": "Prueba creada exitosamente"
+    },
     "cancelButton": "Cancelar",
     "sendButton": "Crear prueba"
   }

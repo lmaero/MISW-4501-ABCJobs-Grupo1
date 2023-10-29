@@ -196,6 +196,9 @@
       "removeButton": "Remove",
       "addMoreQuestions": "Add more questions"
     },
+    "notifications": {
+      "success": "Successfully created"
+    },
     "cancelButton": "Cancel",
     "sendButton": "Create"
   }
