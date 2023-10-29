@@ -109,6 +109,7 @@ export default function CreateTestPage() {
               <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                 <input
                   type='text'
+                  data-cy='name'
                   id='name'
                   className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
                   placeholder={t('basic.formLabels.namePlaceholder')}
@@ -168,6 +169,7 @@ export default function CreateTestPage() {
                   <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='text'
+                      data-cy='question'
                       id={`question${index}`}
                       className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
                       placeholder={t(
@@ -192,6 +194,7 @@ export default function CreateTestPage() {
                   <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
                       type='text'
+                      data-cy='rightAnswer'
                       id={`rightAnswer${index}`}
                       className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
                       placeholder={t(
@@ -218,6 +221,7 @@ export default function CreateTestPage() {
                       <div className='mb-2 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                         <input
                           type='text'
+                          data-cy={`wrongOptions${index}${wrongIndex}`}
                           id={`wrongOptions${index}${wrongIndex}`}
                           className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
                           placeholder={t(
