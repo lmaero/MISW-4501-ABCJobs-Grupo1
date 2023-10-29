@@ -176,7 +176,10 @@
     "title": "Crear prueba",
     "subtitle": "Evalúa las habilidades de los candidatos",
     "basic": {
+      "title": "Información Básica",
       "formLabels": {
+        "nameTitle": "Nombre de la prueba",
+        "namePlaceholder": "React Avanzando",
         "rolesTitle": "Aplicable a",
         "rolesSubtitle": "Selecciona los roles para los cuales esta prueba es aplicable"
       }

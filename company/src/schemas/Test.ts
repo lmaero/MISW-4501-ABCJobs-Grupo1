@@ -8,6 +8,7 @@ const questionSch = z.object({
 })
 
 export const testSch = z.object({
+  name: ZStringSch.min(5).max(100),
   applicableTo: z.array(ZStringSch),
   questions: z.array(questionSch),
 })

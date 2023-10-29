@@ -99,6 +99,26 @@ export default function CreateTestPage() {
         </header>
         <hr className='border-b-1' />
         <section>
+          <h3 className='mb-2 mt-10 text-xl font-semibold'>
+            {t('basic.title')}
+          </h3>
+
+          <article className='mb-6'>
+            <FieldDescription title={t('basic.formLabels.nameTitle')} />
+            <div className='space-y-3'>
+              <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
+                <input
+                  type='text'
+                  id='name'
+                  className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
+                  placeholder={t('basic.formLabels.namePlaceholder')}
+                  {...register('name')}
+                />
+              </div>
+              {errors.name && <ErrorMessage message={errors.name.message} />}
+            </div>
+          </article>
+
           <article className='mb-6'>
             <FieldDescription
               title={t('basic.formLabels.rolesTitle')}

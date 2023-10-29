@@ -1,20 +1,12 @@
 import { Client } from 'pg'
 import { Question } from '../schemas/Test'
+import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
 
   constructor() {
-    //clientString
-    this.client = new Client({
-      // Remove this connection wehn testing with the containers and put the
-      // clientString without the curly braces
-      user: 'postgres',
-      port: 5432,
-      host: 'localhost',
-      password: 'postgres',
-      database: 'postgres',
-    })
+    this.client = new Client(clientString)
     this.client.connect()
   }
 
@@ -29,11 +21,15 @@ class Dao {
     }
   }
 
-  async storeTest(applicable_to: string[], questions: Question[]) {
-    const query = `INSERT INTO "Test" ("applicable_to", "questions")
-                   VALUES ($1, $2)`
+  async storeTest(
+    name: string,
+    applicable_to: string[],
+    questions: Question[],
+  ) {
+    const query = `INSERT INTO "Test" ("name", "applicable_to", "questions")
+                   VALUES ($1, $2, $3)`
     try {
-      await this.client.query(query, [applicable_to, { questions }])
+      await this.client.query(query, [name, applicable_to, { questions }])
       return { msg: '201' }
     } catch (err) {
       return { msg: '400' }

@@ -176,7 +176,10 @@
     "title": "Create Test",
     "subtitle": "Evaluate the skills of the candidates",
     "basic": {
+      "title": "Basic Information",
       "formLabels": {
+        "nameTitle": "Test Name",
+        "namePlaceholder": "React Advanced",
         "rolesTitle": "Applicable to",
         "rolesSubtitle": "Select the role(s) this test is applicable to"
       }

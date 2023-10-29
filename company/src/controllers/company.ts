@@ -77,16 +77,17 @@ const createTest = async (req: Request, res: Response) => {
     const result = testSch.safeParse(req.body)
 
     if (result.success) {
+      const name = result.data.name
       const applicable_to = result.data.applicableTo
       const questions = result.data.questions
 
       const dao = new Dao()
-      const dbResult = await dao.storeTest(applicable_to, questions)
+      const dbResult = await dao.storeTest(name, applicable_to, questions)
       if (dbResult.msg === '201') {
         return res.status(201).json({ message: 'Test created' })
       } else {
         return res.status(400).json({
-          message: 'Test could be created with the data provided',
+          message: 'Test could not be created with the provided data',
         })
       }
     } else {
