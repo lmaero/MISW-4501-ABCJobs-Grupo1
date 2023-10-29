@@ -6,26 +6,47 @@ class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client(clientString)
+    // clientString
+    this.client = new Client(
+      {
+        user: "postgres",
+            port: 5432,
+          host: "localhost",
+          password: "postgres",
+          database: "postgres",
+      }
+    )
     this.client.connect()
   }
 
-  async authenticateUser(email: string, password: string) {
-    if (!process.env.TOKEN_SECRET) {
-      throw JsonWebTokenError
-    }
+  async authenticateUser(email: string, password: string, token: string) {
 
-    const token = jwt.sign({ email }, process.env.TOKEN_SECRET)
-    // Insert the information
     const query = `
-        INSERT INTO "Candidate" ("email", "password",
-                                 "token")
-        VALUES ($1, $2, $3)
-    `
+       UPDATE "Candidate" set token = $3 where email = $1 and password = $2
+       `
 
     try {
-      await this.client.query(query, [email, password])
+      await this.client.query(query, [email, password, token])
       return { msg: '200' }
+    } catch (err) {
+      console.log(err)
+      return { msg: '400' }
+    }
+  }
+
+  async isUserRegistered(email: string, password: string) {
+
+    const query = `
+       select email from  "Candidate" where email = $1 and password = $2
+       `
+
+    try {
+      const userInDb = await this.client.query(query, [email, password])
+      if (userInDb.rowCount > 0) {
+        return { msg: '200' }
+      } else {
+        return { msg: '400' }
+      }
     } catch (err) {
       console.log(err)
       return { msg: '400' }
@@ -42,17 +63,11 @@ class Dao {
       const userInfo = res?.rows[0]
       if (userInfo) {
         return {
-          personId: userInfo.personId,
-          country: userInfo.country,
-          languages: userInfo.languages,
-          academicalDataId: userInfo.academicalDataId,
-          technicalDataId: userInfo.technicalDataId,
-          workDataId: userInfo.workDataId,
-          isAvailable: userInfo.isAvailable,
-          softSkills: userInfo.softSkills,
-          interviewId: userInfo.interviewId,
+          msg: "200",
           email: userInfo.email,
-          password: userInfo.password,
+          first_name: userInfo.first_name,
+          last_name: userInfo.last_name,
+          candidateid: userInfo.candidateid,
         }
       } else {
         return { msg: '400' }
