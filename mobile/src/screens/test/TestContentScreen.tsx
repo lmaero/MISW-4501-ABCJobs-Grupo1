@@ -1,6 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {WithDescriptionTitle} from '../../components/WithDescriptionTitle';
 import {appThemeStyles} from '../../themes/appTheme';
 import {MediumButton} from '../../components/MediumButton';
