@@ -20,22 +20,10 @@ if (!NODE_ENV || !PORT) {
 app.use(express.json())
 
 // Set CORS
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:8080',
-  'http://localhost:80',
-  'http://localhost:8000',
-]
-const options: cors.CorsOptions = {
-  origin: allowedOrigins,
-}
-app.use(cors(options))
+app.use(cors({ origin: '*' }))
 
 // Handling routes requests
 app.use('/', routes)
-app.use('/auth', routes)
-app.use('/auth/me', routes)
-app.use('/auth/ping', routes)
 
 app
   .listen(PORT)

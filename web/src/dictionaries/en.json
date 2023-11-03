@@ -3,6 +3,15 @@
     "title": "ABC Jobs",
     "localizationText": "You're using our English website"
   },
+  "LoginPage": {
+    "title": "Log into ABC Jobs!",
+    "formLabels": {
+      "email": "Email",
+      "emailPlaceholder": "you@yourdomain.com",
+      "password": "Password"
+    },
+    "sendButton": "Login"
+  },
   "RegisterPage": {
     "title": "Register",
     "candidate": "Candidate",
@@ -171,5 +180,38 @@
     },
     "cancelButton": "Cancel",
     "sendButton": "Save"
+  },
+  "CreateTestPage": {
+    "title": "Create Test",
+    "subtitle": "Evaluate the skills of the candidates",
+    "basic": {
+      "title": "Basic Information",
+      "formLabels": {
+        "nameTitle": "Test Name",
+        "namePlaceholder": "React Advanced",
+        "rolesTitle": "Applicable to",
+        "rolesSubtitle": "Select the role(s) this test is applicable to"
+      }
+    },
+    "questionsData": {
+      "title": "Questions",
+      "formLabels": {
+        "questionTitle": "Question",
+        "questionPlaceholder": "Select the best definition for JSX",
+        "rightAnswerTitle": "Right Answer",
+        "rightAnswerPlaceholder": "JavaScript XML",
+        "wrongOptionsTitle": "Wrong Options",
+        "wrongOptionsPlaceholder0": "A new language",
+        "wrongOptionsPlaceholder1": "A plugin for JavaScript",
+        "wrongOptionsPlaceholder2": "An awesome library"
+      },
+      "removeButton": "Remove",
+      "addMoreQuestions": "Add more questions"
+    },
+    "notifications": {
+      "success": "Successfully created"
+    },
+    "cancelButton": "Cancel",
+    "sendButton": "Create"
   }
 }

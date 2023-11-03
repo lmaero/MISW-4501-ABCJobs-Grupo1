@@ -1,61 +1,52 @@
+import jwt, { JsonWebTokenError } from 'jsonwebtoken'
 import { Client } from 'pg'
+import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client({
-      user: process.env.POSTGRES_USER,
-      host: process.env.POSTGRES_HOST,
-      database: process.env.POSTGRES_DB_NAME,
-      password: process.env.POSTGRES_PASSWORD,
-      port: Number(process.env.POSTGRES_PORT),
-    })
+    // clientString
+    this.client = new Client(
+      {
+        user: "postgres",
+            port: 5432,
+          host: "localhost",
+          password: "postgres",
+          database: "postgres",
+      }
+    )
     this.client.connect()
   }
 
-  async authenticateUser(
-    personId: number,
-    country: string,
-    languages: string,
-    academicalDataId: number,
-    technicalDataId: number,
-    workDataId: number,
-    isAvailable: boolean,
-    softSkills: string,
-    interviewId: number,
-    email: string,
-    password: string,
-    token: string,
-  ) {
-    // Generate token
+  async authenticateUser(email: string, password: string, token: string) {
 
-    // Insert the information
     const query = `
-            INSERT INTO "Candidate" ("personId", "country", "languages",
-                                     "academicalDataId", "technicalDataId",
-                                     "workDataId", "isAvailable", "softSkills",
-                                     "interviewId", "email", "password",
-                                     "token")
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-        `
+       UPDATE "Candidate" set token = $3 where email = $1 and password = $2
+       `
 
     try {
-      await this.client.query(query, [
-        personId,
-        country,
-        languages,
-        academicalDataId,
-        technicalDataId,
-        workDataId,
-        isAvailable,
-        softSkills,
-        interviewId,
-        email,
-        password,
-        token,
-      ])
-      return { msg: '201' }
+      await this.client.query(query, [email, password, token])
+      return { msg: '200' }
+    } catch (err) {
+      console.log(err)
+      return { msg: '400' }
+    }
+  }
+
+  async isUserRegistered(email: string, password: string) {
+
+    const query = `
+       select email from  "Candidate" where email = $1 and password = $2
+       `
+
+    try {
+      const userInDb = await this.client.query(query, [email, password])
+      if (userInDb.rowCount > 0) {
+        return { msg: '200' }
+      } else {
+        return { msg: '400' }
+      }
     } catch (err) {
       console.log(err)
       return { msg: '400' }
@@ -64,25 +55,19 @@ class Dao {
 
   async getUserInfo(email: string) {
     const query = `SELECT *
-                       FROM "Candidate"
-                       WHERE email = $1`
+                   FROM "Candidate"
+                   WHERE email = $1`
 
     try {
       const res = await this.client.query(query, [email])
       const userInfo = res?.rows[0]
       if (userInfo) {
         return {
-          personId: userInfo.personId,
-          country: userInfo.country,
-          languages: userInfo.languages,
-          academicalDataId: userInfo.academicalDataId,
-          technicalDataId: userInfo.technicalDataId,
-          workDataId: userInfo.workDataId,
-          isAvailable: userInfo.isAvailable,
-          softSkills: userInfo.softSkills,
-          interviewId: userInfo.interviewId,
+          msg: "200",
           email: userInfo.email,
-          password: userInfo.password,
+          first_name: userInfo.first_name,
+          last_name: userInfo.last_name,
+          candidateid: userInfo.candidateid,
         }
       } else {
         return { msg: '400' }

@@ -3,6 +3,15 @@
     "title": "ABC Jobs",
     "localizationText": "Estás usando nuestro sitio web en Español"
   },
+  "LoginPage": {
+    "title": "Ingresa a ABC Jobs",
+    "formLabels": {
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@tudominio.com",
+      "password": "Contraseña"
+    },
+    "sendButton": "Ingresar"
+  },
   "RegisterPage": {
     "title": "Regístrate",
     "candidate": "Candidato",
@@ -171,5 +180,38 @@
     },
     "cancelButton": "Cancelar",
     "sendButton": "Guardar"
+  },
+  "CreateTestPage": {
+    "title": "Crear prueba",
+    "subtitle": "Evalúa las habilidades de los candidatos",
+    "basic": {
+      "title": "Información Básica",
+      "formLabels": {
+        "nameTitle": "Nombre de la prueba",
+        "namePlaceholder": "React Avanzando",
+        "rolesTitle": "Aplicable a",
+        "rolesSubtitle": "Selecciona los roles para los cuales esta prueba es aplicable"
+      }
+    },
+    "questionsData": {
+      "title": "Preguntas",
+      "formLabels": {
+        "questionTitle": "Pregunta",
+        "questionPlaceholder": "Selecciona la mejor definición para JSX",
+        "rightAnswerTitle": "Respuesta correcta",
+        "rightAnswerPlaceholder": "JavaScript XML",
+        "wrongOptionsTitle": "Opciones incorrectas",
+        "wrongOptionsPlaceholder0": "Un nuevo lenguaje",
+        "wrongOptionsPlaceholder1": "Un complemento para JavaScript",
+        "wrongOptionsPlaceholder2": "Una librería asombrosa"
+      },
+      "removeButton": "Eliminar pregunta",
+      "addMoreQuestions": "Añadir más preguntas"
+    },
+    "notifications": {
+      "success": "Prueba creada exitosamente"
+    },
+    "cancelButton": "Cancelar",
+    "sendButton": "Crear prueba"
   }
 }

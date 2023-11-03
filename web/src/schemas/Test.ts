@@ -1,5 +1,5 @@
+import { ZStringSch } from '@/schemas/ZString'
 import { z } from 'zod'
-import { ZStringSch } from './ZString'
 
 const questionSch = z.object({
   question: ZStringSch.min(5).max(255),
