@@ -101,4 +101,40 @@ const createTest = async (req: Request, res: Response) => {
   }
 }
 
-export { register, registerProfile, createTest }
+const getTests = async (req: Request, res: Response) => {
+  try {
+      const dao = new Dao()
+      const dbResult = await dao.getTests()
+    // Checar el length
+      if (dbResult.msg === '201') {
+        return res.status(201).json({ tests: dbResult.tests })
+      } else {
+        return res.status(400).json({message: 'No tests created yet'})
+      }
+    }
+  catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+const getTestById = async (req: Request, res: Response) => {
+  try {
+    const testId: string = req.params.id;
+    const dao = new Dao()
+    const dbResult = await dao.getTestById(testId)
+    if (dbResult.msg === '201') {
+      return res.status(201).json({ tests: dbResult.tests })
+    } else {
+      return res.status(400).json({message: 'No test associated with the id provided'})
+    }
+  }
+  catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+
+
+export { register, registerProfile, createTest, getTests, getTestById }

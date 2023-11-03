@@ -12,6 +12,7 @@ CREATE TABLE "Company"
 
 CREATE TABLE "Test"
 (
+    "name"               TEXT,
     "applicable_to"      TEXT[],
     "type"               TEXT,
     "result"             INT,
@@ -22,3 +23,5 @@ CREATE TABLE "Test"
     "was_supplanted"     BOOLEAN,
     "minutes_duration"   INT
 );
+
+ALTER TABLE "Test" ADD COLUMN test_id SERIAL PRIMARY KEY;
