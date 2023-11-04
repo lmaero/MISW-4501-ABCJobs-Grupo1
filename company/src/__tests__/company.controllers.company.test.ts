@@ -1,9 +1,15 @@
 import * as httpMocks from 'node-mocks-http'
-import {createTest, getTestById, getTests, register, registerProfile} from '../controllers/company'
+import {
+  createTest,
+  getTestById,
+  getTests,
+  register,
+  registerProfile,
+} from '../controllers/company'
 import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
 import { CompanyProfileSch } from '../schemas/CompanyProfile'
-import {testSch} from "../schemas/Test";
+import { testSch } from '../schemas/Test'
 
 jest.mock('express')
 jest.mock('../schemas/Company')
@@ -14,24 +20,30 @@ const fakeData = {
   email: 'john@abcjobs.com',
   password: 'SuperSecret1#',
   companyName: 'ABC Jobs',
-  prueba:
+  prueba: {
+    name: 'Prueba 3',
+    applicableTo: ['frontend'],
+    questions: [
       {
-        "name": "Prueba 3",
-        "applicableTo": ["frontend"],
-        "questions": [
-          {
-            "question": "Select the best definition of JSX",
-            "rightAnswer": "JavaScript XML",
-            "wrongOptions": ["A new language", "A plugin for JavaScript", "An awesome library"]
-          },
-          {
-            "question": "Select the best definition of JSX",
-            "rightAnswer": "JavaScript XML",
-            "wrongOptions": ["A new language", "A plugin for JavaScript", "An awesome library"]
-          }
-        ]
-      }
-
+        question: 'Select the best definition of JSX',
+        rightAnswer: 'JavaScript XML',
+        wrongOptions: [
+          'A new language',
+          'A plugin for JavaScript',
+          'An awesome library',
+        ],
+      },
+      {
+        question: 'Select the best definition of JSX',
+        rightAnswer: 'JavaScript XML',
+        wrongOptions: [
+          'A new language',
+          'A plugin for JavaScript',
+          'An awesome library',
+        ],
+      },
+    ],
+  },
 }
 
 const requestOptions: httpMocks.RequestOptions = {
@@ -74,8 +86,6 @@ describe('company tests', () => {
   })
 
   test('register profile 200', async () => {
-    const request = httpMocks.createRequest(requestOptions)
-
     jest.spyOn(CompanyPreSch, 'safeParse').mockReturnValue({
       success: true,
       data: fakeData,
@@ -113,25 +123,33 @@ describe('company tests', () => {
     jest.spyOn(testSch, 'safeParse').mockReturnValue({
       success: true,
       data: {
-          "name": "Prueba 3",
-            "applicableTo": ["frontend"],
-            "questions": [
+        name: 'Prueba 3',
+        applicableTo: ['frontend'],
+        questions: [
           {
-            "question": "Select the best definition of JSX",
-            "rightAnswer": "JavaScript XML",
-            "wrongOptions": ["A new language", "A plugin for JavaScript", "An awesome library"]
+            question: 'Select the best definition of JSX',
+            rightAnswer: 'JavaScript XML',
+            wrongOptions: [
+              'A new language',
+              'A plugin for JavaScript',
+              'An awesome library',
+            ],
           },
           {
-            "question": "Select the best definition of JSX",
-            "rightAnswer": "JavaScript XML",
-            "wrongOptions": ["A new language", "A plugin for JavaScript", "An awesome library"]
-          }
-        ]
+            question: 'Select the best definition of JSX',
+            rightAnswer: 'JavaScript XML',
+            wrongOptions: [
+              'A new language',
+              'A plugin for JavaScript',
+              'An awesome library',
+            ],
+          },
+        ],
       },
     })
     jest
-        .spyOn(Dao.prototype, 'storeTest')
-        .mockReturnValue(Promise.resolve({ msg: '201' }))
+      .spyOn(Dao.prototype, 'storeTest')
+      .mockReturnValue(Promise.resolve({ msg: '201' }))
     const response = httpMocks.createResponse()
     const result = await createTest(request, response)
     expect(result).toBeDefined()
@@ -143,25 +161,33 @@ describe('company tests', () => {
     jest.spyOn(testSch, 'safeParse').mockReturnValue({
       success: true,
       data: {
-        "name": "Prueba 3",
-        "applicableTo": ["frontend"],
-        "questions": [
+        name: 'Prueba 3',
+        applicableTo: ['frontend'],
+        questions: [
           {
-            "question": "Select the best definition of JSX",
-            "rightAnswer": "JavaScript XML",
-            "wrongOptions": ["A new language", "A plugin for JavaScript", "An awesome library"]
+            question: 'Select the best definition of JSX',
+            rightAnswer: 'JavaScript XML',
+            wrongOptions: [
+              'A new language',
+              'A plugin for JavaScript',
+              'An awesome library',
+            ],
           },
           {
-            "question": "Select the best definition of JSX",
-            "rightAnswer": "JavaScript XML",
-            "wrongOptions": ["A new language", "A plugin for JavaScript", "An awesome library"]
-          }
-        ]
+            question: 'Select the best definition of JSX',
+            rightAnswer: 'JavaScript XML',
+            wrongOptions: [
+              'A new language',
+              'A plugin for JavaScript',
+              'An awesome library',
+            ],
+          },
+        ],
       },
     })
     jest
-        .spyOn(Dao.prototype, 'storeTest')
-        .mockReturnValue(Promise.resolve({ msg: '400' }))
+      .spyOn(Dao.prototype, 'storeTest')
+      .mockReturnValue(Promise.resolve({ msg: '400' }))
     const response = httpMocks.createResponse()
     const result = await createTest(request, response)
     expect(result).toBeDefined()
@@ -169,7 +195,9 @@ describe('company tests', () => {
 
   test('get tests 200', async () => {
     const request = httpMocks.createRequest(requestOptions)
-    jest.spyOn(Dao.prototype, 'getTests').mockReturnValue(Promise.resolve({ msg: '201', tests: ["Muchos tests"] }))
+    jest
+      .spyOn(Dao.prototype, 'getTests')
+      .mockReturnValue(Promise.resolve({ msg: '201', tests: ['Muchos tests'] }))
     const response = httpMocks.createResponse()
     const result = await getTests(request, response)
     const expected = 201
@@ -178,11 +206,12 @@ describe('company tests', () => {
 
   test('get test by id 201', async () => {
     const request = httpMocks.createRequest(requestOptions)
-    jest.spyOn(Dao.prototype, 'getTestById').mockReturnValue(Promise.resolve({ msg: '201', tests: ["Muchos tests"] }))
+    jest
+      .spyOn(Dao.prototype, 'getTestById')
+      .mockReturnValue(Promise.resolve({ msg: '201', tests: ['Muchos tests'] }))
     const response = httpMocks.createResponse()
     const result = await getTestById(request, response)
     const expected = 201
     expect(result.statusCode).toStrictEqual(expected)
   })
-
 })

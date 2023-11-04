@@ -1,5 +1,11 @@
 import express from 'express'
-import {createTest, getTestById, getTests, register, registerProfile} from '../controllers/company'
+import {
+  createTest,
+  getTestById,
+  getTests,
+  register,
+  registerProfile,
+} from '../controllers/company'
 
 const companyRouter = express.Router()
 

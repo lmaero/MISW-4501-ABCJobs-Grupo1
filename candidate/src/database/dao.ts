@@ -2,22 +2,19 @@ import { Client } from 'pg'
 import { AcademicExperience } from '../schemas/AcademicData'
 import { Experience } from '../schemas/ExperienceData'
 import { TechnicalData } from '../schemas/TechnicalData'
-import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
 
   constructor() {
     //clientString
-    this.client = new Client(
-        {
-          user: "postgres",
-          port: 5432,
-          host: "localhost",
-          password: "postgres",
-          database: "postgres",
-        }
-    )
+    this.client = new Client({
+      user: 'postgres',
+      port: 5432,
+      host: 'localhost',
+      password: 'postgres',
+      database: 'postgres',
+    })
     this.client.connect()
   }
 
@@ -26,7 +23,7 @@ class Dao {
     try {
       const tests = await this.client.query(query)
       if (tests.rows.length > 0) {
-        return {msg: '201', tests: tests.rows}
+        return { msg: '201', tests: tests.rows }
       } else {
         return { msg: '400' }
       }
@@ -54,7 +51,11 @@ class Dao {
     }
   }
 
-  async storeTestPerformedByCandidate(candidate_id: string, test_id: number, answers: string[] ) {
+  async storeTestPerformedByCandidate(
+    candidate_id: string,
+    test_id: number,
+    answers: string[],
+  ) {
     const query = `insert into "TestPerformed"
                     values ($1, $2, $3)
                    `
@@ -69,10 +70,10 @@ class Dao {
   }
 
   async searchCandidate(
-      role: string[],
-      languages: string[],
-      soft_skills: string[],
-      spoken_languages: string[],
+    role: string[],
+    languages: string[],
+    soft_skills: string[],
+    spoken_languages: string[],
   ) {
     const query = `with result as (with role (col) as (select experience,
                                                               technical_data ->> 'roles' as programming_languages,

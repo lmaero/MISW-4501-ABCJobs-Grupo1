@@ -1,21 +1,18 @@
 import { Client } from 'pg'
 import { Question } from '../schemas/Test'
-import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
 
   constructor() {
     //clientString
-    this.client = new Client(
-      {
-        user: "postgres",
-        port: 5432,
-        host: "localhost",
-        password: "postgres",
-        database: "postgres",
-      }
-    )
+    this.client = new Client({
+      user: 'postgres',
+      port: 5432,
+      host: 'localhost',
+      password: 'postgres',
+      database: 'postgres',
+    })
     this.client.connect()
   }
 
@@ -24,7 +21,7 @@ class Dao {
     try {
       const tests = await this.client.query(query)
       if (tests.rows.length > 0) {
-        return {msg: '201', tests: tests.rows}
+        return { msg: '201', tests: tests.rows }
       } else {
         return { msg: '400' }
       }
