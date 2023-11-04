@@ -62,7 +62,11 @@ class Dao {
     const query = `INSERT INTO "Test" ("name", "applicable_to", "questions")
                    VALUES ($1, $2, $3)`
     try {
-      await this.client.query(query, [name, applicable_to, { questions }])
+      await this.client.query(query, [
+        name,
+        applicable_to,
+        JSON.stringify(questions),
+      ])
       return { msg: '201' }
     } catch (err) {
       return { msg: '400' }

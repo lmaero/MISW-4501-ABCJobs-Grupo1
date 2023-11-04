@@ -19,7 +19,7 @@ CREATE TABLE "Test"
     "questions"          JSONB,
     "is_individual_test" BOOLEAN,
     "is_finished"        BOOLEAN,
-    "has_authorization"  JSONB,
+    "has_authorization"  JSONB[],
     "was_supplanted"     BOOLEAN,
     "minutes_duration"   INT
 );
