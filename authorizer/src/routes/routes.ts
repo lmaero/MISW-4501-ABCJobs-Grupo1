@@ -14,6 +14,7 @@ router.post('/auth', async (req: Request, res: Response) => {
       const userInfo = {
         email: safeParse.data.email,
         password: safeParse.data.password,
+        type: safeParse.data.type,
       }
 
       const userData = await authenticateUser(userInfo)

@@ -68,6 +68,7 @@ class Dao {
           first_name: userInfo.first_name,
           last_name: userInfo.last_name,
           candidateid: userInfo.candidateid,
+          type: userInfo.type,
         }
       } else {
         return { msg: '400' }

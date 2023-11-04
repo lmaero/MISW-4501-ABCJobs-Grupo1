@@ -15,7 +15,8 @@ export async function authenticateUser(info: Login) {
 
   const email = info.email
   const password = info.password
-  const token = await generateAccessToken(email)
+  const type = info.type
+  const token = await generateAccessToken(email, type)
   const userRegistered = await dao.isUserRegistered(email, password);
 
   if (userRegistered.msg == "200") {
@@ -51,6 +52,7 @@ export async function getUserInfo(token: string) {
   }
 
   const email: string = info.email
+  const type: string = info.type
   const result = await dao.getUserInfo(email)
 
   if (result.msg === '200') {
@@ -59,6 +61,7 @@ export async function getUserInfo(token: string) {
       first_name: result.first_name,
       last_name: result.last_name,
       candidateid: result.candidateid,
+      type: type
     }
   } else {
     return { msg: 'Invalid token provided' }

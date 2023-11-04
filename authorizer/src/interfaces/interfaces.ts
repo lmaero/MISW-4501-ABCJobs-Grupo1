@@ -1,5 +1,4 @@
 export interface IUserInfo {
-  personId: number
   country: string
   languages: string
   academicalDataId: number
@@ -11,4 +10,5 @@ export interface IUserInfo {
   email: string
   password: string
   token: string
+  type: string
 }
