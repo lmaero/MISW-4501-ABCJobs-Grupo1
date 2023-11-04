@@ -3,6 +3,15 @@
     "title": "ABC Jobs",
     "localizationText": "You're using our English website"
   },
+  "LoginPage": {
+    "title": "Log into ABC Jobs!",
+    "formLabels": {
+      "email": "Email",
+      "emailPlaceholder": "you@yourdomain.com",
+      "password": "Password"
+    },
+    "sendButton": "Login"
+  },
   "RegisterPage": {
     "title": "Register",
     "candidate": "Candidate",

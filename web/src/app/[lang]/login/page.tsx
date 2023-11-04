@@ -1,36 +1,46 @@
 'use client'
 
 import Logo from '@/components/Logo'
+import { AUTH_HOST } from '@/lib/api'
 import { Login, LoginSch } from '@/schemas/Login'
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 export default function LoginPage() {
+  const t = useTranslations('LoginPage')
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<Login>({
     mode: 'onChange',
     resolver: zodResolver(LoginSch),
   })
+
+  async function onSubmit(data: Login) {
+    const response = await axios.post(`${AUTH_HOST}/auth`, data)
+    console.dir(response)
+  }
 
   return (
     <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
       <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
         <Logo className='mx-auto h-10 w-auto' />
         <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-          Login to ABC Jobs!
+          {t('title')}
         </h2>
       </div>
 
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form className='space-y-6' onSubmit={() => console.log('Submitted')}>
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='email'
               className='block text-sm font-medium leading-6 text-gray-900'
             >
-              Email address
+              {t('formLabels.email')}
             </label>
             <div className='mt-2'>
               <input
@@ -38,7 +48,7 @@ export default function LoginPage() {
                 data-testid='crp-email'
                 disabled={isSubmitSuccessful}
                 id='email'
-                placeholder='youremail@yourdomain.com'
+                placeholder={t('formLabels.emailPlaceholder')}
                 required
                 type='email'
                 {...register('email')}
@@ -52,7 +62,7 @@ export default function LoginPage() {
               htmlFor='password'
               className='block text-sm font-medium leading-6 text-gray-900'
             >
-              Password
+              {t('formLabels.password')}
             </label>
             <div className='mt-2'>
               <input
@@ -74,7 +84,7 @@ export default function LoginPage() {
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
-            Login
+            {t('sendButton')}
           </button>
         </form>
       </div>

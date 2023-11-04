@@ -35,6 +35,9 @@ importers:
       pg-bind:
         specifier: ^1.0.1
         version: 1.0.1
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@types/cors':
         specifier: ^2.8.15

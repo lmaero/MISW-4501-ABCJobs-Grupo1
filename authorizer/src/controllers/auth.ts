@@ -1,6 +1,7 @@
 import Dao from '../database/dao'
-import { IUserInfo } from '../interfaces/interfaces'
+import { Login } from '../schemas/Login'
 import { decodeToken, generateAccessToken, tokenExpired } from '../utils/utils'
+import jwt, {JsonWebTokenError} from "jsonwebtoken";
 
 let dao: Dao
 
@@ -10,61 +11,40 @@ try {
   console.log('Database connection not established!')
 }
 
-export async function authenticateUser(info: IUserInfo) {
-  const personId = info.personId
-  const country = info.country
-  const languages = info.languages
-  const academicalDataId = info.academicalDataId
-  const technicalDataId = info.technicalDataId
-  const workDataId = info.workDataId
-  const isAvailable = info.isAvailable
-  const softSkills = info.softSkills
-  const interviewId = info.interviewId
+export async function authenticateUser(info: Login) {
+
   const email = info.email
   const password = info.password
   const token = await generateAccessToken(email)
+  const userRegistered = await dao.isUserRegistered(email, password);
 
-  const result = await dao.authenticateUser(
-    personId,
-    country,
-    languages,
-    academicalDataId,
-    technicalDataId,
-    workDataId,
-    isAvailable,
-    softSkills,
-    interviewId,
-    email,
-    password,
-    token,
-  )
-
-  if (result.msg === '201') {
+  if (userRegistered.msg == "200") {
+    await dao.authenticateUser(email, password, token)
     return {
-      personId: personId,
-      country: country,
-      languages: languages,
-      academicalDataId: academicalDataId,
-      technicalDataId: technicalDataId,
-      workDataId: workDataId,
-      isAvailable: isAvailable,
-      softSkills: softSkills,
-      interviewId: interviewId,
       email: email,
       password: password,
       token: token,
     }
   } else {
     return {
-      msg: 'The transaction was not successful with the data provided',
-      code: 400,
+          msg: 'The transaction was not successful with the data provided, try with a valid email and password',
+          code: 400,
     }
   }
 }
 
 export async function getUserInfo(token: string) {
-  const info = await decodeToken(token)
-  const isTokenExpired = await tokenExpired(info.exp)
+  // Add validation for the schema provided
+
+  let isTokenExpired;
+  let info;
+
+  try {
+    info = await decodeToken(token)
+    isTokenExpired = await tokenExpired(info.exp)
+  } catch (e) {
+    return { msg: 'The token is not valid, provide a valid token. ' }
+  }
 
   if (isTokenExpired) {
     return { msg: 'The token expired, you have to authenticate again. ' }
@@ -73,9 +53,13 @@ export async function getUserInfo(token: string) {
   const email: string = info.email
   const result = await dao.getUserInfo(email)
 
-  // @ts-ignore
-  if (result.email !== '') {
-    return result
+  if (result.msg === '200') {
+    return {
+      email: result.email,
+      first_name: result.first_name,
+      last_name: result.last_name,
+      candidateid: result.candidateid,
+    }
   } else {
     return { msg: 'Invalid token provided' }
   }
