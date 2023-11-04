@@ -105,7 +105,6 @@ const getTests = async (req: Request, res: Response) => {
   try {
       const dao = new Dao()
       const dbResult = await dao.getTests()
-    // Checar el length
       if (dbResult.msg === '201') {
         return res.status(201).json({ tests: dbResult.tests })
       } else {
