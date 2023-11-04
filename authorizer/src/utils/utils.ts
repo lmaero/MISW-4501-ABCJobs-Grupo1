@@ -1,16 +1,17 @@
 import jwt, { JsonWebTokenError } from 'jsonwebtoken'
 import jwt_decode, { JwtPayload } from 'jwt-decode'
 
-export async function generateAccessToken(email: string): Promise<string> {
+export async function generateAccessToken(email: string, type: string): Promise<string> {
   if (!process.env.TOKEN_SECRET) throw JsonWebTokenError
 
-  return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
+  return jwt.sign({ email: email, type: type }, process.env.TOKEN_SECRET, {
     expiresIn: '365d',
   })
 }
 
 interface Payload extends JwtPayload {
   email: string
+  type: string
 }
 
 export async function decodeToken(token: string): Promise<Payload> {
