@@ -7,7 +7,9 @@ candidateRouter.get('/ping', candidateControllers.ping)
 candidateRouter.post('/register', candidateControllers.register)
 candidateRouter.post('/register/profile', candidateControllers.registerProfile)
 candidateRouter.post('/search', candidateControllers.searchCandidate)
+candidateRouter.get('/test', candidateControllers.getTests)
 candidateRouter.post('/test', candidateControllers.testPerformed)
+
 
 
 export default candidateRouter

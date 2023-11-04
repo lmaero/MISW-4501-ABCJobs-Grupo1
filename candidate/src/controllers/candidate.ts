@@ -152,13 +152,25 @@ export async function testPerformed(req: Request, res: Response) {
   }
 }
 
-export async function getTestResults(req: Request, res: Response) {
-  // TODO: Revisar si el endpoint get /candidate/test, que tipo de test va a pedir
-  return ""
+export async function getTests(req: Request, res: Response) {
+  try {
+    const dao = new Dao()
+    const dbResult = await dao.getTests()
+    if (dbResult.msg === '201') {
+      return res.status(201).json({ tests: dbResult.tests })
+    } else {
+      return res.status(400).json({message: 'No tests created yet'})
+    }
+  }
+  catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
 }
 
 
 export default {
+  getTests,
   ping,
   register,
   registerProfile,
