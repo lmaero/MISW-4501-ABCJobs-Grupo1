@@ -10,6 +10,4 @@ candidateRouter.post('/search', candidateControllers.searchCandidate)
 candidateRouter.get('/test', candidateControllers.getTests)
 candidateRouter.post('/test', candidateControllers.testPerformed)
 
-
-
 export default candidateRouter

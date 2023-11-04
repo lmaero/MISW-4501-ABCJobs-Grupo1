@@ -103,15 +103,14 @@ const createTest = async (req: Request, res: Response) => {
 
 const getTests = async (req: Request, res: Response) => {
   try {
-      const dao = new Dao()
-      const dbResult = await dao.getTests()
-      if (dbResult.msg === '201') {
-        return res.status(201).json({ tests: dbResult.tests })
-      } else {
-        return res.status(400).json({message: 'No tests created yet'})
-      }
+    const dao = new Dao()
+    const dbResult = await dao.getTests()
+    if (dbResult.msg === '201') {
+      return res.status(201).json({ tests: dbResult.tests })
+    } else {
+      return res.status(400).json({ message: 'No tests created yet' })
     }
-  catch (error) {
+  } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
   }
@@ -119,21 +118,20 @@ const getTests = async (req: Request, res: Response) => {
 
 const getTestById = async (req: Request, res: Response) => {
   try {
-    const testId: string = req.params.id;
+    const testId: string = req.params.id
     const dao = new Dao()
     const dbResult = await dao.getTestById(testId)
     if (dbResult.msg === '201') {
       return res.status(201).json({ tests: dbResult.tests })
     } else {
-      return res.status(400).json({message: 'No test associated with the id provided'})
+      return res
+        .status(400)
+        .json({ message: 'No test associated with the id provided' })
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
   }
 }
-
-
 
 export { register, registerProfile, createTest, getTests, getTestById }
