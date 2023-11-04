@@ -8,7 +8,16 @@ class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client(clientString)
+    //clientString
+    this.client = new Client(
+        {
+          user: "postgres",
+          port: 5432,
+          host: "localhost",
+          password: "postgres",
+          database: "postgres",
+        }
+    )
     this.client.connect()
   }
 
@@ -67,6 +76,20 @@ class Dao {
         JSON.stringify(technical_data),
       ])
       console.log('Candidate updated!')
+      return { msg: '200' }
+    } catch (err) {
+      console.log(err)
+    }
+    return { msg: '400' }
+  }
+
+  async storeTestPerformedByCandidate(candidate_id: string, test_id: number, answers: string[] ) {
+    const query = `insert into "TestPerformed"
+                    values ($1, $2, $3)
+                   `
+    try {
+      await this.client.query(query, [candidate_id, test_id, answers])
+      console.log('Test perfomed by the candidate was saved!')
       return { msg: '200' }
     } catch (err) {
       console.log(err)
