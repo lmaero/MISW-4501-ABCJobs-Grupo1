@@ -4,13 +4,15 @@ class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client({
-      user: process.env.POSTGRES_USER,
-      host: process.env.POSTGRES_HOST,
-      database: process.env.POSTGRES_DB_NAME,
-      password: process.env.POSTGRES_PASSWORD,
-      port: Number(process.env.POSTGRES_PORT),
-    })
+    this.client = new Client(
+    {
+      user: "postgres",
+      port: 5432,
+      host: "localhost",
+      password: "postgres",
+      database: "postgres",
+    }
+    )
     this.client.connect()
   }
 
@@ -83,6 +85,7 @@ class Dao {
           interviewId: userInfo.interviewId,
           email: userInfo.email,
           password: userInfo.password,
+          candidateId: userInfo.candidateid,
         }
       } else {
         return { msg: '400' }
