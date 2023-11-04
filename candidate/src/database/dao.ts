@@ -102,7 +102,6 @@ class Dao {
         soft_skills,
         spoken_languages,
       ])
-      console.log(res)
       return { msg: '200', res }
     } catch (err) {
       console.log(err)
