@@ -1,4 +1,3 @@
-import jwt, { JsonWebTokenError } from 'jsonwebtoken'
 import { Client } from 'pg'
 import { clientString } from './pgClientConfig'
 
@@ -6,21 +5,11 @@ class Dao {
   private client: Client
 
   constructor() {
-    // clientString
-    this.client = new Client(
-      {
-        user: "postgres",
-            port: 5432,
-          host: "localhost",
-          password: "postgres",
-          database: "postgres",
-      }
-    )
+    this.client = new Client(clientString)
     this.client.connect()
   }
 
   async authenticateUser(email: string, password: string, token: string) {
-
     const query = `
        UPDATE "Candidate" set token = $3 where email = $1 and password = $2
        `
@@ -35,7 +24,6 @@ class Dao {
   }
 
   async isUserRegistered(email: string, password: string) {
-
     const query = `
        select email from  "Candidate" where email = $1 and password = $2
        `
@@ -63,7 +51,7 @@ class Dao {
       const userInfo = res?.rows[0]
       if (userInfo) {
         return {
-          msg: "200",
+          msg: '200',
           email: userInfo.email,
           first_name: userInfo.first_name,
           last_name: userInfo.last_name,

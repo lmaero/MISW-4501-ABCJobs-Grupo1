@@ -29,7 +29,7 @@ router.get('/auth/me', async (req: Request, res: Response) => {
   const headersInfo = req.headers
   const token = headersInfo.authorization?.split(' ')[1]
   if (token && token !== '') {
-    const userInfo = await getUserInfo(token);
+    const userInfo = await getUserInfo(token)
     res.send({ userInfo })
   }
   return { msg: 'Invalid token provided' }
