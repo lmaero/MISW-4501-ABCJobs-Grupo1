@@ -8,7 +8,12 @@
     "formLabels": {
       "email": "Email",
       "emailPlaceholder": "you@yourdomain.com",
-      "password": "Password"
+      "password": "Password",
+      "typeTitle": "Login as..."
+    },
+    "notifications": {
+      "success": "Successfully logged in",
+      "error": "You're not registered, please register first."
     },
     "sendButton": "Login"
   },

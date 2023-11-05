@@ -9,35 +9,47 @@ class Dao {
     this.client.connect()
   }
 
-  async authenticateUser(email: string, password: string, token: string) {
-    const query = `
-       UPDATE "Candidate" set token = $3 where email = $1 and password = $2
-       `
+  async authenticateUser(
+    email: string,
+    password: string,
+    token: string,
+    isCandidate: boolean,
+  ) {
+    const candidateQuery = `
+      UPDATE "Candidate" set token = $3 where email = $1 and password = $2
+    `
+    const companyQuery = `
+      UPDATE "Company" set token = $3 where email = $1 and password = $2
+    `
+
+    const query = isCandidate ? candidateQuery : companyQuery
 
     try {
       await this.client.query(query, [email, password, token])
       return { msg: '200' }
     } catch (err) {
       console.log(err)
-      return { msg: '400' }
+      throw new Error('There was a problem processing the request in the DB')
     }
   }
 
-  async isUserRegistered(email: string, password: string) {
-    const query = `
-       select email from  "Candidate" where email = $1 and password = $2
-       `
+  async isUserRegistered(email: string, password: string, type: string) {
+    const isCandidate = type === 'Candidate'
+    const candidateQuery = `
+    SELECT email FROM "Candidate" WHERE email = $1 AND password = $2
+    `
+    const companyQuery = `
+    SELECT email FROM "Company" WHERE email = $1 AND password = $2
+    `
+
+    const query = isCandidate ? candidateQuery : companyQuery
 
     try {
       const userInDb = await this.client.query(query, [email, password])
-      if (userInDb.rowCount > 0) {
-        return { msg: '200' }
-      } else {
-        return { msg: '400' }
-      }
+      return { found: userInDb.rowCount > 0, isCandidate }
     } catch (err) {
       console.log(err)
-      return { msg: '400' }
+      throw new Error('There was a problem processing the request in the DB')
     }
   }
 

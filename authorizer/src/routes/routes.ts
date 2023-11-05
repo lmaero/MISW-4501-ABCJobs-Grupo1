@@ -10,15 +10,18 @@ router.post('/auth', async (req: Request, res: Response) => {
   try {
     const safeParse = LoginSch.safeParse(req.body)
 
-    if (safeParse.success) {
+    if (!safeParse.success) {
+      return res.status(400).send(safeParse.error)
+    } else {
       const userInfo = {
         email: safeParse.data.email,
         password: safeParse.data.password,
         type: safeParse.data.type,
       }
 
-      const userData = await authenticateUser(userInfo)
-      return res.send({ userData })
+      const { email, token } = await authenticateUser(userInfo)
+      if (email) return res.status(200).send({ email, token })
+      else return res.status(404).send({ email, token })
     }
   } catch (e) {
     console.error(e)

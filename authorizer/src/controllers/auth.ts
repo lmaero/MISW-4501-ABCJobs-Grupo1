@@ -14,20 +14,24 @@ export async function authenticateUser(info: Login) {
   const email = info.email
   const password = info.password
   const type = info.type
-  const token = await generateAccessToken(email, type)
-  const userRegistered = await dao.isUserRegistered(email, password)
+  const { found, isCandidate } = await dao.isUserRegistered(
+    email,
+    password,
+    type,
+  )
 
-  if (userRegistered.msg === '200') {
-    await dao.authenticateUser(email, password, token)
+  if (found) {
+    const token = await generateAccessToken(email, type)
+    await dao.authenticateUser(email, password, token, isCandidate)
+
     return {
       email: email,
-      password: password,
       token: token,
     }
   } else {
     return {
-      msg: 'The transaction was not successful with the data provided, try with a valid email and password',
-      code: 400,
+      email: null,
+      token: null,
     }
   }
 }

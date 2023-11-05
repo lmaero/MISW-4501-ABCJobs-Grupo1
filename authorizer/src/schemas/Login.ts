@@ -26,9 +26,7 @@ export const LoginSch = z.object({
     .string()
     .min(7)
     .max(9)
-    .refine((type) => type !== '', {
-      message: 'Type provided is not valid.',
-    }),
+    .regex(/\b(Company|Candidate)\b/),
 })
 
 export type Login = z.infer<typeof LoginSch>
