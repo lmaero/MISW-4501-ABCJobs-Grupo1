@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { CandidatePreSch } from '../schemas/Candidate'
@@ -122,9 +123,61 @@ export async function searchCandidate(req: Request, res: Response) {
   }
 }
 
+export async function testPerformed(req: Request, res: Response) {
+  try {
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const candidateId = authResult.data.userInfo.candidateId
+    const testData = req.body
+
+    if (testData !== ' ') {
+      const dao = new Dao()
+      const dbResult = await dao.storeTestPerformedByCandidate(
+        candidateId,
+        testData.test_id,
+        testData.answers,
+      )
+      if (dbResult.msg === '200') {
+        return res
+          .status(200)
+          .json({ message: 'Answers for the test were saved' })
+      } else {
+        return res
+          .status(400)
+          .json({ message: 'The answers for the tests were not saved' })
+      }
+    } else {
+      return res.status(400).json({
+        message: 'No information provided',
+      })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export async function getTests(req: Request, res: Response) {
+  try {
+    const dao = new Dao()
+    const dbResult = await dao.getTests()
+    if (dbResult.msg === '201') {
+      return res.status(201).json({ tests: dbResult.tests })
+    } else {
+      return res.status(400).json({ message: 'No tests created yet' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
 export default {
+  getTests,
   ping,
   register,
   registerProfile,
   searchCandidate,
+  testPerformed,
 }

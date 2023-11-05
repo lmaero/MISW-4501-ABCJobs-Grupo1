@@ -17,8 +17,12 @@ CREATE TABLE "Candidate"
     "token"           TEXT
 );
 
-ALTER TABLE "Candidate"
-    ADD COLUMN candidateId SERIAL PRIMARY KEY;
+ALTER TABLE "Candidate" ADD COLUMN candidateId SERIAL PRIMARY KEY;
 
-SELECT *
-FROM "Candidate"
+CREATE TABLE "TestPerformed"
+(
+    "candidate_id"       INT,
+    "test_id"            INT,
+    "answers"            TEXT[]
+);
+

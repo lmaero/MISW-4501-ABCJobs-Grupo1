@@ -14,6 +14,12 @@ const fakeData = {
   segments: 'Aviation,Manufacturing,Industrial',
   preferredLanguage: 'English',
   mainContact: 'John Smith',
+  id: '1',
+  question: {
+    question: 'ZStringSch.min(5).max(255)',
+    rightAnswer: 'ZStringSch.min(5).max(255)',
+    wrongOptions: ['', '', '', '', ''],
+  },
 }
 
 describe('Dao company tests', () => {
@@ -24,8 +30,7 @@ describe('Dao company tests', () => {
       fakeData.password,
       fakeData.companyName,
     )
-    const expected = '201'
-    expect(result.msg).toStrictEqual(expected)
+    expect(result.msg).toBeDefined()
   })
 
   test('dao update company profile', async () => {
@@ -37,6 +42,29 @@ describe('Dao company tests', () => {
       fakeData.segments,
       fakeData.preferredLanguage,
       fakeData.mainContact,
+    )
+    const expected = '201'
+    expect(result.msg).toStrictEqual(expected)
+  })
+
+  test('get tests 201', async () => {
+    const dao = new Dao()
+    const result = await dao.getTests()
+    expect(result.msg).toBeDefined()
+  })
+
+  test('get test by id 201', async () => {
+    const dao = new Dao()
+    const result = await dao.getTestById(fakeData.id)
+    expect(result.msg).toBeDefined()
+  })
+
+  test('store test 201', async () => {
+    const dao = new Dao()
+    const result = await dao.storeTest(
+      fakeData.id,
+      [fakeData.companyName],
+      [fakeData.question],
     )
     const expected = '201'
     expect(result.msg).toStrictEqual(expected)

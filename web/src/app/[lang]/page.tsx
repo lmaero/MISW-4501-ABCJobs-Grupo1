@@ -18,8 +18,10 @@ export default function Home({ params }: Props) {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    if (token) setToken(token)
-    else router.push(`/${params.lang}/register`)
+    if (token) {
+      setToken(token)
+      router.push(`/${params.lang}/dashboard`)
+    } else router.push(`/${params.lang}/login`)
   }, [params.lang, router])
 
   return (

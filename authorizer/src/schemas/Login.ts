@@ -26,7 +26,6 @@ export const LoginSch = z.object({
     .string()
     .min(7)
     .max(9)
-    .max(9)
     .regex(/\b(Company|Candidate)\b/),
 })
 

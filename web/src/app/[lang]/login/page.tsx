@@ -1,36 +1,76 @@
 'use client'
 
+import { ErrorMessage } from '@/components/ErrorMessage'
+import { FieldDescription } from '@/components/FieldDescription'
 import Logo from '@/components/Logo'
+import { AUTH_HOST } from '@/lib/api'
+import { loginType } from '@/lib/loginType'
 import { Login, LoginSch } from '@/schemas/Login'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
-export default function LoginPage() {
+interface Props {
+  params: { lang: string }
+}
+
+export default function LoginPage({ params }: Props) {
+  const router = useRouter()
+  const t = useTranslations('LoginPage')
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
+    handleSubmit,
   } = useForm<Login>({
     mode: 'onChange',
     resolver: zodResolver(LoginSch),
   })
+
+  async function onSubmit(data: Login) {
+    const response = await fetch(`${AUTH_HOST}/auth`, {
+      body: JSON.stringify(data),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (response.status === 200) {
+      const data = await response.json()
+      localStorage.setItem('token', data.token)
+      toast(t('notifications.success'), { type: 'success', autoClose: 3000 })
+      setTimeout(() => {
+        router.push(`/${params.lang}/dashboard`)
+      }, 3000)
+      return
+    } else {
+      localStorage.removeItem('token')
+      toast(t('notifications.error'), { type: 'warning', autoClose: 3000 })
+      setTimeout(() => {
+        router.push(`/${params.lang}/register`)
+      }, 3000)
+    }
+  }
 
   return (
     <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
       <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
         <Logo className='mx-auto h-10 w-auto' />
         <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-          Login to ABC Jobs!
+          {t('title')}
         </h2>
       </div>
 
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form className='space-y-6' onSubmit={() => console.log('Submitted')}>
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='email'
               className='block text-sm font-medium leading-6 text-gray-900'
             >
-              Email address
+              {t('formLabels.email')}
             </label>
             <div className='mt-2'>
               <input
@@ -38,7 +78,7 @@ export default function LoginPage() {
                 data-testid='crp-email'
                 disabled={isSubmitSuccessful}
                 id='email'
-                placeholder='youremail@yourdomain.com'
+                placeholder={t('formLabels.emailPlaceholder')}
                 required
                 type='email'
                 {...register('email')}
@@ -52,7 +92,7 @@ export default function LoginPage() {
               htmlFor='password'
               className='block text-sm font-medium leading-6 text-gray-900'
             >
-              Password
+              {t('formLabels.password')}
             </label>
             <div className='mt-2'>
               <input
@@ -68,13 +108,38 @@ export default function LoginPage() {
             <p className='text-sm text-red-700'>{errors.password?.message}</p>
           </div>
 
+          <article className='mb-6 space-y-3'>
+            <FieldDescription title={t('formLabels.typeTitle')} />
+            <div className='space-y-3'>
+              {loginType.map((type) => (
+                <div key={type.id} className='flex items-center gap-x-3'>
+                  <input
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
+                    id={type.id}
+                    type='radio'
+                    value={type.value}
+                    {...register('type')}
+                  />
+                  <label
+                    htmlFor={type.id}
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
+                    {type.label}
+                  </label>
+                </div>
+              ))}
+
+              {errors.type && <ErrorMessage message={errors.type.message} />}
+            </div>
+          </article>
+
           <button
             data-testid='crp-login-button'
-            disabled={!isValid || isSubmitSuccessful}
+            disabled={!isValid}
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
-            Login
+            {t('sendButton')}
           </button>
         </form>
       </div>

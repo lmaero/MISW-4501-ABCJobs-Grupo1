@@ -1,88 +1,74 @@
 import { Client } from 'pg'
+import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client({
-      user: process.env.POSTGRES_USER,
-      host: process.env.POSTGRES_HOST,
-      database: process.env.POSTGRES_DB_NAME,
-      password: process.env.POSTGRES_PASSWORD,
-      port: Number(process.env.POSTGRES_PORT),
-    })
+    this.client = new Client(clientString)
     this.client.connect()
   }
 
   async authenticateUser(
-    personId: number,
-    country: string,
-    languages: string,
-    academicalDataId: number,
-    technicalDataId: number,
-    workDataId: number,
-    isAvailable: boolean,
-    softSkills: string,
-    interviewId: number,
     email: string,
     password: string,
     token: string,
+    isCandidate: boolean,
   ) {
-    // Generate token
+    const candidateQuery = `
+      UPDATE "Candidate" set token = $3 where email = $1 and password = $2
+    `
+    const companyQuery = `
+      UPDATE "Company" set token = $3 where email = $1 and password = $2
+    `
 
-    // Insert the information
-    const query = `
-            INSERT INTO "Candidate" ("personId", "country", "languages",
-                                     "academicalDataId", "technicalDataId",
-                                     "workDataId", "isAvailable", "softSkills",
-                                     "interviewId", "email", "password",
-                                     "token")
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-        `
+    const query = isCandidate ? candidateQuery : companyQuery
 
     try {
-      await this.client.query(query, [
-        personId,
-        country,
-        languages,
-        academicalDataId,
-        technicalDataId,
-        workDataId,
-        isAvailable,
-        softSkills,
-        interviewId,
-        email,
-        password,
-        token,
-      ])
-      return { msg: '201' }
+      await this.client.query(query, [email, password, token])
+      return { msg: '200' }
     } catch (err) {
       console.log(err)
-      return { msg: '400' }
+      throw new Error('There was a problem processing the request in the DB')
+    }
+  }
+
+  async isUserRegistered(email: string, password: string, type: string) {
+    const isCandidate = type === 'Candidate'
+    const candidateQuery = `
+    SELECT email FROM "Candidate" WHERE email = $1 AND password = $2
+    `
+    const companyQuery = `
+    SELECT email FROM "Company" WHERE email = $1 AND password = $2
+    `
+
+    const query = isCandidate ? candidateQuery : companyQuery
+
+    try {
+      const userInDb = await this.client.query(query, [email, password])
+      return { found: userInDb.rowCount > 0, isCandidate }
+    } catch (err) {
+      console.log(err)
+      throw new Error('There was a problem processing the request in the DB')
     }
   }
 
   async getUserInfo(email: string) {
     const query = `SELECT *
-                       FROM "Candidate"
-                       WHERE email = $1`
+                   FROM "Candidate"
+                   WHERE email = $1`
 
     try {
       const res = await this.client.query(query, [email])
       const userInfo = res?.rows[0]
       if (userInfo) {
         return {
-          personId: userInfo.personId,
-          country: userInfo.country,
-          languages: userInfo.languages,
-          academicalDataId: userInfo.academicalDataId,
-          technicalDataId: userInfo.technicalDataId,
-          workDataId: userInfo.workDataId,
-          isAvailable: userInfo.isAvailable,
-          softSkills: userInfo.softSkills,
-          interviewId: userInfo.interviewId,
+          msg: '200',
           email: userInfo.email,
-          password: userInfo.password,
+          first_name: userInfo.first_name,
+          last_name: userInfo.last_name,
+          candidateid: userInfo.candidateid,
+          type: userInfo.type,
         }
       } else {
         return { msg: '400' }

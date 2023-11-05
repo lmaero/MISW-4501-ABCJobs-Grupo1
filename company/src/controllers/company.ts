@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
 import { CompanyProfileSch } from '../schemas/CompanyProfile'
-import {TestSch} from "../schemas/Test";
+import { testSch } from '../schemas/Test'
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -74,19 +74,20 @@ const registerProfile = async (req: Request, res: Response) => {
 
 const createTest = async (req: Request, res: Response) => {
   try {
-    const result = TestSch.safeParse(req.body)
+    const result = testSch.safeParse(req.body)
 
     if (result.success) {
+      const name = result.data.name
       const applicable_to = result.data.applicableTo
       const questions = result.data.questions
 
       const dao = new Dao()
-      const dbResult = await dao.storeTest(applicable_to, questions)
+      const dbResult = await dao.storeTest(name, applicable_to, questions)
       if (dbResult.msg === '201') {
         return res.status(201).json({ message: 'Test created' })
       } else {
         return res.status(400).json({
-          message: 'Test could be created with the data provided',
+          message: 'Test could not be created with the provided data',
         })
       }
     } else {
@@ -100,4 +101,37 @@ const createTest = async (req: Request, res: Response) => {
   }
 }
 
-export { register, registerProfile, createTest }
+const getTests = async (req: Request, res: Response) => {
+  try {
+    const dao = new Dao()
+    const dbResult = await dao.getTests()
+    if (dbResult.msg === '201') {
+      return res.status(201).json({ tests: dbResult.tests })
+    } else {
+      return res.status(400).json({ message: 'No tests created yet' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+const getTestById = async (req: Request, res: Response) => {
+  try {
+    const testId: string = req.params.id
+    const dao = new Dao()
+    const dbResult = await dao.getTestById(testId)
+    if (dbResult.msg === '201') {
+      return res.status(201).json({ tests: dbResult.tests })
+    } else {
+      return res
+        .status(400)
+        .json({ message: 'No test associated with the id provided' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export { register, registerProfile, createTest, getTests, getTestById }
