@@ -2,6 +2,9 @@
 
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { CANDIDATE_HOST } from '@/lib/api'
 
 const testResults = [
   {
@@ -62,6 +65,14 @@ interface Props {
 
 export default function TestsResultsPage({ params }: Props) {
   const t = useTranslations('TestsResultsPage')
+
+  useEffect(() => {
+    async function getData() {
+      const response = await axios.get(`${CANDIDATE_HOST}/candidate/test`)
+      console.log(response.data.results)
+    }
+    getData()
+  }, [])
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
