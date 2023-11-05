@@ -9,7 +9,7 @@ import {
 import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
 import { CompanyProfileSch } from '../schemas/CompanyProfile'
-import { testSch } from '../schemas/Test'
+import { TestSch } from '../schemas/Test'
 
 jest.mock('express')
 jest.mock('../schemas/Company')
@@ -120,13 +120,14 @@ describe('company tests', () => {
   test('create test 201', async () => {
     const request = httpMocks.createRequest(requestOptions)
 
-    jest.spyOn(testSch, 'safeParse').mockReturnValue({
+    jest.spyOn(TestSch, 'safeParse').mockReturnValue({
       success: true,
       data: {
         name: 'Prueba 3',
         applicableTo: ['frontend'],
         questions: [
           {
+            question_id: '1',
             question: 'Select the best definition of JSX',
             rightAnswer: 'JavaScript XML',
             wrongOptions: [
@@ -136,6 +137,7 @@ describe('company tests', () => {
             ],
           },
           {
+            question_id: '2',
             question: 'Select the best definition of JSX',
             rightAnswer: 'JavaScript XML',
             wrongOptions: [
@@ -158,13 +160,14 @@ describe('company tests', () => {
   test('create test 400', async () => {
     const request = httpMocks.createRequest(requestOptions)
 
-    jest.spyOn(testSch, 'safeParse').mockReturnValue({
+    jest.spyOn(TestSch, 'safeParse').mockReturnValue({
       success: true,
       data: {
         name: 'Prueba 3',
         applicableTo: ['frontend'],
         questions: [
           {
+            question_id: '1',
             question: 'Select the best definition of JSX',
             rightAnswer: 'JavaScript XML',
             wrongOptions: [
@@ -174,6 +177,7 @@ describe('company tests', () => {
             ],
           },
           {
+            question_id: '2',
             question: 'Select the best definition of JSX',
             rightAnswer: 'JavaScript XML',
             wrongOptions: [

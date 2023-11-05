@@ -1,46 +1,71 @@
-import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
+import Dao from "../database/dao";
+import results from "../routes/results";
 
-const candidateClient = new PrismaClient().candidate
 
-const getResultsByUser = async (
-  req: Request,
-  res: Response,
-): Promise<Response> => {
+export async function getResultsByUser (req: Request, res: Response) {
   try {
-    const personId = req.params.personId
-    if (!personId) {
+    let results = [];
+    const candidateId = req.params.candidateId
+    if (candidateId) {
+      const dao = new Dao()
+      const dbResult = await dao.getTestsResults(candidateId)
+      if(dbResult.msg === "201") {
+        const candidateDbResults = dbResult["tests"];
+        const totalQuestions = candidateDbResults?.length;
+        let correctAnswers = 0;
+        let resultsWithScore = {
+          id : '',
+          testName: '',
+          result: '',
+          score: ''
+        }
+        for(let prueba in candidateDbResults) {
+          resultsWithScore.id = (Number(prueba) + 1).toString();
+          resultsWithScore.testName = candidateDbResults[Number(prueba)].test_name;
+
+          for (let answer in candidateDbResults[Number(prueba)].questions) {
+            const questionCorrectAnswer = candidateDbResults[Number(prueba)].questions[Number(answer)].rightAnswer;
+            const candidateAnswer = candidateDbResults[Number(prueba)].answers[Number(answer)][1];
+            const correctAnswer = questionCorrectAnswer === candidateAnswer.toLowerCase()
+            if (correctAnswer) {
+              correctAnswers++;
+            }
+          }
+
+          let score = correctAnswers / Number(totalQuestions);
+          correctAnswers = 0;
+          resultsWithScore.score = score.toString();
+          if (score <= 50) {
+            resultsWithScore.result = "Bad";
+          } else if (score <= 70) {
+            resultsWithScore.result = "Reproved";
+          } else if (score <= 80) {
+            resultsWithScore.result = "Satisfactory";
+          } else {
+            resultsWithScore.result = "Excellent";
+          }
+          await dao.updateCandidateTestScore(candidateId, prueba, Number(score))
+          results.push(resultsWithScore)
+          resultsWithScore = {
+            id : '',
+            testName: '',
+            result: '',
+            score: ''
+          }
+        }
+      }
+      return res.status(200).json({ results })
+    } else {
       return res.status(400).json({ message: 'No candidate user provided' })
     }
-
-    console.log(`[Evaluator] Getting results for candidate ${personId}`)
-
-    const person = await candidateClient.findFirst({
-      where: {
-        personId: parseInt(personId),
-      },
-      select: {
-        Interview: {
-          select: {
-            tests: {
-              select: {
-                isFinished: true,
-                questions: true,
-                results: true,
-              },
-            },
-          },
-        },
-      },
-    })
-
-    const tests = person?.Interview?.tests
-    return res.status(200).json(tests)
-  } catch (error) {
-    console.dir(error)
-    return res.status(500).json({ message: 'Internal server error' })
   }
+    catch (error) {
+      console.error(error)
+      return res.status(500).json({ message: 'Internal server error' })
+    }
 }
+
 
 export default {
   getResultsByUser,

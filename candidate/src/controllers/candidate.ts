@@ -128,7 +128,7 @@ export async function testPerformed(req: Request, res: Response) {
     const token = req?.headers?.authorization?.split(' ')[1]
     axios.defaults.headers.common = { Authorization: `bearer ${token}` }
     const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
-    const candidateId = authResult.data.userInfo.candidateId
+    const candidateId = authResult.data.userInfo.candidateid
     const testData = req.body
 
     if (testData !== ' ') {
@@ -160,12 +160,17 @@ export async function testPerformed(req: Request, res: Response) {
 
 export async function getTests(req: Request, res: Response) {
   try {
-    const dao = new Dao()
-    const dbResult = await dao.getTests()
-    if (dbResult.msg === '201') {
-      return res.status(201).json({ tests: dbResult.tests })
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const candidateId = authResult.data.userInfo.candidateid
+
+    const evaluatorResult = await axios.get('http://0.0.0.0:4002/evaluator/byCandidate/' + candidateId);
+    if (evaluatorResult.status === 200) {
+      const results = evaluatorResult.data.results;
+      return res.status(200).json({ results })
     } else {
-      return res.status(400).json({ message: 'No tests created yet' })
+      return res.status(200).json({ message: 'No test results for the candidate' })
     }
   } catch (error) {
     console.error(error)
