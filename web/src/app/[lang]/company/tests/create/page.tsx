@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 const generateKey = (pre: number) => {
   return `${pre}_${new Date().getTime()}`
@@ -17,6 +18,7 @@ const generateKey = (pre: number) => {
 
 export default function CreateTestPage() {
   const t = useTranslations('CreateTestPage')
+  const router = useRouter()
 
   const [questions, setQuestions] = useState<Question[]>([
     {
@@ -270,6 +272,7 @@ export default function CreateTestPage() {
 
         <div className='flex space-x-2'>
           <button
+            onClick={() => router.push('/dashboard')}
             type='reset'
             className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
