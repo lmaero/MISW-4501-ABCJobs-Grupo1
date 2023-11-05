@@ -172,6 +172,12 @@
     "cancelButton": "Cancelar",
     "sendButton": "Guardar"
   },
+  "CandidatePerformTest": {
+    "title": "Presentando prueba",
+    "subtitle": "Evalúa tus habilidades",
+    "cancelButton": "Cancelar",
+    "sendButton": "Enviar"
+  },
   "CreateProjectPage": {
     "title": "Crear Proyecto",
     "subtitle": "Establece los requerimientos del nuevo proyecto",
