@@ -1,8 +1,8 @@
 'use client'
 
-import { ErrorMessage } from '@/components/ErrorMessage'
-import { FieldDescription } from '@/components/FieldDescription'
-import Logo from '@/components/Logo'
+import { ErrorMessage } from '@/app/[lang]/components/ErrorMessage'
+import { FieldDescription } from '@/app/[lang]/components/FieldDescription'
+import Logo from '@/app/[lang]/components/Logo'
 import { AUTH_HOST } from '@/lib/api'
 import { loginType } from '@/lib/loginType'
 import { Login, LoginSch } from '@/schemas/Login'
@@ -37,17 +37,19 @@ export default function LoginPage({ params }: Props) {
       },
     })
 
+    const json = await response.json()
+
     if (response.status === 200) {
-      const data = await response.json()
-      localStorage.setItem('token', data.token)
+      localStorage.setItem('token', json.token)
       toast(t('notifications.success'), { type: 'success', autoClose: 3000 })
-      setTimeout(() => {
-        router.push(`/${params.lang}/dashboard`)
-      }, 3000)
-      return
+      window.location.href = `/${params.lang}/dashboard`
+    } else if (!json.email) {
+      localStorage.removeItem('token')
+      toast(t('notifications.error'), { type: 'error', autoClose: 3000 })
+      router.push(`/${params.lang}`)
     } else {
       localStorage.removeItem('token')
-      toast(t('notifications.error'), { type: 'warning', autoClose: 3000 })
+      toast(t('notifications.warning'), { type: 'warning', autoClose: 3000 })
       setTimeout(() => {
         router.push(`/${params.lang}/register`)
       }, 3000)

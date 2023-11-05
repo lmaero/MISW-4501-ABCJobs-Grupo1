@@ -1,6 +1,10 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { CANDIDATE_HOST } from '@/lib/api'
 
 const testResults = [
   {
@@ -53,16 +57,37 @@ const testResults = [
   },
 ]
 
-export default function TestsResultsPage() {
+interface Props {
+  params: {
+    lang: string
+  }
+}
+
+export default function TestsResultsPage({ params }: Props) {
   const t = useTranslations('TestsResultsPage')
+
+  useEffect(() => {
+    async function getData() {
+      const response = await axios.get(`${CANDIDATE_HOST}/candidate/test`)
+      console.log(response.data.results)
+    }
+    getData()
+  }, [])
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
       <form className='space-y-6'>
-        <header>
+        <header className='flex justify-between'>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             {t('title')}
           </h2>
+
+          <Link
+            className='relative inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+            href='/company/tests/create'
+          >
+            {t('createTest')}
+          </Link>
         </header>
         <hr className='border-b-1' />
         <section className='space-y-3'>
@@ -70,7 +95,7 @@ export default function TestsResultsPage() {
             <>
               <article
                 key={result.id}
-                className='grid cursor-pointer grid-cols-2 rounded-md border-2 p-5 hover:bg-gray-100'
+                className='grid cursor-pointer grid-cols-2 rounded-md border-2 border-gray-50 p-5 hover:bg-gray-100'
               >
                 <div className='space-y-2'>
                   <h3 className='font-bold'>{result.candidate}</h3>

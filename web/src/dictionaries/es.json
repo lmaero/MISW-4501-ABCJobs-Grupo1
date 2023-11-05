@@ -13,9 +13,17 @@
     },
     "notifications": {
       "success": "Ingresaste exitosamente",
-      "error": "No estás registrado, regístrate primero"
+      "warning": "No estás registrado, regístrate primero",
+      "error": "Tu contraseña no coincide"
     },
     "sendButton": "Ingresar"
+  },
+  "Navbar": {
+    "projects": "Proyectos",
+    "interviews": "Entrevistas",
+    "tests": "Pruebas",
+    "search": "Buscar Candidatos",
+    "signOut": "Cerrar Sesión"
   },
   "RegisterPage": {
     "title": "Regístrate",
@@ -164,6 +172,12 @@
     "cancelButton": "Cancelar",
     "sendButton": "Guardar"
   },
+  "CandidatePerformTest": {
+    "title": "Presentando prueba",
+    "subtitle": "Evalúa tus habilidades",
+    "cancelButton": "Cancelar",
+    "sendButton": "Enviar"
+  },
   "CreateProjectPage": {
     "title": "Crear Proyecto",
     "subtitle": "Establece los requerimientos del nuevo proyecto",
@@ -220,6 +234,7 @@
     "sendButton": "Crear prueba"
   },
   "TestsResultsPage": {
-    "title": "Últimos resultados de pruebas"
+    "title": "Últimos resultados de pruebas",
+    "createTest": "Crear prueba"
   }
 }

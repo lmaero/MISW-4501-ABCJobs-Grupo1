@@ -1,30 +1,40 @@
 'use client'
 
-import Logo from '@/components/Logo'
+import Logo from '@/app/[lang]/components/Logo'
+import { useJWT } from '@/hooks/useToken'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-const menus = [
-  { label: 'Projects', link: '/' },
-  { label: 'Interviews', link: '/' },
-  { label: 'Tests', link: '/' },
-]
+interface Props {
+  params: { lang: string }
+}
 
-export function Navbar() {
-  const [token, setToken] = useState<string | null>(null)
+export function Navbar({ params }: Props) {
+  const t = useTranslations('Navbar')
+  const payload = useJWT()
 
-  useEffect(() => {
-    setToken(localStorage.getItem('token'))
-  }, [])
+  if (!payload) return null
 
-  if (!token) return null
+  const candidateMenus = [
+    // { label: t('projects'), link: `/${params.lang}/projects/create` },
+    // { label: t('interviews'), link: `/${params.lang}/interviews` },
+    { label: t('tests'), link: `/${params.lang}/candidate/tests/perform` },
+  ]
+
+  const companyMenus = [
+    { label: t('projects'), link: `/${params.lang}/projects/create` },
+    { label: t('tests'), link: `/${params.lang}/company/tests/results` },
+  ]
+
+  const menus = payload.type === 'Candidate' ? candidateMenus : companyMenus
 
   return (
     <Disclosure as='nav' className='bg-white shadow'>
@@ -34,7 +44,7 @@ export function Navbar() {
             <div className='flex h-16 justify-between'>
               <div className='flex px-2 lg:px-0'>
                 <div className='flex flex-shrink-0 items-center'>
-                  <Link href='/'>
+                  <Link href={`/${params.lang}/dashboard`}>
                     <Logo className='h-8 w-auto' />
                   </Link>
                 </div>
@@ -51,17 +61,19 @@ export function Navbar() {
                 </div>
               </div>
 
-              <div className='flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end'>
-                <label htmlFor='search' className='sr-only'>
-                  Search
-                </label>
-                <Link
-                  href='/'
-                  className='relative inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
-                >
-                  Search Candidates
-                </Link>
-              </div>
+              {payload?.type === 'Company' && (
+                <div className='flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end'>
+                  <label htmlFor='search' className='sr-only'>
+                    {t('search')}
+                  </label>
+                  <Link
+                    href={`/${params.lang}/candidate/search`}
+                    className='relative inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+                  >
+                    {t('search')}
+                  </Link>
+                </div>
+              )}
 
               <div className='flex items-center lg:hidden'>
                 {/* Mobile menu button */}
@@ -103,15 +115,18 @@ export function Navbar() {
                     <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            href='/'
+                          <Menu.Button
+                            onClick={() => {
+                              localStorage.removeItem('token')
+                              window.location.href = `/${params.lang}/login`
+                            }}
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700',
+                              'block px-4 py-2 text-sm text-gray-700 w-full',
                             )}
                           >
-                            Sign out
-                          </Link>
+                            {t('signOut')}
+                          </Menu.Button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -129,28 +144,28 @@ export function Navbar() {
                 href='#'
                 className='block border-l-4 border-blue-500 bg-blue-50 py-2 pl-3 pr-4 text-base font-medium text-blue-700'
               >
-                Dashboard
+                {t('dashboard')}
               </Disclosure.Button>
               <Disclosure.Button
                 as='a'
                 href='#'
                 className='block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800'
               >
-                Team
+                {t('team')}
               </Disclosure.Button>
               <Disclosure.Button
                 as='a'
                 href='#'
                 className='block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800'
               >
-                Projects
+                {t('projects')}
               </Disclosure.Button>
               <Disclosure.Button
                 as='a'
                 href='#'
                 className='block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800'
               >
-                Calendar
+                {t('calendar')}
               </Disclosure.Button>
             </div>
             <div className='border-t border-gray-200 pb-3 pt-4'>
@@ -164,14 +179,14 @@ export function Navbar() {
                     width={40}
                   />
                 </div>
-                <div className='ml-3'>
+                {/*<div className='ml-3'>
                   <div className='text-base font-medium text-gray-800'>
                     Tom Cook
                   </div>
                   <div className='text-sm font-medium text-gray-500'>
                     tom@example.com
                   </div>
-                </div>
+                </div>*/}
               </div>
               <div className='mt-3 space-y-1'>
                 <Disclosure.Button
@@ -180,7 +195,7 @@ export function Navbar() {
                   disabled
                   className='block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800'
                 >
-                  Sign out
+                  {t('signOut')}
                 </Disclosure.Button>
               </div>
             </div>

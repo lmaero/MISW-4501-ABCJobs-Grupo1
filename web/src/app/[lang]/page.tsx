@@ -1,6 +1,6 @@
 'use client'
 
-import Logo from '@/components/Logo'
+import Logo from '@/app/[lang]/components/Logo'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'

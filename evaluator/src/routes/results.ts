@@ -3,6 +3,9 @@ import resultsControllers from '../controllers/results'
 
 const resultsRouter = express.Router()
 
-resultsRouter.get('/byCandidate/:personId', resultsControllers.getResultsByUser)
+resultsRouter.get(
+  '/byCandidate/:candidateId',
+  resultsControllers.getResultsByUser,
+)
 
 export default resultsRouter

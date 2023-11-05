@@ -10,12 +10,12 @@ const locales = [
   {
     code: 'en',
     label: 'English',
-    icon: <Flag code='us' width={30} />,
+    icon: <Flag alt='US flag' code='us' width={30} />,
   },
   {
     code: 'es',
     label: 'Español',
-    icon: <Flag code='mx' width={30} />,
+    icon: <Flag alt='Mexican flag' code='mx' width={30} />,
   },
 ]
 
@@ -28,7 +28,7 @@ export function LanguageSelector() {
   }, [path])
 
   return (
-    <div className='absolute right-4 top-4 flex items-center space-x-2'>
+    <div className='fixed right-4 bottom-4 flex items-center space-x-2'>
       {locales.map((locale) => (
         <Link
           className={classNames({
