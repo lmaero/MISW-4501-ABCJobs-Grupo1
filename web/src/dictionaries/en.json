@@ -13,7 +13,8 @@
     },
     "notifications": {
       "success": "Successfully logged in",
-      "error": "You're not registered, please register first."
+      "warning": "You're not registered, please register first.",
+      "error": "Your password does not match"
     },
     "sendButton": "Login"
   },

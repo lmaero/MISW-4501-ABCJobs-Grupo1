@@ -13,7 +13,8 @@
     },
     "notifications": {
       "success": "Ingresaste exitosamente",
-      "error": "No estás registrado, regístrate primero"
+      "warning": "No estás registrado, regístrate primero",
+      "error": "Tu contraseña no coincide"
     },
     "sendButton": "Ingresar"
   },
