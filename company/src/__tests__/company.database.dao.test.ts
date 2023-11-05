@@ -16,6 +16,7 @@ const fakeData = {
   mainContact: 'John Smith',
   id: '1',
   question: {
+    question_id: '1',
     question: 'ZStringSch.min(5).max(255)',
     rightAnswer: 'ZStringSch.min(5).max(255)',
     wrongOptions: ['', '', '', '', ''],
