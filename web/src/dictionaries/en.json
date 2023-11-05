@@ -172,6 +172,12 @@
     "cancelButton": "Cancel",
     "sendButton": "Save"
   },
+  "CandidatePerformTest": {
+    "title": "Performing test",
+    "subtitle": "Evaluate your skills",
+    "cancelButton": "Cancel",
+    "sendButton": "Save"
+  },
   "CreateProjectPage": {
     "title": "Create Project",
     "subtitle": "Establish the requirements for the new project",
