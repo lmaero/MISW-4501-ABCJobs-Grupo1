@@ -2,15 +2,16 @@
 
 import { ErrorMessage } from '@/app/[lang]/components/ErrorMessage'
 import { FieldDescription } from '@/app/[lang]/components/FieldDescription'
-import { CANDIDATE_HOST } from '@/lib/api'
+import { CANDIDATE_HOST, COMPANY_HOST } from '@/lib/api'
 import { PerformTest, performTestSch } from '@/schemas/PerformTest'
+import { Question } from '@/schemas/Test'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { englishQuestions, spanishQuestions } from './data'
 
 interface Props {
   params: {
@@ -21,8 +22,16 @@ interface Props {
 export default function Page({ params }: Props) {
   const t = useTranslations('CandidatePerformTest')
   const router = useRouter()
-  // TODO fetch real tests from database
-  const questions = params.lang === 'en' ? englishQuestions : spanishQuestions
+  const [questions, setQuestions] = useState<Question[] | []>([])
+
+  useEffect(() => {
+    async function getData() {
+      const response = await axios.get(`${COMPANY_HOST}/company/tests`)
+      setQuestions(response.data.tests[0].questions)
+    }
+
+    void getData()
+  }, [])
 
   const {
     formState: { errors, isValid, isSubmitSuccessful },
@@ -47,8 +56,7 @@ export default function Page({ params }: Props) {
       .then((data) => {
         if (data.status === 200) {
           setTimeout(() => {
-            /* TODO adjust redirection*/
-            router.push(`/${params.lang}/candidate/search/results`)
+            router.push(`/${params.lang}/dashboard`)
           }, 3000)
           return
         }
@@ -85,7 +93,7 @@ export default function Page({ params }: Props) {
             const options = wrongOptions.concat(rightAnswer)
 
             return (
-              <article key={question.id} className='mb-6 capitalize'>
+              <article key={question.question} className='mb-6 capitalize'>
                 <FieldDescription title={question.question} />
 
                 <div className='space-y-3'>
@@ -126,6 +134,7 @@ export default function Page({ params }: Props) {
 
         <div className='flex justify-end space-x-2'>
           <button
+            onClick={() => router.push('/dashboard')}
             type='reset'
             className='flex w-fit justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
