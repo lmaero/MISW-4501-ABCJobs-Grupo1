@@ -7,7 +7,8 @@ CREATE TABLE "Company"
     "password"           TEXT NOT NULL,
     "preferred_language" TEXT,
     "segments"           TEXT,
-    "size"               TEXT
+    "size"               TEXT,
+    "token"              TEXT
 );
 
 CREATE TABLE "Test"

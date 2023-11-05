@@ -1,14 +1,23 @@
 'use client'
 
+import { ErrorMessage } from '@/components/ErrorMessage'
+import { FieldDescription } from '@/components/FieldDescription'
 import Logo from '@/components/Logo'
 import { AUTH_HOST } from '@/lib/api'
+import { loginType } from '@/lib/loginType'
 import { Login, LoginSch } from '@/schemas/Login'
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios from 'axios'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
-export default function LoginPage() {
+interface Props {
+  params: { lang: string }
+}
+
+export default function LoginPage({ params }: Props) {
+  const router = useRouter()
   const t = useTranslations('LoginPage')
   const {
     formState: { errors, isValid, isSubmitSuccessful },
@@ -20,8 +29,29 @@ export default function LoginPage() {
   })
 
   async function onSubmit(data: Login) {
-    const response = await axios.post(`${AUTH_HOST}/auth`, data)
-    console.dir(response)
+    const response = await fetch(`${AUTH_HOST}/auth`, {
+      body: JSON.stringify(data),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (response.status === 200) {
+      const data = await response.json()
+      localStorage.setItem('token', data.token)
+      toast(t('notifications.success'), { type: 'success', autoClose: 3000 })
+      setTimeout(() => {
+        router.push(`/${params.lang}/dashboard`)
+      }, 3000)
+      return
+    } else {
+      localStorage.removeItem('token')
+      toast(t('notifications.error'), { type: 'warning', autoClose: 3000 })
+      setTimeout(() => {
+        router.push(`/${params.lang}/register`)
+      }, 3000)
+    }
   }
 
   return (
@@ -78,9 +108,34 @@ export default function LoginPage() {
             <p className='text-sm text-red-700'>{errors.password?.message}</p>
           </div>
 
+          <article className='mb-6 space-y-3'>
+            <FieldDescription title={t('formLabels.typeTitle')} />
+            <div className='space-y-3'>
+              {loginType.map((type) => (
+                <div key={type.id} className='flex items-center gap-x-3'>
+                  <input
+                    className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
+                    id={type.id}
+                    type='radio'
+                    value={type.value}
+                    {...register('type')}
+                  />
+                  <label
+                    htmlFor={type.id}
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
+                    {type.label}
+                  </label>
+                </div>
+              ))}
+
+              {errors.type && <ErrorMessage message={errors.type.message} />}
+            </div>
+          </article>
+
           <button
             data-testid='crp-login-button'
-            disabled={!isValid || isSubmitSuccessful}
+            disabled={!isValid}
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >

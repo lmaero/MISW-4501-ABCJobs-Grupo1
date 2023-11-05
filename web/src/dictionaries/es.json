@@ -8,7 +8,12 @@
     "formLabels": {
       "email": "Correo electrónico",
       "emailPlaceholder": "tu@tudominio.com",
-      "password": "Contraseña"
+      "password": "Contraseña",
+      "typeTitle": "Ingresar como..."
+    },
+    "notifications": {
+      "success": "Ingresaste exitosamente",
+      "error": "No estás registrado, regístrate primero"
     },
     "sendButton": "Ingresar"
   },
