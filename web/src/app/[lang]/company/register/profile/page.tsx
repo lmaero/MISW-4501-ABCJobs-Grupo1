@@ -1,7 +1,7 @@
 'use client'
 
-import { ErrorMessage } from '@/components/ErrorMessage'
-import { FieldDescription } from '@/components/FieldDescription'
+import { ErrorMessage } from '@/app/[lang]/components/ErrorMessage'
+import { FieldDescription } from '@/app/[lang]/components/FieldDescription'
 import { COMPANY_HOST } from '@/lib/api'
 import { companySize } from '@/lib/companySize'
 import { languages } from '@/lib/languages'

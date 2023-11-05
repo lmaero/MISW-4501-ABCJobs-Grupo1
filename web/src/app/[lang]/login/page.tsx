@@ -1,8 +1,8 @@
 'use client'
 
-import { ErrorMessage } from '@/components/ErrorMessage'
-import { FieldDescription } from '@/components/FieldDescription'
-import Logo from '@/components/Logo'
+import { ErrorMessage } from '@/app/[lang]/components/ErrorMessage'
+import { FieldDescription } from '@/app/[lang]/components/FieldDescription'
+import Logo from '@/app/[lang]/components/Logo'
 import { AUTH_HOST } from '@/lib/api'
 import { loginType } from '@/lib/loginType'
 import { Login, LoginSch } from '@/schemas/Login'
@@ -42,10 +42,7 @@ export default function LoginPage({ params }: Props) {
     if (response.status === 200) {
       localStorage.setItem('token', json.token)
       toast(t('notifications.success'), { type: 'success', autoClose: 3000 })
-      setTimeout(() => {
-        router.push(`/${params.lang}/dashboard`)
-      }, 3000)
-      return
+      window.location.href = `/${params.lang}/dashboard`
     } else if (!json.email) {
       localStorage.removeItem('token')
       toast(t('notifications.error'), { type: 'error', autoClose: 3000 })

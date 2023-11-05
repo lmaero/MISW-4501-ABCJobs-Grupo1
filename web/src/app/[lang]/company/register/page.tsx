@@ -1,6 +1,6 @@
 'use client'
 
-import Logo from '@/components/Logo'
+import Logo from '@/app/[lang]/components/Logo'
 import { COMPANY_HOST } from '@/lib/api'
 import { CompanyPre, CompanyPreSch } from '@/schemas/Company'
 import { zodResolver } from '@hookform/resolvers/zod'
