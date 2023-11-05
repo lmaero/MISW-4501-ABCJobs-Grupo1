@@ -35,6 +35,16 @@ class Dao {
 
   async isUserRegistered(email: string, password: string, type: string) {
     const isCandidate = type === 'Candidate'
+
+    const lookForRegistered = `
+    SELECT email FROM "Candidate" WHERE email = $1
+    UNION SELECT email FROM "Company" WHERE email = $1
+    `
+
+    const userRegistered = await this.client.query(lookForRegistered, [email])
+    if (userRegistered.rowCount === 0)
+      return { found: false, isCandidate: false }
+
     const candidateQuery = `
     SELECT email FROM "Candidate" WHERE email = $1 AND password = $2
     `
