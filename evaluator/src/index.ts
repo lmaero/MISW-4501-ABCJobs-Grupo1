@@ -25,17 +25,17 @@ app.use('/evaluator', resultsRouter)
 const server = http.createServer(app)
 
 client
-    .connect()
-    .then(() => createTableIfNotExists())
-    .then(() => {
-        console.info('Table was created successfully')
-    })
-    .catch((error) => {
-        console.error('Error:', error)
-    })
-    .finally(() => {
-        client.end() // Close the database connection
-    })
+  .connect()
+  .then(() => createTableIfNotExists())
+  .then(() => {
+    console.info('Table was created successfully')
+  })
+  .catch((error) => {
+    console.error('Error:', error)
+  })
+  .finally(() => {
+    client.end() // Close the database connection
+  })
 
 server
   .listen(PORT)

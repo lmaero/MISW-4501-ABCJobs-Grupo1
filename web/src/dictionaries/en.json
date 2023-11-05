@@ -18,6 +18,13 @@
     },
     "sendButton": "Login"
   },
+  "Navbar": {
+    "projects": "Projects",
+    "interviews": "Interviews",
+    "tests": "Tests",
+    "search": "Search Candidates",
+    "signOut": "Sign Out"
+  },
   "RegisterPage": {
     "title": "Register",
     "candidate": "Candidate",
@@ -221,6 +228,7 @@
     "sendButton": "Create"
   },
   "TestsResultsPage": {
-    "title": "Last Test Results"
+    "title": "Last Test Results",
+    "createTest": "Create Test"
   }
 }

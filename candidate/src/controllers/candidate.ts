@@ -165,12 +165,16 @@ export async function getTests(req: Request, res: Response) {
     const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
     const candidateId = authResult.data.userInfo.candidateid
 
-    const evaluatorResult = await axios.get('http://0.0.0.0:4002/evaluator/byCandidate/' + candidateId);
+    const evaluatorResult = await axios.get(
+      `http://0.0.0.0:4002/evaluator/byCandidate/${candidateId}`,
+    )
     if (evaluatorResult.status === 200) {
-      const results = evaluatorResult.data.results;
+      const results = evaluatorResult.data.results
       return res.status(200).json({ results })
     } else {
-      return res.status(200).json({ message: 'No test results for the candidate' })
+      return res
+        .status(200)
+        .json({ message: 'No test results for the candidate' })
     }
   } catch (error) {
     console.error(error)

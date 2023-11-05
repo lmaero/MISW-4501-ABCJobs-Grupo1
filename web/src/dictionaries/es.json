@@ -18,6 +18,13 @@
     },
     "sendButton": "Ingresar"
   },
+  "Navbar": {
+    "projects": "Proyectos",
+    "interviews": "Entrevistas",
+    "tests": "Pruebas",
+    "search": "Buscar Candidatos",
+    "signOut": "Cerrar Sesión"
+  },
   "RegisterPage": {
     "title": "Regístrate",
     "candidate": "Candidato",
@@ -221,6 +228,7 @@
     "sendButton": "Crear prueba"
   },
   "TestsResultsPage": {
-    "title": "Últimos resultados de pruebas"
+    "title": "Últimos resultados de pruebas",
+    "createTest": "Crear prueba"
   }
 }

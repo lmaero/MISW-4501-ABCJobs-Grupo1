@@ -25,28 +25,35 @@ class Dao {
     try {
       const tests = await this.client.query(query, [candidate_id])
       if (tests.rows.length > 0) {
-        return {msg: '201', tests: tests.rows}
+        return { msg: '201', tests: tests.rows }
       } else {
-        return {msg: '400'}
+        return { msg: '400' }
       }
     } catch (err) {
-      return {msg: '400'}
+      return { msg: '400' }
     }
   }
 
-  async updateCandidateTestScore(candidate_id: string, test_id: string, score: number) {
+  async updateCandidateTestScore(
+    candidate_id: string,
+    test_id: string,
+    score: number,
+  ) {
     const query = ` update "TestPerfomed" set score = $3  
     where candidateid = $1
     and test_id = $2
     `
     try {
-      const tests = await this.client.query(query, [candidate_id, test_id, score])
-        return {msg: '201', tests}
+      const tests = await this.client.query(query, [
+        candidate_id,
+        test_id,
+        score,
+      ])
+      return { msg: '201', tests }
     } catch (err) {
-      return {msg: '400'}
+      return { msg: '400' }
     }
   }
 }
-
 
 export default Dao

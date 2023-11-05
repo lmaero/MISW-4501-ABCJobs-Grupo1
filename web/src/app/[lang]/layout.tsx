@@ -1,5 +1,5 @@
-import { LanguageSelector } from '@/components/LanguageSelector'
-import { Navbar } from '@/components/Navbar'
+import { LanguageSelector } from '@/app/[lang]/components/LanguageSelector'
+import { Navbar } from '@/app/[lang]/components/Navbar'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { Inter } from 'next/font/google'
@@ -49,7 +49,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={params.lang} messages={dictionary}>
           <main className='relative h-screen'>
             <LanguageSelector />
-            <Navbar />
+            <Navbar params={params} />
             {children}
             <ToastContainer position='bottom-right' />
           </main>

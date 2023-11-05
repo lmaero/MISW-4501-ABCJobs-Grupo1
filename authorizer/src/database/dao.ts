@@ -6,15 +6,13 @@ class Dao {
 
   constructor() {
     //cllientString
-    this.client = new Client(
-        {
-          user: 'postgres',
-          port: 5432,
-          host: 'localhost',
-          password: 'postgres',
-          database: 'postgres',
-        }
-    )
+    this.client = new Client({
+      user: 'postgres',
+      port: 5432,
+      host: 'localhost',
+      password: 'postgres',
+      database: 'postgres',
+    })
     this.client.connect()
   }
 

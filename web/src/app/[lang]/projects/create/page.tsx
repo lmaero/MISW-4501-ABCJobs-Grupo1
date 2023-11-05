@@ -1,12 +1,13 @@
 'use client'
 
-import { ErrorMessage } from '@/components/ErrorMessage'
-import { FieldDescription } from '@/components/FieldDescription'
+import { ErrorMessage } from '@/app/[lang]/components/ErrorMessage'
+import { FieldDescription } from '@/app/[lang]/components/FieldDescription'
 import { PROJECT_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { Project, ProjectSch } from '@/schemas/Project'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
@@ -16,6 +17,7 @@ interface Props {
 
 export default function CreateProjectPage({ params }: Props) {
   const t = useTranslations('CreateProjectPage')
+  const router = useRouter()
   const {
     formState: { errors, isValid, isSubmitSuccessful },
     register,
@@ -230,6 +232,7 @@ export default function CreateProjectPage({ params }: Props) {
 
         <div className='flex space-x-2'>
           <button
+            onClick={() => router.push('/dashboard')}
             type='reset'
             className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
