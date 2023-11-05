@@ -216,6 +216,7 @@ export default function SearchCandidatePage({ params }: Props) {
 
         <div className='flex justify-end space-x-2'>
           <button
+            onClick={() => router.push('/dashboard')}
             type='reset'
             className='flex w-fit justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
