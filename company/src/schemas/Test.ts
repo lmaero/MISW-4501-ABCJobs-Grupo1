@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { ZStringSch } from './ZString'
 
 const questionSch = z.object({
-  question_id: ZStringSch.min(1).max(255),
+  question_id: ZStringSch.min(1).max(255).optional(),
   question: ZStringSch.min(5).max(255),
   rightAnswer: ZStringSch.min(5).max(255),
   wrongOptions: z.array(ZStringSch.min(5).max(255)),
