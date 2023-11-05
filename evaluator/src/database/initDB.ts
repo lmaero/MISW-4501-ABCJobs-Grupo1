@@ -31,7 +31,7 @@ export async function createTableIfNotExists() {
                 (
                       "candidate_id"       INT,
                       "test_id"            INT,
-                      "answers"            TEXT[]
+                      "answers"            TEXT[],
                       "score"              INT
                 );
             `)
