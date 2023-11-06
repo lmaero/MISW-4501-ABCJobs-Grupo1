@@ -4,6 +4,7 @@ export interface TitleWithDescriptionProps {
   title: string;
   description: string;
   viewStyle?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 export interface TitleProps {

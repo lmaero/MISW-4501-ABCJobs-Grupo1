@@ -74,7 +74,7 @@ export const technicalDataSchema = yup.object().shape({
     .max(50, 'Years of experience must be at most 50'),
 });
 
-export const candidateProfileSchema = yup.object().shape({
+const candidateProfileSchema = yup.object().shape({
   academicData: yup.array().of(academicDataSchema),
   mainSoftSkills: commaSeparatedList,
   certifications: commaSeparatedList,
