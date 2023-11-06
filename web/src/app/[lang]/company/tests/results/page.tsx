@@ -1,10 +1,9 @@
 'use client'
 
 import { CANDIDATE_HOST } from '@/lib/api'
-import axios from 'axios'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const testResults = [
   {
@@ -65,14 +64,20 @@ interface Props {
 
 export default function TestsResultsPage({ params }: Props) {
   const t = useTranslations('TestsResultsPage')
+  const [results, setResults] = useState([])
 
   useEffect(() => {
     async function getData() {
-      const response = await axios.get(`${CANDIDATE_HOST}/candidate/test`)
-      console.log(response.data.results)
+      const response = await fetch(`${CANDIDATE_HOST}/candidate/test`)
+      console.dir(await response.json())
     }
     getData()
   }, [])
+
+  if (results.length === 0)
+    return (
+      <p className='font-semibold mx-auto max-w-7xl p-7'>{t('notCreated')}</p>
+    )
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
