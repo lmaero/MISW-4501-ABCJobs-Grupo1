@@ -66,6 +66,12 @@ export async function getResultsByUser(req: Request, res: Response) {
             resultsWithScore.result = 'Excellent'
           }
 
+          await dao.updateCandidateTestScore(
+            candidateId,
+            resultsWithScore.id.toString(),
+            Number(score),
+          )
+
           results.push(resultsWithScore)
           resultsWithScore = {
             id: '',
