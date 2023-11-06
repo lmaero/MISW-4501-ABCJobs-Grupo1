@@ -236,6 +236,7 @@
   },
   "TestsResultsPage": {
     "title": "Últimos resultados de pruebas",
-    "createTest": "Crear prueba"
+    "createTest": "Crear prueba",
+    "notCreated": "No hay resultados aún"
   }
 }
