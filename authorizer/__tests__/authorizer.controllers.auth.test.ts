@@ -31,10 +31,10 @@ describe('authenticate user', () => {
       token: '1234',
     }
     jest
-        .spyOn(Dao.prototype, 'isUserRegistered')
-        .mockReturnValue(Promise.resolve({ found: true, isCandidate: true }))
+      .spyOn(Dao.prototype, 'isUserRegistered')
+      .mockReturnValue(Promise.resolve({ found: true, isCandidate: true }))
     const expected = await authenticateUser(userInfo)
-    expect(expected).toBeDefined();
+    expect(expected).toBeDefined()
   })
 
   test('authenticate user code 400', async () => {
@@ -64,10 +64,10 @@ describe('authenticate user', () => {
       code: 400,
     }
     jest
-        .spyOn(Dao.prototype, 'isUserRegistered')
-        .mockReturnValue(Promise.resolve({ found: false, isCandidate: true }))
+      .spyOn(Dao.prototype, 'isUserRegistered')
+      .mockReturnValue(Promise.resolve({ found: false, isCandidate: true }))
     const expected = await authenticateUser(userInfo)
-    expect(userResult).toBeDefined();
+    expect(userResult).toBeDefined()
   })
 })
 
@@ -101,11 +101,11 @@ describe('User Info', () => {
     jest.spyOn(Dao.prototype, 'getUserInfo').mockReturnValue(
       Promise.resolve({
         msg: '200',
-        email: "userInfo.email",
-        first_name: "userInfo.email",
-        last_name: "userInfo.email",
-        candidateid: "userInfo.email",
-        type: "userInfo.email",
+        email: 'userInfo.email',
+        first_name: 'userInfo.email',
+        last_name: 'userInfo.email',
+        candidateid: 'userInfo.email',
+        type: 'userInfo.email',
       }),
     )
     try {

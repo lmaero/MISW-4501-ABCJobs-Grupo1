@@ -1,10 +1,10 @@
 'use client'
 
+import { CANDIDATE_HOST } from '@/lib/api'
+import axios from 'axios'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useEffect } from 'react'
-import axios from 'axios'
-import { CANDIDATE_HOST } from '@/lib/api'
 
 const testResults = [
   {
