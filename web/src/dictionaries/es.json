@@ -176,7 +176,8 @@
     "title": "Presentando prueba",
     "subtitle": "Evalúa tus habilidades",
     "cancelButton": "Cancelar",
-    "sendButton": "Enviar"
+    "sendButton": "Enviar",
+    "notCreated": "No hay pruebas creadas aún"
   },
   "CreateProjectPage": {
     "title": "Crear Proyecto",

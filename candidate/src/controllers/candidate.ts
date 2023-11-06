@@ -133,14 +133,22 @@ export async function testPerformed(req: Request, res: Response) {
 
     if (testData !== ' ') {
       const dao = new Dao()
-      await dao.storeTestPerformedByCandidate(candidateId, testData.test_id, testData.answers)
-      const url = 'http://0.0.0.0:4002/evaluator/byCandidate/' + candidateId.toString()
-      const evaluatorResult = await axios.get(url);
+      await dao.storeTestPerformedByCandidate(
+        candidateId,
+        testData.test_id,
+        testData.answers,
+      )
+      const url = `http://0.0.0.0:4002/evaluator/byCandidate/${candidateId.toString()}`
+      const evaluatorResult = await axios.get(url)
       if (evaluatorResult.status === 200) {
-        const results = evaluatorResult.data.results;
-        return res.status(200).json({message: 'Answers for the test were saved'})
+        const results = evaluatorResult.data.results
+        return res
+          .status(200)
+          .json({ message: 'Answers for the test were saved' })
       } else {
-        return res.status(200).json({ message: 'The answers for the tests were not saved' })
+        return res
+          .status(200)
+          .json({ message: 'The answers for the tests were not saved' })
       }
     } else {
       return res.status(400).json({
@@ -155,12 +163,16 @@ export async function testPerformed(req: Request, res: Response) {
 
 export async function getAllTests(req: Request, res: Response) {
   try {
-    const evaluatorResult = await axios.get('http://0.0.0.0:4002/evaluator/tests')
+    const evaluatorResult = await axios.get(
+      'http://0.0.0.0:4002/evaluator/tests',
+    )
     if (evaluatorResult.status === 200) {
-      const results = evaluatorResult.data.resultsForAllCandidates;
+      const results = evaluatorResult.data.resultsForAllCandidates
       return res.status(200).json({ results })
     } else {
-      return res.status(200).json({ message: 'No test results for the candidate' })
+      return res
+        .status(200)
+        .json({ message: 'No test results for the candidate' })
     }
   } catch (error) {
     console.error(error)
