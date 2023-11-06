@@ -2,14 +2,34 @@ import { Client } from 'pg'
 import { AcademicExperience } from '../schemas/AcademicData'
 import { Experience } from '../schemas/ExperienceData'
 import { TechnicalData } from '../schemas/TechnicalData'
-import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client(clientString)
+    //clientString
+    this.client = new Client({
+      user: 'postgres',
+      port: 5432,
+      host: 'localhost',
+      password: 'postgres',
+      database: 'postgres',
+    })
     this.client.connect()
+  }
+
+  async getTests() {
+    const query = `select * from "Test"`
+    try {
+      const tests = await this.client.query(query)
+      if (tests.rows.length > 0) {
+        return { msg: '201', tests: tests.rows }
+      } else {
+        return { msg: '400' }
+      }
+    } catch (err) {
+      return { msg: '400' }
+    }
   }
 
   async storeCandidate(
@@ -31,42 +51,17 @@ class Dao {
     }
   }
 
-  async updateCandidateProfile(
-    academical_data: AcademicExperience[],
-    certifications: string,
-    experience: Experience[],
-    email: string,
-    location: string,
-    soft_skills: string,
-    role: string,
-    languages: string,
-    technical_data: TechnicalData,
+  async storeTestPerformedByCandidate(
+    candidate_id: string,
+    test_id: number,
+    answers: string[],
   ) {
-    const query = `UPDATE "Candidate"
-                   SET academical_data = $1,
-                       certifications  = $2,
-                       experience      = $3,
-                       email           = $4,
-                       location        = $5,
-                       soft_skills     = $6,
-                       role            = $7,
-                       languages       = $8,
-                       technical_data  = $9
-                   WHERE email = $4`
-
+    const query = `insert into "TestPerformed"
+                    values ($1, $2, $3)
+                   `
     try {
-      await this.client.query(query, [
-        JSON.stringify(academical_data),
-        certifications,
-        JSON.stringify(experience),
-        email,
-        location,
-        soft_skills,
-        role,
-        languages,
-        JSON.stringify(technical_data),
-      ])
-      console.log('Candidate updated!')
+      await this.client.query(query, [candidate_id, test_id, answers])
+      console.log('Test perfomed by the candidate was saved!')
       return { msg: '200' }
     } catch (err) {
       console.log(err)
@@ -107,8 +102,50 @@ class Dao {
         soft_skills,
         spoken_languages,
       ])
-      console.log(res)
       return { msg: '200', res }
+    } catch (err) {
+      console.log(err)
+    }
+    return { msg: '400' }
+  }
+
+  async updateCandidateProfile(
+    academical_data: AcademicExperience[],
+    certifications: string,
+    experience: Experience[],
+    email: string,
+    location: string,
+    soft_skills: string,
+    role: string,
+    languages: string,
+    technical_data: TechnicalData,
+  ) {
+    const query = `UPDATE "Candidate"
+                   SET academical_data = $1,
+                       certifications  = $2,
+                       experience      = $3,
+                       email           = $4,
+                       location        = $5,
+                       soft_skills     = $6,
+                       role            = $7,
+                       languages       = $8,
+                       technical_data  = $9
+                   WHERE email = $4`
+
+    try {
+      await this.client.query(query, [
+        JSON.stringify(academical_data),
+        certifications,
+        JSON.stringify(experience),
+        email,
+        location,
+        soft_skills,
+        role,
+        languages,
+        JSON.stringify(technical_data),
+      ])
+      console.log('Candidate updated!')
+      return { msg: '200' }
     } catch (err) {
       console.log(err)
     }

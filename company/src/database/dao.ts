@@ -1,15 +1,48 @@
 import { Client } from 'pg'
 import { Question } from '../schemas/Test'
-import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client(clientString)
+    //clientString
+    this.client = new Client({
+      user: 'postgres',
+      port: 5432,
+      host: 'localhost',
+      password: 'postgres',
+      database: 'postgres',
+    })
     this.client.connect()
   }
 
+  async getTests() {
+    const query = `select * from "Test"`
+    try {
+      const tests = await this.client.query(query)
+      if (tests.rows.length > 0) {
+        return { msg: '201', tests: tests.rows }
+      } else {
+        return { msg: '400' }
+      }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
+
+  async getTestById(id: string) {
+    const query = `select * from "Test" where test_id = $1`
+    try {
+      const test = await this.client.query(query, [id])
+      if (test.rows.length > 0) {
+        return { msg: '201', tests: test.rows }
+      } else {
+        return { msg: '400' }
+      }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
   async storeCompany(email: string, password: string, company_name: string) {
     const query = `INSERT INTO "Company" ("email", "password", "company_name")
                    VALUES ($1, $2, $3)`
@@ -29,7 +62,11 @@ class Dao {
     const query = `INSERT INTO "Test" ("name", "applicable_to", "questions")
                    VALUES ($1, $2, $3)`
     try {
-      await this.client.query(query, [name, applicable_to, { questions }])
+      await this.client.query(query, [
+        name,
+        applicable_to,
+        JSON.stringify(questions),
+      ])
       return { msg: '201' }
     } catch (err) {
       return { msg: '400' }

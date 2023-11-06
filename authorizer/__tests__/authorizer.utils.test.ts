@@ -28,7 +28,7 @@ describe('utils functions validation', () => {
     const token = '12345'
 
     try {
-      await generateAccessToken(token)
+      await generateAccessToken(token, 'Candidate')
     } catch (e) {
       const error: unknown = e
       if (error instanceof Error) {

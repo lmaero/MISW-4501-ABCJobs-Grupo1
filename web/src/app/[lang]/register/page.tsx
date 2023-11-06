@@ -1,6 +1,6 @@
 'use client'
 
-import Logo from '@/components/Logo'
+import Logo from '@/app/[lang]/components/Logo'
 import { BuildingOfficeIcon, UserIcon } from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'

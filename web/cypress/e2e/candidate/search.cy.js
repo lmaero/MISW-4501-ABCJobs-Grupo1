@@ -30,7 +30,7 @@ describe('search for candidates', () => {
     cy.get('button').last().should('be.enabled')
   })
 
-  it.only('Sends the data', () => {
+  it('Sends the data', () => {
     cy.get('input[name="roles"]').first().check().should('be.checked')
     cy.get('input[name="roles"]').last().check().should('be.checked')
     cy.get('input[name="programmingLanguages"]')

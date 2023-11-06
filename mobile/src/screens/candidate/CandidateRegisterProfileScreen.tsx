@@ -150,7 +150,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
         <WithDescriptionTitle
           title="Complete your information"
           description="To apply for some projects, make sure your information is complete"
-          viewStyle={styles.mainTitleContainer}
+          viewStyle={appThemeStyles.mainTitleContainer}
         />
         <Controller
           control={control}
@@ -663,10 +663,6 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
 };
 
 const styles = StyleSheet.create({
-  mainTitleContainer: {
-    marginTop: 50,
-    marginBottom: 20,
-  },
   secondaryTitleContainer: {
     marginTop: 35,
   },

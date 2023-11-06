@@ -1,6 +1,6 @@
 'use client'
 
-import Logo from '@/components/Logo'
+import Logo from '@/app/[lang]/components/Logo'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -18,8 +18,10 @@ export default function Home({ params }: Props) {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    if (token) setToken(token)
-    else router.push(`/${params.lang}/register`)
+    if (token) {
+      setToken(token)
+      router.push(`/${params.lang}/dashboard`)
+    } else router.push(`/${params.lang}/login`)
   }, [params.lang, router])
 
   return (

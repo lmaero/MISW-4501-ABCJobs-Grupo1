@@ -8,9 +8,22 @@
     "formLabels": {
       "email": "Email",
       "emailPlaceholder": "you@yourdomain.com",
-      "password": "Password"
+      "password": "Password",
+      "typeTitle": "Login as..."
+    },
+    "notifications": {
+      "success": "Successfully logged in",
+      "warning": "You're not registered, please register first.",
+      "error": "Your password does not match"
     },
     "sendButton": "Login"
+  },
+  "Navbar": {
+    "projects": "Projects",
+    "interviews": "Interviews",
+    "tests": "Tests",
+    "search": "Search Candidates",
+    "signOut": "Sign Out"
   },
   "RegisterPage": {
     "title": "Register",
@@ -159,6 +172,12 @@
     "cancelButton": "Cancel",
     "sendButton": "Save"
   },
+  "CandidatePerformTest": {
+    "title": "Performing test",
+    "subtitle": "Evaluate your skills",
+    "cancelButton": "Cancel",
+    "sendButton": "Save"
+  },
   "CreateProjectPage": {
     "title": "Create Project",
     "subtitle": "Establish the requirements for the new project",
@@ -213,5 +232,9 @@
     },
     "cancelButton": "Cancel",
     "sendButton": "Create"
+  },
+  "TestsResultsPage": {
+    "title": "Last Test Results",
+    "createTest": "Create Test"
   }
 }

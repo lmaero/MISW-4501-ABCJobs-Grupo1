@@ -8,9 +8,22 @@
     "formLabels": {
       "email": "Correo electrónico",
       "emailPlaceholder": "tu@tudominio.com",
-      "password": "Contraseña"
+      "password": "Contraseña",
+      "typeTitle": "Ingresar como..."
+    },
+    "notifications": {
+      "success": "Ingresaste exitosamente",
+      "warning": "No estás registrado, regístrate primero",
+      "error": "Tu contraseña no coincide"
     },
     "sendButton": "Ingresar"
+  },
+  "Navbar": {
+    "projects": "Proyectos",
+    "interviews": "Entrevistas",
+    "tests": "Pruebas",
+    "search": "Buscar Candidatos",
+    "signOut": "Cerrar Sesión"
   },
   "RegisterPage": {
     "title": "Regístrate",
@@ -159,6 +172,12 @@
     "cancelButton": "Cancelar",
     "sendButton": "Guardar"
   },
+  "CandidatePerformTest": {
+    "title": "Presentando prueba",
+    "subtitle": "Evalúa tus habilidades",
+    "cancelButton": "Cancelar",
+    "sendButton": "Enviar"
+  },
   "CreateProjectPage": {
     "title": "Crear Proyecto",
     "subtitle": "Establece los requerimientos del nuevo proyecto",
@@ -213,5 +232,9 @@
     },
     "cancelButton": "Cancelar",
     "sendButton": "Crear prueba"
+  },
+  "TestsResultsPage": {
+    "title": "Últimos resultados de pruebas",
+    "createTest": "Crear prueba"
   }
 }

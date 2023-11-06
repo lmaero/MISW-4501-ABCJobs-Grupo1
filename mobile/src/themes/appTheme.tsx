@@ -21,6 +21,10 @@ export const appThemeStyles = StyleSheet.create({
   formItemSmallMargin: {
     marginVertical: 5,
   },
+  mainTitleContainer: {
+    marginTop: 50,
+    marginBottom: 20,
+  },
   labelTitle: {
     color: 'black',
     fontFamily: 'Inter',

@@ -6,6 +6,7 @@ const nextConfig = {
     CANDIDATE_PORT: process.env.CANDIDATE_PORT,
     COMPANY_PORT: process.env.COMPANY_PORT,
     PROJECT_PORT: process.env.PROJECT_PORT,
+    TOKEN_SECRET: process.env.TOKEN_SECRET,
   },
 }
 

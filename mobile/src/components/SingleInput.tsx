@@ -35,7 +35,7 @@ export const SingleInput = ({
           testID="show-password-icon"
           name={showPassword ? 'eye' : 'eye-slash'}
           size={20}
-          color="rgba(28, 31, 30, 0.50)"
+          color="black"
           style={styles.eyeIcon}
           onPress={() => setShowPassword(!showPassword)}
         />

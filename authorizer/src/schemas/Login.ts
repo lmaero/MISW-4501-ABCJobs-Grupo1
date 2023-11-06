@@ -22,6 +22,11 @@ export const LoginSch = z.object({
           'Password must be 8-16 characters and include at least one lowercase letter, one uppercase letter, one symbol, and one number.',
       },
     ),
+  type: z
+    .string()
+    .min(7)
+    .max(9)
+    .regex(/\b(Company|Candidate)\b/),
 })
 
 export type Login = z.infer<typeof LoginSch>
