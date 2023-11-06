@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import {AxiosError} from 'axios';
+import _ from 'lodash';
 import {Alert, ScrollView, StyleSheet, View} from 'react-native';
 import {WithDescriptionTitle} from '../../components/WithDescriptionTitle';
 import {appThemeStyles} from '../../themes/appTheme';
@@ -12,7 +14,6 @@ import {Question} from '../../interfaces/Question';
 import {formatQuestions} from '../../utils/QuestionFormat';
 import {TestPerformed} from '../../interfaces/Performance';
 import candidateApi from '../../api/Candidate';
-import {AxiosError} from 'axios';
 
 export const TestContentScreen = () => {
   const [testID, setTestID] = useState<number>(0);
@@ -35,7 +36,7 @@ export const TestContentScreen = () => {
       );
       setTestName(
         response.data.tests[0].name &&
-          String(response.data.tests[0].name).toUpperCase(),
+          _.capitalize(response.data.tests[0].name),
       );
       setQuestions(
         response.data.tests[0].questions &&
