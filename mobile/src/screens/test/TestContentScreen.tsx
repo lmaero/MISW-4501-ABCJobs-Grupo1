@@ -1,164 +1,117 @@
-import React, {useMemo, useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, ScrollView, StyleSheet, View} from 'react-native';
 import {WithDescriptionTitle} from '../../components/WithDescriptionTitle';
 import {appThemeStyles} from '../../themes/appTheme';
 import {MediumButton} from '../../components/MediumButton';
 import {QuestionField} from '../../components/QuestionField';
 import {Answer} from '../../interfaces/Answers';
+import companyApi from '../../api/Company';
+import {LoadingScreen} from '../LoadingScreen';
+import {CompanyTestsInput} from '../../interfaces/api/Inputs';
+import {Question} from '../../interfaces/Question';
+import {formatQuestions} from '../../utils/QuestionFormat';
+import {TestPerformed} from '../../interfaces/Performance';
+import candidateApi from '../../api/Candidate';
+import {AxiosError} from 'axios';
 
 export const TestContentScreen = () => {
-  const testName = 'ReactJS';
-  const questions = useMemo(
-    () => [
-      {
-        id: '1',
-        question: 'Question 1',
-        answersRadioButtons: [
-          {
-            id: '1', // acts as primary key, should be unique and non-empty string
-            label: 'Answer 1',
-            value: 'answer1',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '2',
-            label: 'Answer 2',
-            value: 'answer2',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '3',
-            label: 'Answer 3',
-            value: 'answer3',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '4',
-            label: 'Answer 4',
-            value: 'answer4',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '5',
-            label: 'Answer 5',
-            value: 'answer5',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-        ],
-      },
-      {
-        id: '2',
-        question: 'Question 2',
-        answersRadioButtons: [
-          {
-            id: '1', // acts as primary key, should be unique and non-empty string
-            label: 'Answer 1',
-            value: 'answer1',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '2',
-            label: 'Answer 2',
-            value: 'answer2',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '3',
-            label: 'Answer 3',
-            value: 'answer3',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '4',
-            label: 'Answer 4',
-            value: 'answer4',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '5',
-            label: 'Answer 5',
-            value: 'answer5',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-        ],
-      },
-      {
-        id: '3',
-        question: 'Question 3',
-        answersRadioButtons: [
-          {
-            id: '1', // acts as primary key, should be unique and non-empty string
-            label: 'Answer 1',
-            value: 'answer1',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '2',
-            label: 'Answer 2',
-            value: 'answer2',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '3',
-            label: 'Answer 3',
-            value: 'answer3',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '4',
-            label: 'Answer 4',
-            value: 'answer4',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-          {
-            id: '5',
-            label: 'Answer 5',
-            value: 'answer5',
-            color: '#2C71F6',
-            borderColor: '#D8D8DA',
-          },
-        ],
-      },
-    ],
-    [],
-  );
+  const [testID, setTestID] = useState<number>(0);
+  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(true);
+  const [testName, setTestName] = useState('Test Name');
+  const [questions, setQuestions] = useState<Question[]>([]);
 
-  const [answer, setAnswer] = useState<Answer[]>([]);
+  useEffect(() => {
+    async function getTestData() {
+      const response = await companyApi.get<CompanyTestsInput>('/tests', {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+      setTestID(
+        response.data.tests[0].test_id &&
+          Number(response.data.tests[0].test_id),
+      );
+      setTestName(
+        response.data.tests[0].name &&
+          String(response.data.tests[0].name).toUpperCase(),
+      );
+      setQuestions(
+        response.data.tests[0].questions &&
+          formatQuestions(response.data.tests[0].questions),
+      );
+    }
+    getTestData();
+    setIsLoaded(false);
+  }, []);
+
   const onChangeValue = (value: Answer | null) => {
     if (value) {
       const {questionId: newQuestionId, answer: newAnswer} = value;
-      const updatedAnswer = answer.some(a => a.questionId === newQuestionId)
-        ? answer.filter(a => a.questionId !== newQuestionId)
-        : answer;
-      setAnswer([
+      const updatedAnswer = answers.some(a => a.questionId === newQuestionId)
+        ? answers.filter(a => a.questionId !== newQuestionId)
+        : answers;
+      setAnswers([
         ...updatedAnswer,
         {questionId: newQuestionId, answer: newAnswer},
       ]);
     }
   };
 
-  return (
+  const onSubmit = () => {
+    setIsLoaded(true);
+    const testPerformed: TestPerformed = {
+      test_id: testID,
+      answers: [],
+    };
+
+    testPerformed.answers = answers.map(answer => [
+      String(answer.questionId),
+      answer.answer,
+    ]);
+
+    const performTestPromise = candidateApi.post(
+      '/test',
+      JSON.stringify(testPerformed),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      },
+    );
+
+    performTestPromise
+      .then(response => {
+        setIsLoaded(false);
+        response.data && response.data.message;
+        Alert.alert('Success', response.data.message, [
+          {
+            text: 'Ok',
+          },
+        ]);
+      })
+      .catch((error: AxiosError) => {
+        setIsLoaded(false);
+        error.code &&
+          Alert.alert('Error', 'Error in the service, please try again later');
+      });
+  };
+
+  return isLoaded ? (
+    <LoadingScreen />
+  ) : (
     <View style={[appThemeStyles.mainContainer, style.mainContainerMargin]}>
       <WithDescriptionTitle
+        testID="test-content-title"
         title={`${testName} Test`}
         description="When you're finished, send your test!"
         viewStyle={appThemeStyles.mainTitleContainer}
       />
-      <ScrollView style={style.questionsContainer}>
+      <ScrollView
+        testID="test-scroll-view-content"
+        style={style.questionsContainer}>
         {questions.map(question => (
           <QuestionField
             key={question.id}
@@ -172,7 +125,7 @@ export const TestContentScreen = () => {
       <View style={style.buttonGroupContainer}>
         <MediumButton
           text="Send"
-          onPress={() => console.log(answer)}
+          onPress={onSubmit}
           buttonGroup={true}
           secondary={true}
         />

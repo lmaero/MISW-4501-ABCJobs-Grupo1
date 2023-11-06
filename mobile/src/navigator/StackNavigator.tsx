@@ -18,7 +18,7 @@ export const StackNavigator = () => {
   return (
     <>
       <Stack.Navigator
-        initialRouteName="ViewPerformancesScreen"
+        initialRouteName="TestContentScreen"
         screenOptions={{
           headerShown: false,
           cardStyle: {

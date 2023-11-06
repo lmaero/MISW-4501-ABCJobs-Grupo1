@@ -5,3 +5,8 @@ export interface PerformanceItem {
   resultPercentage: number;
   resultDescription: string;
 }
+
+export interface TestPerformed {
+  test_id: number;
+  answers: Array<string[]>;
+}

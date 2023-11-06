@@ -79,3 +79,28 @@ export const transformRegisterProfileCandidateInput = (
   };
   return response;
 };
+
+export interface CompanyTestsInput {
+  tests: TestInput[];
+}
+
+export interface TestInput {
+  name: string;
+  applicable_to: string[];
+  type: null;
+  result: null;
+  questions: QuestionInput[];
+  is_individual_test: null;
+  is_finished: null;
+  has_authorization: null;
+  was_supplanted: null;
+  minutes_duration: null;
+  test_id: number;
+}
+
+export interface QuestionInput {
+  question: string;
+  question_id: string;
+  rightAnswer: string;
+  wrongOptions: string[];
+}
