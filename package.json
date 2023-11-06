@@ -2,7 +2,9 @@
   "author": "",
   "description": "",
   "devDependencies": {
-    "@biomejs/biome": "^1.3.3"
+    "@biomejs/biome": "^1.3.3",
+    "concurrently": "^8.2.2",
+    "dotenv-cli": "^7.3.0"
   },
   "keywords": [],
   "license": "ISC",
@@ -10,7 +12,14 @@
   "name": "misw-4501-abcjobs-grupo1",
   "scripts": {
     "biome": "biome check --apply .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:authorizer": "dotenv -e .env -- pnpm -C authorizer run dev",
+    "dev:candidate": "dotenv -e .env -- pnpm -C candidate run dev",
+    "dev:company": "dotenv -e .env -- pnpm -C company run dev",
+    "dev:evaluator": "dotenv -e .env -- pnpm -C evaluator run dev",
+    "dev:project": "dotenv -e .env -- pnpm -C project run dev",
+    "dev:web": "dotenv -e .env -- pnpm -C web run dev",
+    "dev": "concurrently \"pnpm run dev:authorizer\" \"pnpm run dev:candidate\" \"pnpm run dev:company\" \"pnpm run dev:evaluator\" \"pnpm run dev:project\" \"pnpm run dev:web\""
   },
   "version": "0.2.0"
 }
