@@ -5,14 +5,16 @@ class Dao {
   private client: Client
 
   constructor() {
-    //cllientString
-    this.client = new Client({
-      user: 'postgres',
-      port: 5432,
-      host: 'localhost',
-      password: 'postgres',
-      database: 'postgres',
-    })
+    this.client = new Client(
+        {
+          user: 'postgres',
+          port: 5432,
+          host: 'localhost',
+          password: 'postgres',
+          database: 'postgres',
+        }
+        //clientString
+    )
     this.client.connect()
   }
 
@@ -49,7 +51,7 @@ class Dao {
     `
 
     const userRegistered = await this.client.query(lookForRegistered, [email])
-    if (userRegistered.rowCount === 0)
+    if (userRegistered === undefined || userRegistered.rowCount === 0)
       return { found: false, isCandidate: false }
 
     const candidateQuery = `

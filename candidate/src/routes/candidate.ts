@@ -8,6 +8,7 @@ candidateRouter.post('/register', candidateControllers.register)
 candidateRouter.post('/register/profile', candidateControllers.registerProfile)
 candidateRouter.post('/search', candidateControllers.searchCandidate)
 candidateRouter.get('/test', candidateControllers.getTests)
+candidateRouter.get('/tests', candidateControllers.getAllTests)
 candidateRouter.post('/test', candidateControllers.testPerformed)
 
 export default candidateRouter

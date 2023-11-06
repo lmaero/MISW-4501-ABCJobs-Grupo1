@@ -133,24 +133,34 @@ export async function testPerformed(req: Request, res: Response) {
 
     if (testData !== ' ') {
       const dao = new Dao()
-      const dbResult = await dao.storeTestPerformedByCandidate(
-        candidateId,
-        testData.test_id,
-        testData.answers,
-      )
-      if (dbResult.msg === '200') {
-        return res
-          .status(200)
-          .json({ message: 'Answers for the test were saved' })
+      await dao.storeTestPerformedByCandidate(candidateId, testData.test_id, testData.answers)
+      const url = 'http://0.0.0.0:4002/evaluator/byCandidate/' + candidateId.toString()
+      const evaluatorResult = await axios.get(url);
+      if (evaluatorResult.status === 200) {
+        const results = evaluatorResult.data.results;
+        return res.status(200).json({message: 'Answers for the test were saved'})
       } else {
-        return res
-          .status(400)
-          .json({ message: 'The answers for the tests were not saved' })
+        return res.status(200).json({ message: 'The answers for the tests were not saved' })
       }
     } else {
       return res.status(400).json({
         message: 'No information provided',
       })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export async function getAllTests(req: Request, res: Response) {
+  try {
+    const evaluatorResult = await axios.get('http://0.0.0.0:4002/evaluator/tests')
+    if (evaluatorResult.status === 200) {
+      const results = evaluatorResult.data.results;
+      return res.status(200).json({ results })
+    } else {
+      return res.status(200).json({ message: 'No test results for the candidate' })
     }
   } catch (error) {
     console.error(error)
@@ -184,6 +194,7 @@ export async function getTests(req: Request, res: Response) {
 
 export default {
   getTests,
+  getAllTests,
   ping,
   register,
   registerProfile,

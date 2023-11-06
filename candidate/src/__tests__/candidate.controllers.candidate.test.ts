@@ -3,9 +3,10 @@ import {
   ping,
   register,
   registerProfile,
-  searchCandidate,
+  searchCandidate, testPerformed,
 } from '../controllers/candidate'
 import Dao from '../database/dao'
+import axios from 'axios'
 import { CandidatePreSch } from '../schemas/Candidate'
 import { CandidateProfileSch } from '../schemas/CandidateProfile'
 
@@ -13,6 +14,26 @@ jest.mock('express')
 jest.mock('../schemas/Candidate')
 jest.mock('../schemas/CandidateProfile')
 jest.mock('../database/dao')
+jest.mock('axios', () => {
+      return {
+        defaults: {
+          headers: {
+            common: jest.fn()
+          }
+        },
+        headers: jest.fn(),
+        create: jest.fn(),
+        get: jest.fn(() => Promise.resolve({
+              data: {
+                userInfo: {
+                  candidateId: jest.fn()
+                }
+              },
+            }
+        )),
+      };
+    }
+);
 
 describe('candidate tests', () => {
   test('ping', async () => {
@@ -172,12 +193,67 @@ describe('candidate tests', () => {
     expect(result.statusCode).toStrictEqual(expected)
   })
 
+  test('test performed 200', async () => {
+    const request = httpMocks.createRequest({
+      method: 'GET',
+      url: '/user/42',
+      params: {
+        id: 42,
+      },
+      headers: {
+        authorization: 'B 12345',
+      },
+      body: {
+        role: 'alonsodaniel10@hotmail.com',
+        languages: 'Contra1234!',
+        softSkills: 'alonso cantu',
+        spoken_languages: 'alonso cantu',
+      },
+    })
+    jest
+        .spyOn(Dao.prototype, 'storeTestPerformedByCandidate')
+        .mockReturnValue(Promise.resolve({ msg: '200' }))
+
+    const response = httpMocks.createResponse()
+    const result = await testPerformed(request, response)
+    expect(result.statusCode).toStrictEqual(200)
+  })
+
+  test('test performed 400', async () => {
+    const request = httpMocks.createRequest({
+      method: 'GET',
+      url: '/user/42',
+      params: {
+        id: 42,
+      },
+      headers: {
+        authorization: 'B 12345',
+      },
+      body: {
+        role: 'alonsodaniel10@hotmail.com',
+        languages: 'Contra1234!',
+        softSkills: 'alonso cantu',
+        spoken_languages: 'alonso cantu',
+      },
+    })
+    jest
+        .spyOn(Dao.prototype, 'storeTestPerformedByCandidate')
+        .mockReturnValue(Promise.resolve({ msg: '400' }))
+
+    const response = httpMocks.createResponse()
+    const result = await testPerformed(request, response)
+    expect(result.statusCode).toStrictEqual(400)
+  })
+
   test('search candidate 400', async () => {
     const request = httpMocks.createRequest({
       method: 'GET',
       url: '/user/42',
       params: {
         id: 42,
+      },
+      headers: {
+        authorization: 'B 12345',
       },
       body: {
         role: 'alonsodaniel10@hotmail.com',

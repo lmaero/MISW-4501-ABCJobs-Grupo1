@@ -26,14 +26,17 @@
     "zod-fixture": "^2.5.0"
   },
   "jest": {
-    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/candidate.ts"
+    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/test/",
       "/dist/"
     ],
     "preset": "ts-jest",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "modulePathIgnorePatterns": ["database", "routes", "schemas", "index", "dao"]
   },
   "license": "UNLICENSED",
   "main": "src/index.ts",

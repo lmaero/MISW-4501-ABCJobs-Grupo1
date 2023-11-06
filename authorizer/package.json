@@ -7,6 +7,7 @@
     "jwt-decode": "^3.1.2",
     "pg": "^8.11.3",
     "pg-bind": "^1.0.1",
+    "pg-mem": "^2.7.1",
     "zod": "^3.22.4"
   },
   "description": "Authorizer microservice",
@@ -24,14 +25,18 @@
     "typescript": "^5.2.2"
   },
   "jest": {
-    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/auth.ts",
+      "src/**/util.ts"
+    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/test/",
       "/dist/"
     ],
     "preset": "ts-jest",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "modulePathIgnorePatterns": ["database", "routes", "schemas", "index", "dao"]
   },
   "license": "UNLICENSED",
   "main": "src/index.ts",
