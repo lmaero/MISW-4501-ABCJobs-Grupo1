@@ -176,7 +176,8 @@
     "title": "Performing test",
     "subtitle": "Evaluate your skills",
     "cancelButton": "Cancel",
-    "sendButton": "Save"
+    "sendButton": "Save",
+    "notCreated": "No tests created yet!"
   },
   "CreateProjectPage": {
     "title": "Create Project",
@@ -235,6 +236,7 @@
   },
   "TestsResultsPage": {
     "title": "Last Test Results",
-    "createTest": "Create Test"
+    "createTest": "Create Test",
+    "notCreated": "No results yet!"
   }
 }

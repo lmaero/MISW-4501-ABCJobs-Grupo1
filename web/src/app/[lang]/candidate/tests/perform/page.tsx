@@ -26,8 +26,14 @@ export default function Page({ params }: Props) {
 
   useEffect(() => {
     async function getData() {
-      const response = await axios.get(`${COMPANY_HOST}/company/tests`)
-      setQuestions(response.data.tests[0].questions)
+      const response = await fetch(`${COMPANY_HOST}/company/tests`)
+      if (!response.ok) {
+        setQuestions([])
+        return null
+      } else {
+        const data = await response.json()
+        setQuestions(data.tests[0].questions)
+      }
     }
 
     void getData()
@@ -74,6 +80,11 @@ export default function Page({ params }: Props) {
         }
       })
   }
+
+  if (questions.length === 0)
+    return (
+      <p className='font-semibold mx-auto max-w-7xl p-7'>{t('notCreated')}</p>
+    )
 
   return (
     <div className='mx-auto max-w-2xl p-8'>

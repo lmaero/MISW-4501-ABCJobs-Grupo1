@@ -14,8 +14,6 @@ CREATE TABLE "Candidate"
     "role"            TEXT,
     "soft_skills"     TEXT,
     "technical_data"  JSONB,
-    "token"           TEXT
+    "token"           TEXT,
+    "candidateid"     SERIAL PRIMARY KEY
 );
-
-ALTER TABLE "Candidate" ADD COLUMN candidateId SERIAL PRIMARY KEY;
-
