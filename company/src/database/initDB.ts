@@ -1,7 +1,7 @@
-import { Client } from 'pg'
-import { clientString } from './pgClientConfig'
+import { Client } from "pg";
+import { clientString } from "./pgClientConfig";
 
-export const client = new Client(clientString)
+export const client = new Client(clientString);
 
 async function tableExists(tableName: string) {
   try {
@@ -36,7 +36,8 @@ export async function createTableIfNotExists() {
                     "password"           TEXT NOT NULL,
                     "preferred_language" TEXT,
                     "segments"           TEXT,
-                    "size"               TEXT
+                    "size"               TEXT,
+                    "token"              TEXT
                 );
             `)
 
