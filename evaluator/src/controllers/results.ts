@@ -36,9 +36,6 @@ export async function getResultsByUser (req: Request, res: Response) {
           result: '',
           score: ''
         }
-
-        console.log("candidateDbResults --> ", candidateDbResults)
-
         for(let prueba in candidateDbResults) {
           resultsWithScore.id = candidateDbResults[Number(prueba)].test_id;
           resultsWithScore.testName = candidateDbResults[Number(prueba)].test_name;
