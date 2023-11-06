@@ -157,7 +157,7 @@ export async function getAllTests(req: Request, res: Response) {
   try {
     const evaluatorResult = await axios.get('http://0.0.0.0:4002/evaluator/tests')
     if (evaluatorResult.status === 200) {
-      const results = evaluatorResult.data.results;
+      const results = evaluatorResult.data.resultsForAllCandidates;
       return res.status(200).json({ results })
     } else {
       return res.status(200).json({ message: 'No test results for the candidate' })
