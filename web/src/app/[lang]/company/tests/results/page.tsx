@@ -11,6 +11,15 @@ interface Props {
   }
 }
 
+interface Result {
+  id: number
+  candidate: string
+  test_type: string
+  test_name: string
+  result: string
+  score: number
+}
+
 export default function TestsResultsPage({ params }: Props) {
   const t = useTranslations('TestsResultsPage')
   const [results, setResults] = useState([])
@@ -47,7 +56,7 @@ export default function TestsResultsPage({ params }: Props) {
         </header>
         <hr className='border-b-1' />
         <section className='space-y-3'>
-          {results.map((result) => (
+          {results.map((result: Result) => (
             <>
               <article
                 key={result.id}
