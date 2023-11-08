@@ -16,7 +16,8 @@
       "warning": "No estás registrado, regístrate primero",
       "error": "Tu contraseña no coincide"
     },
-    "sendButton": "Ingresar"
+    "sendButton": "Ingresar",
+    "loginHere": "Regístrate aquí!"
   },
   "Navbar": {
     "projects": "Proyectos",
@@ -28,7 +29,8 @@
   "RegisterPage": {
     "title": "Regístrate",
     "candidate": "Candidato",
-    "company": "Compañía"
+    "company": "Compañía",
+    "loginHere": "Si ya tienes una cuenta. Ingresa aquí."
   },
   "CandidateRegisterPage": {
     "title": "Trabaja con las compañías más asombrosas. Regístrate hoy!",
