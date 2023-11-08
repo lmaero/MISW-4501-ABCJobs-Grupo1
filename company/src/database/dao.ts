@@ -1,19 +1,13 @@
 import { Client } from 'pg'
 import { Question } from '../schemas/Test'
+import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
 
   constructor() {
-    //clientString
-    this.client = new Client({
-      user: 'postgres',
-      port: 5432,
-      host: 'localhost',
-      password: 'postgres',
-      database: 'postgres',
-    })
-    this.client.connect()
+    this.client = new Client(clientString)
+    void this.client.connect()
   }
 
   async getTests() {

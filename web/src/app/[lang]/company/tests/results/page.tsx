@@ -29,14 +29,23 @@ export default function TestsResultsPage({ params }: Props) {
       const response = await fetch(`${CANDIDATE_HOST}/candidate/tests`)
       const data = await response.json()
       console.log(data.results)
-      setResults(data.results)
+      if (!data.results) setResults([])
+      else setResults(data.results)
     }
     void getData()
   }, [])
 
   if (results.length === 0)
     return (
-      <p className='font-semibold mx-auto max-w-7xl p-7'>{t('notCreated')}</p>
+      <div className='mx-auto max-w-7xl p-7 space-y-3'>
+        <p className='font-semibold'>{t('notCreated')}</p>
+        <Link
+          className='relative max-w-fit inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+          href='/company/tests/create'
+        >
+          {t('createTest')}
+        </Link>
+      </div>
     )
 
   return (

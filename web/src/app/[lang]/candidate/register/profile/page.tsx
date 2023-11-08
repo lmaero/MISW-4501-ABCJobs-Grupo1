@@ -13,7 +13,7 @@ import {
 import { Experience } from '@/schemas/ExperienceData'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -25,6 +25,7 @@ interface Props {
 
 export default function CandidateCompleteProfilePage({ params }: Props) {
   const t = useTranslations('CandidateProfilePage')
+  const router = useRouter()
   const searchParams = useSearchParams()
   const email = searchParams.get('email')
 
@@ -117,10 +118,11 @@ export default function CandidateCompleteProfilePage({ params }: Props) {
 
       const payload = await response.json()
       if (response.status === 200) {
-        return toast(t('notifications.success'), {
+        toast(t('notifications.success'), {
           type: 'success',
           autoClose: 3000,
         })
+        router.push('/login')
       }
 
       if (response.status === 404 || response.status === 400) {

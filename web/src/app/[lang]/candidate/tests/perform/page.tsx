@@ -23,6 +23,7 @@ export default function Page({ params }: Props) {
   const t = useTranslations('CandidatePerformTest')
   const router = useRouter()
   const [questions, setQuestions] = useState<Question[] | []>([])
+  const [testId, setTestId] = useState<number | null>(null)
 
   useEffect(() => {
     async function getData() {
@@ -33,6 +34,7 @@ export default function Page({ params }: Props) {
       } else {
         const data = await response.json()
         setQuestions(data.tests[0].questions)
+        setTestId(data.tests[0].test_id)
       }
     }
 
@@ -51,14 +53,19 @@ export default function Page({ params }: Props) {
 
   async function onSubmit(data: PerformTest) {
     await axios
-      .post(`${CANDIDATE_HOST}/candidate/test`, JSON.stringify(data), {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': '*',
+      .post(
+        `${CANDIDATE_HOST}/candidate/test`,
+        JSON.stringify({ test_id: testId, answers: data }),
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*',
+          },
+          withCredentials: false,
         },
-        withCredentials: false,
-      })
+      )
       .then((data) => {
         if (data.status === 200) {
           setTimeout(() => {

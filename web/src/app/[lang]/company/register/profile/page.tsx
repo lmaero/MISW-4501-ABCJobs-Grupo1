@@ -8,7 +8,7 @@ import { languages } from '@/lib/languages'
 import { CompanyProfile, CompanyProfileSch } from '@/schemas/CompanyProfile'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
@@ -18,6 +18,7 @@ interface Props {
 
 export default function CompanyCompleteProfilePage({ params }: Props) {
   const t = useTranslations('CompanyProfilePage')
+  const router = useRouter()
   const searchParams = useSearchParams()
   const email = searchParams.get('email')
 
@@ -46,10 +47,11 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
 
       const payload = await response.json()
       if (response.status === 201) {
-        return toast(t('notifications.success'), {
+        toast(t('notifications.success'), {
           type: 'success',
           autoClose: 3000,
         })
+        router.push('/login')
       }
 
       if (response.status === 404 || response.status === 400) {
