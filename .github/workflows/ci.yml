@@ -22,4 +22,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           port: 22
-          script: echo "${{ secrets.PASSPHRASE }}" | tr -d '\r' > key.pem | chmod 400 key.pem | ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.HOST }}
+          script: echo "${{ secrets.PASSPHRASE }}" | tr -d '\r' > key.pem | chmod 400 key.pem | ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.HOST }}:$port
