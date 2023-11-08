@@ -7,9 +7,10 @@ export const WithDescriptionTitle = ({
   title,
   description,
   viewStyle = {},
+  testID = 'title-with-description-id',
 }: TitleWithDescriptionProps) => {
   return (
-    <View style={viewStyle}>
+    <View testID={testID} style={viewStyle}>
       <Text style={appThemeStyles.labelTitle}>{title}</Text>
       <Text style={appThemeStyles.labelDescription}>{description}</Text>
     </View>

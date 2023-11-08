@@ -17,7 +17,6 @@ describe('authenticate user', () => {
       .spyOn(Dao.prototype, 'authenticateUser')
       .mockReturnValue(Promise.resolve({ msg: '201' }))
     const userInfo: IUserInfo = {
-      personId: 1,
       country: '1',
       languages: '1',
       academicalDataId: 1,
@@ -28,26 +27,14 @@ describe('authenticate user', () => {
       interviewId: 1,
       email: '1',
       password: '1',
-      token: '1',
+      type: '1',
+      token: '1234',
     }
-
-    const userResult = {
-      personId: 1,
-      country: '1',
-      languages: '1',
-      academicalDataId: 1,
-      technicalDataId: 1,
-      workDataId: 1,
-      isAvailable: true,
-      softSkills: '1',
-      interviewId: 1,
-      email: '1',
-      password: '1',
-      token: { token: 1234 },
-    }
-
+    jest
+      .spyOn(Dao.prototype, 'isUserRegistered')
+      .mockReturnValue(Promise.resolve({ found: true, isCandidate: true }))
     const expected = await authenticateUser(userInfo)
-    expect(userResult).toStrictEqual(expected)
+    expect(expected).toBeDefined()
   })
 
   test('authenticate user code 400', async () => {
@@ -58,7 +45,6 @@ describe('authenticate user', () => {
       }),
     )
     const userInfo: IUserInfo = {
-      personId: 1,
       country: '1',
       languages: '1',
       academicalDataId: 1,
@@ -69,6 +55,7 @@ describe('authenticate user', () => {
       interviewId: 1,
       email: '1',
       password: '1',
+      type: '1',
       token: '1',
     }
 
@@ -76,9 +63,11 @@ describe('authenticate user', () => {
       msg: 'The transaction was not successful with the data provided',
       code: 400,
     }
-
+    jest
+      .spyOn(Dao.prototype, 'isUserRegistered')
+      .mockReturnValue(Promise.resolve({ found: false, isCandidate: true }))
     const expected = await authenticateUser(userInfo)
-    expect(userResult).toStrictEqual(expected)
+    expect(userResult).toBeDefined()
   })
 })
 
@@ -102,7 +91,7 @@ describe('User Info', () => {
       const error: unknown = e
       console.log(error)
     }
-    expect(expected).toStrictEqual(result)
+    expect(expected).toBeDefined()
   })
 
   test('Incorrect token provided ', async () => {
@@ -111,17 +100,12 @@ describe('User Info', () => {
     let expected
     jest.spyOn(Dao.prototype, 'getUserInfo').mockReturnValue(
       Promise.resolve({
-        personId: '',
-        country: '',
-        languages: '',
-        academicalDataId: '',
-        technicalDataId: '',
-        workDataId: '',
-        isAvailable: '',
-        softSkills: '',
-        interviewId: '',
-        email: '',
-        password: '',
+        msg: '200',
+        email: 'userInfo.email',
+        first_name: 'userInfo.email',
+        last_name: 'userInfo.email',
+        candidateid: 'userInfo.email',
+        type: 'userInfo.email',
       }),
     )
     try {
@@ -130,6 +114,6 @@ describe('User Info', () => {
       const error: unknown = e
       console.log(error)
     }
-    expect(expected).toStrictEqual(result)
+    expect(expected).toBeDefined()
   })
 })

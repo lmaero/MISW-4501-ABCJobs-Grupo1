@@ -7,5 +7,23 @@ CREATE TABLE "Company"
     "password"           TEXT NOT NULL,
     "preferred_language" TEXT,
     "segments"           TEXT,
-    "size"               TEXT
+    "size"               TEXT,
+    "token"              TEXT
 );
+
+CREATE TABLE "Test"
+(
+    "name"               TEXT,
+    "applicable_to"      TEXT[],
+    "type"               TEXT,
+    "result"             INT,
+    "questions"          JSONB,
+    "is_individual_test" BOOLEAN,
+    "is_finished"        BOOLEAN,
+    "has_authorization"  JSONB[],
+    "was_supplanted"     BOOLEAN,
+    "minutes_duration"   INT,
+    "test_id"            SERIAL PRIMARY KEY
+);
+
+ALTER TABLE "Test" ADD COLUMN test_id SERIAL PRIMARY KEY;

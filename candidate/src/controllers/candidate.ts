@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { CandidatePreSch } from '../schemas/Candidate'
@@ -122,9 +123,93 @@ export async function searchCandidate(req: Request, res: Response) {
   }
 }
 
+export async function testPerformed(req: Request, res: Response) {
+  try {
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const candidateId = authResult.data.userInfo.candidateid
+    const testData = req.body
+
+    if (testData !== ' ') {
+      const dao = new Dao()
+      await dao.storeTestPerformedByCandidate(
+        candidateId,
+        testData.test_id,
+        testData.answers,
+      )
+      const url = `http://0.0.0.0:4002/evaluator/byCandidate/${candidateId}`
+      const evaluatorResult = await axios.get(url)
+      if (evaluatorResult.status === 200) {
+        const results = evaluatorResult.data.results
+        return res
+          .status(200)
+          .json({ message: 'Answers for the test were saved' })
+      } else {
+        return res
+          .status(200)
+          .json({ message: 'The answers for the tests were not saved' })
+      }
+    } else {
+      return res.status(400).json({
+        message: 'No information provided',
+      })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export async function getAllTests(req: Request, res: Response) {
+  try {
+    const evaluatorResult = await axios.get(
+      'http://0.0.0.0:4002/evaluator/tests',
+    )
+    if (evaluatorResult.status === 200) {
+      const results = evaluatorResult.data.resultsForAllCandidates
+      return res.status(200).json({ results })
+    } else {
+      return res
+        .status(200)
+        .json({ message: 'No test results for the candidate' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export async function getTests(req: Request, res: Response) {
+  try {
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const candidateId = authResult.data.userInfo.candidateid
+
+    const evaluatorResult = await axios.get(
+      `http://0.0.0.0:4002/evaluator/byCandidate/${candidateId}`,
+    )
+    if (evaluatorResult.status === 200) {
+      const results = evaluatorResult.data.results
+      return res.status(200).json({ results })
+    } else {
+      return res
+        .status(200)
+        .json({ message: 'No test results for the candidate' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
 export default {
+  getTests,
+  getAllTests,
   ping,
   register,
   registerProfile,
   searchCandidate,
+  testPerformed,
 }

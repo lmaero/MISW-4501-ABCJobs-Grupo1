@@ -1,19 +1,72 @@
 import { Client } from 'pg'
-import { clientString } from './pgClientConfig'
+import { Question } from '../schemas/Test'
 
 class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client(clientString)
+    //clientString
+    this.client = new Client({
+      user: 'postgres',
+      port: 5432,
+      host: 'localhost',
+      password: 'postgres',
+      database: 'postgres',
+    })
     this.client.connect()
   }
 
+  async getTests() {
+    const query = `select * from "Test"`
+    try {
+      const tests = await this.client.query(query)
+      if (tests.rows.length > 0) {
+        return { msg: '201', tests: tests.rows }
+      } else {
+        return { msg: '400' }
+      }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
+
+  async getTestById(id: string) {
+    const query = `select * from "Test" where test_id = $1`
+    try {
+      const test = await this.client.query(query, [id])
+      if (test.rows.length > 0) {
+        return { msg: '201', tests: test.rows }
+      } else {
+        return { msg: '400' }
+      }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
   async storeCompany(email: string, password: string, company_name: string) {
     const query = `INSERT INTO "Company" ("email", "password", "company_name")
-                       VALUES ($1, $2, $3)`
+                   VALUES ($1, $2, $3)`
     try {
       await this.client.query(query, [email, password, company_name])
+      return { msg: '201' }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
+
+  async storeTest(
+    name: string,
+    applicable_to: string[],
+    questions: Question[],
+  ) {
+    const query = `INSERT INTO "Test" ("name", "applicable_to", "questions")
+                   VALUES ($1, $2, $3)`
+    try {
+      await this.client.query(query, [
+        name,
+        applicable_to,
+        JSON.stringify(questions),
+      ])
       return { msg: '201' }
     } catch (err) {
       return { msg: '400' }
@@ -29,12 +82,12 @@ class Dao {
     main_contact: string,
   ) {
     const query = `UPDATE "Company"
-                       SET size               = $2,
-                           main_address       = $3,
-                           segments           = $4,
-                           preferred_language = $5,
-                           main_contact       = $6
-                       WHERE email = $1`
+                   SET size               = $2,
+                       main_address       = $3,
+                       segments           = $4,
+                       preferred_language = $5,
+                       main_contact       = $6
+                   WHERE email = $1`
 
     try {
       await this.client.query(query, [

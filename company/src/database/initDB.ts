@@ -36,7 +36,8 @@ export async function createTableIfNotExists() {
                     "password"           TEXT NOT NULL,
                     "preferred_language" TEXT,
                     "segments"           TEXT,
-                    "size"               TEXT
+                    "size"               TEXT,
+                    "token"              TEXT
                 );
             `)
 

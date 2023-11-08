@@ -3,6 +3,28 @@
     "title": "ABC Jobs",
     "localizationText": "Estás usando nuestro sitio web en Español"
   },
+  "LoginPage": {
+    "title": "Ingresa a ABC Jobs",
+    "formLabels": {
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@tudominio.com",
+      "password": "Contraseña",
+      "typeTitle": "Ingresar como..."
+    },
+    "notifications": {
+      "success": "Ingresaste exitosamente",
+      "warning": "No estás registrado, regístrate primero",
+      "error": "Tu contraseña no coincide"
+    },
+    "sendButton": "Ingresar"
+  },
+  "Navbar": {
+    "projects": "Proyectos",
+    "interviews": "Entrevistas",
+    "tests": "Pruebas",
+    "search": "Buscar Candidatos",
+    "signOut": "Cerrar Sesión"
+  },
   "RegisterPage": {
     "title": "Regístrate",
     "candidate": "Candidato",
@@ -150,6 +172,13 @@
     "cancelButton": "Cancelar",
     "sendButton": "Guardar"
   },
+  "CandidatePerformTest": {
+    "title": "Presentando prueba",
+    "subtitle": "Evalúa tus habilidades",
+    "cancelButton": "Cancelar",
+    "sendButton": "Enviar",
+    "notCreated": "No hay pruebas creadas aún"
+  },
   "CreateProjectPage": {
     "title": "Crear Proyecto",
     "subtitle": "Establece los requerimientos del nuevo proyecto",
@@ -171,5 +200,43 @@
     },
     "cancelButton": "Cancelar",
     "sendButton": "Guardar"
+  },
+  "CreateTestPage": {
+    "title": "Crear prueba",
+    "subtitle": "Evalúa las habilidades de los candidatos",
+    "basic": {
+      "title": "Información Básica",
+      "formLabels": {
+        "nameTitle": "Nombre de la prueba",
+        "namePlaceholder": "React Avanzando",
+        "rolesTitle": "Aplicable a",
+        "rolesSubtitle": "Selecciona los roles para los cuales esta prueba es aplicable"
+      }
+    },
+    "questionsData": {
+      "title": "Preguntas",
+      "formLabels": {
+        "questionTitle": "Pregunta",
+        "questionPlaceholder": "Selecciona la mejor definición para JSX",
+        "rightAnswerTitle": "Respuesta correcta",
+        "rightAnswerPlaceholder": "JavaScript XML",
+        "wrongOptionsTitle": "Opciones incorrectas",
+        "wrongOptionsPlaceholder0": "Un nuevo lenguaje",
+        "wrongOptionsPlaceholder1": "Un complemento para JavaScript",
+        "wrongOptionsPlaceholder2": "Una librería asombrosa"
+      },
+      "removeButton": "Eliminar pregunta",
+      "addMoreQuestions": "Añadir más preguntas"
+    },
+    "notifications": {
+      "success": "Prueba creada exitosamente"
+    },
+    "cancelButton": "Cancelar",
+    "sendButton": "Crear prueba"
+  },
+  "TestsResultsPage": {
+    "title": "Últimos resultados de pruebas",
+    "createTest": "Crear prueba",
+    "notCreated": "No hay resultados aún"
   }
 }

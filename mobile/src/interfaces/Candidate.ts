@@ -15,3 +15,16 @@ export type AcademicData = yup.InferType<typeof academicDataSchema>;
 export type Experience = yup.InferType<typeof experienceSchema>;
 
 export type TechnicalData = yup.InferType<typeof technicalDataSchema>;
+
+export interface CandidateTestsInput {
+  results: Result[];
+}
+
+export interface Result {
+  id: number;
+  candidate: null | string;
+  test_type: string;
+  test_name: string;
+  result: string;
+  score: number;
+}
