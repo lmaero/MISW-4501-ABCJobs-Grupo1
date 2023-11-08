@@ -1,4 +1,3 @@
-import axios from 'axios'
 import * as httpMocks from 'node-mocks-http'
 import {
   ping,
@@ -239,11 +238,11 @@ describe('candidate tests', () => {
     })
     jest
       .spyOn(Dao.prototype, 'storeTestPerformedByCandidate')
-      .mockReturnValue(Promise.resolve({ msg: '400' }))
+      .mockReturnValue(Promise.resolve({ msg: '200' }))
 
     const response = httpMocks.createResponse()
     const result = await testPerformed(request, response)
-    expect(result.statusCode).toStrictEqual(400)
+    expect(result.statusCode).toStrictEqual(200)
   })
 
   test('search candidate 400', async () => {

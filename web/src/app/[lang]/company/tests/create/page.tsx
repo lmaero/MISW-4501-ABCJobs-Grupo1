@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
 
 const generateKey = (pre: number) => {
   return `${pre}_${new Date().getTime()}`

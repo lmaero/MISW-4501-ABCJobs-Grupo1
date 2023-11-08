@@ -138,7 +138,7 @@ export async function testPerformed(req: Request, res: Response) {
         testData.test_id,
         testData.answers,
       )
-      const url = `http://0.0.0.0:4002/evaluator/byCandidate/${candidateId.toString()}`
+      const url = `http://0.0.0.0:4002/evaluator/byCandidate/${candidateId}`
       const evaluatorResult = await axios.get(url)
       if (evaluatorResult.status === 200) {
         const results = evaluatorResult.data.results
