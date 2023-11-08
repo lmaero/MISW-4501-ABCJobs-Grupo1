@@ -64,6 +64,7 @@ class Dao {
 
     try {
       const userInDb = await this.client.query(query, [email, password])
+      if (!userInDb.rowCount) return { found: 0, isCandidate }
       return { found: userInDb?.rowCount > 0, isCandidate }
     } catch (err) {
       console.log(err)
