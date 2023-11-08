@@ -6,7 +6,7 @@ export async function getAllResults(req: Request, res: Response) {
     const dao = new Dao()
     const resultsForAllCandidates = await dao.getAllTestsResults()
 
-    if (resultsForAllCandidates.msg === "201") {
+    if (resultsForAllCandidates.msg === '201') {
       return res
         .status(200)
         .json({ resultsForAllCandidates: resultsForAllCandidates.tests })
@@ -68,9 +68,9 @@ export async function getResultsByUser(req: Request, res: Response) {
             resultsWithScore.result = 'Excellent'
           }
           await dao.updateCandidateTestScore(
-              candidateId,
-              resultsWithScore.id.toString(),
-              Number(score),
+            candidateId,
+            resultsWithScore.id.toString(),
+            Number(score),
           )
           await dao.updateCandidateTestScore(
             candidateId,
