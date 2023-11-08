@@ -8,6 +8,7 @@ import { loginType } from '@/lib/loginType'
 import { Login, LoginSch } from '@/schemas/Login'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -135,14 +136,22 @@ export default function LoginPage({ params }: Props) {
             </div>
           </article>
 
-          <button
-            data-testid='crp-login-button'
-            disabled={!isValid}
-            type='submit'
-            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
-          >
-            {t('sendButton')}
-          </button>
+          <div>
+            <button
+              data-testid='crp-login-button'
+              disabled={!isValid}
+              type='submit'
+              className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+            >
+              {t('sendButton')}
+            </button>
+            <Link
+              className='text-right text-sm block mt-5 text-blue-600'
+              href='/register'
+            >
+              {t('loginHere')}
+            </Link>
+          </div>
         </form>
       </div>
     </div>

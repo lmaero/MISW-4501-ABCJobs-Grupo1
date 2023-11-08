@@ -29,10 +29,27 @@ export async function createTableIfNotExists() {
       await client.query(`
                 CREATE TABLE IF NOT EXISTS "${tableName}"
                 (
-                      "candidate_id"       INT,
+                      "candidateid"        INT,
                       "test_id"            INT,
                       "answers"            TEXT[],
-                      "score"              INT
+                      "score"              FLOAT
+                );
+            `)
+
+      await client.query(`
+                CREATE TABLE IF NOT EXISTS "Test"
+                (
+                      "name"               TEXT,
+                      "applicable_to"      TEXT[],
+                      "type"               TEXT,
+                      "result"             INT,
+                      "questions"          JSONB,
+                      "is_individual_test" BOOLEAN,
+                      "is_finished"        BOOLEAN,
+                      "has_authorization"  JSONB,
+                      "was_supplanted"     BOOLEAN,
+                      "minutes_duration"   INT,
+                      "test_id"            SERIAL PRIMARY KEY
                 );
             `)
 

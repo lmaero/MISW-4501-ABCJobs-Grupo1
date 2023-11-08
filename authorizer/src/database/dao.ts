@@ -5,17 +5,8 @@ class Dao {
   private client: Client
 
   constructor() {
-    this.client = new Client(
-        {
-          user: 'postgres',
-          port: 5432,
-          host: 'localhost',
-          password: 'postgres',
-          database: 'postgres',
-        }
-        //clientString
-    )
-    this.client.connect()
+    this.client = new Client(clientString)
+    void this.client.connect()
   }
 
   async authenticateUser(
@@ -65,7 +56,8 @@ class Dao {
 
     try {
       const userInDb = await this.client.query(query, [email, password])
-      return { found: userInDb.rowCount > 0, isCandidate }
+      if (!userInDb.rowCount) return { found: 0, isCandidate }
+      return { found: userInDb?.rowCount > 0, isCandidate }
     } catch (err) {
       console.log(err)
       throw new Error('There was a problem processing the request in the DB')

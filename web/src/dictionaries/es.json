@@ -16,7 +16,8 @@
       "warning": "No estás registrado, regístrate primero",
       "error": "Tu contraseña no coincide"
     },
-    "sendButton": "Ingresar"
+    "sendButton": "Ingresar",
+    "loginHere": "Regístrate aquí!"
   },
   "Navbar": {
     "projects": "Proyectos",
@@ -28,7 +29,8 @@
   "RegisterPage": {
     "title": "Regístrate",
     "candidate": "Candidato",
-    "company": "Compañía"
+    "company": "Compañía",
+    "loginHere": "Si ya tienes una cuenta. Ingresa aquí."
   },
   "CandidateRegisterPage": {
     "title": "Trabaja con las compañías más asombrosas. Regístrate hoy!",
@@ -176,7 +178,8 @@
     "title": "Presentando prueba",
     "subtitle": "Evalúa tus habilidades",
     "cancelButton": "Cancelar",
-    "sendButton": "Enviar"
+    "sendButton": "Enviar",
+    "notCreated": "No hay pruebas creadas aún"
   },
   "CreateProjectPage": {
     "title": "Crear Proyecto",
@@ -235,6 +238,7 @@
   },
   "TestsResultsPage": {
     "title": "Últimos resultados de pruebas",
-    "createTest": "Crear prueba"
+    "createTest": "Crear prueba",
+    "notCreated": "No hay resultados aún"
   }
 }

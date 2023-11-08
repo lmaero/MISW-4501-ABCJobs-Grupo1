@@ -6,7 +6,7 @@ class Dao {
 
   constructor() {
     this.client = new Client(clientString)
-    this.client.connect()
+    void this.client.connect()
   }
 
   async storeProject(

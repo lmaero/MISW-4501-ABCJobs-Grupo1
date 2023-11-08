@@ -16,7 +16,8 @@
       "warning": "You're not registered, please register first.",
       "error": "Your password does not match"
     },
-    "sendButton": "Login"
+    "sendButton": "Login",
+    "loginHere": "Sign up here!"
   },
   "Navbar": {
     "projects": "Projects",
@@ -28,7 +29,8 @@
   "RegisterPage": {
     "title": "Register",
     "candidate": "Candidate",
-    "company": "Company"
+    "company": "Company",
+    "loginHere": "Already have an account? Log in"
   },
   "CandidateRegisterPage": {
     "title": "Be hired by the most amazing companies. Register today!",
@@ -176,7 +178,8 @@
     "title": "Performing test",
     "subtitle": "Evaluate your skills",
     "cancelButton": "Cancel",
-    "sendButton": "Save"
+    "sendButton": "Save",
+    "notCreated": "No tests created yet!"
   },
   "CreateProjectPage": {
     "title": "Create Project",
@@ -235,6 +238,7 @@
   },
   "TestsResultsPage": {
     "title": "Last Test Results",
-    "createTest": "Create Test"
+    "createTest": "Create Test",
+    "notCreated": "No results yet!"
   }
 }

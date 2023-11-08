@@ -22,7 +22,8 @@ CREATE TABLE "Test"
     "is_finished"        BOOLEAN,
     "has_authorization"  JSONB[],
     "was_supplanted"     BOOLEAN,
-    "minutes_duration"   INT
+    "minutes_duration"   INT,
+    "test_id"            SERIAL PRIMARY KEY
 );
 
 ALTER TABLE "Test" ADD COLUMN test_id SERIAL PRIMARY KEY;

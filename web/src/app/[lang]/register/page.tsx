@@ -16,6 +16,12 @@ export default function RegisterPage({ params }: Props) {
     <main className='flex h-full flex-col items-center justify-center space-y-6 bg-gray-100'>
       <Logo className='h-10' />
       <h1 className='text-3xl font-bold'>{t('title')}</h1>
+      <Link
+        className='text-right text-sm block mt-5 text-blue-600'
+        href='/login'
+      >
+        {t('loginHere')}
+      </Link>
 
       <div className='flex space-x-5'>
         <Link
