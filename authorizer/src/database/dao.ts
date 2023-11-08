@@ -1,5 +1,4 @@
 import { Client } from 'pg'
-import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
@@ -65,7 +64,7 @@ class Dao {
 
     try {
       const userInDb = await this.client.query(query, [email, password])
-      return { found: userInDb.rowCount > 0, isCandidate }
+      return { found: userInDb?.rowCount > 0, isCandidate }
     } catch (err) {
       console.log(err)
       throw new Error('There was a problem processing the request in the DB')
