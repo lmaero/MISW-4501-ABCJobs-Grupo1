@@ -27,7 +27,7 @@ jobs:
             chmod 400 key.pem
             ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.PORT }}
             cd /home/ubuntu/proyecto/MISW-4501-ABCJobs-Grupo1
-            docker compose down --remove-orphans --rmi -v
+            docker compose down --remove-orphans --rmi all -v
             cd ..
             rm -rf ./MISW-4501-ABCJobs-Grupo1
             git clone https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
