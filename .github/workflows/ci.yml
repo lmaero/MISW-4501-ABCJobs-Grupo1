@@ -3,13 +3,14 @@ name: CI-Tests-CD-Integration
 on:
   push:
     branches:
-      - 'HU/**'
+      - 'develop'
+      - 'main'
   pull_request:
     types:
       - opened
     branches:
-      - 'HU/**'
       - 'develop'
+      - 'main'
 
 jobs:
   continuos-deployment:
