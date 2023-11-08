@@ -18,20 +18,7 @@ jobs:
       - name: Access to AWS Instance
         uses: appleboy/ssh-action@v1.0.0
         with:
-          HOST: ${{ secrets.AWS_HOST }}
-          API_PORT: ${{ secrets.API_PORT }}
-          AUTH_PORT: ${{ secrets.AUTH_PORT }}
-          CANDIDATE_PORT: ${{ secrets.CANDIDATE_PORT }}
-          EVALUATOR_PORT: ${{ secrets.EVALUATOR_PORT }}
-          PROJECT_PORT: ${{ secrets.PROJECT_PORT }}
-          COMPANY_PORT: ${{ secrets.COMPANY_PORT }}
-          NODE_ENV: development
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB_NAME: ${{ secrets.POSTGRES_DB_NAME }}
-          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          host: ${{ secrets.AWS_HOST }}
           key: ${{ secrets.PASSPHRASE }}
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
@@ -40,6 +27,24 @@ jobs:
             chmod 400 key.pem
             ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.AWS_HOST }}:${{ secrets.PORT }}
             cd /home/ubuntu/proyecto/MISW-4501-ABCJobs-Grupo1
+            
+            echo NODE_ENV=${{ secrets.NODE_ENV }} > .env
+            echo TOKEN_SECRET=${{ secrets.TOKEN_SECRET }} >> .env
+            echo HOST=http://localhost >> .env
+            echo API_PORT=${{ secrets.API_PORT }} >> .env
+            echo API_SECURE_PORT=${{ secrets.API_SECURE_PORT }} >> .env
+            echo AUTH_PORT=${{ secrets.AUTH_PORT }} >> .env
+            echo CANDIDATE_PORT=${{ secrets.CANDIDATE_PORT }} >> .env
+            echo EVALUATOR_PORT=${{ secrets.EVALUATOR_PORT }} >> .env
+            echo PROJECT_PORT=${{ secrets.PROJECT_PORT }} >> .env
+            echo COMPANY_PORT=${{ secrets.COMPANY_PORT }} >> .env
+            echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+            echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
+            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+            echo POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }} >> .env
+            echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
+            
             docker compose down --remove-orphans --rmi all -v
             cd ..
             rm -rf ./MISW-4501-ABCJobs-Grupo1
