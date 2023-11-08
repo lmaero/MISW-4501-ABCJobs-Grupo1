@@ -33,13 +33,12 @@ jobs:
           POSTGRES_DB_NAME: ${{ secrets.POSTGRES_DB_NAME }}
           POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
           key: ${{ secrets.PASSPHRASE }}
-          host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           script: |
             echo "${{ secrets.PASSPHRASE }}" > tr -d '\r' > key.pem  
             chmod 400 key.pem
-            ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.PORT }}
+            ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.AWS_HOST }}:${{ secrets.PORT }}
             cd /home/ubuntu/proyecto/MISW-4501-ABCJobs-Grupo1
             docker compose down --remove-orphans --rmi all -v
             cd ..
