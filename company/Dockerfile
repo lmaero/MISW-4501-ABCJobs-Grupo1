@@ -3,10 +3,9 @@ FROM node:18.17.1-alpine3.18 AS build
 WORKDIR /app
 COPY package.json tsconfig.json ./
 COPY prisma ./prisma/
-RUN corepack enable
-RUN pnpm install --silent
+RUN npm install
 COPY . ./
-RUN pnpm run build
+RUN npm run build
 
 # --------------> TS REMOVER
 FROM node:18.17.1-alpine3.18 as ts-remover
@@ -14,8 +13,7 @@ WORKDIR /app
 COPY --from=build /app/package.json /app/package.json
 COPY --from=build /app/build /app/build
 COPY --from=build /app/prisma /app/prisma
-RUN corepack enable
-RUN pnpm install --only=production
+RUN npm install --omit dev
 
 # --------------> PRODUCTION IMAGE
 FROM node:18.17.1-alpine3.18

@@ -5,16 +5,18 @@ export async function getAllResults(req: Request, res: Response) {
   try {
     const dao = new Dao()
     const resultsForAllCandidates = await dao.getAllTestsResults()
-    // Darle el formato correcto que esperan de respuesta
 
-    if (resultsForAllCandidates) {
+    if (resultsForAllCandidates.msg === '201') {
       return res
         .status(200)
         .json({ resultsForAllCandidates: resultsForAllCandidates.tests })
     } else {
       return res.status(400).json({ message: 'No candidate user provided' })
     }
-  } catch (e) {}
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
 }
 export async function getResultsByUser(req: Request, res: Response) {
   try {
@@ -65,7 +67,11 @@ export async function getResultsByUser(req: Request, res: Response) {
           } else {
             resultsWithScore.result = 'Excellent'
           }
-
+          await dao.updateCandidateTestScore(
+            candidateId,
+            resultsWithScore.id.toString(),
+            Number(score),
+          )
           await dao.updateCandidateTestScore(
             candidateId,
             resultsWithScore.id.toString(),

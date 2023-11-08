@@ -1,18 +1,4 @@
 name: CI-Tests-CD-Integration
-env:
-  HOST: http://localhost
-  API_PORT: 80
-  AUTH_PORT: 4000
-  CANDIDATE_PORT: 4001
-  PROJECT_PORT: 4003
-  COMPANY_PORT: 4004
-  NODE_ENV: development
-  DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
-  POSTGRES_USER: postgres
-  POSTGRES_HOST: postgres
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_DB_NAME: postgres
-  POSTGRES_PORT: 5432
 
 on:
   push:
@@ -26,190 +12,62 @@ on:
       - 'develop'
 
 jobs:
-  authorizer-tests:
+  continuos-deployment:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: authorizer
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Access to AWS Instance
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          node-version: '18'
-      - name: Set up corepack
-        run: corepack enable
-      - name: Install authorizer dependencies
-        run: pnpm install
-      - name: Run tests and generate coverage report
-        run: pnpm test
-      - name: Login Dockerhub
-        env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - name: Build the Docker image
-        run: sudo docker build -t acantu297366/authorizer .
-      - name: Push to Dockerhub
-        run: sudo docker push acantu297366/authorizer
-
-  candidate-tests:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: candidate
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Set up corepack
-        run: corepack enable
-      - name: Install authorizer dependencies
-        run: pnpm install
-      - name: Run tests and generate coverage report
-        run: pnpm test
-      - name: Login Dockerhub
-        env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - name: Build the Docker image
-        run: sudo docker build -t acantu297366/candidate .
-      - name: Push to Dockerhub
-        run: sudo docker push acantu297366/candidate
-
-  company-tests:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: company
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Set up corepack
-        run: corepack enable
-      - name: Install company dependencies
-        run: pnpm install
-      - name: Run tests and generate coverage report
-        run: pnpm test
-      - name: Login Dockerhub
-        env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - name: Build the Docker image
-        run: sudo docker build -t acantu297366/company .
-      - name: Push to Dockerhub
-        run: sudo docker push acantu297366/company
-
-  project-tests:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: project
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Set up corepack
-        run: corepack enable
-      - name: Install project dependencies
-        run: pnpm install
-      - name: Run tests and generate coverage report
-        run: pnpm test
-      - name: Login Dockerhub
-        env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - name: Build the Docker image
-        run: sudo docker build -t acantu297366/project .
-      - name: Push to Dockerhub
-        run: sudo docker push acantu297366/project
-
-  web-tests:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Set up corepack
-        run: corepack enable
-      - name: Install authorizer dependencies
-        run: pnpm install
-      - name: Run tests and generate coverage report
-        run: pnpm test
-
-  api:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: api
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Login Dockerhub
-        env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run: sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - name: Build the API Docker image
-        run: sudo docker build -t acantu297366/api .
-      - name: Push to Dockerhub
-        run: sudo docker push acantu297366/api
-
-  build:
-    needs: [ authorizer-tests, candidate-tests, company-tests, project-tests, web-tests, api ]
-    runs-on: self-hosted
-    steps:
-      - name: Pull Candidate Image from Dockerhub
-        run: sudo docker pull acantu297366/candidate:latest
-      - name: Delete Candidate Old Docker Container
-        run: sudo docker rm -f candidate || true
-      - name: Run Candidate Docker Container
-        run: sudo docker run -d -p ${{ env.CANDIDATE_PORT }}:${{ env.CANDIDATE_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e CANDIDATE_PORT=${{ env.CANDIDATE_PORT }} --name candidate acantu297366/candidate
-
-      - name: Pull Company Docker Image from Dockerhub
-        run: sudo docker pull acantu297366/company:latest
-      - name: Delete Company Old Docker Container
-        run: sudo docker rm -f company || true
-      - name: Run Company Docker Container
-        run: sudo docker run -d -p ${{ env.COMPANY_PORT }}:${{ env.COMPANY_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e COMPANY_PORT=${{ env.COMPANY_PORT }} --name company acantu297366/company
-
-      - name: Pull Project Docker Image from Dockerhub
-        run: sudo docker pull acantu297366/project:latest
-      - name: Delete Project Old Docker Container
-        run: sudo docker rm -f project || true
-      - name: Run Project Docker Container
-        run: sudo docker run -d -p ${{ env.PROJECT_PORT }}:${{ env.PROJECT_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e PROJECT_PORT=${{ env.PROJECT_PORT }} --name project acantu297366/project
-
-      - name: Pull API Docker Image from Dockerhub
-        run: sudo docker pull acantu297366/api:latest
-      - name: Delete API Old Docker Container
-        run: sudo docker rm -f api || true
-      - name: Run API Docker Container
-        run: sudo docker run -d -p ${{ env.API_PORT }}:${{ env.API_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e API_PORT=${{ env.API_PORT }} --name api acantu297366/api
-
-      - name: Pull Postgres Docker Image from Dockerhub
-        run: sudo docker pull postgres:15.4-alpine3.18
-      - name: Delete Postgres Old Docker Container
-        run: sudo docker rm -f postgres || true
-      - name: Run Postgres Docker Container
-        run: sudo docker run -d -p ${{ env.POSTGRES_PORT }}:${{ env.POSTGRES_PORT }} -e NODE_ENV=${{ env.NODE_ENV }} -e POSTGRES_USER=${{ env.POSTGRES_USER }} -e POSTGRES_HOST=${{ env.POSTGRES_HOST }} -e POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} -e POSTGRES_DB_NAME=${{ env.POSTGRES_DB_NAME }} --name postgres postgres:15.4-alpine3.18
+          host: ${{ secrets.AWS_HOST }}
+          key: ${{ secrets.PASSPHRASE }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          script: |
+            echo "${{ secrets.PASSPHRASE }}" > tr -d '\r' > key.pem  
+            chmod 400 key.pem
+            ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.AWS_HOST }}:${{ secrets.PORT }}
+            cd /home/ubuntu/proyecto/MISW-4501-ABCJobs-Grupo1
+            
+            sudo docker system prune -af
+            
+            echo NODE_ENV=${{ secrets.NODE_ENV }} > .env
+            echo TOKEN_SECRET=${{ secrets.TOKEN_SECRET }} >> .env
+            echo HOST=http://localhost >> .env
+            echo API_PORT=${{ secrets.API_PORT }} >> .env
+            echo API_SECURE_PORT=${{ secrets.API_SECURE_PORT }} >> .env
+            echo AUTH_PORT=${{ secrets.AUTH_PORT }} >> .env
+            echo CANDIDATE_PORT=${{ secrets.CANDIDATE_PORT }} >> .env
+            echo EVALUATOR_PORT=${{ secrets.EVALUATOR_PORT }} >> .env
+            echo PROJECT_PORT=${{ secrets.PROJECT_PORT }} >> .env
+            echo COMPANY_PORT=${{ secrets.COMPANY_PORT }} >> .env
+            echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+            echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
+            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+            echo POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }} >> .env
+            echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
+            
+            sudo docker compose down --remove-orphans --rmi all -v
+            cd ..
+            rm -rf ./MISW-4501-ABCJobs-Grupo1
+            git clone -b ${{ github.ref_name }} https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
+            cd ./MISW-4501-ABCJobs-Grupo1
+            
+            echo NODE_ENV=${{ secrets.NODE_ENV }} > .env
+            echo TOKEN_SECRET=${{ secrets.TOKEN_SECRET }} >> .env
+            echo HOST=http://localhost >> .env
+            echo API_PORT=${{ secrets.API_PORT }} >> .env
+            echo API_SECURE_PORT=${{ secrets.API_SECURE_PORT }} >> .env
+            echo AUTH_PORT=${{ secrets.AUTH_PORT }} >> .env
+            echo CANDIDATE_PORT=${{ secrets.CANDIDATE_PORT }} >> .env
+            echo EVALUATOR_PORT=${{ secrets.EVALUATOR_PORT }} >> .env
+            echo PROJECT_PORT=${{ secrets.PROJECT_PORT }} >> .env
+            echo COMPANY_PORT=${{ secrets.COMPANY_PORT }} >> .env
+            echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+            echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
+            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+            echo POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }} >> .env
+            echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
+            
+            sudo docker compose up -d

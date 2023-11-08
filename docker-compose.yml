@@ -27,6 +27,19 @@ services:
     networks:
       - microservices
 
+  evaluator:
+    container_name: "evaluator"
+    build: "./evaluator"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - ${EVALUATOR_PORT}:${EVALUATOR_PORT}
+    env_file:
+      - .env
+    networks:
+      - microservices
+
   company:
     container_name: "company"
     build: "./company"
@@ -81,6 +94,7 @@ services:
     depends_on:
       - authorizer
       - candidate
+      - evaluator
       - company
       - project
       - postgres

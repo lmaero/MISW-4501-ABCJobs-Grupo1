@@ -28,7 +28,6 @@
   "license": "UNLICENSED",
   "main": "src/index.ts",
   "name": "project-management",
-  "packageManager": "pnpm@8.7.5",
   "prisma": {
     "schema": "prisma/schema.prisma"
   },
