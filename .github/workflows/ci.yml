@@ -50,7 +50,7 @@ jobs:
             sudo docker compose down --remove-orphans --rmi all -v
             cd ..
             rm -rf ./MISW-4501-ABCJobs-Grupo1
-            git clone https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
+            git clone -b ${{ GITHUB_REF_NAME }} https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
             cd ./MISW-4501-ABCJobs-Grupo1
             
             echo NODE_ENV=${{ secrets.NODE_ENV }} > .env
