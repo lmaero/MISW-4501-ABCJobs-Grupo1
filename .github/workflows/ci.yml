@@ -45,7 +45,7 @@ jobs:
             echo POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }} >> .env
             echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
             
-            docker compose down --remove-orphans --rmi all -v
+            sudo docker compose down --remove-orphans --rmi all -v
             cd ..
             rm -rf ./MISW-4501-ABCJobs-Grupo1
             git clone https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
