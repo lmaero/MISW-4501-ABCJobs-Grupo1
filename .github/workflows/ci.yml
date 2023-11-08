@@ -16,12 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Access to AWS Instance
-        uses: appleboy@ssh-action@master
+        uses: appleboy/ssh-action@v1.0.0
         with:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           AWS_HOST_IP: ${{ secrets.AWS_HOST_IP }}
           AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
-        script: echo "${{ secrets.SSH_KEY }}" | tr -d '\r' > key.pem | chmod 400 key.pem | ssh -i key.pem ${{ secrets.AWS_USERNAME }}@${{ secrets.AWS_HOST_IP }}
-      - name: Run docker compose in aws
-        uses: appleboy@ssh-action@master
-        script: sudo docker compose up &
+          script: echo "${{ secrets.SSH_KEY }}" | tr -d '\r' > key.pem | chmod 400 key.pem | ssh -i key.pem ${{ secrets.AWS_USERNAME }}@${{ secrets.AWS_HOST_IP }}
