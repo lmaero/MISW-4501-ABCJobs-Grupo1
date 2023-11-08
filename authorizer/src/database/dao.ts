@@ -1,4 +1,5 @@
 import { Client } from 'pg'
+import { clientString } from './pgClientConfig'
 
 class Dao {
   private client: Client
