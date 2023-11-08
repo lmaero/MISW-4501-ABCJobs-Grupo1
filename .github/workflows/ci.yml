@@ -18,7 +18,7 @@ jobs:
       - name: Access to AWS Instance
         uses: appleboy/ssh-action@v1.0.0
         with:
-          HOST: ${{ secrets.HOST }}
+          HOST: ${{ secrets.AWS_HOST }}
           API_PORT: ${{ secrets.API_PORT }}
           AUTH_PORT: ${{ secrets.AUTH_PORT }}
           CANDIDATE_PORT: ${{ secrets.CANDIDATE_PORT }}
@@ -45,4 +45,4 @@ jobs:
             rm -rf ./MISW-4501-ABCJobs-Grupo1
             git clone https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
             cd ./MISW-4501-ABCJobs-Grupo1
-            sudo docker compose up -d
+            sudo docker compose up -d -e HOST=http://localhost
