@@ -18,8 +18,22 @@ jobs:
       - name: Access to AWS Instance
         uses: appleboy/ssh-action@v1.0.0
         with:
+          HOST: ${{ secrets.HOST }}
+          API_PORT: ${{ secrets.API_PORT }}
+          AUTH_PORT: ${{ secrets.AUTH_PORT }}
+          CANDIDATE_PORT: ${{ secrets.CANDIDATE_PORT }}
+          EVALUATOR_PORT: ${{ secrets.EVALUATOR_PORT }}
+          PROJECT_PORT: ${{ secrets.PROJECT_PORT }}
+          COMPANY_PORT: ${{ secrets.COMPANY_PORT }}
+          NODE_ENV: development
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB_NAME: ${{ secrets.POSTGRES_DB_NAME }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
           key: ${{ secrets.PASSPHRASE }}
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           script: |
@@ -27,4 +41,9 @@ jobs:
             chmod 400 key.pem
             ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.PORT }}
             cd /home/ubuntu/proyecto/MISW-4501-ABCJobs-Grupo1
-            sudo docker compose up &
+            docker compose down --remove-orphans --rmi all -v
+            cd ..
+            rm -rf ./MISW-4501-ABCJobs-Grupo1
+            git clone https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
+            cd ./MISW-4501-ABCJobs-Grupo1
+            sudo docker compose up -d
