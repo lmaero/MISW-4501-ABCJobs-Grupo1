@@ -51,7 +51,6 @@ export default function Page({ params }: Props) {
     try {
       const response = await fetch(`${COMPANY_HOST}/interviews`, {
         body: JSON.stringify(data),
-        mode: 'cors',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',
@@ -59,7 +58,6 @@ export default function Page({ params }: Props) {
           'Access-Control-Allow-Methods': '*',
         },
         method: 'POST',
-        referrerPolicy: 'unsafe-url',
       })
 
       const payload = await response.json()
