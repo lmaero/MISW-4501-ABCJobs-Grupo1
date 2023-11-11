@@ -246,5 +246,9 @@
     "timeCaption": "Time",
     "cancelButton": "Cancel",
     "sendButton": "Schedule"
+  },
+  "InterviewsPage": {
+    "title": "Upcoming Interviews",
+    "notScheduled": "You don't have upcoming interviews"
   }
 }
