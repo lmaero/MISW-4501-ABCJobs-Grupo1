@@ -240,5 +240,8 @@
     "title": "Last Test Results",
     "createTest": "Create Test",
     "notCreated": "No results yet!"
+  },
+  "SchedulerPage": {
+    "calendarLabel": "Date/Time"
   }
 }

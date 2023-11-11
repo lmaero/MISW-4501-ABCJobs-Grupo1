@@ -240,5 +240,8 @@
     "title": "Últimos resultados de pruebas",
     "createTest": "Crear prueba",
     "notCreated": "No hay resultados aún"
+  },
+  "SchedulerPage": {
+    "calendarLabel": "Fecha/Hora"
   }
 }
