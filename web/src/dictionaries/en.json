@@ -249,6 +249,8 @@
   },
   "InterviewsPage": {
     "title": "Upcoming Interviews",
-    "notScheduled": "You don't have upcoming interviews"
+    "notScheduled": "You don't have upcoming interviews",
+    "seeResults": "See Results",
+    "isFinished": "Finished"
   }
 }
