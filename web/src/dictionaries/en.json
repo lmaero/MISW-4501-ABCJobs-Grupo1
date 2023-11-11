@@ -242,6 +242,9 @@
     "notCreated": "No results yet!"
   },
   "SchedulerPage": {
-    "calendarLabel": "Date/Time"
+    "calendarLabel": "Date/Time",
+    "timeCaption": "Time",
+    "cancelButton": "Cancel",
+    "sendButton": "Schedule"
   }
 }

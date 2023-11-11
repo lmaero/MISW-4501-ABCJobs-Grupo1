@@ -30,7 +30,7 @@ export default function TestsResultsPage({ params }: Props) {
     async function getData() {
       const response = await fetch(`${CANDIDATE_HOST}/candidate/tests`)
       const data = await response.json()
-      console.log(data.results)
+
       if (!data.results) setResults([])
       else setResults(data.results)
     }
