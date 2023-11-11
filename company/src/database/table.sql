@@ -32,6 +32,7 @@ CREATE TABLE "Interview"
 (
     "candidateid"        INT,
     "company_id"         INT,
+    "company_name"       TEXT,
     "schedule"          TIMESTAMP,
     "result"            TEXT[],
     "interview_id"      SERIAL PRIMARY KEY

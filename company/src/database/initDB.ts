@@ -95,6 +95,7 @@ export async function createInterviewTableIfNotExists() {
                 (
                             "candidateid"        INT,
                             "company_id"         INT,  
+                            "company_name"       TEXT,
                             "schedule"          TIMESTAMP,
                             "result"            TEXT[],
                             "interview_id"      SERIAL PRIMARY KEY
