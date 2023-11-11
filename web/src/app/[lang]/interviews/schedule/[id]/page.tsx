@@ -1,6 +1,7 @@
 'use client'
 
 import { ErrorMessage } from '@/app/[lang]/components/ErrorMessage'
+import { useJWT } from '@/hooks/useToken'
 import { COMPANY_HOST } from '@/lib/api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
@@ -25,6 +26,7 @@ type Schedule = z.infer<typeof ScheduleSchema>
 export default function Page({ params }: Props) {
   const t = useTranslations('SchedulerPage')
   const router = useRouter()
+  const token = useJWT()
   const [date, setDate] = useState(new Date(Date.now()))
 
   const {
@@ -51,6 +53,7 @@ export default function Page({ params }: Props) {
         body: JSON.stringify(data),
         mode: 'cors',
         headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': '*',
