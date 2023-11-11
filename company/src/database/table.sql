@@ -26,4 +26,3 @@ CREATE TABLE "Test"
     "test_id"            SERIAL PRIMARY KEY
 );
 
-ALTER TABLE "Test" ADD COLUMN test_id SERIAL PRIMARY KEY;
