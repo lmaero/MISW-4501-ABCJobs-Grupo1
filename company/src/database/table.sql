@@ -8,7 +8,8 @@ CREATE TABLE "Company"
     "preferred_language" TEXT,
     "segments"           TEXT,
     "size"               TEXT,
-    "token"              TEXT
+    "token"              TEXT,
+    "company_id"         SERIAL PRIMARY KEY
 );
 
 CREATE TABLE "Test"
@@ -26,4 +27,12 @@ CREATE TABLE "Test"
     "test_id"            SERIAL PRIMARY KEY
 );
 
-ALTER TABLE "Test" ADD COLUMN test_id SERIAL PRIMARY KEY;
+
+CREATE TABLE "Interview"
+(
+    "candidateid"        INT,
+    "company_id"         INT,
+    "schedule"          TIMESTAMP,
+    "result"            TEXT[],
+    "interview_id"      SERIAL PRIMARY KEY
+);

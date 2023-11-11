@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { authenticateUser, getUserInfo } from '../controllers/auth'
+import { authenticateUser, getInfo } from '../controllers/auth'
 import { LoginSch } from '../schemas/Login'
 
 const express = require('express')
@@ -32,7 +32,7 @@ router.get('/auth/me', async (req: Request, res: Response) => {
   const headersInfo = req.headers
   const token = headersInfo.authorization?.split(' ')[1]
   if (token && token !== '') {
-    const userInfo = await getUserInfo(token)
+    const userInfo = await getInfo(token)
     res.send({ userInfo })
   }
   return { msg: 'Invalid token provided' }

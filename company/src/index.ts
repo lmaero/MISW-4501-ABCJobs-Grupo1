@@ -3,7 +3,12 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Application } from 'express'
-import { client, createTableIfNotExists } from './database/initDB'
+import {
+  client,
+  createCompanyTableIfNotExists,
+  createInterviewTableIfNotExists,
+  createTestTableIfNotExists
+} from './database/initDB'
 import companyRouter from './routes/company'
 
 dotenv.config()
@@ -28,9 +33,17 @@ const server = http.createServer(app)
 
 client
   .connect()
-  .then(() => createTableIfNotExists())
+  .then(() => createCompanyTableIfNotExists())
   .then(() => {
-    console.info('Table was created successfully')
+    console.info('Table company was created successfully')
+  })
+  .then(() => createTestTableIfNotExists())
+  .then(() => {
+    console.info('Table test was created successfully')
+  })
+  .then(() => createInterviewTableIfNotExists())
+  .then(() => {
+    console.info('Table interview was created successfully')
   })
   .catch((error) => {
     console.error('Error:', error)
