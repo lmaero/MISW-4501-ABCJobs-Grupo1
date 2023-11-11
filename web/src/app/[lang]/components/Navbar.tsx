@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
+import { v4 } from 'uuid'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -26,12 +27,12 @@ export function Navbar({ params }: Props) {
   const candidateMenus = [
     // { label: t('projects'), link: `/${params.lang}/projects/create` },
     // { label: t('interviews'), link: `/${params.lang}/interviews` },
-    { label: t('tests'), link: `/${params.lang}/candidate/tests/perform` },
+    { label: t('tests'), link: `/${params.lang}/tests/perform` },
   ]
 
   const companyMenus = [
     { label: t('projects'), link: `/${params.lang}/projects/create` },
-    { label: t('tests'), link: `/${params.lang}/company/tests/results` },
+    { label: t('tests'), link: `/${params.lang}/tests` },
   ]
 
   const menus = payload.type === 'Candidate' ? candidateMenus : companyMenus
@@ -63,9 +64,7 @@ export function Navbar({ params }: Props) {
 
               {payload?.type === 'Company' && (
                 <div className='flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end'>
-                  <label htmlFor='search' className='sr-only'>
-                    {t('search')}
-                  </label>
+                  <p className='sr-only'>{t('search')}</p>
                   <Link
                     href={`/${params.lang}/candidate/search`}
                     className='relative inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
@@ -138,36 +137,18 @@ export function Navbar({ params }: Props) {
 
           <Disclosure.Panel className='lg:hidden'>
             <div className='space-y-1 pb-3 pt-2'>
-              {/* Current: "bg-blue-50 border-blue-500 text-blue-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" */}
-              <Disclosure.Button
-                as='a'
-                href='#'
-                className='block border-l-4 border-blue-500 bg-blue-50 py-2 pl-3 pr-4 text-base font-medium text-blue-700'
-              >
-                {t('dashboard')}
-              </Disclosure.Button>
-              <Disclosure.Button
-                as='a'
-                href='#'
-                className='block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800'
-              >
-                {t('team')}
-              </Disclosure.Button>
-              <Disclosure.Button
-                as='a'
-                href='#'
-                className='block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800'
-              >
-                {t('projects')}
-              </Disclosure.Button>
-              <Disclosure.Button
-                as='a'
-                href='#'
-                className='block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800'
-              >
-                {t('calendar')}
-              </Disclosure.Button>
+              {menus.map((menu) => (
+                <Disclosure.Button
+                  key={v4()}
+                  as={Link}
+                  href={menu.link}
+                  className='block border-l-4 border-blue-500 bg-blue-50 py-2 pl-3 pr-4 text-base font-medium text-blue-700'
+                >
+                  {menu.label}
+                </Disclosure.Button>
+              ))}
             </div>
+
             <div className='border-t border-gray-200 pb-3 pt-4'>
               <div className='flex items-center px-4'>
                 <div className='flex-shrink-0'>
@@ -179,20 +160,15 @@ export function Navbar({ params }: Props) {
                     width={40}
                   />
                 </div>
-                {/*<div className='ml-3'>
-                  <div className='text-base font-medium text-gray-800'>
-                    Tom Cook
-                  </div>
-                  <div className='text-sm font-medium text-gray-500'>
-                    tom@example.com
-                  </div>
-                </div>*/}
               </div>
+
               <div className='mt-3 space-y-1'>
                 <Disclosure.Button
                   as='a'
-                  href='#'
-                  disabled
+                  onClick={() => {
+                    localStorage.removeItem('token')
+                    window.location.href = `/${params.lang}/login`
+                  }}
                   className='block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800'
                 >
                   {t('signOut')}
