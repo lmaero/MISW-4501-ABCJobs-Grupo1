@@ -252,5 +252,8 @@
     "notScheduled": "No tienes entrevistas programadas",
     "seeResults": "Ver Resultados",
     "isFinished": "Finalizada"
+  },
+  "InterviewResultsPage": {
+    "resultsFor": "Resultados para: "
   }
 }

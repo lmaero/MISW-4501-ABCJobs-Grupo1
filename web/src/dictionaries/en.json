@@ -252,5 +252,8 @@
     "notScheduled": "You don't have upcoming interviews",
     "seeResults": "See Results",
     "isFinished": "Finished"
+  },
+  "InterviewResultsPage": {
+    "resultsFor": "Results for: "
   }
 }
