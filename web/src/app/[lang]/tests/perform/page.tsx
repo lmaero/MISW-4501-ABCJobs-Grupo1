@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { v4 } from 'uuid'
 
 interface Props {
   params: {
@@ -111,12 +112,12 @@ export default function Page({ params }: Props) {
             const options = wrongOptions.concat(rightAnswer)
 
             return (
-              <article key={question.question} className='mb-6 capitalize'>
+              <article key={v4()} className='mb-6 capitalize'>
                 <FieldDescription title={question.question} />
 
                 <div className='space-y-3'>
                   {options.map((option) => (
-                    <div key={option} className='flex items-center gap-x-3'>
+                    <div key={v4()} className='flex items-center gap-x-3'>
                       <input
                         value={question.question}
                         type='hidden'

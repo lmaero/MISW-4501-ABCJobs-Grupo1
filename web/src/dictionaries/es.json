@@ -240,5 +240,15 @@
     "title": "Últimos resultados de pruebas",
     "createTest": "Crear prueba",
     "notCreated": "No hay resultados aún"
+  },
+  "SchedulerPage": {
+    "calendarLabel": "Fecha/Hora",
+    "timeCaption": "Hora",
+    "cancelButton": "Cancelar",
+    "sendButton": "Programar"
+  },
+  "InterviewsPage": {
+    "title": "Próximas Entrevistas",
+    "notScheduled": "No tienes entrevistas programadas"
   }
 }
