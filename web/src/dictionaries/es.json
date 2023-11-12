@@ -249,6 +249,11 @@
   },
   "InterviewsPage": {
     "title": "Próximas Entrevistas",
-    "notScheduled": "No tienes entrevistas programadas"
+    "notScheduled": "No tienes entrevistas programadas",
+    "seeResults": "Ver Resultados",
+    "isFinished": "Finalizada"
+  },
+  "InterviewResultsPage": {
+    "resultsFor": "Resultados para: "
   }
 }

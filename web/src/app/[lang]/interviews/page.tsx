@@ -1,7 +1,10 @@
 'use client'
 
 import { CANDIDATE_HOST } from '@/lib/api'
+import { ChartBarSquareIcon } from '@heroicons/react/20/solid'
+import classNames from 'classnames'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { v4 } from 'uuid'
 
@@ -11,30 +14,35 @@ const fakeData = [
     company: 'Google',
     interviewType: 'Virtual',
     date: '2023-11-11T10:00:00',
+    isFinished: false,
   },
   {
     id: 2,
     company: 'Microsoft',
     interviewType: 'Onsite',
     date: '2023-11-14T13:00:00',
+    isFinished: false,
   },
   {
     id: 3,
     company: 'Amazon',
     interviewType: 'Virtual',
     date: '2023-11-16T11:00:00',
+    isFinished: true,
   },
   {
     id: 4,
     company: 'Facebook',
     interviewType: 'Virtual',
     date: '2023-11-18T14:00:00',
+    isFinished: false,
   },
   {
     id: 5,
     company: 'Apple',
     interviewType: 'Onsite',
     date: '2023-11-21T09:00:00',
+    isFinished: true,
   },
 ]
 
@@ -49,6 +57,7 @@ interface Interview {
   company: string
   interviewType: string
   date: string
+  isFinished: boolean
 }
 
 export default function Page({ params }: Props) {
@@ -91,12 +100,33 @@ export default function Page({ params }: Props) {
             return (
               <article
                 key={v4()}
-                className='grid capitalize grid-cols-2 rounded-md border-2 border-gray-50 p-5'
+                className={classNames({
+                  'grid grid-cols-2 rounded-md border-2 border-gray-50 p-5 capitalize': true,
+                })}
               >
                 <div className='space-y-2'>
                   <h3 className='font-bold'>{interview.company}</h3>
+                  {interview.isFinished && (
+                    <p className='text-sm'>{t('isFinished')}</p>
+                  )}
+                  {interview.isFinished && (
+                    <Link
+                      href={`/${params.lang}/interviews/results/${interview.id}`}
+                      className={classNames({
+                        'flex items-center text-sm text-gray-500 transition-all hover:text-gray-900': true,
+                      })}
+                    >
+                      <ChartBarSquareIcon className='mr-2 h-6' />
+                      {t('seeResults')}
+                    </Link>
+                  )}
                 </div>
-                <div className='space-y-0.5 justify-self-end text-right'>
+                <div
+                  className={classNames({
+                    'text-gray-200 line-through': interview.isFinished,
+                    'space-y-0.5 justify-self-end text-right': true,
+                  })}
+                >
                   <p className='font-medium'>{interview.interviewType}</p>
                   <p className='text-sm text-gray-400'>
                     {interview.date.split('T')[0]}
