@@ -3,6 +3,7 @@ import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
 import { CompanyProfileSch } from '../schemas/CompanyProfile'
 import { TestSch } from '../schemas/Test'
+import axios from "axios";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -78,10 +79,11 @@ const createInterview = async (req: Request, res: Response) => {
     axios.defaults.headers.common = { Authorization: `bearer ${token}` };
     const authResult = await axios.get('http://0.0.0.0:4000/auth/me');
     const company_id = authResult.data.userInfo.company_id;
+    const company_name = authResult.data.userInfo.company_name;
     const {candidateId, date} = req.body;
 
     const dao = new Dao()
-    const dbResult = await dao.storeInterview(candidateId, company_id, date)
+    const dbResult = await dao.storeInterview(candidateId, company_id, company_name, date)
     if (dbResult.msg === '201') {
       return res.status(201).json({ msg: "Interview saved successfully" })
     } else {
