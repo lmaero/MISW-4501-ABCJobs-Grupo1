@@ -246,5 +246,9 @@
     "timeCaption": "Hora",
     "cancelButton": "Cancelar",
     "sendButton": "Programar"
+  },
+  "InterviewsPage": {
+    "title": "Próximas Entrevistas",
+    "notScheduled": "No tienes entrevistas programadas"
   }
 }

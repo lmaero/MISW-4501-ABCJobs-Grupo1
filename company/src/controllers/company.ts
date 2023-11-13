@@ -3,7 +3,6 @@ import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
 import { CompanyProfileSch } from '../schemas/CompanyProfile'
 import { TestSch } from '../schemas/Test'
-import axios from "axios";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -146,6 +145,8 @@ const getInterviewsPerCompany = async (req: Request, res: Response) => {
   }
 }
 
+
+
 const getTests = async (req: Request, res: Response) => {
   try {
     const dao = new Dao()
@@ -179,5 +180,4 @@ const getTestById = async (req: Request, res: Response) => {
   }
 }
 
-
-export { register, registerProfile, createInterview, createTest, getInterviewsPerCompany, getTests, getTestById }
+export { register, registerProfile, createTest, getTests, getTestById }

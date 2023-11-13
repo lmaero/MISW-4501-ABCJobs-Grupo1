@@ -26,7 +26,7 @@ export function Navbar({ params }: Props) {
 
   const candidateMenus = [
     // { label: t('projects'), link: `/${params.lang}/projects/create` },
-    // { label: t('interviews'), link: `/${params.lang}/interviews` },
+    { label: t('interviews'), link: `/${params.lang}/interviews` },
     { label: t('tests'), link: `/${params.lang}/tests/perform` },
   ]
 
