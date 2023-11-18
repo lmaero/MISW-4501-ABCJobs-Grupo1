@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { v4 } from 'uuid'
 
 interface Props {
   params: {
@@ -112,28 +111,34 @@ export default function Page({ params }: Props) {
             const options = wrongOptions.concat(rightAnswer)
 
             return (
-              <article key={v4()} className='mb-6 capitalize'>
+              <article
+                key={question.question + outerIndex}
+                className='mb-6 capitalize'
+              >
                 <FieldDescription title={question.question} />
 
-                <div className='space-y-3'>
-                  {options.map((option) => (
-                    <div key={v4()} className='flex items-center gap-x-3'>
-                      <input
-                        value={question.question}
-                        type='hidden'
-                        {...register(`${outerIndex}.0`)}
-                      />
+                <input
+                  value={question.question}
+                  type='hidden'
+                  {...register(`${outerIndex}.0`)}
+                />
 
+                <div className='space-y-3'>
+                  {options.map((option, innerIndex) => (
+                    <div
+                      key={option + innerIndex}
+                      className='flex items-center gap-x-3'
+                    >
                       <input
                         className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
-                        id={option}
+                        id={`${outerIndex}${innerIndex}.1`}
                         type='radio'
                         value={option}
                         {...register(`${outerIndex}.1`)}
                       />
 
                       <label
-                        htmlFor={option}
+                        htmlFor={`${outerIndex}${innerIndex}.1`}
                         className='block text-sm font-light leading-6 text-gray-900'
                       >
                         {option}
