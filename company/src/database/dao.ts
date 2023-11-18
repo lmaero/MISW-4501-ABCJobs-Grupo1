@@ -63,22 +63,26 @@ class Dao {
   }
 
   async storeInterview(
-      candidateid: number,
-      company_id: number,
-      company_name: string,
-      date: string
+    candidateid: number,
+    company_id: number,
+    company_name: string,
+    date: string,
   ) {
     const query = `INSERT INTO "Interview" ("candidateid", "company_id", "company_name", "schedule")
                    VALUES ($1, $2, $3, $4)`
 
     try {
-      await this.client.query(query, [candidateid, company_id, company_name, date])
+      await this.client.query(query, [
+        candidateid,
+        company_id,
+        company_name,
+        date,
+      ])
       return { msg: '201' }
     } catch (err) {
       return { msg: '400' }
     }
   }
-
 
   async storeTest(
     name: string,

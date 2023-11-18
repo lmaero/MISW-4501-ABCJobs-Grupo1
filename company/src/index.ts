@@ -7,7 +7,7 @@ import {
   client,
   createCompanyTableIfNotExists,
   createInterviewTableIfNotExists,
-  createTestTableIfNotExists
+  createTestTableIfNotExists,
 } from './database/initDB'
 import companyRouter from './routes/company'
 
