@@ -47,7 +47,7 @@ export default function Page({ params }: Props) {
 
   async function onSubmit(data: Schedule) {
     try {
-      const response = await fetch(`${COMPANY_HOST}/interviews`, {
+      const response = await fetch(`${COMPANY_HOST}/company/interviews`, {
         body: JSON.stringify(data),
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
