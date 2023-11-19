@@ -46,11 +46,9 @@ const getProjects = async (req: Request, res: Response) => {
     const dao = new Dao()
     const dbResult = await dao.getProjects()
     if (dbResult.msg === '200') {
-      return res.status(200).json({ tests: dbResult.tests })
+      return res.status(200).json(dbResult.tests)
     } else {
-      return res
-          .status(400)
-          .json({ message: 'No projects created' })
+      return res.status(400).json({ message: 'No projects created' })
     }
   } catch (error) {
     console.error(error)

@@ -31,7 +31,7 @@ export function Navbar({ params }: Props) {
   ]
 
   const companyMenus = [
-    { label: t('projects'), link: `/${params.lang}/projects/create` },
+    { label: t('projects'), link: `/${params.lang}/projects` },
     { label: t('tests'), link: `/${params.lang}/tests` },
   ]
 

@@ -258,5 +258,10 @@
   },
   "InterviewResultsPage": {
     "resultsFor": "Results for: "
+  },
+  "ProjectsListPage": {
+    "title": "Projects",
+    "createProject": "Create Project",
+    "notCreated": "You have no projects, create the first one"
   }
 }
