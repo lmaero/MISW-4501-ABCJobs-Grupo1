@@ -60,4 +60,5 @@ const getProjects = async (req: Request, res: Response) => {
 
 export default {
   register,
+  getProjects,
 }
