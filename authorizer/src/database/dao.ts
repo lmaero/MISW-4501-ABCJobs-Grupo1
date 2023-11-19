@@ -56,7 +56,9 @@ class Dao {
 
     try {
       const userInDb = await this.client.query(query, [email, password])
-      const id = isCandidate ? userInDb.rows[0].candidateid : userInDb.rows[0].company_id
+      const id = isCandidate
+        ? userInDb.rows[0].candidateid
+        : userInDb.rows[0].company_id
       if (!userInDb.rowCount) return { found: 0, isCandidate, id }
       return { found: userInDb?.rowCount > 0, isCandidate, id }
     } catch (err) {
@@ -66,7 +68,6 @@ class Dao {
   }
 
   async getInfo(email: string, type: string) {
-
     const isCandidate = type === 'Candidate'
 
     const candidateQuery = `
@@ -80,14 +81,14 @@ class Dao {
       const res = await this.client.query(query, [email])
       const info = res?.rows[0]
       if (info) {
-        if (isCandidate){
+        if (isCandidate) {
           return {
             msg: '200',
             email: info.email,
             first_name: info.first_name,
             last_name: info.last_name,
             candidateid: info.candidateid,
-            type: "Candidate",
+            type: 'Candidate',
           }
         } else {
           return {
@@ -97,7 +98,6 @@ class Dao {
             company_id: info.company_id,
           }
         }
-
       } else {
         return { msg: '400' }
       }

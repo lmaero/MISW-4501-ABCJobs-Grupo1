@@ -1,7 +1,8 @@
 import express from 'express'
 import {
   createInterview,
-  createTest, getInterviewsPerCompany,
+  createTest,
+  getInterviewsPerCompany,
   getTestById,
   getTests,
   register,
@@ -17,6 +18,5 @@ companyRouter.get('/tests', getTests)
 companyRouter.get('/tests/:id', getTestById)
 companyRouter.get('/interviews', getInterviewsPerCompany)
 companyRouter.post('/interviews', createInterview)
-
 
 export default companyRouter

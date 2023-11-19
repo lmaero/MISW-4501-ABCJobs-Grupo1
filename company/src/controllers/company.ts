@@ -1,9 +1,9 @@
+import axios from 'axios'
 import { Request, Response } from 'express'
 import Dao from '../database/dao'
 import { CompanyPreSch } from '../schemas/Company'
 import { CompanyProfileSch } from '../schemas/CompanyProfile'
 import { TestSch } from '../schemas/Test'
-import axios from "axios";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -73,23 +73,28 @@ const registerProfile = async (req: Request, res: Response) => {
   }
 }
 
-const createInterview = async (req: Request, res: Response) => {
+export const createInterview = async (req: Request, res: Response) => {
   try {
-    const token = req?.headers?.authorization?.split(' ')[1];
-    axios.defaults.headers.common = { Authorization: `bearer ${token}` };
-    const authResult = await axios.get('http://0.0.0.0:4000/auth/me');
-    const company_id = authResult.data.userInfo.company_id;
-    const company_name = authResult.data.userInfo.company_name;
-    const {candidateId, date} = req.body;
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const company_id = authResult.data.userInfo.company_id
+    const company_name = authResult.data.userInfo.company_name
+    const { candidateId, date } = req.body
 
     const dao = new Dao()
-    const dbResult = await dao.storeInterview(candidateId, company_id, company_name, date)
+    const dbResult = await dao.storeInterview(
+      candidateId,
+      company_id,
+      company_name,
+      date,
+    )
     if (dbResult.msg === '201') {
-      return res.status(201).json({ msg: "Interview saved successfully" })
+      return res.status(201).json({ msg: 'Interview saved successfully' })
     } else {
       return res
-          .status(400)
-          .json({ message: 'No test associated with the id provided' })
+        .status(400)
+        .json({ message: 'No test associated with the id provided' })
     }
   } catch (error) {
     console.error(error)
@@ -125,12 +130,12 @@ const createTest = async (req: Request, res: Response) => {
   }
 }
 
-const getInterviewsPerCompany = async (req: Request, res: Response) => {
+export const getInterviewsPerCompany = async (req: Request, res: Response) => {
   try {
-    const token = req?.headers?.authorization?.split(' ')[1];
-    axios.defaults.headers.common = { Authorization: `bearer ${token}` };
-    const authResult = await axios.get('http://0.0.0.0:4000/auth/me');
-    const company_id = authResult.data.userInfo.company_id;
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const company_id = authResult.data.userInfo.company_id
 
     const dao = new Dao()
     const dbResult = await dao.getInterviewsPerCompany(company_id)
@@ -138,16 +143,14 @@ const getInterviewsPerCompany = async (req: Request, res: Response) => {
       return res.status(201).json({ interviews: dbResult.interviews })
     } else {
       return res
-          .status(400)
-          .json({ message: 'No test associated with the id provided' })
+        .status(400)
+        .json({ message: 'No test associated with the id provided' })
     }
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
   }
 }
-
-
 
 const getTests = async (req: Request, res: Response) => {
   try {
@@ -182,5 +185,4 @@ const getTestById = async (req: Request, res: Response) => {
   }
 }
 
-
-export { register, registerProfile, createInterview, createTest, getInterviewsPerCompany, getTests, getTestById }
+export { register, registerProfile, createTest, getTests, getTestById }

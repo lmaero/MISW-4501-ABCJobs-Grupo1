@@ -10,10 +10,10 @@ export async function ping(req: Request, res: Response): Promise<Response> {
 
 const getInterviewsPerCandidate = async (req: Request, res: Response) => {
   try {
-    const token = req?.headers?.authorization?.split(' ')[1];
-    axios.defaults.headers.common = { Authorization: `bearer ${token}` };
-    const authResult = await axios.get('http://0.0.0.0:4000/auth/me');
-    const candidateid = authResult.data.userInfo.candidateid;
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const candidateid = authResult.data.userInfo.candidateid
 
     const dao = new Dao()
     const dbResult = await dao.getInterviewsPerCandidate(candidateid)
@@ -21,8 +21,8 @@ const getInterviewsPerCandidate = async (req: Request, res: Response) => {
       return res.status(201).json({ interviews: dbResult.interviews })
     } else {
       return res
-          .status(400)
-          .json({ message: 'No test associated with the id provided' })
+        .status(400)
+        .json({ message: 'No test associated with the id provided' })
     }
   } catch (error) {
     console.error(error)
@@ -163,7 +163,6 @@ export async function testPerformed(req: Request, res: Response) {
       const url = `http://0.0.0.0:4002/evaluator/byCandidate/${candidateId}`
       const evaluatorResult = await axios.get(url)
       if (evaluatorResult.status === 200) {
-        const results = evaluatorResult.data.results
         return res
           .status(200)
           .json({ message: 'Answers for the test were saved' })

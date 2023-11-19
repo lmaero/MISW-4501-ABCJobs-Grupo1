@@ -5,19 +5,26 @@ export async function generateAccessToken(
   email: string,
   type: string,
   id_type: string,
-  id: number
+  id: number,
 ): Promise<string> {
   if (!process.env.TOKEN_SECRET) throw JsonWebTokenError
-  if(id_type === "candidateid") {
-    return jwt.sign({ email: email, type: type, candidateid: id }, process.env.TOKEN_SECRET, {
-      expiresIn: '365d',
-    })
+  if (id_type === 'candidateid') {
+    return jwt.sign(
+      { email: email, type: type, candidateid: id },
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: '365d',
+      },
+    )
   } else {
-    return jwt.sign({ email: email, type: type, company_id: id }, process.env.TOKEN_SECRET, {
-      expiresIn: '365d',
-    })
+    return jwt.sign(
+      { email: email, type: type, company_id: id },
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: '365d',
+      },
+    )
   }
-
 }
 
 interface Payload extends JwtPayload {

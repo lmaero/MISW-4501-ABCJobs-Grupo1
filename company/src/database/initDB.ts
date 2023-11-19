@@ -29,6 +29,7 @@ export async function createCompanyTableIfNotExists() {
       await client.query(`
                 CREATE TABLE IF NOT EXISTS "${tableName}"
                 (
+                    "company_id"         TEXT,
                     "company_name"       TEXT,
                     "email"              TEXT NOT NULL unique,
                     "main_address"       TEXT,

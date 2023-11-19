@@ -14,10 +14,14 @@ export async function authenticateUser(info: Login) {
   const email = info.email
   const password = info.password
   const type = info.type
-  const { found, isCandidate, id } = await dao.isUserRegistered(email, password, type)
+  const { found, isCandidate, id } = await dao.isUserRegistered(
+    email,
+    password,
+    type,
+  )
 
   if (found) {
-    const id_type = isCandidate ? "candidateid": "company_id"
+    const id_type = isCandidate ? 'candidateid' : 'company_id'
     const token = await generateAccessToken(email, type, id_type, id)
     await dao.authenticateUser(email, password, token, isCandidate)
 
@@ -34,8 +38,8 @@ export async function authenticateUser(info: Login) {
 }
 
 export async function getInfo(token: string) {
-  let isTokenExpired;
-  let info;
+  let isTokenExpired
+  let info
 
   try {
     info = await decodeToken(token)
@@ -53,7 +57,7 @@ export async function getInfo(token: string) {
   const result = await dao.getInfo(email, type)
 
   if (result.msg === '200') {
-    if (type === "Candidate") {
+    if (type === 'Candidate') {
       return {
         email: result.email,
         first_name: result.first_name,
