@@ -37,6 +37,20 @@ class Dao {
       return { msg: '400' }
     }
   }
+
+  async getProjects() {
+    const query = `select * from "Project"`
+    try {
+      const projects = await this.client.query(query)
+      if (projects.rows.length > 0) {
+        return { msg: '200', tests: projects.rows }
+      } else {
+        return { msg: '400' }
+      }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
 }
 
 export default Dao
