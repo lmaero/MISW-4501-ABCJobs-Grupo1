@@ -47,8 +47,8 @@ class Dao {
   }
 
   async updateCandidateTestScore(
-    candidate_id: string,
-    test_id: string,
+    candidate_id: number,
+    test_id: number,
     score: number,
   ) {
     const query = ` update "TestPerformed" set score = $3  

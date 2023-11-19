@@ -27,7 +27,6 @@ CREATE TABLE "Test"
     "test_id"            SERIAL PRIMARY KEY
 );
 
-
 CREATE TABLE "Interview"
 (
     "candidateid"        INT,
