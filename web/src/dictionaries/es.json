@@ -240,5 +240,28 @@
     "title": "Últimos resultados de pruebas",
     "createTest": "Crear prueba",
     "notCreated": "No hay resultados aún"
+  },
+  "SchedulerPage": {
+    "calendarLabel": "Fecha/Hora",
+    "timeCaption": "Hora",
+    "cancelButton": "Cancelar",
+    "sendButton": "Programar",
+    "notifications": {
+      "success": "Programada exitosamente"
+    }
+  },
+  "InterviewsPage": {
+    "title": "Próximas Entrevistas",
+    "notScheduled": "No tienes entrevistas programadas",
+    "seeResults": "Ver Resultados",
+    "isFinished": "Finalizada"
+  },
+  "InterviewResultsPage": {
+    "resultsFor": "Resultados para: "
+  },
+  "ProjectsListPage": {
+    "title": "Proyectos",
+    "createProject": "Crear proyecto",
+    "notCreated": "No tienes proyectos creados, crea el primero"
   }
 }

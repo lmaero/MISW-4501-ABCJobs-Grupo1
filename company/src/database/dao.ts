@@ -10,6 +10,20 @@ class Dao {
     void this.client.connect()
   }
 
+  async getInterviewsPerCompany(company_id: number) {
+    const query = `select * from "Interview" where company_id = $1`
+    try {
+      const interviews = await this.client.query(query, [company_id])
+      if (interviews.rows.length > 0) {
+        return { msg: '201', interviews: interviews.rows }
+      } else {
+        return { msg: '400' }
+      }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
+
   async getTests() {
     const query = `select * from "Test"`
     try {
@@ -42,6 +56,28 @@ class Dao {
                    VALUES ($1, $2, $3)`
     try {
       await this.client.query(query, [email, password, company_name])
+      return { msg: '201' }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
+
+  async storeInterview(
+    candidateid: number,
+    company_id: number,
+    company_name: string,
+    date: string,
+  ) {
+    const query = `INSERT INTO "Interview" ("candidateid", "company_id", "company_name", "schedule")
+                   VALUES ($1, $2, $3, $4)`
+
+    try {
+      await this.client.query(query, [
+        candidateid,
+        company_id,
+        company_name,
+        date,
+      ])
       return { msg: '201' }
     } catch (err) {
       return { msg: '400' }

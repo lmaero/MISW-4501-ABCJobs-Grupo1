@@ -240,5 +240,28 @@
     "title": "Last Test Results",
     "createTest": "Create Test",
     "notCreated": "No results yet!"
+  },
+  "SchedulerPage": {
+    "calendarLabel": "Date/Time",
+    "timeCaption": "Time",
+    "cancelButton": "Cancel",
+    "sendButton": "Schedule",
+    "notifications": {
+      "success": "Successfully scheduled"
+    }
+  },
+  "InterviewsPage": {
+    "title": "Upcoming Interviews",
+    "notScheduled": "You don't have upcoming interviews",
+    "seeResults": "See Results",
+    "isFinished": "Finished"
+  },
+  "InterviewResultsPage": {
+    "resultsFor": "Results for: "
+  },
+  "ProjectsListPage": {
+    "title": "Projects",
+    "createProject": "Create Project",
+    "notCreated": "You have no projects, create the first one"
   }
 }
