@@ -245,7 +245,10 @@
     "calendarLabel": "Date/Time",
     "timeCaption": "Time",
     "cancelButton": "Cancel",
-    "sendButton": "Schedule"
+    "sendButton": "Schedule",
+    "notifications": {
+      "success": "Successfully scheduled"
+    }
   },
   "InterviewsPage": {
     "title": "Upcoming Interviews",
