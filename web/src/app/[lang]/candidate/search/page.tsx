@@ -95,6 +95,12 @@ export default function SearchCandidatePage({ params }: Props) {
       })
   }
 
+  if (isSubmitSuccessful && candidates.length === 0) {
+    return (
+      <p className='font-semibold mx-auto max-w-7xl p-7'>{t('noResults')}</p>
+    )
+  }
+
   if (isSubmitSuccessful && candidates.length !== 0) {
     return (
       <div className='mx-auto max-w-2xl p-8'>

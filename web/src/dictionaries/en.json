@@ -59,6 +59,7 @@
   "SearchCandidatePage": {
     "title": "Search Candidates",
     "subtitle": "What profile are you looking for?",
+    "noResults": "No candidates were found with the selected filters",
     "results": {
       "location": "Location",
       "email": "Email",

@@ -59,6 +59,7 @@
   "SearchCandidatePage": {
     "title": "Busca Candidatos",
     "subtitle": "¿Qué perfil estás buscando?",
+    "noResults": "No se encontraron candidatos con los criterios seleccionados",
     "results": {
       "location": "Ubicación",
       "email": "Correo",

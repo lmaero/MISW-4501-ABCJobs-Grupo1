@@ -108,7 +108,7 @@ export default function TestsResultsPage({ params }: Props) {
                 <div className='space-y-0.5 justify-self-end text-right'>
                   <p className='font-medium'>{result.test_name}</p>
                   <p className='text-sm text-gray-400'>{result.result}</p>
-                  <p>{result.score}%</p>
+                  <p>{result.score * 100}%</p>
                 </div>
               </article>
             ))}
