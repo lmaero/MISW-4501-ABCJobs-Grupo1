@@ -87,13 +87,21 @@ class Dao {
                                                               technical_data ->> 'roles' as programming_languages,
                                                               soft_skills,
                                                               languages,
-                                                              email
+                                                              email,
+                                                              first_name,
+                                                              last_name, 
+                                                              location,
+                                                              candidateid
                                                        from "Candidate")
                                    select y.x ->> 'role' "position",
                                           soft_skills,
                                           languages as   spoken_languages,
                                           programming_languages,
-                                          email
+                                          email,
+                                          first_name,
+                                          last_name,
+                                          location,
+                                          candidateid
                                    from role,
                                         lateral (select jsonb_array_elements(role.col) x) y)
                    select *
