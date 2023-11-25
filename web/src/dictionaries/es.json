@@ -239,7 +239,9 @@
   "TestsResultsPage": {
     "title": "Últimos resultados de pruebas",
     "createTest": "Crear prueba",
-    "notCreated": "No hay resultados aún"
+    "notCreated": "No hay resultados aún",
+    "schedule": "Programar Entrevista",
+    "publish": "Publicar Resultado"
   },
   "SchedulerPage": {
     "calendarLabel": "Fecha/Hora",
@@ -263,5 +265,16 @@
     "title": "Proyectos",
     "createProject": "Crear proyecto",
     "notCreated": "No tienes proyectos creados, crea el primero"
+  },
+  "PublishResultsPage": {
+    "resultsFor": "Resultados para: ",
+    "skill": "Habilidad",
+    "score": "Puntaje",
+    "skillPlaceholder": "React",
+    "scorePlaceholder": "60",
+    "removeButton": "Eliminar puntaje",
+    "addButton": "Añadir puntaje",
+    "cancelButton": "Cancelar",
+    "sendButton": "Publicar"
   }
 }

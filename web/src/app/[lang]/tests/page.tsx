@@ -1,7 +1,11 @@
 'use client'
 
+import { useJWT } from '@/hooks/useToken'
 import { CANDIDATE_HOST } from '@/lib/api'
-import { CalendarDaysIcon } from '@heroicons/react/20/solid'
+import {
+  ArrowUpOnSquareIcon,
+  CalendarDaysIcon,
+} from '@heroicons/react/20/solid'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -14,8 +18,9 @@ interface Props {
 }
 
 interface Result {
-  id: number
+  test_id: number
   candidate: string
+  candidateid: number
   test_type: string
   test_name: string
   result: string
@@ -24,6 +29,7 @@ interface Result {
 
 export default function TestsResultsPage({ params }: Props) {
   const t = useTranslations('TestsResultsPage')
+  const payload = useJWT()
   const [results, setResults] = useState([])
   const [order, setOrder] = useState<string>('high')
 
@@ -31,6 +37,8 @@ export default function TestsResultsPage({ params }: Props) {
     async function getData() {
       const response = await fetch(`${CANDIDATE_HOST}/candidate/tests`)
       const data = await response.json()
+
+      console.log(data)
 
       if (!data.results) setResults([])
       else setResults(data.results)
@@ -98,11 +106,19 @@ export default function TestsResultsPage({ params }: Props) {
                   <h3 className='font-bold'>{result.candidate}</h3>
                   <p className='text-sm text-gray-400'>{result.test_type}</p>
                   <Link
-                    href={`/${params.lang}/interviews/schedule/${result.id}`}
+                    href={`/${params.lang}/interviews/schedule/${result.test_id}`}
                     className='flex items-center text-sm text-gray-500 transition-all hover:text-gray-900'
                   >
                     <CalendarDaysIcon className='mr-2 h-6' />
-                    Schedule Interview
+                    {t('schedule')}
+                  </Link>
+
+                  <Link
+                    href={`/${params.lang}/interviews/publish/${result.candidateid}/${result.candidate}/${result.test_id}/${payload?.company_id}`}
+                    className='flex items-center text-sm text-gray-500 transition-all hover:text-gray-900'
+                  >
+                    <ArrowUpOnSquareIcon className='mr-2 h-6' />
+                    {t('publish')}
                   </Link>
                 </div>
                 <div className='space-y-0.5 justify-self-end text-right'>

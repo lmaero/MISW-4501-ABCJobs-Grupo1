@@ -239,7 +239,9 @@
   "TestsResultsPage": {
     "title": "Last Test Results",
     "createTest": "Create Test",
-    "notCreated": "No results yet!"
+    "notCreated": "No results yet!",
+    "schedule": "Schedule Interview",
+    "publish": "Publish Result"
   },
   "SchedulerPage": {
     "calendarLabel": "Date/Time",
@@ -263,5 +265,16 @@
     "title": "Projects",
     "createProject": "Create Project",
     "notCreated": "You have no projects, create the first one"
+  },
+  "PublishResultsPage": {
+    "resultsFor": "Results for: ",
+    "skill": "Skill",
+    "score": "Score",
+    "skillPlaceholder": "React",
+    "scorePlaceholder": "60",
+    "removeButton": "Remove Skill",
+    "addButton": "Add Skill",
+    "cancelButton": "Cancel",
+    "sendButton": "Publish"
   }
 }
