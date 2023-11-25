@@ -29,7 +29,7 @@ class Dao {
   }
 
   async getAllTestsResults() {
-    const query = ` select tp.candidateid as id, c.first_name as candidate, 'Tech test' as test_type, t.name as test_name, 'Satisfactory' as result,  tp.score as score
+    const query = ` select tp.candidateid as candidateid, c.first_name as candidate, 'Tech test' as test_type, t.name as test_name, 'Satisfactory' as result,  tp.score as score, t.test_id as test_id
     from "TestPerformed" tp
     left join "Candidate" c on tp.candidateid = c.candidateid
     left join "Test" t on tp.test_id = t.test_id 
