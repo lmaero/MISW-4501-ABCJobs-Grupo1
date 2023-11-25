@@ -27,7 +27,10 @@ CREATE TABLE "Test"
     "test_id"            SERIAL PRIMARY KEY
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ABC-55
 CREATE TABLE "Interview"
 (
     "candidateid"        INT,
@@ -36,4 +39,8 @@ CREATE TABLE "Interview"
     "schedule"          TIMESTAMP,
     "result"            TEXT[],
     "interview_id"      SERIAL PRIMARY KEY
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> ABC-55

@@ -1,4 +1,4 @@
-workspaces:
+packages:
   - authorizer
   - candidate
   - company

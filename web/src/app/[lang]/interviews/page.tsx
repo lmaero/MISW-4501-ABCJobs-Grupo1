@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { v4 } from 'uuid'
 
+<<<<<<< HEAD
 const fakeData = [
   {
     id: 1,
@@ -46,6 +47,8 @@ const fakeData = [
   },
 ]
 
+=======
+>>>>>>> ABC-55
 interface Props {
   params: {
     lang: string
@@ -54,10 +57,17 @@ interface Props {
 
 interface Interview {
   id: number
+<<<<<<< HEAD
   company: string
   interviewType: string
   date: string
   isFinished: boolean
+=======
+  company_name: string
+  interviewType: string
+  schedule: string
+  result: boolean
+>>>>>>> ABC-55
 }
 
 export default function Page({ params }: Props) {
@@ -66,18 +76,31 @@ export default function Page({ params }: Props) {
 
   useEffect(() => {
     async function getData() {
+<<<<<<< HEAD
       const response = await fetch(`${CANDIDATE_HOST}/interviews`, {
+=======
+      const response = await fetch(`${CANDIDATE_HOST}/candidate/interviews`, {
+>>>>>>> ABC-55
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       const data = await response.json()
 
+<<<<<<< HEAD
       if (!data.results) setInterviews([])
       else setInterviews(data.results)
+=======
+      if (!data.interviews) setInterviews([])
+      else setInterviews(data.interviews)
+>>>>>>> ABC-55
     }
     void getData()
   }, [])
 
+<<<<<<< HEAD
   if (fakeData.length === 0)
+=======
+  if (interviews.length === 0)
+>>>>>>> ABC-55
     return (
       <div className='mx-auto max-w-7xl p-7 space-y-3'>
         <p className='font-semibold'>{t('notScheduled')}</p>
@@ -96,7 +119,11 @@ export default function Page({ params }: Props) {
         <hr className='border-b-1' />
 
         <section className='space-y-3'>
+<<<<<<< HEAD
           {fakeData.map((interview: Interview) => {
+=======
+          {interviews.map((interview: Interview) => {
+>>>>>>> ABC-55
             return (
               <article
                 key={v4()}
@@ -105,11 +132,19 @@ export default function Page({ params }: Props) {
                 })}
               >
                 <div className='space-y-2'>
+<<<<<<< HEAD
                   <h3 className='font-bold'>{interview.company}</h3>
                   {interview.isFinished && (
                     <p className='text-sm'>{t('isFinished')}</p>
                   )}
                   {interview.isFinished && (
+=======
+                  <h3 className='font-bold'>{interview.company_name}</h3>
+                  {interview.result && (
+                    <p className='text-sm'>{t('isFinished')}</p>
+                  )}
+                  {interview.result && (
+>>>>>>> ABC-55
                     <Link
                       href={`/${params.lang}/interviews/results/${interview.id}`}
                       className={classNames({
@@ -123,15 +158,25 @@ export default function Page({ params }: Props) {
                 </div>
                 <div
                   className={classNames({
+<<<<<<< HEAD
                     'text-gray-200 line-through': interview.isFinished,
+=======
+                    'text-gray-200 line-through': interview.result,
+>>>>>>> ABC-55
                     'space-y-0.5 justify-self-end text-right': true,
                   })}
                 >
                   <p className='font-medium'>{interview.interviewType}</p>
                   <p className='text-sm text-gray-400'>
+<<<<<<< HEAD
                     {interview.date.split('T')[0]}
                   </p>
                   <p>{interview.date.split('T')[1]}</p>
+=======
+                    {interview.schedule.split('T')[0]}
+                  </p>
+                  <p>{interview.schedule.split('T')[1].split('.')[0]}</p>
+>>>>>>> ABC-55
                 </div>
               </article>
             )

@@ -245,7 +245,14 @@
     "calendarLabel": "Date/Time",
     "timeCaption": "Time",
     "cancelButton": "Cancel",
+<<<<<<< HEAD
     "sendButton": "Schedule"
+=======
+    "sendButton": "Schedule",
+    "notifications": {
+      "success": "Successfully scheduled"
+    }
+>>>>>>> ABC-55
   },
   "InterviewsPage": {
     "title": "Upcoming Interviews",
@@ -255,5 +262,13 @@
   },
   "InterviewResultsPage": {
     "resultsFor": "Results for: "
+<<<<<<< HEAD
+=======
+  },
+  "ProjectsListPage": {
+    "title": "Projects",
+    "createProject": "Create Project",
+    "notCreated": "You have no projects, create the first one"
+>>>>>>> ABC-55
   }
 }

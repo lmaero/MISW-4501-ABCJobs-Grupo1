@@ -1,4 +1,4 @@
-import { getUserInfo } from '../src/controllers/auth'
+import { getInfo } from '../src/controllers/auth'
 
 jest.mock('../src/utils/utils', () => ({
   generateAccessToken: jest.fn(() => ({ token: 1234 })),
@@ -18,7 +18,7 @@ describe('token expired', () => {
     let expected
 
     try {
-      expected = await getUserInfo(token)
+      expected = await getInfo(token)
     } catch (e) {
       const error: unknown = e
       console.log(error)

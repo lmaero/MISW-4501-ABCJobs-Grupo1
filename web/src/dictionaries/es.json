@@ -245,7 +245,14 @@
     "calendarLabel": "Fecha/Hora",
     "timeCaption": "Hora",
     "cancelButton": "Cancelar",
+<<<<<<< HEAD
     "sendButton": "Programar"
+=======
+    "sendButton": "Programar",
+    "notifications": {
+      "success": "Programada exitosamente"
+    }
+>>>>>>> ABC-55
   },
   "InterviewsPage": {
     "title": "Próximas Entrevistas",
@@ -255,5 +262,13 @@
   },
   "InterviewResultsPage": {
     "resultsFor": "Resultados para: "
+<<<<<<< HEAD
+=======
+  },
+  "ProjectsListPage": {
+    "title": "Proyectos",
+    "createProject": "Crear proyecto",
+    "notCreated": "No tienes proyectos creados, crea el primero"
+>>>>>>> ABC-55
   }
 }

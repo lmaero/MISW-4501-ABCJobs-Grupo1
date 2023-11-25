@@ -39,13 +39,19 @@ export async function getResultsByUser(req: Request, res: Response) {
         }
         for (const prueba in candidateDbResults) {
           resultsWithScore.id = candidateDbResults[Number(prueba)].test_id
-          resultsWithScore.testName = candidateDbResults[Number(prueba)].test_name
-          let score = 0;
-          let totalQuestions = candidateDbResults[Number(prueba)].questions.length;
+          resultsWithScore.testName =
+            candidateDbResults[Number(prueba)].test_name
+          let score = 0
+          const totalQuestions =
+            candidateDbResults[Number(prueba)].questions.length
           for (const answer in candidateDbResults[Number(prueba)].questions) {
-            const questionCorrectAnswer = candidateDbResults[Number(prueba)].questions[Number(answer)].rightAnswer
-            const candidateAnswer = candidateDbResults[Number(prueba)].answers[Number(answer)][1]
-            const correctAnswer = questionCorrectAnswer === candidateAnswer.toLowerCase()
+            const questionCorrectAnswer =
+              candidateDbResults[Number(prueba)].questions[Number(answer)]
+                .rightAnswer
+            const candidateAnswer =
+              candidateDbResults[Number(prueba)].answers[Number(answer)][1]
+            const correctAnswer =
+              questionCorrectAnswer === candidateAnswer.toLowerCase()
             if (correctAnswer) {
               correctAnswers++
             }
