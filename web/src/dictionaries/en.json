@@ -59,6 +59,13 @@
   "SearchCandidatePage": {
     "title": "Search Candidates",
     "subtitle": "What profile are you looking for?",
+    "results": {
+      "location": "Location",
+      "email": "Email",
+      "spoken": "Spoken Languages",
+      "programming": "Programming Languages",
+      "softSkills": "Soft Skills"
+    },
     "formLabels": {
       "rolesTitle": "Applicable roles",
       "rolesSubtitle": "Make sure to select compatible roles",
