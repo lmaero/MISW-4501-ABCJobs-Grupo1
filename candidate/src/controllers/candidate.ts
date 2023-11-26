@@ -133,6 +133,15 @@ export async function registerProfile(req: Request, res: Response) {
 }
 
 export async function searchCandidate(req: Request, res: Response) {
+    /*
+    Input:
+       {
+        "role": ["fullstack", "backend", "architect"],
+        "languages": ["javascript", "python"],
+        "soft_skills": ["leadership", "hardwork"],
+        "spoken_languages": ["english", "spanish"]
+      }
+   */
   try {
     const result = req.body
 
@@ -149,15 +158,26 @@ export async function searchCandidate(req: Request, res: Response) {
         soft_skills,
         spoken_languages,
       )
-      if (dbResult.msg === '200') {
-        return res.status(200).json(dbResult.res?.rows)
+      const candidates = dbResult?.res?.rows != undefined ? dbResult.res.rows : [];
+      const candidatesExpectedList = []
+      for(let candidate in candidates) {
+        const isRoleRequested = role.includes(candidates[candidate].position)
+        const isLanguageRequested = languages.includes(candidates[candidate].languages)
+        const isSoftSkillRequested = soft_skills.includes(candidates[candidate].soft_skills)
+        const isSpokenLanguageRequested = spoken_languages.includes(candidates[candidate].spoken_languages)
+        if(isRoleRequested ||  isLanguageRequested || isSoftSkillRequested || isSpokenLanguageRequested) {
+            candidatesExpectedList.push(candidates[candidate])
+        }
+      }
+      if (dbResult.msg === '200' && candidatesExpectedList.length > 0) {
+        return res.status(200).json(candidatesExpectedList)
       } else {
         return res
-          .status(400)
+          .status(404)
           .json({ message: 'No candidate found with the criteria provided' })
       }
     } else {
-      return res.status(400).json({
+      return res.status(404).json({
         message: result.error.message,
       })
     }
