@@ -36,9 +36,11 @@ const getInterviewResults = async (req: Request, res: Response) => {
     axios.defaults.headers.common = { Authorization: `bearer ${token}` }
     const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
     const candidateid = authResult.data.userInfo.candidateid
+    const interviewId = req.params.interviewId;
 
     const dao = new Dao()
-    const dbResult = await dao.getInterviewResults(candidateid)
+    const dbResult = await dao.getInterviewResults(candidateid, interviewId)
+
     if (dbResult.msg === '201') {
       // @ts-ignore
       return res.status(201).json(dbResult.interviews[0].result)
