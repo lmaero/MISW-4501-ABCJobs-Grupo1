@@ -105,6 +105,7 @@ export default function TestsResultsPage({ params }: Props) {
                   <h3 className='font-bold'>{result.candidate}</h3>
                   <p className='text-sm text-gray-400'>{result.test_type}</p>
                   <Link
+                    data-cy='interview-button'
                     href={`/${params.lang}/interviews/schedule/${result.test_id}`}
                     className='flex items-center text-sm text-gray-500 transition-all hover:text-gray-900'
                   >
@@ -113,6 +114,7 @@ export default function TestsResultsPage({ params }: Props) {
                   </Link>
 
                   <Link
+                    data-cy='publish-button'
                     href={`/${params.lang}/interviews/publish/${result.candidateid}/${result.candidate}/${result.test_id}/${payload?.company_id}`}
                     className='flex items-center text-sm text-gray-500 transition-all hover:text-gray-900'
                   >

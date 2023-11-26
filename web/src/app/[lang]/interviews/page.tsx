@@ -73,6 +73,7 @@ export default function Page({ params }: Props) {
                     <p className='text-sm'>{t('isFinished')}</p>
                   )}
                   <Link
+                    data-cy='results'
                     href={`/${params.lang}/interviews/results/${interview.id}`}
                     className={classNames({
                       'flex items-center text-sm text-gray-500 transition-all hover:text-gray-900': true,

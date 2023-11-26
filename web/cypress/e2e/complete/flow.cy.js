@@ -57,5 +57,39 @@ describe('Complete flow', () => {
     cy.signOut()
     cy.loginCompany()
     cy.getCy('tests').click()
+
+    // SCHEDULE INTERVIEW
+    cy.getCy('interview-button').click()
+    cy.get('.react-datepicker__time-list > :nth-child(17)').click()
+    cy.getCy('ccpp-submit-button').click()
+
+    // PUBLISH INTERVIEW RESULTS
+    cy.getCy('tests').click()
+    cy.getCy('publish-button').click()
+
+    cy.getCy('skill0').type('React')
+    cy.getCy('score0').type('80')
+    cy.getCy('add-button').click()
+
+    cy.getCy('skill1').type('JavaScript')
+    cy.getCy('score1').type('100')
+    cy.getCy('add-button').click()
+
+    cy.getCy('skill2').type('Patience')
+    cy.getCy('score2').type('70')
+    cy.getCy('add-button').click()
+
+    cy.getCy('skill3').type('Honesty')
+    cy.getCy('score3').type('100')
+
+    cy.get('#selectedTrue').click()
+    cy.getCy('ccpp-submit-button').click()
+
+    // REVIEW INTERVIEW RESULTS
+    cy.signOut()
+    cy.loginCandidate()
+
+    cy.getCy('interviews').click()
+    cy.getCy('results').click()
   })
 })

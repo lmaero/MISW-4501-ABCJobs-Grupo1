@@ -140,6 +140,7 @@ export default function Page({ params }: Props) {
 
                   <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                     <input
+                      data-cy={`skill${index}`}
                       type='text'
                       className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
                       placeholder={t('skillPlaceholder')}
@@ -160,6 +161,7 @@ export default function Page({ params }: Props) {
                   <div className='flex max-w-md items-center space-x-5'>
                     <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
                       <input
+                        data-cy={`score${index}`}
                         type='number'
                         min={0}
                         max={100}
@@ -189,6 +191,7 @@ export default function Page({ params }: Props) {
             )
           })}
           <button
+            data-cy='add-button'
             type='button'
             className='rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold leading-6'
             onClick={addResult}
