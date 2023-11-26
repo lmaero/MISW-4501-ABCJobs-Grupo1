@@ -29,7 +29,10 @@ class Dao {
   async getInterviewResults(candidateid: number, interview_id: string) {
     const query = `select result from "Interview" where candidateid = $1 and interview_id = $2`
     try {
-      const interviews = await this.client.query(query, [candidateid, interview_id])
+      const interviews = await this.client.query(query, [
+        candidateid,
+        interview_id,
+      ])
       if (interviews.rows.length > 0) {
         return { msg: '201', interviews: interviews.rows }
       } else {

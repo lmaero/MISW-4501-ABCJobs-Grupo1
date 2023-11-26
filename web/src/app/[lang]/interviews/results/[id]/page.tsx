@@ -29,7 +29,7 @@ export default function Page({ params }: Props) {
   useEffect(() => {
     async function getData() {
       const response = await fetch(
-        `${CANDIDATE_HOST}/candidate/interviews/results`,
+        `${CANDIDATE_HOST}/candidate/interviews/results/${params.id}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         },
@@ -41,7 +41,7 @@ export default function Page({ params }: Props) {
     }
 
     void getData()
-  }, [])
+  }, [params.id])
 
   return (
     <div className='mx-auto max-w-7xl p-12'>

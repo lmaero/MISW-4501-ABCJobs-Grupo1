@@ -33,8 +33,6 @@ export default function Page({ params }: Props) {
       })
       const data = await response.json()
 
-      console.dir(data)
-
       if (!data.interviews) setInterviews([])
       else setInterviews(data.interviews)
     }
