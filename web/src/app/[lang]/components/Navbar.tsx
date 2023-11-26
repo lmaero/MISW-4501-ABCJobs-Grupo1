@@ -25,14 +25,25 @@ export function Navbar({ params }: Props) {
   if (!payload) return null
 
   const candidateMenus = [
-    // { label: t('projects'), link: `/${params.lang}/projects/create` },
-    { label: t('interviews'), link: `/${params.lang}/interviews` },
-    { label: t('tests'), link: `/${params.lang}/tests/perform` },
+    {
+      label: t('interviews'),
+      dataCy: 'interviews',
+      link: `/${params.lang}/interviews`,
+    },
+    {
+      label: t('tests'),
+      dataCy: 'tests',
+      link: `/${params.lang}/tests/perform`,
+    },
   ]
 
   const companyMenus = [
-    { label: t('projects'), link: `/${params.lang}/projects` },
-    { label: t('tests'), link: `/${params.lang}/tests` },
+    {
+      label: t('projects'),
+      dataCy: 'projects',
+      link: `/${params.lang}/projects`,
+    },
+    { label: t('tests'), dataCy: 'tests', link: `/${params.lang}/tests` },
   ]
 
   const menus = payload.type === 'Candidate' ? candidateMenus : companyMenus
@@ -52,6 +63,7 @@ export function Navbar({ params }: Props) {
                 <div className='hidden lg:ml-6 lg:flex lg:space-x-8'>
                   {menus.map((menu) => (
                     <Link
+                      data-cy={menu.dataCy}
                       key={menu.label}
                       href={menu.link}
                       className='inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:border-b hover:border-blue-500 active:font-bold'
