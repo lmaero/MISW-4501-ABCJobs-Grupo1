@@ -13,5 +13,6 @@ candidateRouter.get(
 )
 candidateRouter.get('/tests', candidateControllers.getAllTests)
 candidateRouter.post('/test', candidateControllers.testPerformed)
+candidateRouter.get('/interviews/results', candidateControllers.getInterviewResults)
 
 export default candidateRouter
