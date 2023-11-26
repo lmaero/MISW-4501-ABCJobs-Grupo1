@@ -104,9 +104,6 @@ class Dao {
 
     try {
       const res = await this.client.query(query, [email])
-
-      console.log(res.rows.length === 0)
-
       const info = res?.rows[0]
       if (info) {
         if (isCandidate) {

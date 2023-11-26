@@ -40,8 +40,6 @@ export default function LoginPage({ params }: Props) {
 
     const json = await response.json()
 
-    console.dir(response)
-
     if (response.status === 200) {
       localStorage.setItem('token', json.token)
       toast(t('notifications.success'), { type: 'success', autoClose: 3000 })
