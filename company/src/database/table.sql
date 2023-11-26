@@ -33,6 +33,6 @@ CREATE TABLE "Interview"
     "company_id"         INT,
     "company_name"       TEXT,
     "schedule"          TIMESTAMP,
-    "result"            TEXT[],
+    "result"            JSONB[],
     "interview_id"      SERIAL PRIMARY KEY
 );

@@ -6,7 +6,7 @@ import {
   getTestById,
   getTests,
   register,
-  registerProfile,
+  registerProfile, setInterviewResult,
 } from '../controllers/company'
 
 const companyRouter = express.Router()
@@ -18,5 +18,6 @@ companyRouter.get('/tests', getTests)
 companyRouter.get('/tests/:id', getTestById)
 companyRouter.get('/interviews', getInterviewsPerCompany)
 companyRouter.post('/interviews', createInterview)
+companyRouter.post('/interviews/result', setInterviewResult)
 
 export default companyRouter
