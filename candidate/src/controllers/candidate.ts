@@ -30,6 +30,28 @@ const getInterviewsPerCandidate = async (req: Request, res: Response) => {
   }
 }
 
+const getInterviewResults = async (req: Request, res: Response) => {
+  try {
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const candidateid = authResult.data.userInfo.candidateid
+
+    const dao = new Dao()
+    const dbResult = await dao.getInterviewResults(candidateid)
+    if (dbResult.msg === '201') {
+      // @ts-ignore
+      return res.status(201).json(dbResult.interviews[0].result)
+    } else {
+      return res
+        .status(400)
+        .json({ message: 'No test associated with the id provided' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
 export async function register(req: Request, res: Response) {
   try {
     const result = CandidatePreSch.safeParse(req.body)
@@ -128,7 +150,7 @@ export async function searchCandidate(req: Request, res: Response) {
         spoken_languages,
       )
       if (dbResult.msg === '200') {
-        return res.status(200).json({ candidates: dbResult.res?.rows })
+        return res.status(200).json(dbResult.res?.rows)
       } else {
         return res
           .status(400)
@@ -229,6 +251,7 @@ export default {
   getTests,
   getAllTests,
   getInterviewsPerCandidate,
+  getInterviewResults,
   ping,
   register,
   registerProfile,

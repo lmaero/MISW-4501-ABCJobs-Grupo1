@@ -14,7 +14,7 @@
     "notifications": {
       "success": "Successfully logged in",
       "warning": "You're not registered, please register first.",
-      "error": "Your password does not match"
+      "error": "Please verify your credential and login type"
     },
     "sendButton": "Login",
     "loginHere": "Sign up here!"
@@ -59,6 +59,14 @@
   "SearchCandidatePage": {
     "title": "Search Candidates",
     "subtitle": "What profile are you looking for?",
+    "noResults": "No candidates were found with the selected filters",
+    "results": {
+      "location": "Location",
+      "email": "Email",
+      "spoken": "Spoken Languages",
+      "programming": "Programming Languages",
+      "softSkills": "Soft Skills"
+    },
     "formLabels": {
       "rolesTitle": "Applicable roles",
       "rolesSubtitle": "Make sure to select compatible roles",
@@ -239,7 +247,9 @@
   "TestsResultsPage": {
     "title": "Last Test Results",
     "createTest": "Create Test",
-    "notCreated": "No results yet!"
+    "notCreated": "No results yet!",
+    "schedule": "Schedule Interview",
+    "publish": "Publish Result"
   },
   "SchedulerPage": {
     "calendarLabel": "Date/Time",
@@ -269,6 +279,29 @@
     "title": "Projects",
     "createProject": "Create Project",
     "notCreated": "You have no projects, create the first one"
+<<<<<<< HEAD
 >>>>>>> ABC-55
+=======
+  },
+  "PublishResultsPage": {
+    "resultsFor": "Results for: ",
+    "skill": "Skill",
+    "score": "Score",
+    "skillPlaceholder": "React",
+    "scorePlaceholder": "60",
+    "removeButton": "Remove Skill",
+    "addButton": "Add Skill",
+    "cancelButton": "Cancel",
+    "sendButton": "Publish",
+    "selected": {
+      "title": "Select for project?",
+      "subtitle": "This will reserve this candidate",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "notifications": {
+      "success": "Successfully published"
+    }
+>>>>>>> ABC-67
   }
 }

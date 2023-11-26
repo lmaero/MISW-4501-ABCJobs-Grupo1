@@ -93,6 +93,7 @@ export default function Page({ params }: Props) {
       else setInterviews(data.interviews)
 >>>>>>> ABC-55
     }
+
     void getData()
   }, [])
 
@@ -102,7 +103,7 @@ export default function Page({ params }: Props) {
   if (interviews.length === 0)
 >>>>>>> ABC-55
     return (
-      <div className='mx-auto max-w-7xl p-7 space-y-3'>
+      <div className='mx-auto max-w-7xl space-y-3 p-7'>
         <p className='font-semibold'>{t('notScheduled')}</p>
       </div>
     )
@@ -143,6 +144,7 @@ export default function Page({ params }: Props) {
                   {interview.result && (
                     <p className='text-sm'>{t('isFinished')}</p>
                   )}
+<<<<<<< HEAD
                   {interview.result && (
 >>>>>>> ABC-55
                     <Link
@@ -155,6 +157,17 @@ export default function Page({ params }: Props) {
                       {t('seeResults')}
                     </Link>
                   )}
+=======
+                  <Link
+                    href={`/${params.lang}/interviews/results/${interview.id}`}
+                    className={classNames({
+                      'flex items-center text-sm text-gray-500 transition-all hover:text-gray-900': true,
+                    })}
+                  >
+                    <ChartBarSquareIcon className='mr-2 h-6' />
+                    {t('seeResults')}
+                  </Link>
+>>>>>>> ABC-67
                 </div>
                 <div
                   className={classNames({

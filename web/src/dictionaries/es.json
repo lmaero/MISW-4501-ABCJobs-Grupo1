@@ -14,7 +14,7 @@
     "notifications": {
       "success": "Ingresaste exitosamente",
       "warning": "No estás registrado, regístrate primero",
-      "error": "Tu contraseña no coincide"
+      "error": "Verifica tus credenciales y el tipo de usuario"
     },
     "sendButton": "Ingresar",
     "loginHere": "Regístrate aquí!"
@@ -59,6 +59,14 @@
   "SearchCandidatePage": {
     "title": "Busca Candidatos",
     "subtitle": "¿Qué perfil estás buscando?",
+    "noResults": "No se encontraron candidatos con los criterios seleccionados",
+    "results": {
+      "location": "Ubicación",
+      "email": "Correo",
+      "spoken": "Idiomas",
+      "programming": "Lenguages de Programación",
+      "softSkills": "Habilidades Blandas"
+    },
     "formLabels": {
       "rolesTitle": "Roles aplicables",
       "rolesSubtitle": "Aségurate de seleccionar roles compatibles",
@@ -239,7 +247,9 @@
   "TestsResultsPage": {
     "title": "Últimos resultados de pruebas",
     "createTest": "Crear prueba",
-    "notCreated": "No hay resultados aún"
+    "notCreated": "No hay resultados aún",
+    "schedule": "Programar Entrevista",
+    "publish": "Publicar Resultado"
   },
   "SchedulerPage": {
     "calendarLabel": "Fecha/Hora",
@@ -269,6 +279,29 @@
     "title": "Proyectos",
     "createProject": "Crear proyecto",
     "notCreated": "No tienes proyectos creados, crea el primero"
+<<<<<<< HEAD
 >>>>>>> ABC-55
+=======
+  },
+  "PublishResultsPage": {
+    "resultsFor": "Resultados para: ",
+    "skill": "Habilidad",
+    "score": "Puntaje",
+    "skillPlaceholder": "React",
+    "scorePlaceholder": "60",
+    "removeButton": "Eliminar puntaje",
+    "addButton": "Añadir puntaje",
+    "cancelButton": "Cancelar",
+    "sendButton": "Publicar",
+    "selected": {
+      "title": "¿Seleccionar para el proyecto?",
+      "subtitle": "Esto va a reservar el candidato",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "notifications": {
+      "success": "Publicado satisfactoriamente"
+    }
+>>>>>>> ABC-67
   }
 }
