@@ -36,12 +36,13 @@ export default function Page({ params }: Props) {
       if (!data.interviews) setInterviews([])
       else setInterviews(data.interviews)
     }
+
     void getData()
   }, [])
 
   if (interviews.length === 0)
     return (
-      <div className='mx-auto max-w-7xl p-7 space-y-3'>
+      <div className='mx-auto max-w-7xl space-y-3 p-7'>
         <p className='font-semibold'>{t('notScheduled')}</p>
       </div>
     )
@@ -71,17 +72,15 @@ export default function Page({ params }: Props) {
                   {interview.result && (
                     <p className='text-sm'>{t('isFinished')}</p>
                   )}
-                  {interview.result && (
-                    <Link
-                      href={`/${params.lang}/interviews/results/${interview.id}`}
-                      className={classNames({
-                        'flex items-center text-sm text-gray-500 transition-all hover:text-gray-900': true,
-                      })}
-                    >
-                      <ChartBarSquareIcon className='mr-2 h-6' />
-                      {t('seeResults')}
-                    </Link>
-                  )}
+                  <Link
+                    href={`/${params.lang}/interviews/results/${interview.id}`}
+                    className={classNames({
+                      'flex items-center text-sm text-gray-500 transition-all hover:text-gray-900': true,
+                    })}
+                  >
+                    <ChartBarSquareIcon className='mr-2 h-6' />
+                    {t('seeResults')}
+                  </Link>
                 </div>
                 <div
                   className={classNames({

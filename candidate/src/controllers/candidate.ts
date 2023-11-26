@@ -41,11 +41,11 @@ const getInterviewResults = async (req: Request, res: Response) => {
     const dbResult = await dao.getInterviewResults(candidateid)
     if (dbResult.msg === '201') {
       // @ts-ignore
-      return res.status(201).json( dbResult.interviews[0].result )
+      return res.status(201).json(dbResult.interviews[0].result)
     } else {
       return res
-          .status(400)
-          .json({ message: 'No test associated with the id provided' })
+        .status(400)
+        .json({ message: 'No test associated with the id provided' })
     }
   } catch (error) {
     console.error(error)
@@ -257,5 +257,4 @@ export default {
   registerProfile,
   searchCandidate,
   testPerformed,
-
 }
