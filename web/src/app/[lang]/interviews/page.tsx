@@ -15,7 +15,7 @@ interface Props {
 }
 
 interface Interview {
-  id: number
+  interview_id: number
   company_name: string
   interviewType: string
   schedule: string
@@ -32,6 +32,8 @@ export default function Page({ params }: Props) {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       const data = await response.json()
+
+      console.dir(data)
 
       if (!data.interviews) setInterviews([])
       else setInterviews(data.interviews)
@@ -74,7 +76,7 @@ export default function Page({ params }: Props) {
                   )}
                   <Link
                     data-cy='results'
-                    href={`/${params.lang}/interviews/results/${interview.id}`}
+                    href={`/${params.lang}/interviews/results/${interview.interview_id}`}
                     className={classNames({
                       'flex items-center text-sm text-gray-500 transition-all hover:text-gray-900': true,
                     })}
