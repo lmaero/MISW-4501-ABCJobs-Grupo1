@@ -170,7 +170,7 @@ describe('candidate tests', () => {
     expect(result).toBeDefined()
   })
 
-  test('search candidate 200', async () => {
+  test('search candidate 404', async () => {
     const request = httpMocks.createRequest({
       method: 'GET',
       url: '/user/42',
@@ -186,10 +186,10 @@ describe('candidate tests', () => {
     })
     jest
       .spyOn(Dao.prototype, 'searchCandidate')
-      .mockReturnValue(Promise.resolve({ msg: '200' }))
+      .mockReturnValue(Promise.resolve({ msg: '404' }))
     const response = httpMocks.createResponse()
     const result = await searchCandidate(request, response)
-    const expected = 200
+    const expected = 404
     expect(result.statusCode).toStrictEqual(expected)
   })
 
@@ -245,7 +245,7 @@ describe('candidate tests', () => {
     expect(result.statusCode).toStrictEqual(200)
   })
 
-  test('search candidate 400', async () => {
+  test('search candidate 404', async () => {
     const request = httpMocks.createRequest({
       method: 'GET',
       url: '/user/42',
@@ -264,10 +264,10 @@ describe('candidate tests', () => {
     })
     jest
       .spyOn(Dao.prototype, 'searchCandidate')
-      .mockReturnValue(Promise.resolve({ msg: '400' }))
+      .mockReturnValue(Promise.resolve({ msg: '404' }))
     const response = httpMocks.createResponse()
     const result = await searchCandidate(request, response)
-    const expected = 400
+    const expected = 404
     expect(result.statusCode).toStrictEqual(expected)
   })
 })
