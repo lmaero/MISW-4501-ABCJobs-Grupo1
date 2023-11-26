@@ -187,7 +187,7 @@ const getTestById = async (req: Request, res: Response) => {
 
 const setInterviewResult = async (req: Request, res: Response) => {
   try {
-    const { companyId, candidateId, testId, results} = req.body
+    const { companyId, candidateId, testId, results, selected} = req.body
     const resultsList = []
     for(let i in results){
       let resultsAsObj = {
@@ -200,7 +200,7 @@ const setInterviewResult = async (req: Request, res: Response) => {
       "results": resultsList
     }
     const dao = new Dao()
-    const dbResult = await dao.setInterviewResult(companyId, candidateId, testId, resultObj);
+    const dbResult = await dao.setInterviewResult(companyId, candidateId, testId, resultObj, selected);
     if (dbResult.msg === '200') {
       return res.status(200).json( "Interview results published" )
     } else {

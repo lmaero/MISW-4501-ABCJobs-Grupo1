@@ -99,6 +99,7 @@ export async function createInterviewTableIfNotExists() {
                             "company_name"       TEXT,
                             "schedule"          TIMESTAMP,
                             "result"            JSONB,
+                            "selected"          BOOLEAN,                            
                             "interview_id"      SERIAL PRIMARY KEY
                 );
             `)
