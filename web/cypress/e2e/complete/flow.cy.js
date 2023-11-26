@@ -45,9 +45,30 @@ describe('Complete flow', () => {
     cy.get('input[data-cy="wrongOptions02"]').type(wrong3)
 
     cy.getCy('ccpp-submit-button').click()
-    cy.signOut()
+
+    // CREATE PROJECT AS COMPANY
+    cy.visit('/projects/create')
+    cy.get(`input[type="checkbox"]`).first().check().should('be.checked')
+    cy.get(`input[type="checkbox"]`).last().check().should('be.checked')
+    cy.get('#price').type('10000').should('have.value', 10000)
+    cy.get('#budget').type('100000').should('have.value', 100000)
+    cy.get('input[id="deadline"]')
+      .focus()
+      .type('2024-05-19')
+      .should('have.value', '2024-05-19')
+    cy.get('textarea[id="description"]')
+      .focus()
+      .type('An amazing good description', { delay: 0 })
+    cy.get('select[id="stakeholders"]')
+      .focus()
+      .select('ABC Jobs')
+      .should('have.value', 'ABC Jobs')
+
+    cy.contains('Save').should('be.enabled').click()
+    cy.contains('Project registered').should('be.visible')
 
     // PERFORM TEST AS CANDIDATE
+    cy.signOut()
     cy.loginCandidate()
     cy.getCy('tests').click()
     cy.get('input[type="radio"]').first().check()
