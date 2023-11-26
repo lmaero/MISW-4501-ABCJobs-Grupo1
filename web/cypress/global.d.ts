@@ -7,6 +7,7 @@ declare namespace Cypress {
       args?: undefined,
     ): Chainable<JQuery<HTMLElement>>
 
+    clearDatabase(): Chainable<JQuery<HTMLElement>>
     loginCandidate(): Chainable<JQuery<HTMLElement>>
     loginCompany(): Chainable<JQuery<HTMLElement>>
     signOut(): Chainable<JQuery<HTMLElement>>

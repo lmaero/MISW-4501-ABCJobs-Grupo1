@@ -1,5 +1,3 @@
-import { faker } from '@faker-js/faker'
-
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
@@ -38,14 +36,16 @@ import { faker } from '@faker-js/faker'
 //   }
 // }
 
-const candidateEmail = faker.internet.email().toLowerCase()
-const candidatePass = 'SuperSecret1#'
+import { faker } from '@faker-js/faker'
+
+export const candidateEmail = faker.internet.email().toLowerCase()
+export const candidatePass = 'SuperSecret1#'
 const candidateName = 'ABC Candidate'
 
-const companyEmail = faker.internet
+export const companyEmail = faker.internet
   .email({ provider: 'abcjobs.com' })
   .toLowerCase()
-const companyPass = 'SuperSecret2#'
+export const companyPass = 'SuperSecret2#'
 const companyName = 'ABC Company'
 
 Cypress.Commands.add('getCy', (selector, ...args) => {
@@ -58,6 +58,7 @@ Cypress.Commands.add('signOut', () => {
 })
 
 Cypress.Commands.add('loginCandidate', () => {
+  cy.clearLocalStorage('token')
   cy.visit('/login')
   cy.get('[data-testid=crp-email]').type(candidateEmail)
   cy.get('[data-testid=crp-password]').type(candidatePass)
@@ -66,6 +67,7 @@ Cypress.Commands.add('loginCandidate', () => {
 })
 
 Cypress.Commands.add('loginCompany', () => {
+  cy.clearLocalStorage('token')
   cy.visit('/login')
   cy.get('[data-testid=crp-email]').type(companyEmail)
   cy.get('[data-testid=crp-password]').type(companyPass)
