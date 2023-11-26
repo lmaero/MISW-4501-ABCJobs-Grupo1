@@ -1,8 +1,10 @@
 'use client'
 
+import { ErrorMessage } from '@/app/[lang]/components/ErrorMessage'
 import { FieldDescription } from '@/app/[lang]/components/FieldDescription'
 import { COMPANY_HOST } from '@/lib/api'
 import { ZStringSch } from '@/schemas/ZString'
+import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Progress } from '@mantine/core'
 import { useTranslations } from 'next-intl'
@@ -22,6 +24,7 @@ const InterviewResultSch = z.object({
   companyId: z.number(),
   candidateId: z.number(),
   testId: z.number(),
+  selected: z.coerce.boolean(),
   results: z.array(
     z.tuple([ZStringSch.min(2).max(100), z.coerce.number().min(0).max(100)]),
   ),
@@ -36,6 +39,7 @@ export default function Page({ params }: Props) {
     candidateId: -1,
     testId: -1,
     results: [['', -1]],
+    selected: false,
   })
 
   const {
@@ -43,8 +47,9 @@ export default function Page({ params }: Props) {
     register,
     handleSubmit,
     watch,
+    control,
   } = useForm<InterviewResult>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     shouldUnregister: true,
     resolver: zodResolver(InterviewResultSch),
   })
@@ -179,6 +184,34 @@ export default function Page({ params }: Props) {
             {t('addButton')}
           </button>
 
+          <fieldset className='mt-10 flex flex-col space-y-2'>
+            <h4 className='font-bold'>{t('selected.title')}</h4>
+            <p className='text-gray-500'>{t('selected.subtitle')}</p>
+            <div className='flex items-center space-x-2'>
+              <input
+                id='selectedTrue'
+                type='radio'
+                value='true'
+                {...register('selected')}
+              />
+              <label htmlFor='selectedTrue'>{t('selected.yes')}</label>
+            </div>
+
+            <div className='flex items-center space-x-2'>
+              <input
+                id='selectedFalse'
+                type='radio'
+                value='false'
+                {...register('selected')}
+              />
+              <label htmlFor='selectedFalse'>{t('selected.no')}</label>
+            </div>
+
+            {errors?.selected && (
+              <ErrorMessage message={errors.selected.message} />
+            )}
+          </fieldset>
+
           <div className='mt-10 flex space-x-2'>
             <button
               type='reset'
@@ -198,6 +231,8 @@ export default function Page({ params }: Props) {
           </div>
         </form>
       </div>
+      {/*{JSON.stringify(errors)}*/}
+      <DevTool control={control} />
     </div>
   )
 }

@@ -275,6 +275,12 @@
     "removeButton": "Remove Skill",
     "addButton": "Add Skill",
     "cancelButton": "Cancel",
-    "sendButton": "Publish"
+    "sendButton": "Publish",
+    "selected": {
+      "title": "Select for project?",
+      "subtitle": "This will reserve this candidate",
+      "yes": "Yes",
+      "no": "No"
+    }
   }
 }

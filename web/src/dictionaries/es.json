@@ -275,6 +275,12 @@
     "removeButton": "Eliminar puntaje",
     "addButton": "Añadir puntaje",
     "cancelButton": "Cancelar",
-    "sendButton": "Publicar"
+    "sendButton": "Publicar",
+    "selected": {
+      "title": "¿Seleccionar para el proyecto?",
+      "subtitle": "Esto va a reservar el candidato",
+      "yes": "Sí",
+      "no": "No"
+    }
   }
 }
