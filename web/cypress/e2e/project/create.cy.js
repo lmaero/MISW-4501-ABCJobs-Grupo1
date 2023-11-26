@@ -113,9 +113,7 @@ describe('Create Project Page', () => {
 
   it('tests the buttons', () => {
     cy.get('button[type="reset"]').should('exist').should('be.enabled')
-    cy.get('[data-testid=ccpp-submit-button]')
-      .should('exist')
-      .should('be.disabled')
+    cy.get('[data-cy=ccpp-submit-button]').should('exist').should('be.disabled')
   })
 
   it('enables the Save button with valid data and can be clicked', () => {
