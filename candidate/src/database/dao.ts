@@ -26,10 +26,10 @@ class Dao {
     }
   }
 
-  async getInterviewResults(candidateid: number) {
-    const query = `select result from "Interview" where candidateid = $1`
+  async getInterviewResults(candidateid: number, interview_id: string) {
+    const query = `select result from "Interview" where candidateid = $1 and interview_id = $2`
     try {
-      const interviews = await this.client.query(query, [candidateid])
+      const interviews = await this.client.query(query, [candidateid, interview_id])
       if (interviews.rows.length > 0) {
         return { msg: '201', interviews: interviews.rows }
       } else {
@@ -120,7 +120,7 @@ class Dao {
                                         lateral (select jsonb_array_elements(role.col) x) y)
                    select *
                    from result
-                   where 1 = 1
+                   where 1=1
                       or position in ($1)
                       or programming_languages in ($2)
                       or soft_skills in ($3)

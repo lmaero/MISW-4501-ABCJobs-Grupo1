@@ -56,13 +56,7 @@ interface Props {
 }
 
 interface Interview {
-  id: number
-<<<<<<< HEAD
-  company: string
-  interviewType: string
-  date: string
-  isFinished: boolean
-=======
+  interview_id: number
   company_name: string
   interviewType: string
   schedule: string
@@ -85,10 +79,8 @@ export default function Page({ params }: Props) {
       })
       const data = await response.json()
 
-<<<<<<< HEAD
-      if (!data.results) setInterviews([])
-      else setInterviews(data.results)
-=======
+      console.dir(data)
+
       if (!data.interviews) setInterviews([])
       else setInterviews(data.interviews)
 >>>>>>> ABC-55
@@ -159,7 +151,8 @@ export default function Page({ params }: Props) {
                   )}
 =======
                   <Link
-                    href={`/${params.lang}/interviews/results/${interview.id}`}
+                    data-cy='results'
+                    href={`/${params.lang}/interviews/results/${interview.interview_id}`}
                     className={classNames({
                       'flex items-center text-sm text-gray-500 transition-all hover:text-gray-900': true,
                     })}

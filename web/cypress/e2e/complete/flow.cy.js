@@ -45,9 +45,30 @@ describe('Complete flow', () => {
     cy.get('input[data-cy="wrongOptions02"]').type(wrong3)
 
     cy.getCy('ccpp-submit-button').click()
-    cy.signOut()
+
+    // CREATE PROJECT AS COMPANY
+    cy.visit('/projects/create')
+    cy.get(`input[type="checkbox"]`).first().check().should('be.checked')
+    cy.get(`input[type="checkbox"]`).last().check().should('be.checked')
+    cy.get('#price').type('10000').should('have.value', 10000)
+    cy.get('#budget').type('100000').should('have.value', 100000)
+    cy.get('input[id="deadline"]')
+      .focus()
+      .type('2024-05-19')
+      .should('have.value', '2024-05-19')
+    cy.get('textarea[id="description"]')
+      .focus()
+      .type('An amazing good description', { delay: 0 })
+    cy.get('select[id="stakeholders"]')
+      .focus()
+      .select('ABC Jobs')
+      .should('have.value', 'ABC Jobs')
+
+    cy.contains('Save').should('be.enabled').click()
+    cy.contains('Project registered').should('be.visible')
 
     // PERFORM TEST AS CANDIDATE
+    cy.signOut()
     cy.loginCandidate()
     cy.getCy('tests').click()
     cy.get('input[type="radio"]').first().check()
@@ -57,5 +78,39 @@ describe('Complete flow', () => {
     cy.signOut()
     cy.loginCompany()
     cy.getCy('tests').click()
+
+    // SCHEDULE INTERVIEW
+    cy.getCy('interview-button').click()
+    cy.get('.react-datepicker__time-list > :nth-child(17)').click()
+    cy.getCy('ccpp-submit-button').click()
+
+    // PUBLISH INTERVIEW RESULTS
+    cy.getCy('tests').click()
+    cy.getCy('publish-button').click()
+
+    cy.getCy('skill0').type('React')
+    cy.getCy('score0').type('80')
+    cy.getCy('add-button').click()
+
+    cy.getCy('skill1').type('JavaScript')
+    cy.getCy('score1').type('100')
+    cy.getCy('add-button').click()
+
+    cy.getCy('skill2').type('Patience')
+    cy.getCy('score2').type('70')
+    cy.getCy('add-button').click()
+
+    cy.getCy('skill3').type('Honesty')
+    cy.getCy('score3').type('100')
+
+    cy.get('#selectedTrue').click()
+    cy.getCy('ccpp-submit-button').click()
+
+    // REVIEW INTERVIEW RESULTS
+    cy.signOut()
+    cy.loginCandidate()
+
+    cy.getCy('interviews').click()
+    cy.getCy('results').click()
   })
 })
