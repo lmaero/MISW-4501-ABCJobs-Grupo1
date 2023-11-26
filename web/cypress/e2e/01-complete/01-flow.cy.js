@@ -8,7 +8,7 @@ describe('Complete flow', () => {
     cy.registerCandidate()
 
     cy.loginCandidate()
-    cy.get('span').contains('Candidate').should('be.visible')
+    cy.getCy('dashboard-title').should('be.visible')
     cy.signOut()
 
     // COMPANY REGISTER AND LOGIN
@@ -19,7 +19,7 @@ describe('Complete flow', () => {
     cy.registerCompany()
 
     cy.loginCompany()
-    cy.get('span').contains('Company').should('be.visible')
+    cy.getCy('dashboard-title').should('be.visible')
     cy.signOut()
 
     // CREATE TEST AS COMPANY
@@ -64,8 +64,8 @@ describe('Complete flow', () => {
       .select('ABC Jobs')
       .should('have.value', 'ABC Jobs')
 
-    cy.contains('Save').should('be.enabled').click()
-    cy.contains('Project registered').should('be.visible')
+    cy.getCy('ccpp-submit-button').should('be.enabled').click()
+    cy.get('.Toastify__toast-container').should('be.visible')
 
     // PERFORM TEST AS CANDIDATE
     cy.signOut()
