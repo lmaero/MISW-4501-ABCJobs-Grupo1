@@ -158,8 +158,6 @@ export async function searchCandidate(req: Request, res: Response) {
         soft_skills,
         spoken_languages,
       )
-
-      // Obten los candidatos y busca si cumple alguno de los criterios
       const candidates = dbResult?.res?.rows != undefined ? dbResult.res.rows : [];
       const candidatesExpectedList = []
       for(let candidate in candidates) {
