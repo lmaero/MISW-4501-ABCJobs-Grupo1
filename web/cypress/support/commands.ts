@@ -110,7 +110,7 @@ Cypress.Commands.add('registerCandidate', () => {
   cy.get('input[id="expStartDate"]').focus().type('1993-05-19')
   cy.get('input[id="expEndDate"]').focus().type('1993-05-19')
 
-  cy.getCy('ccpp-submit-button').should('be.enabled').click()
+  cy.get('[data-testid="ccpp-submit-button"]').should('be.enabled').click()
 })
 
 Cypress.Commands.add('registerCompany', () => {
@@ -134,5 +134,5 @@ Cypress.Commands.add('registerCompany', () => {
   cy.get('select[id="preferredLanguage"]').focus().select(0)
   cy.get('select[id="mainContact"]').focus().select(0)
 
-  cy.getCy('ccpp-submit-button').should('be.enabled').click()
+  cy.getCy('company-profile-submit-button').should('be.enabled').click()
 })
