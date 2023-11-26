@@ -187,32 +187,26 @@ const getTestById = async (req: Request, res: Response) => {
 
 const setInterviewResult = async (req: Request, res: Response) => {
   try {
-    const { companyId, candidateId, testId, results, selected } = req.body
+    const { companyId, candidateId, testId, results, selected} = req.body
     const resultsList = []
-    for (const i in results) {
-      const resultsAsObj = {
-        test: results[i][0],
-        score: results[i][1],
+    for(let i in results){
+      let resultsAsObj = {
+        "test": results[i][0],
+        "score": results[i][1]
       }
       resultsList.push(resultsAsObj)
     }
-    const resultObj = {
-      results: resultsList,
+    let resultObj = {
+      "results": resultsList
     }
     const dao = new Dao()
-    const dbResult = await dao.setInterviewResult(
-      companyId,
-      candidateId,
-      testId,
-      resultObj,
-      selected,
-    )
+    const dbResult = await dao.setInterviewResult(candidateId, testId, companyId, resultObj, selected);
     if (dbResult.msg === '200') {
-      return res.status(200).json('Interview results published')
+      return res.status(200).json( "Interview results published" )
     } else {
       return res
-        .status(400)
-        .json({ message: 'The interview results were not published' })
+          .status(400)
+          .json({ message: 'The interview results were not published' })
     }
   } catch (error) {
     console.error(error)
@@ -220,11 +214,4 @@ const setInterviewResult = async (req: Request, res: Response) => {
   }
 }
 
-export {
-  register,
-  registerProfile,
-  createTest,
-  getTests,
-  getTestById,
-  setInterviewResult,
-}
+export { register, registerProfile, createTest, getTests, getTestById, setInterviewResult }
