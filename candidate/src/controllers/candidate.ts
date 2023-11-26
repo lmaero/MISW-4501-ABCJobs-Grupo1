@@ -52,6 +52,7 @@ const getInterviewResults = async (req: Request, res: Response) => {
     return res.status(500).json({ message: 'Internal server error' })
   }
 }
+
 export async function register(req: Request, res: Response) {
   try {
     const result = CandidatePreSch.safeParse(req.body)
@@ -134,14 +135,14 @@ export async function registerProfile(req: Request, res: Response) {
 
 export async function searchCandidate(req: Request, res: Response) {
   /*
-    Input:
-       {
-        "role": ["fullstack", "backend", "architect"],
-        "languages": ["javascript", "python"],
-        "soft_skills": ["leadership", "hardwork"],
-        "spoken_languages": ["english", "spanish"]
-      }
-   */
+      Input:
+         {
+          "role": ["fullstack", "backend", "architect"],
+          "languages": ["javascript", "python"],
+          "soft_skills": ["leadership", "hardwork"],
+          "spoken_languages": ["english", "spanish"]
+        }
+     */
   try {
     const result = req.body
 
@@ -240,19 +241,18 @@ export async function testPerformed(req: Request, res: Response) {
 
 export async function getAllTests(req: Request, res: Response) {
   try {
-    const evaluatorResult = await axios.get(
-      'http://0.0.0.0:4002/evaluator/tests',
-    )
-    if (evaluatorResult.status === 200) {
-      const results = evaluatorResult.data.resultsForAllCandidates
-      return res.status(200).json({ results })
+    const evaluatorResult = await fetch('http://0.0.0.0:4002/evaluator/tests')
+
+    if (evaluatorResult.ok) {
+      const results = await evaluatorResult.json()
+
+      return res.status(200).json({ results: results.resultsForAllCandidates })
     } else {
       return res
         .status(200)
         .json({ message: 'No test results for the candidate' })
     }
   } catch (error) {
-    console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
   }
 }
