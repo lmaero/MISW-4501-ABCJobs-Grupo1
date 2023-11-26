@@ -6,7 +6,6 @@ import { CANDIDATE_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { SearchCandidate, SearchCandidateSch } from '@/schemas/SearchCandidate'
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios from 'axios'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -63,41 +62,41 @@ export default function SearchCandidatePage({ params }: Props) {
     resolver: zodResolver(SearchCandidateSch),
   })
 
-  console.dir(candidates)
-
   async function onSubmit(data: SearchCandidate) {
-    await axios
-      .post(`${CANDIDATE_HOST}/candidate/search`, JSON.stringify(data), {
+    try {
+      const response = await fetch(`${CANDIDATE_HOST}/candidate/search`, {
+        body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': '*',
         },
-        withCredentials: false,
+        method: 'POST',
       })
-      .then((data) => {
-        if (data.status === 200) {
-          setCandidates(data.data)
-          return
-        }
 
-        if (data.status === 400) {
-          toast(data.data.message, { type: 'warning', autoClose: 5000 })
-        } else {
-          toast(data.data.message, { type: 'error', autoClose: false })
-        }
-      })
-      .catch((e) => {
-        if (e instanceof Error) {
-          toast(e.message, { type: 'error', autoClose: false })
-          throw e
-        }
-      })
+      const res = await response.json()
+
+      if (response.status === 200) {
+        setCandidates(res)
+        return
+      }
+
+      if (response.status === 404) {
+        toast(res.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(res.message, { type: 'error', autoClose: false })
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
+    }
   }
 
   if (isSubmitSuccessful && candidates.length === 0) {
     return (
-      <p className='font-semibold mx-auto max-w-7xl p-7'>{t('noResults')}</p>
+      <p className='mx-auto max-w-7xl p-7 font-semibold'>{t('noResults')}</p>
     )
   }
 

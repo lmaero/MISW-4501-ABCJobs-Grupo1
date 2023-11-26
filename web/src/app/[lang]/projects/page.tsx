@@ -31,7 +31,7 @@ export default function Page({ params }: Props) {
       const response = await fetch(`${PROJECT_HOST}/project`)
       const data = await response.json()
 
-      if (!data) setProjects([])
+      if (!response.ok) setProjects([])
       else setProjects(data)
     }
     void getData()

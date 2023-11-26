@@ -14,10 +14,10 @@ export async function getAllResults(req: Request, res: Response) {
       return res.status(400).json({ message: 'No candidate user provided' })
     }
   } catch (error) {
-    console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
   }
 }
+
 export async function getResultsByUser(req: Request, res: Response) {
   try {
     const results = []
