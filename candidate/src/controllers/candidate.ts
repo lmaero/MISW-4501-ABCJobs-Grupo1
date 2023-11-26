@@ -173,11 +173,11 @@ export async function searchCandidate(req: Request, res: Response) {
         return res.status(200).json(candidatesExpectedList)
       } else {
         return res
-          .status(400)
+          .status(404)
           .json({ message: 'No candidate found with the criteria provided' })
       }
     } else {
-      return res.status(400).json({
+      return res.status(404).json({
         message: result.error.message,
       })
     }
