@@ -4,7 +4,6 @@ import { ErrorMessage } from '@/app/[lang]/components/ErrorMessage'
 import { FieldDescription } from '@/app/[lang]/components/FieldDescription'
 import { COMPANY_HOST } from '@/lib/api'
 import { ZStringSch } from '@/schemas/ZString'
-import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Progress } from '@mantine/core'
 import { useTranslations } from 'next-intl'
@@ -47,21 +46,22 @@ export default function Page({ params }: Props) {
     register,
     handleSubmit,
     watch,
-    control,
   } = useForm<InterviewResult>({
     mode: 'onChange',
     shouldUnregister: true,
     resolver: zodResolver(InterviewResultSch),
   })
 
-  function addResult() {
-    setResults({ ...results, results: [...results.results, ['', 0]] })
+  function addResult(): void {
+    setResults((prev) => ({ ...prev, results: [...prev.results, ['', 0]] }))
   }
 
-  function removeResult(index: number) {
-    const updated = { ...results }
-    updated.results.splice(index, 1)
-    setResults(updated)
+  function removeResult(index: number): void {
+    setResults((prev) => {
+      const updatedResults = [...prev.results]
+      updatedResults.splice(index, 1)
+      return { ...prev, results: updatedResults }
+    })
   }
 
   async function onSubmit(data: InterviewResult) {
@@ -130,7 +130,7 @@ export default function Page({ params }: Props) {
             {...register('testId', { valueAsNumber: true })}
           />
 
-          {results.results.map((result, index) => {
+          {results.results.map((_result, index) => {
             const barValue = watch(`results.${index}.1`)
 
             return (
@@ -243,8 +243,6 @@ export default function Page({ params }: Props) {
           </div>
         </form>
       </div>
-      {/*{JSON.stringify(errors)}*/}
-      <DevTool control={control} />
     </div>
   )
 }
