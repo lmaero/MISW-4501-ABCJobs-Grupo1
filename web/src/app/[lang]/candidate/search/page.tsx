@@ -9,8 +9,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { v4 } from 'uuid'
 
 const programmingLanguages = [
   { value: 'javascript', label: 'JavaScript' },
@@ -31,6 +33,18 @@ const spokenLanguages = [
   { value: 'russian', label: 'Russian' },
 ]
 
+interface Candidate {
+  position: string
+  soft_skills: string
+  spoken_languages: string
+  programming_languages: string
+  email: string
+  first_name: string
+  last_name: string
+  location: string
+  candidateid: number
+}
+
 interface Props {
   params: { lang: string }
 }
@@ -38,6 +52,7 @@ interface Props {
 export default function SearchCandidatePage({ params }: Props) {
   const t = useTranslations('SearchCandidatePage')
   const router = useRouter()
+  const [candidates, setCandidates] = useState<Candidate[] | []>([])
 
   const {
     formState: { errors, isValid, isSubmitSuccessful },
@@ -47,6 +62,8 @@ export default function SearchCandidatePage({ params }: Props) {
     mode: 'onChange',
     resolver: zodResolver(SearchCandidateSch),
   })
+
+  console.dir(candidates)
 
   async function onSubmit(data: SearchCandidate) {
     await axios
@@ -60,9 +77,7 @@ export default function SearchCandidatePage({ params }: Props) {
       })
       .then((data) => {
         if (data.status === 200) {
-          setTimeout(() => {
-            router.push(`/${params.lang}/candidate/search/results`)
-          }, 3000)
+          setCandidates(data.data)
           return
         }
 
@@ -78,6 +93,49 @@ export default function SearchCandidatePage({ params }: Props) {
           throw e
         }
       })
+  }
+
+  if (isSubmitSuccessful && candidates.length === 0) {
+    return (
+      <p className='font-semibold mx-auto max-w-7xl p-7'>{t('noResults')}</p>
+    )
+  }
+
+  if (isSubmitSuccessful && candidates.length !== 0) {
+    return (
+      <div className='mx-auto max-w-2xl p-8'>
+        <section className='space-y-3'>
+          {candidates.map((candidate) => (
+            <article
+              key={v4()}
+              className='grid grid-cols-2 rounded-md border-2 border-gray-50 p-5 capitalize'
+            >
+              <div className='space-y-2'>
+                <h3 className='font-bold capitalize'>{`${candidate.first_name} ${candidate.last_name}`}</h3>
+                <p className='text-sm text-gray-400'>
+                  {t('results.location')}: {candidate.location}
+                </p>
+              </div>
+              <div className='space-y-0.5 justify-self-end text-right'>
+                <p className='font-medium'>Main Role: {candidate.position}</p>
+                <p className='text-sm text-gray-400'>
+                  {t('results.email')}: {candidate.email}
+                </p>
+                <p className='text-sm text-gray-400'>
+                  {t('results.spoken')}: {candidate.spoken_languages}
+                </p>
+                <p className='text-sm text-gray-400'>
+                  {t('results.programming')}: {candidate.programming_languages}
+                </p>
+                <p className='text-sm text-gray-400'>
+                  {t('results.softSkills')}: {candidate.soft_skills}
+                </p>
+              </div>
+            </article>
+          ))}
+        </section>
+      </div>
+    )
   }
 
   return (
