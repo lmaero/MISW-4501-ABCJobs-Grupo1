@@ -1,5 +1,5 @@
 import express from 'express'
-import resultsControllers, { getAllResults } from '../controllers/results'
+import resultsControllers from '../controllers/results'
 
 const resultsRouter = express.Router()
 
