@@ -185,4 +185,33 @@ const getTestById = async (req: Request, res: Response) => {
   }
 }
 
-export { register, registerProfile, createTest, getTests, getTestById }
+const setInterviewResult = async (req: Request, res: Response) => {
+  try {
+    const { companyId, candidateId, testId, results} = req.body
+    const resultsList = []
+    for(let i in results){
+      let resultsAsObj = {
+        "test": results[i][0],
+        "score": results[i][1]
+      }
+      resultsList.push(resultsAsObj)
+    }
+    let resultObj = {
+      "results": resultsList
+    }
+    const dao = new Dao()
+    const dbResult = await dao.setInterviewResult(companyId, candidateId, testId, resultObj);
+    if (dbResult.msg === '200') {
+      return res.status(200).json( "Interview results published" )
+    } else {
+      return res
+          .status(400)
+          .json({ message: 'The interview results were not published' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export { register, registerProfile, createTest, getTests, getTestById, setInterviewResult }
