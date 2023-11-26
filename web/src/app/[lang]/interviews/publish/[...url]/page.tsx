@@ -146,6 +146,12 @@ export default function Page({ params }: Props) {
                       {...register(`results.${index}.0`)}
                     />
                   </div>
+
+                  {errors?.results?.[index]?.[0] && (
+                    <ErrorMessage
+                      message={errors.results?.[index]?.[0]?.message}
+                    />
+                  )}
                 </div>
 
                 <div className='mb-3'>
@@ -165,6 +171,12 @@ export default function Page({ params }: Props) {
 
                     <Progress value={barValue} size='xl' className='w-full' />
                   </div>
+
+                  {errors?.results?.[index]?.[1] && (
+                    <ErrorMessage
+                      message={errors.results?.[index]?.[1]?.message}
+                    />
+                  )}
                 </div>
                 <button
                   type='button'
