@@ -40,10 +40,16 @@ export default function LoginPage({ params }: Props) {
 
     const json = await response.json()
 
+    console.dir(response)
+
     if (response.status === 200) {
       localStorage.setItem('token', json.token)
       toast(t('notifications.success'), { type: 'success', autoClose: 3000 })
       window.location.href = `/${params.lang}/dashboard`
+    } else if (!response.ok) {
+      localStorage.removeItem('token')
+      toast(t('notifications.error'), { type: 'error', autoClose: 3000 })
+      router.push(`/${params.lang}`)
     } else if (!json.email) {
       localStorage.removeItem('token')
       toast(t('notifications.error'), { type: 'error', autoClose: 3000 })
@@ -146,7 +152,7 @@ export default function LoginPage({ params }: Props) {
               {t('sendButton')}
             </button>
             <Link
-              className='text-right text-sm block mt-5 text-blue-600'
+              className='mt-5 block text-right text-sm text-blue-600'
               href='/register'
             >
               {t('loginHere')}

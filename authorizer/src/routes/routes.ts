@@ -25,7 +25,7 @@ router.post('/auth', async (req: Request, res: Response) => {
     }
   } catch (e) {
     console.error(e)
-    return res.status(404).send("Type selected is not correct.")
+    return res.status(404).send('Type selected is not correct.')
   }
 })
 

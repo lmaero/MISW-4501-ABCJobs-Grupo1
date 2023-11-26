@@ -14,7 +14,7 @@
     "notifications": {
       "success": "Successfully logged in",
       "warning": "You're not registered, please register first.",
-      "error": "Your password does not match"
+      "error": "Please verify your credential and login type"
     },
     "sendButton": "Login",
     "loginHere": "Sign up here!"

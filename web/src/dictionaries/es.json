@@ -14,7 +14,7 @@
     "notifications": {
       "success": "Ingresaste exitosamente",
       "warning": "No estás registrado, regístrate primero",
-      "error": "Tu contraseña no coincide"
+      "error": "Verifica tus credenciales y el tipo de usuario"
     },
     "sendButton": "Ingresar",
     "loginHere": "Regístrate aquí!"
