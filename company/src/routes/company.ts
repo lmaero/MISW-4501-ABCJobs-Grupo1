@@ -6,7 +6,8 @@ import {
   getTestById,
   getTests,
   register,
-  registerProfile, setInterviewResult,
+  registerProfile,
+  setInterviewResult,
 } from '../controllers/company'
 
 const companyRouter = express.Router()

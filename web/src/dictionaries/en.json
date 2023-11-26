@@ -289,6 +289,9 @@
       "subtitle": "This will reserve this candidate",
       "yes": "Yes",
       "no": "No"
+    },
+    "notifications": {
+      "success": "Successfully published"
     }
   }
 }

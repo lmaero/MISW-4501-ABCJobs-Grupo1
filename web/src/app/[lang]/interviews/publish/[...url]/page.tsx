@@ -81,7 +81,7 @@ export default function Page({ params }: Props) {
       )
 
       const payload = await response.json()
-      if (response.status === 201) {
+      if (response.status === 200) {
         return toast(t('notifications.success'), {
           type: 'success',
           autoClose: 3000,
