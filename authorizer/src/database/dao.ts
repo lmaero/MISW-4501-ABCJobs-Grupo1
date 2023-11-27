@@ -89,7 +89,7 @@ class Dao {
   }
 
   async getInfo(email: string, type: string) {
-    const isCandidate = type === 'Candidate'
+    const isCandidate = type === 'candidate' || type === 'Candidate'
 
     const candidateQuery = `
             SELECT email, first_name, last_name, candidateid

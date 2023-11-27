@@ -207,7 +207,6 @@ export async function searchCandidate(req: Request, res: Response) {
 export async function testPerformed(req: Request, res: Response) {
   try {
     const token = req?.headers?.authorization?.split(' ')[1]
-    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
     const response = await fetch('http://0.0.0.0:4000/auth/me', {
       headers: { Authorization: `Bearer ${token}` },
     })
