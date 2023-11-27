@@ -208,8 +208,12 @@ export async function testPerformed(req: Request, res: Response) {
   try {
     const token = req?.headers?.authorization?.split(' ')[1]
     axios.defaults.headers.common = { Authorization: `bearer ${token}` }
-    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
-    const candidateId = authResult.data.userInfo.candidateid
+    const response = await fetch('http://0.0.0.0:4000/auth/me', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    const authResult = await response.json()
+    const candidateId = authResult.userInfo.candidateid
     const testData = req.body
 
     if (testData !== ' ') {
