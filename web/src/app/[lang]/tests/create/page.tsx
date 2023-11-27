@@ -86,9 +86,7 @@ export default function CreateTestPage() {
 
   return (
     <div className='mx-auto max-w-2xl p-8'>
-      <form
-        className='space-y-6'
-        onSubmit={handleSubmit(onSubmit)}>
+      <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2 className='mb-3 text-2xl font-bold leading-7 tracking-tight text-gray-900'>
             {t('title')}
@@ -125,9 +123,7 @@ export default function CreateTestPage() {
             />
             <div className='space-y-3'>
               {roles.map((role) => (
-                <div
-                  key={role.id}
-                  className='flex items-center gap-x-3'>
+                <div key={role.id} className='flex items-center gap-x-3'>
                   <input
                     className='h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600'
                     id={role.id}
@@ -137,7 +133,8 @@ export default function CreateTestPage() {
                   />
                   <label
                     htmlFor={role.id}
-                    className='block text-sm font-light leading-6 text-gray-900'>
+                    className='block text-sm font-light leading-6 text-gray-900'
+                  >
                     {role.label}
                   </label>
                 </div>
@@ -157,9 +154,7 @@ export default function CreateTestPage() {
 
           <article>
             {questions.map((question, index) => (
-              <div
-                key={question.question + index}
-                className='mt-12 space-y-6'>
+              <div key={question.question + index} className='mt-12 space-y-6'>
                 <div className='mb-3'>
                   <FieldDescription
                     title={`${t('questionsData.formLabels.questionTitle')} ${
@@ -252,7 +247,8 @@ export default function CreateTestPage() {
                   <button
                     type='button'
                     className='mb-10 mr-3 mt-3 rounded bg-red-700 px-4 py-2 text-sm font-semibold text-white'
-                    onClick={() => removeQuestion(index)}>
+                    onClick={() => removeQuestion(index)}
+                  >
                     {t('questionsData.removeButton')}
                   </button>
                 )}
@@ -261,7 +257,8 @@ export default function CreateTestPage() {
             <button
               type='button'
               className='mt-4 rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold leading-6'
-              onClick={addQuestion}>
+              onClick={addQuestion}
+            >
               {t('questionsData.addMoreQuestions')}
             </button>
           </article>
@@ -271,7 +268,8 @@ export default function CreateTestPage() {
           <button
             onClick={() => router.push('/dashboard')}
             type='reset'
-            className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             {t('cancelButton')}
           </button>
 
@@ -279,7 +277,8 @@ export default function CreateTestPage() {
             data-cy='ccpp-submit-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
-            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'>
+            className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
+          >
             {t('sendButton')}
           </button>
         </div>
