@@ -45,6 +45,7 @@ describe('Complete flow', () => {
     cy.get('input[data-cy="wrongOptions02"]').type(wrong3)
 
     cy.getCy('ccpp-submit-button').click()
+    cy.wait(5000)
 
     // CREATE PROJECT AS COMPANY
     cy.visit('/projects/create')
