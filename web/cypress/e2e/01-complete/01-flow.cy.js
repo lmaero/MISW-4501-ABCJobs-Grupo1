@@ -84,6 +84,7 @@ describe('Complete flow', () => {
     cy.getCy('interview-button').click()
     cy.get('.react-datepicker__time-list > :nth-child(17)').click()
     cy.getCy('ccpp-submit-button').click()
+    cy.wait(5000)
 
     // PUBLISH INTERVIEW RESULTS
     cy.getCy('tests').click()

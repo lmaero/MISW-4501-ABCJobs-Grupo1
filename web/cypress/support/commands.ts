@@ -84,6 +84,7 @@ Cypress.Commands.add('registerCandidate', () => {
 
   cy.get('button').should('be.enabled').click()
 
+  cy.wait(2000)
   cy.url().should('include', candidateEmail)
 
   // Fill complete profile form
@@ -122,6 +123,7 @@ Cypress.Commands.add('registerCompany', () => {
 
   cy.get('button').should('be.enabled').click()
 
+  cy.wait(2000)
   cy.url().should('include', companyEmail)
 
   cy.get('input[type="radio"]').first().check()
