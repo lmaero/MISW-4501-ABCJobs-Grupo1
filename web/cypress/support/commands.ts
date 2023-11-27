@@ -64,6 +64,7 @@ Cypress.Commands.add('loginCandidate', () => {
   cy.get('[data-testid=crp-password]').type(candidatePass)
   cy.get('#candidate').click()
   cy.get('[data-testid="crp-login-button"]').click()
+  cy.wait(2000)
 })
 
 Cypress.Commands.add('loginCompany', () => {
@@ -73,6 +74,7 @@ Cypress.Commands.add('loginCompany', () => {
   cy.get('[data-testid=crp-password]').type(companyPass)
   cy.get('#company').click()
   cy.get('[data-testid="crp-login-button"]').click()
+  cy.wait(2000)
 })
 
 Cypress.Commands.add('registerCandidate', () => {
