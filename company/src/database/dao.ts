@@ -134,6 +134,33 @@ class Dao {
       return { msg: '400' }
     }
   }
+
+  async setInterviewResult(
+    candidateId: string,
+    interviewId: string,
+    companyId: string,
+    results: unknown,
+    selected: boolean,
+  ) {
+    const query = `update "Interview" set result = $1, selected = $5
+                   where candidateid = $2
+                   and interview_id = $3
+                   and company_id = $4                                      
+                   `
+    try {
+      const result = await this.client.query(query, [
+        results,
+        candidateId,
+        interviewId,
+        companyId,
+        selected,
+      ])
+      console.log(result)
+      return { msg: '200' }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
 }
 
 export default Dao

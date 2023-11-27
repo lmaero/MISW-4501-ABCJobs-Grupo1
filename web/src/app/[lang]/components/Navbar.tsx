@@ -25,14 +25,25 @@ export function Navbar({ params }: Props) {
   if (!payload) return null
 
   const candidateMenus = [
-    // { label: t('projects'), link: `/${params.lang}/projects/create` },
-    { label: t('interviews'), link: `/${params.lang}/interviews` },
-    { label: t('tests'), link: `/${params.lang}/tests/perform` },
+    {
+      label: t('interviews'),
+      dataCy: 'interviews',
+      link: `/${params.lang}/interviews`,
+    },
+    {
+      label: t('tests'),
+      dataCy: 'tests',
+      link: `/${params.lang}/tests/perform`,
+    },
   ]
 
   const companyMenus = [
-    { label: t('projects'), link: `/${params.lang}/projects` },
-    { label: t('tests'), link: `/${params.lang}/tests` },
+    {
+      label: t('projects'),
+      dataCy: 'projects',
+      link: `/${params.lang}/projects`,
+    },
+    { label: t('tests'), dataCy: 'tests', link: `/${params.lang}/tests` },
   ]
 
   const menus = payload.type === 'Candidate' ? candidateMenus : companyMenus
@@ -52,6 +63,7 @@ export function Navbar({ params }: Props) {
                 <div className='hidden lg:ml-6 lg:flex lg:space-x-8'>
                   {menus.map((menu) => (
                     <Link
+                      data-cy={menu.dataCy}
                       key={menu.label}
                       href={menu.link}
                       className='inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:border-b hover:border-blue-500 active:font-bold'
@@ -90,7 +102,10 @@ export function Navbar({ params }: Props) {
                 {/* Profile dropdown */}
                 <Menu as='div' className='relative ml-4 flex-shrink-0'>
                   <div>
-                    <Menu.Button className='relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
+                    <Menu.Button
+                      data-cy='nav-profile'
+                      className='relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+                    >
                       <span className='absolute -inset-1.5' />
                       <span className='sr-only'>Open user menu</span>
                       <Image
@@ -119,6 +134,7 @@ export function Navbar({ params }: Props) {
                               localStorage.removeItem('token')
                               window.location.href = `/${params.lang}/login`
                             }}
+                            data-cy='signOut'
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700 w-full',

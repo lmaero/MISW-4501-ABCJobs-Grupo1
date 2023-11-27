@@ -30,6 +30,31 @@ const getInterviewsPerCandidate = async (req: Request, res: Response) => {
   }
 }
 
+const getInterviewResults = async (req: Request, res: Response) => {
+  try {
+    const token = req?.headers?.authorization?.split(' ')[1]
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
+    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
+    const candidateid = authResult.data.userInfo.candidateid
+    const interviewId = req.params.interviewId
+
+    const dao = new Dao()
+    const dbResult = await dao.getInterviewResults(candidateid, interviewId)
+
+    if (dbResult.msg === '201') {
+      // @ts-ignore
+      return res.status(201).json(dbResult.interviews[0].result)
+    } else {
+      return res
+        .status(400)
+        .json({ message: 'No test associated with the id provided' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
 export async function register(req: Request, res: Response) {
   try {
     const result = CandidatePreSch.safeParse(req.body)
@@ -111,14 +136,23 @@ export async function registerProfile(req: Request, res: Response) {
 }
 
 export async function searchCandidate(req: Request, res: Response) {
+  /*
+      Input:
+         {
+          "role": ["fullstack", "backend", "architect"],
+          "languages": ["javascript", "python"],
+          "soft_skills": ["leadership", "hardwork"],
+          "spoken_languages": ["english", "spanish"]
+        }
+     */
   try {
     const result = req.body
 
     if (result !== ' ') {
-      const role = result.role
-      const languages = result.languages
-      const soft_skills = result.soft_skills
-      const spoken_languages = result.spoken_languages
+      const role = result.roles
+      const languages = result.programmingLanguages
+      const soft_skills = result.softSkills
+      const spoken_languages = result.spokenLanguages
 
       const dao = new Dao()
       const dbResult = await dao.searchCandidate(
@@ -127,15 +161,40 @@ export async function searchCandidate(req: Request, res: Response) {
         soft_skills,
         spoken_languages,
       )
-      if (dbResult.msg === '200') {
-        return res.status(200).json({ candidates: dbResult.res?.rows })
+
+      // Obten los candidatos y busca si cumple alguno de los criterios
+      const candidates =
+        dbResult?.res?.rows !== undefined ? dbResult.res.rows : []
+      const candidatesExpectedList = []
+      for (const candidate in candidates) {
+        const isRoleRequested = role.includes(candidates[candidate].position)
+        const isLanguageRequested = languages.includes(
+          candidates[candidate].languages,
+        )
+        const isSoftSkillRequested = soft_skills.includes(
+          candidates[candidate].soft_skills,
+        )
+        const isSpokenLanguageRequested = spoken_languages.includes(
+          candidates[candidate].spoken_languages,
+        )
+        if (
+          isRoleRequested ||
+          isLanguageRequested ||
+          isSoftSkillRequested ||
+          isSpokenLanguageRequested
+        ) {
+          candidatesExpectedList.push(candidates[candidate])
+        }
+      }
+      if (dbResult.msg === '200' && candidatesExpectedList.length > 0) {
+        return res.status(200).json(candidatesExpectedList)
       } else {
         return res
-          .status(400)
+          .status(404)
           .json({ message: 'No candidate found with the criteria provided' })
       }
     } else {
-      return res.status(400).json({
+      return res.status(404).json({
         message: result.error.message,
       })
     }
@@ -148,9 +207,12 @@ export async function searchCandidate(req: Request, res: Response) {
 export async function testPerformed(req: Request, res: Response) {
   try {
     const token = req?.headers?.authorization?.split(' ')[1]
-    axios.defaults.headers.common = { Authorization: `bearer ${token}` }
-    const authResult = await axios.get('http://0.0.0.0:4000/auth/me')
-    const candidateId = authResult.data.userInfo.candidateid
+    const response = await fetch('http://0.0.0.0:4000/auth/me', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    const authResult = await response.json()
+    const candidateId = authResult.userInfo.candidateid
     const testData = req.body
 
     if (testData !== ' ') {
@@ -184,19 +246,18 @@ export async function testPerformed(req: Request, res: Response) {
 
 export async function getAllTests(req: Request, res: Response) {
   try {
-    const evaluatorResult = await axios.get(
-      'http://0.0.0.0:4002/evaluator/tests',
-    )
-    if (evaluatorResult.status === 200) {
-      const results = evaluatorResult.data.resultsForAllCandidates
-      return res.status(200).json({ results })
+    const evaluatorResult = await fetch('http://0.0.0.0:4002/evaluator/tests')
+
+    if (evaluatorResult.ok) {
+      const results = await evaluatorResult.json()
+
+      return res.status(200).json({ results: results.resultsForAllCandidates })
     } else {
       return res
         .status(200)
         .json({ message: 'No test results for the candidate' })
     }
   } catch (error) {
-    console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
   }
 }
@@ -229,6 +290,7 @@ export default {
   getTests,
   getAllTests,
   getInterviewsPerCandidate,
+  getInterviewResults,
   ping,
   register,
   registerProfile,

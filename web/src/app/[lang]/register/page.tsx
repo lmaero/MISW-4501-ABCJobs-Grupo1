@@ -17,7 +17,7 @@ export default function RegisterPage({ params }: Props) {
       <Logo className='h-10' />
       <h1 className='text-3xl font-bold'>{t('title')}</h1>
       <Link
-        className='text-right text-sm block mt-5 text-blue-600'
+        className='mt-5 block text-right text-sm text-blue-600'
         href='/login'
       >
         {t('loginHere')}
@@ -25,6 +25,7 @@ export default function RegisterPage({ params }: Props) {
 
       <div className='flex space-x-5'>
         <Link
+          data-cy='cr-card'
           className='rounded-xl bg-white p-10 shadow-xl transition-all hover:scale-105 hover:bg-gray-100'
           href={`/${params.lang}/candidate/register`}
         >
@@ -32,6 +33,7 @@ export default function RegisterPage({ params }: Props) {
           <h2>{t('candidate')}</h2>
         </Link>
         <Link
+          data-cy='cor-card'
           className='rounded-xl bg-white p-10 shadow-xl transition-all hover:scale-105 hover:bg-gray-100'
           href={`/${params.lang}/company/register`}
         >

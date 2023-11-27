@@ -1,6 +1,6 @@
 describe('Create Test Page', () => {
   beforeEach(() => {
-    cy.visit('/company/tests/create')
+    cy.visit('/tests/create')
   })
 
   it('displays all the initial inputs and buttons', () => {

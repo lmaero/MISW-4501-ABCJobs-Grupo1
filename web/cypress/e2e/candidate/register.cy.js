@@ -113,7 +113,6 @@ describe('register a candidate', () => {
     cy.get('p.text-sm.text-red-700').should('not.be.visible')
 
     cy.get('button').should('be.enabled').click()
-    cy.wait(5000)
 
     cy.url().should('include', randomEmail)
 

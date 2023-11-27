@@ -29,7 +29,7 @@ export async function createCompanyTableIfNotExists() {
       await client.query(`
                 CREATE TABLE IF NOT EXISTS "${tableName}"
                 (
-                    "company_id"         TEXT,
+                    "company_id"         SERIAL PRIMARY KEY,
                     "company_name"       TEXT,
                     "email"              TEXT NOT NULL unique,
                     "main_address"       TEXT,
@@ -98,7 +98,8 @@ export async function createInterviewTableIfNotExists() {
                             "company_id"         INT,  
                             "company_name"       TEXT,
                             "schedule"          TIMESTAMP,
-                            "result"            TEXT[],
+                            "result"            JSONB,
+                            "selected"          BOOLEAN,                            
                             "interview_id"      SERIAL PRIMARY KEY
                 );
             `)

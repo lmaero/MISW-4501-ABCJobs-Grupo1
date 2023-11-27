@@ -26,6 +26,23 @@ class Dao {
     }
   }
 
+  async getInterviewResults(candidateid: number, interview_id: string) {
+    const query = `select result from "Interview" where candidateid = $1 and interview_id = $2`
+    try {
+      const interviews = await this.client.query(query, [
+        candidateid,
+        interview_id,
+      ])
+      if (interviews.rows.length > 0) {
+        return { msg: '201', interviews: interviews.rows }
+      } else {
+        return { msg: '400' }
+      }
+    } catch (err) {
+      return { msg: '400' }
+    }
+  }
+
   async getTests() {
     const query = `select * from "Test"`
     try {
@@ -87,18 +104,26 @@ class Dao {
                                                               technical_data ->> 'roles' as programming_languages,
                                                               soft_skills,
                                                               languages,
-                                                              email
+                                                              email,
+                                                              first_name,
+                                                              last_name, 
+                                                              location,
+                                                              candidateid
                                                        from "Candidate")
                                    select y.x ->> 'role' "position",
                                           soft_skills,
                                           languages as   spoken_languages,
                                           programming_languages,
-                                          email
+                                          email,
+                                          first_name,
+                                          last_name,
+                                          location,
+                                          candidateid
                                    from role,
                                         lateral (select jsonb_array_elements(role.col) x) y)
                    select *
                    from result
-                   where 1 = 1
+                   where 1=1
                       or position in ($1)
                       or programming_languages in ($2)
                       or soft_skills in ($3)
