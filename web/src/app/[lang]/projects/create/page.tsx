@@ -45,6 +45,7 @@ export default function CreateProjectPage({ params }: Props) {
 
       if (response.status === 201) {
         toast(payload.message, { type: 'success', autoClose: 5000 })
+        router.push(`/${params.lang}/projects`)
         return
       }
 
@@ -232,7 +233,7 @@ export default function CreateProjectPage({ params }: Props) {
 
         <div className='flex space-x-2'>
           <button
-            onClick={() => router.push('/dashboard')}
+            onClick={() => router.push('/projects')}
             type='reset'
             className='flex w-full justify-center rounded-md bg-gray-300 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
           >
@@ -240,7 +241,7 @@ export default function CreateProjectPage({ params }: Props) {
           </button>
 
           <button
-            data-testid='ccpp-submit-button'
+            data-cy='ccpp-submit-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'

@@ -3,12 +3,14 @@ name: CI-Tests-CD-Integration
 on:
   push:
     branches:
+      - 'HU/**'
       - 'develop'
       - 'main'
   pull_request:
     types:
       - opened
     branches:
+      - 'HU/**'
       - 'develop'
       - 'main'
 
@@ -24,12 +26,17 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           script: |
-            echo "${{ secrets.PASSPHRASE }}" > tr -d '\r' > key.pem  
+            echo "${{ secrets.PASSPHRASE }}" > tr -d '\r' > key.pem
             chmod 400 key.pem
             ssh -i key.pem ${{ secrets.USERNAME }}@${{ secrets.AWS_HOST }}:${{ secrets.PORT }}
-            cd /home/ubuntu/proyecto/MISW-4501-ABCJobs-Grupo1
             
-            sudo docker system prune -af
+            cd /home/ubuntu
+            
+            if [ ! -d "MISW-4501-ABCJobs-Grupo1" ] ; then
+              git clone -b ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }} https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
+            fi
+            
+            cd MISW-4501-ABCJobs-Grupo1
             
             echo NODE_ENV=${{ secrets.NODE_ENV }} > .env
             echo TOKEN_SECRET=${{ secrets.TOKEN_SECRET }} >> .env
@@ -49,10 +56,13 @@ jobs:
             echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
             
             sudo docker compose down --remove-orphans --rmi all -v
+            sudo docker system prune -af
+            
             cd ..
-            rm -rf ./MISW-4501-ABCJobs-Grupo1
-            git clone -b ${{ github.ref_name }} https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
-            cd ./MISW-4501-ABCJobs-Grupo1
+            find . -type d \( -name "MISW-4501-ABCJobs-Grupo1" \) -exec rm -rf {} \;
+            
+            git clone -b ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }} https://github.com/lmaero/MISW-4501-ABCJobs-Grupo1.git
+            cd MISW-4501-ABCJobs-Grupo1
             
             echo NODE_ENV=${{ secrets.NODE_ENV }} > .env
             echo TOKEN_SECRET=${{ secrets.TOKEN_SECRET }} >> .env

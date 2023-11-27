@@ -20,7 +20,7 @@ async function tableExists(tableName: string) {
   }
 }
 
-export async function createTableIfNotExists() {
+export async function createCompanyTableIfNotExists() {
   const tableName = 'Company'
   const exists = await tableExists(tableName)
 
@@ -29,6 +29,7 @@ export async function createTableIfNotExists() {
       await client.query(`
                 CREATE TABLE IF NOT EXISTS "${tableName}"
                 (
+                    "company_id"         SERIAL PRIMARY KEY,
                     "company_name"       TEXT,
                     "email"              TEXT NOT NULL unique,
                     "main_address"       TEXT,
@@ -38,6 +39,68 @@ export async function createTableIfNotExists() {
                     "segments"           TEXT,
                     "size"               TEXT,
                     "token"              TEXT
+                );
+            `)
+
+      console.log(`Table "${tableName}" created.`)
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  } else {
+    console.log(`Table "${tableName}" already exists.`)
+  }
+}
+
+export async function createTestTableIfNotExists() {
+  const tableName = 'Test'
+  const exists = await tableExists(tableName)
+
+  if (!exists) {
+    try {
+      await client.query(`
+                CREATE TABLE IF NOT EXISTS "${tableName}"
+                (
+                        "name"               TEXT,
+                        "applicable_to"      TEXT[],
+                        "type"               TEXT,
+                        "result"             INT,
+                        "questions"          JSONB,
+                        "is_individual_test" BOOLEAN,
+                        "is_finished"        BOOLEAN,
+                        "has_authorization"  JSONB[],
+                        "was_supplanted"     BOOLEAN,
+                        "minutes_duration"   INT,
+                        "test_id"            SERIAL PRIMARY KEY
+                );
+            `)
+
+      console.log(`Table "${tableName}" created.`)
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  } else {
+    console.log(`Table "${tableName}" already exists.`)
+  }
+}
+
+export async function createInterviewTableIfNotExists() {
+  const tableName = 'Interview'
+  const exists = await tableExists(tableName)
+
+  if (!exists) {
+    try {
+      await client.query(`
+                CREATE TABLE IF NOT EXISTS "${tableName}"
+                (
+                            "candidateid"        INT,
+                            "company_id"         INT,  
+                            "company_name"       TEXT,
+                            "schedule"          TIMESTAMP,
+                            "result"            JSONB,
+                            "selected"          BOOLEAN,                            
+                            "interview_id"      SERIAL PRIMARY KEY
                 );
             `)
 

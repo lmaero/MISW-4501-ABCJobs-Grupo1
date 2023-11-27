@@ -1,10 +1,13 @@
 import { LanguageSelector } from '@/app/[lang]/components/LanguageSelector'
 import { Navbar } from '@/app/[lang]/components/Navbar'
+import { MantineProvider } from '@mantine/core'
+import '@mantine/core/styles.css'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { Inter } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { ReactNode } from 'react'
+import 'react-datepicker/dist/react-datepicker.css'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './globals.css'
@@ -47,12 +50,14 @@ export default async function RootLayout({
       </head>
       <body className={inter.className}>
         <NextIntlClientProvider locale={params.lang} messages={dictionary}>
-          <main className='relative h-screen'>
-            <LanguageSelector />
-            <Navbar params={params} />
-            {children}
-            <ToastContainer position='bottom-right' />
-          </main>
+          <MantineProvider>
+            <main className='relative h-screen'>
+              <LanguageSelector />
+              <Navbar params={params} />
+              {children}
+              <ToastContainer position='bottom-right' />
+            </main>
+          </MantineProvider>
         </NextIntlClientProvider>
       </body>
     </html>

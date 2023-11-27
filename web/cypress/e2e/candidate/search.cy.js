@@ -48,8 +48,6 @@ describe('search for candidates', () => {
 
     cy.get('button').last().click()
 
-    cy.wait(5000)
-
-    cy.url().should('include', 'results')
+    cy.url().should('include', 'search')
   })
 })

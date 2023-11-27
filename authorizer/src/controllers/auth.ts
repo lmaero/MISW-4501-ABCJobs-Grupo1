@@ -14,14 +14,15 @@ export async function authenticateUser(info: Login) {
   const email = info.email
   const password = info.password
   const type = info.type
-  const { found, isCandidate } = await dao.isUserRegistered(
+  const { found, isCandidate, id } = await dao.isUserRegistered(
     email,
     password,
     type,
   )
 
   if (found) {
-    const token = await generateAccessToken(email, type)
+    const id_type = isCandidate ? 'candidateid' : 'company_id'
+    const token = await generateAccessToken(email, type, id_type, id)
     await dao.authenticateUser(email, password, token, isCandidate)
 
     return {
@@ -36,9 +37,7 @@ export async function authenticateUser(info: Login) {
   }
 }
 
-export async function getUserInfo(token: string) {
-  // Add validation for the schema provided
-
+export async function getInfo(token: string) {
   let isTokenExpired
   let info
 
@@ -55,15 +54,23 @@ export async function getUserInfo(token: string) {
 
   const email: string = info.email
   const type: string = info.type
-  const result = await dao.getUserInfo(email)
+  const result = await dao.getInfo(email, type)
 
   if (result.msg === '200') {
-    return {
-      email: result.email,
-      first_name: result.first_name,
-      last_name: result.last_name,
-      candidateid: result.candidateid,
-      type: type,
+    if (type === 'Candidate') {
+      return {
+        email: result.email,
+        first_name: result.first_name,
+        last_name: result.last_name,
+        candidateid: result.candidateid,
+        type: result.type,
+      }
+    } else {
+      return {
+        email: result.email,
+        company_name: result.company_name,
+        company_id: result.company_id,
+      }
     }
   } else {
     return { msg: 'Invalid token provided' }

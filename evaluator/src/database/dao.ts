@@ -10,12 +10,16 @@ class Dao {
   }
 
   async getTestsResults(candidate_id: number) {
-    const query = ` select tp.candidateid as candidate_id, tp.test_id, t.name as test_name, t.questions, tp.answers
-    from "TestPerformed" tp
-    left join "Candidate" c on tp.candidateid = c.candidateid
-    left join "Test" t on tp.test_id = t.test_id
-    where tp.candidateid = $1
-    `
+    const query = ` select tp.candidateid as candidate_id,
+                               tp.test_id,
+                               t.name         as test_name,
+                               t.questions,
+                               tp.answers
+                        from "TestPerformed" tp
+                                 left join "Candidate" c on tp.candidateid = c.candidateid
+                                 left join "Test" t on tp.test_id = t.test_id
+                        where tp.candidateid = $1
+        `
     try {
       const tests = await this.client.query(query, [candidate_id])
       if (tests.rows.length > 0) {
@@ -29,17 +33,25 @@ class Dao {
   }
 
   async getAllTestsResults() {
-    const query = ` select tp.candidateid as id, c.first_name as candidate, 'Tech test' as test_type, t.name as test_name, 'Satisfactory' as result,  tp.score as score
-    from "TestPerformed" tp
-    left join "Candidate" c on tp.candidateid = c.candidateid
-    left join "Test" t on tp.test_id = t.test_id 
-    `
+    const query = `
+            SELECT tp.candidateid AS candidateid,
+                   c.first_name   AS candidate,
+                   'Tech test'    AS test_type,
+                   t.name         AS test_name,
+                   'Satisfactory' AS result,
+                   tp.score       AS score,
+                   t.test_id      AS test_id
+            FROM "TestPerformed" tp
+                     LEFT JOIN "Candidate" c ON tp.candidateid = c.candidateid
+                     LEFT JOIN "Test" t ON tp.test_id = t.test_id
+        `
+
     try {
       const tests = await this.client.query(query)
-      if (tests.rows.length > 0) {
+      if (tests.rows.length !== 0) {
         return { msg: '201', tests: tests.rows }
       } else {
-        return { msg: '400' }
+        return { msg: '400', tests: [] }
       }
     } catch (err) {
       return { msg: '400' }
@@ -47,14 +59,15 @@ class Dao {
   }
 
   async updateCandidateTestScore(
-    candidate_id: string,
-    test_id: string,
+    candidate_id: number,
+    test_id: number,
     score: number,
   ) {
-    const query = ` update "TestPerformed" set score = $3  
-    where candidateid = $1
-    and test_id = $2
-    `
+    const query = ` update "TestPerformed"
+                        set score = $3
+                        where candidateid = $1
+                          and test_id = $2
+        `
     try {
       const tests = await this.client.query(query, [
         candidate_id,

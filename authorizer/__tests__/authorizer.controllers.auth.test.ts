@@ -1,4 +1,4 @@
-import { authenticateUser, getUserInfo } from '../src/controllers/auth'
+import { authenticateUser, getInfo } from '../src/controllers/auth'
 import Dao from '../src/database/dao'
 import { IUserInfo } from '../src/interfaces/interfaces'
 
@@ -83,10 +83,10 @@ describe('User Info', () => {
     const result = { msg: 'ok' }
     let expected
     jest
-      .spyOn(Dao.prototype, 'getUserInfo')
+      .spyOn(Dao.prototype, 'getInfo')
       .mockReturnValue(Promise.resolve({ msg: 'ok' }))
     try {
-      expected = await getUserInfo(token)
+      expected = await getInfo(token)
     } catch (e) {
       const error: unknown = e
       console.log(error)
@@ -98,7 +98,7 @@ describe('User Info', () => {
     const token = '12345'
     const result = { msg: 'Invalid token provided' }
     let expected
-    jest.spyOn(Dao.prototype, 'getUserInfo').mockReturnValue(
+    jest.spyOn(Dao.prototype, 'getInfo').mockReturnValue(
       Promise.resolve({
         msg: '200',
         email: 'userInfo.email',
@@ -109,7 +109,7 @@ describe('User Info', () => {
       }),
     )
     try {
-      expected = await getUserInfo(token)
+      expected = await getInfo(token)
     } catch (e) {
       const error: unknown = e
       console.log(error)

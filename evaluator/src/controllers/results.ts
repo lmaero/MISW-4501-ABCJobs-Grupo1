@@ -14,10 +14,10 @@ export async function getAllResults(req: Request, res: Response) {
       return res.status(400).json({ message: 'No candidate user provided' })
     }
   } catch (error) {
-    console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
   }
 }
+
 export async function getResultsByUser(req: Request, res: Response) {
   try {
     const results = []
@@ -29,7 +29,7 @@ export async function getResultsByUser(req: Request, res: Response) {
 
       if (dbResult.msg === '201') {
         const candidateDbResults = dbResult.tests
-        const totalQuestions = candidateDbResults?.length
+        const totalTests = candidateDbResults?.length
         let correctAnswers = 0
         let resultsWithScore = {
           id: '',
@@ -41,7 +41,9 @@ export async function getResultsByUser(req: Request, res: Response) {
           resultsWithScore.id = candidateDbResults[Number(prueba)].test_id
           resultsWithScore.testName =
             candidateDbResults[Number(prueba)].test_name
-
+          let score = 0
+          const totalQuestions =
+            candidateDbResults[Number(prueba)].questions.length
           for (const answer in candidateDbResults[Number(prueba)].questions) {
             const questionCorrectAnswer =
               candidateDbResults[Number(prueba)].questions[Number(answer)]
@@ -54,8 +56,7 @@ export async function getResultsByUser(req: Request, res: Response) {
               correctAnswers++
             }
           }
-
-          const score = correctAnswers / Number(totalQuestions)
+          score = correctAnswers / Number(totalQuestions)
           correctAnswers = 0
           resultsWithScore.score = score.toString()
           if (score <= 50) {
@@ -68,16 +69,10 @@ export async function getResultsByUser(req: Request, res: Response) {
             resultsWithScore.result = 'Excellent'
           }
           await dao.updateCandidateTestScore(
-            candidateId,
-            resultsWithScore.id.toString(),
+            Number(candidateId),
+            Number(resultsWithScore.id),
             Number(score),
           )
-          await dao.updateCandidateTestScore(
-            candidateId,
-            resultsWithScore.id.toString(),
-            Number(score),
-          )
-
           results.push(resultsWithScore)
           resultsWithScore = {
             id: '',

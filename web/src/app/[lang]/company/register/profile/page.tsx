@@ -131,7 +131,7 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
             />
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
               <input
-                data-testid='company-profile-segments'
+                data-cy='company-profile-segments'
                 type='text'
                 id='segments'
                 autoComplete='segments'
@@ -199,7 +199,7 @@ export default function CompanyCompleteProfilePage({ params }: Props) {
             </button>
 
             <button
-              data-testid='company-profile-submit-button'
+              data-cy='company-profile-submit-button'
               disabled={!isValid || isSubmitSuccessful}
               type='submit'
               className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'

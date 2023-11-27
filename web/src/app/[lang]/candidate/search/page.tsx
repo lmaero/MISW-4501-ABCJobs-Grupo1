@@ -6,11 +6,12 @@ import { CANDIDATE_HOST } from '@/lib/api'
 import { roles } from '@/lib/roles'
 import { SearchCandidate, SearchCandidateSch } from '@/schemas/SearchCandidate'
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios from 'axios'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { v4 } from 'uuid'
 
 const programmingLanguages = [
   { value: 'javascript', label: 'JavaScript' },
@@ -31,6 +32,18 @@ const spokenLanguages = [
   { value: 'russian', label: 'Russian' },
 ]
 
+interface Candidate {
+  position: string
+  soft_skills: string
+  spoken_languages: string
+  programming_languages: string
+  email: string
+  first_name: string
+  last_name: string
+  location: string
+  candidateid: number
+}
+
 interface Props {
   params: { lang: string }
 }
@@ -38,6 +51,7 @@ interface Props {
 export default function SearchCandidatePage({ params }: Props) {
   const t = useTranslations('SearchCandidatePage')
   const router = useRouter()
+  const [candidates, setCandidates] = useState<Candidate[] | []>([])
 
   const {
     formState: { errors, isValid, isSubmitSuccessful },
@@ -49,35 +63,78 @@ export default function SearchCandidatePage({ params }: Props) {
   })
 
   async function onSubmit(data: SearchCandidate) {
-    await axios
-      .post(`${CANDIDATE_HOST}/candidate/search`, JSON.stringify(data), {
+    try {
+      const response = await fetch(`${CANDIDATE_HOST}/candidate/search`, {
+        body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': '*',
         },
-        withCredentials: false,
+        method: 'POST',
       })
-      .then((data) => {
-        if (data.status === 200) {
-          setTimeout(() => {
-            router.push(`/${params.lang}/candidate/search/results`)
-          }, 3000)
-          return
-        }
 
-        if (data.status === 400) {
-          toast(data.data.message, { type: 'warning', autoClose: 5000 })
-        } else {
-          toast(data.data.message, { type: 'error', autoClose: false })
-        }
-      })
-      .catch((e) => {
-        if (e instanceof Error) {
-          toast(e.message, { type: 'error', autoClose: false })
-          throw e
-        }
-      })
+      const res = await response.json()
+
+      if (response.status === 200) {
+        setCandidates(res)
+        return
+      }
+
+      if (response.status === 404) {
+        toast(res.message, { type: 'warning', autoClose: 5000 })
+      } else {
+        toast(res.message, { type: 'error', autoClose: false })
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        toast(e.message, { type: 'error', autoClose: false })
+        throw e
+      }
+    }
+  }
+
+  if (isSubmitSuccessful && candidates.length === 0) {
+    return (
+      <p className='mx-auto max-w-7xl p-7 font-semibold'>{t('noResults')}</p>
+    )
+  }
+
+  if (isSubmitSuccessful && candidates.length !== 0) {
+    return (
+      <div className='mx-auto max-w-2xl p-8'>
+        <section className='space-y-3'>
+          {candidates.map((candidate) => (
+            <article
+              key={v4()}
+              className='grid grid-cols-2 rounded-md border-2 border-gray-50 p-5 capitalize'
+            >
+              <div className='space-y-2'>
+                <h3 className='font-bold capitalize'>{`${candidate.first_name} ${candidate.last_name}`}</h3>
+                <p className='text-sm text-gray-400'>
+                  {t('results.location')}: {candidate.location}
+                </p>
+              </div>
+              <div className='space-y-0.5 justify-self-end text-right'>
+                <p className='font-medium'>Main Role: {candidate.position}</p>
+                <p className='text-sm text-gray-400'>
+                  {t('results.email')}: {candidate.email}
+                </p>
+                <p className='text-sm text-gray-400'>
+                  {t('results.spoken')}: {candidate.spoken_languages}
+                </p>
+                <p className='text-sm text-gray-400'>
+                  {t('results.programming')}: {candidate.programming_languages}
+                </p>
+                <p className='text-sm text-gray-400'>
+                  {t('results.softSkills')}: {candidate.soft_skills}
+                </p>
+              </div>
+            </article>
+          ))}
+        </section>
+      </div>
+    )
   }
 
   return (
@@ -224,7 +281,7 @@ export default function SearchCandidatePage({ params }: Props) {
           </button>
 
           <button
-            data-testid='scp-submit-button'
+            data-cy='scp-submit-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
             className='flex w-fit justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'

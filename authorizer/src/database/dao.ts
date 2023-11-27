@@ -16,11 +16,17 @@ class Dao {
     isCandidate: boolean,
   ) {
     const candidateQuery = `
-      UPDATE "Candidate" set token = $3 where email = $1 and password = $2
-    `
+            UPDATE "Candidate"
+            set token = $3
+            where email = $1
+              and password = $2
+        `
     const companyQuery = `
-      UPDATE "Company" set token = $3 where email = $1 and password = $2
-    `
+            UPDATE "Company"
+            set token = $3
+            where email = $1
+              and password = $2
+        `
 
     const query = isCandidate ? candidateQuery : companyQuery
 
@@ -37,49 +43,85 @@ class Dao {
     const isCandidate = type === 'Candidate'
 
     const lookForRegistered = `
-    SELECT email FROM "Candidate" WHERE email = $1
-    UNION SELECT email FROM "Company" WHERE email = $1
-    `
+            SELECT email
+            FROM "Candidate"
+            WHERE email = $1
+            UNION
+            SELECT email
+            FROM "Company"
+            WHERE email = $1
+        `
 
     const userRegistered = await this.client.query(lookForRegistered, [email])
     if (userRegistered === undefined || userRegistered.rowCount === 0)
       return { found: false, isCandidate: false }
 
     const candidateQuery = `
-    SELECT email FROM "Candidate" WHERE email = $1 AND password = $2
-    `
+            SELECT email, candidateid
+            FROM "Candidate"
+            WHERE email = $1
+              AND password = $2
+        `
     const companyQuery = `
-    SELECT email FROM "Company" WHERE email = $1 AND password = $2
-    `
+            SELECT email, company_id
+            FROM "Company"
+            WHERE email = $1
+              AND password = $2
+        `
 
     const query = isCandidate ? candidateQuery : companyQuery
 
     try {
       const userInDb = await this.client.query(query, [email, password])
-      if (!userInDb.rowCount) return { found: 0, isCandidate }
-      return { found: userInDb?.rowCount > 0, isCandidate }
+
+      if (userInDb.rowCount === 0)
+        return { found: 0, isCandidate: false, id: null }
+
+      const id = isCandidate
+        ? userInDb.rows[0].candidateid
+        : userInDb.rows[0].company_id
+      if (!userInDb.rowCount) return { found: 0, isCandidate, id }
+      return { found: userInDb?.rowCount > 0, isCandidate, id }
     } catch (err) {
       console.log(err)
       throw new Error('There was a problem processing the request in the DB')
     }
   }
 
-  async getUserInfo(email: string) {
-    const query = `SELECT *
-                   FROM "Candidate"
-                   WHERE email = $1`
+  async getInfo(email: string, type: string) {
+    const isCandidate = type === 'candidate' || type === 'Candidate'
+
+    const candidateQuery = `
+            SELECT email, first_name, last_name, candidateid
+            FROM "Candidate"
+            WHERE email = $1
+        `
+    const companyQuery = `SELECT email, company_name, company_id
+                              FROM "Company"
+                              WHERE email = $1
+        `
+    const query = isCandidate ? candidateQuery : companyQuery
 
     try {
       const res = await this.client.query(query, [email])
-      const userInfo = res?.rows[0]
-      if (userInfo) {
-        return {
-          msg: '200',
-          email: userInfo.email,
-          first_name: userInfo.first_name,
-          last_name: userInfo.last_name,
-          candidateid: userInfo.candidateid,
-          type: userInfo.type,
+      const info = res?.rows[0]
+      if (info) {
+        if (isCandidate) {
+          return {
+            msg: '200',
+            email: info.email,
+            first_name: info.first_name,
+            last_name: info.last_name,
+            candidateid: info.candidateid,
+            type: 'Candidate',
+          }
+        } else {
+          return {
+            msg: '200',
+            email: info.email,
+            company_name: info.company_name,
+            company_id: info.company_id,
+          }
         }
       } else {
         return { msg: '400' }

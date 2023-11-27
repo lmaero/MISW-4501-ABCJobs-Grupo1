@@ -12,10 +12,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-const generateKey = (pre: number) => {
-  return `${pre}_${new Date().getTime()}`
-}
-
 export default function CreateTestPage() {
   const t = useTranslations('CreateTestPage')
   const router = useRouter()
@@ -59,14 +55,12 @@ export default function CreateTestPage() {
     try {
       const response = await fetch(`${COMPANY_HOST}/company/test`, {
         body: JSON.stringify(data),
-        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': '*',
         },
         method: 'POST',
-        referrerPolicy: 'unsafe-url',
       })
 
       const payload = await response.json()
@@ -160,7 +154,7 @@ export default function CreateTestPage() {
 
           <article>
             {questions.map((question, index) => (
-              <div key={generateKey(index)} className='mt-12 space-y-6'>
+              <div key={question.question + index} className='mt-12 space-y-6'>
                 <div className='mb-3'>
                   <FieldDescription
                     title={`${t('questionsData.formLabels.questionTitle')} ${
@@ -219,7 +213,7 @@ export default function CreateTestPage() {
                   />
 
                   {questions[index].wrongOptions.map((wrong, wrongIndex) => (
-                    <div key={generateKey(wrongIndex)}>
+                    <div key={wrong + wrongIndex}>
                       <div className='mb-2 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md'>
                         <input
                           type='text'
@@ -280,7 +274,7 @@ export default function CreateTestPage() {
           </button>
 
           <button
-            data-testid='ccpp-submit-button'
+            data-cy='ccpp-submit-button'
             disabled={!isValid || isSubmitSuccessful}
             type='submit'
             className='flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-blue-200'
