@@ -74,6 +74,7 @@ describe('Complete flow', () => {
     cy.getCy('tests').click()
     cy.get('input[type="radio"]').first().check()
     cy.getCy('scp-submit-button').click()
+    cy.wait(5000)
 
     // REVIEW RESULTS AS COMPANY
     cy.signOut()
