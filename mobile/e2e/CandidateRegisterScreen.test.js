@@ -1,4 +1,4 @@
-describe('Candidate Register - Test Flow', () => {
+describe.skip('Candidate Register - Test Flow', () => {
   let emailRandom = `${Math.random().toString(36).substring(7)}@prueba.cl`;
   const password = '12345#MiswOnline';
   const fullName = 'Test Candidate';

@@ -9,6 +9,7 @@ interface Props {
   id: string;
   question: string;
   answersRadioButtons: AnswersRadioButton[];
+  description?: string;
   onChangeValue?: (value: Answer | null) => void;
 }
 
@@ -17,13 +18,14 @@ export const QuestionField = ({
   question,
   answersRadioButtons,
   onChangeValue,
+  description = 'Select the appropriate definition',
 }: Props) => {
   const [selectedId, setSelectedId] = useState<string | undefined>();
   return (
     <View key={id}>
       <WithDescriptionTitle
         title={question}
-        description="Select the appropriate definition"
+        description={description}
         viewStyle={style.titleQuestionContainer}
       />
       <RadioGroup

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     width: '60%',
   },
   groupSize: {
-    width: '30%',
+    width: '40%',
   },
   button: {
     height: 44,
@@ -51,13 +51,14 @@ const styles = StyleSheet.create({
   buttonPrimary: {
     backgroundColor: 'rgba(0, 0, 0, 0.07)',
     borderColor: 'rgba(0, 0, 0, 0.16)',
+    paddingHorizontal: 10,
   },
   buttonSecondary: {
     backgroundColor: '#2C71F6',
     borderColor: 'black',
   },
   text: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     alignSelf: 'center',
   },

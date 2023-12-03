@@ -21,7 +21,7 @@ export interface CandidateTestsInput {
 }
 
 export interface Result {
-  id: number;
+  candidateid: number;
   candidate: null | string;
   test_type: string;
   test_name: string;

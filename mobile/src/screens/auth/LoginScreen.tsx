@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import {Controller, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {AxiosError} from 'axios';
 import {
   Alert,
   Keyboard,
@@ -8,41 +11,32 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {Controller, useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
+import {appThemeStyles} from '../../themes/appTheme';
 import {BusinessLogo} from '../../components/BusinessLogo';
 import {MainTitle} from '../../components/MainTitle';
 import {SingleInput} from '../../components/SingleInput';
 import {ExtraLargeButton} from '../../components/ExtraLargeButton';
-import candidateSchema from '../../schemas/CandidateSchema';
-import {FormErrorMessage} from '../../components/FormErrorMessage';
-import {appThemeStyles} from '../../themes/appTheme';
-import {RegisterCandidateOutput} from '../../interfaces/api/Outputs';
-import {Candidate} from '../../interfaces/Candidate';
-import candidateApi from '../../api/Candidate';
-import {AxiosError} from 'axios';
-import {StackScreenProps} from '@react-navigation/stack';
+import {MediumButton} from '../../components/MediumButton';
 import {RootStackParams} from '../../navigator/StackNavigator';
+import {StackScreenProps} from '@react-navigation/stack';
+import {WithDescriptionPicker} from '../../components/WithDescriptionPicker';
+import {loginRolesValues} from '../../enums/TechRoles';
+import loginSchema from '../../schemas/LoginSchema';
+import {FormErrorMessage} from '../../components/FormErrorMessage';
+import {LoginData} from '../../interfaces/Auth';
 import {LoadingScreen} from '../LoadingScreen';
+import authApi from '../../api/Auth';
+import {LoginOutput} from '../../interfaces/api/Outputs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface Props
-  extends StackScreenProps<RootStackParams, 'CandidateRegisterScreen'> {}
+interface Props extends StackScreenProps<RootStackParams, 'LoginScreen'> {}
 
-export const CandidateRegisterScreen = ({navigation}: Props) => {
+export const LoginScreen = ({navigation}: Props) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-  const {
-    control,
-    handleSubmit,
-    formState: {errors},
-  } = useForm({
-    resolver: yupResolver(candidateSchema),
-  });
-
-  const onPressSend = (formData: Candidate) => {
+  const onPressSend = (formData: LoginData) => {
     setIsLoaded(true);
-    const registerCandidatePromise = candidateApi.post<RegisterCandidateOutput>(
-      '/register',
+    const loginPromise = authApi.post<LoginOutput>(
+      '',
       JSON.stringify(formData),
       {
         headers: {
@@ -51,25 +45,41 @@ export const CandidateRegisterScreen = ({navigation}: Props) => {
         },
       },
     );
-
-    registerCandidatePromise
+    loginPromise
       .then(response => {
         setIsLoaded(false);
-        response.data &&
-          response.data?.email &&
-          navigation.navigate('CandidateRegisterProfileScreen', {
-            candidateEmail: response.data?.email,
-          });
+        if (response.data && response.data?.token) {
+          const isCandidate: boolean = formData.type === 'Candidate';
+          AsyncStorage.setItem('token', response.data.token);
+          AsyncStorage.setItem('email', response.data.email);
+          AsyncStorage.setItem('isCandidate', String(isCandidate));
+          isCandidate
+            ? navigation.navigate('CandidateInfoDetail', {
+                candidateEmail: formData.email,
+              })
+            : navigation.navigate('CompanyInfoDetail', {
+                companyEmail: formData.email,
+              });
+        }
       })
       .catch((error: AxiosError) => {
         setIsLoaded(false);
         error.code &&
-          Alert.alert(
-            'Error',
-            'The user already exists or the service has problems',
-          );
+          Alert.alert('Error', 'Error in Login action, please try again later');
       });
   };
+
+  const goToRegisterCandidate = () => {
+    navigation.navigate('CandidateRegisterScreen');
+  };
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
 
   return isLoaded ? (
     <LoadingScreen />
@@ -80,20 +90,15 @@ export const CandidateRegisterScreen = ({navigation}: Props) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.mainContainer}>
           <BusinessLogo height={71} width={72} />
-          <MainTitle
-            text="Be hired by the most
-            amazing companies.
-            Register today!"
-          />
+          <MainTitle text="Start working today!" />
           <Controller
             control={control}
             render={({field: {onChange, value}}) => (
               <SingleInput
-                testID="single-input-email"
                 title="Email"
                 placeholder="youremail@yourdomain.com"
-                value={value}
                 keyboardType="email-address"
+                value={value}
                 onChangeText={onChange}
               />
             )}
@@ -110,8 +115,8 @@ export const CandidateRegisterScreen = ({navigation}: Props) => {
                 title="Password"
                 placeholder="************"
                 value={value}
-                isPassword
                 onChangeText={onChange}
+                isPassword
               />
             )}
             name="password"
@@ -122,24 +127,31 @@ export const CandidateRegisterScreen = ({navigation}: Props) => {
           <Controller
             control={control}
             render={({field: {onChange, value}}) => (
-              <SingleInput
-                testID="single-input-full-name"
-                title="Full Name"
-                placeholder="John Smith"
-                value={value}
-                autoCapitalize="words"
-                onChangeText={onChange}
+              <WithDescriptionPicker
+                title=""
+                description="Select your role"
+                values={loginRolesValues}
+                selected={value}
+                onChangeValue={onChange}
+                placeholder="role"
+                listMode="MODAL"
               />
             )}
-            name="fullName"
+            name="type"
           />
-          {errors.fullName && (
-            <FormErrorMessage text={errors.fullName.message} noMargin />
+          {errors.type && (
+            <FormErrorMessage text={errors.type.message} noMargin />
           )}
           <ExtraLargeButton
-            text="Register"
+            text="Sign In"
             onPress={handleSubmit(onPressSend)}
           />
+          <View style={styles.registerButtonsContainer}>
+            <MediumButton
+              text="Register as a candidate"
+              onPress={goToRegisterCandidate}
+            />
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -155,5 +167,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: -50,
+  },
+  registerButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    gap: 50,
+    marginTop: 20,
   },
 });

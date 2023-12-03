@@ -115,11 +115,11 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
               [
                 {
                   text: 'Ok',
-                  onPress: () => navigation.pop(),
+                  onPress: () => navigation.navigate('LoginScreen'),
                 },
               ],
               {
-                onDismiss: () => navigation.pop(),
+                onDismiss: () => navigation.navigate('LoginScreen'),
               },
             );
         })
@@ -647,7 +647,7 @@ export const CandidateRegisterProfileScreen = ({navigation, route}: Props) => {
         <View style={styles.buttonGroupContainer}>
           <MediumButton
             text="Cancel"
-            onPress={() => console.log('Cancel button pressed')}
+            onPress={() => navigation.navigate('LoginScreen')}
             buttonGroup
           />
           <MediumButton

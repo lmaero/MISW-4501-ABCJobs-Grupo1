@@ -8,6 +8,7 @@ export const appThemeStyles = StyleSheet.create({
   },
   formItemcontainer: {
     justifyContent: 'flex-start',
+    marginVertical: 5,
   },
   formItemFullSize: {
     width: '100%',
